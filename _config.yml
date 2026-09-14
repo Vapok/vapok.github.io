@@ -2,6 +2,9 @@ title: Vapok Modding
 description: Official website and game modifications by Vapok Modding.
 theme: jekyll-theme-midnight
 
+plugins:
+  - jekyll-admin
+
 # Navigation menu settings
 header_pages:
   - index.md
