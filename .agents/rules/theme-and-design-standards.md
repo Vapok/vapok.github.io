@@ -33,6 +33,11 @@ All web pages, layout templates, and UI components in this repository adhere to 
   - `CHANGELOG.md` (version release notes)
   - `icon.png` (mod badge image)
 
+### Category & Multi-Game Support
+- Currently all active mods are in category `valheim`.
+- Filter buttons on `index.md` currently include `[ ALL ]` and `[ VALHEIM ]`.
+- As Vapok branches into other games or shared tool libraries, new categories (e.g. `enshrouded`, `unity-tools`) should be registered in `_data/mods.yml` / `_mods/` frontmatter and corresponding filter buttons added to the filter bar.
+
 ### Automated Sync & Live Metrics Workflow
 - Whenever releases are created or updated, run:
   ```bash
