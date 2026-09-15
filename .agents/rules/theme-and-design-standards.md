@@ -87,3 +87,43 @@ All web pages, layout templates, and UI components in this repository adhere to 
 ### Styling & Scripts
 - Stylesheet: `assets/css/terminal.css` (Vanilla CSS with CSS custom properties).
 - Interaction Engine: `assets/js/terminal-fx.js` (Canvas particle grid, text decoder on hover, dossier tab switcher, CRT state persistence). Always validate with `node --check assets/js/terminal-fx.js`.
+
+---
+
+## 6. Interactive CLI Terminal, Bootloader & Sitemap Engine (`assets/js/terminal-fx.js`)
+
+### Terminal Drawer & Sticky Header Integration
+- **Header Toggle**: `#cli-toggle-btn` toggles between `[ CLI: >_ ]` and `[ CLI: <_ ]`. When open, receives `.active` class with cyan glow (`box-shadow: 0 0 12px var(--ice-blue-glow), inset 0 0 8px rgba(100, 240, 252, 0.2)`).
+- **Sticky Prompt Concealment**: When the CLI drawer is open, `#terminal-brand-btn` (`user@vapok.io:~$ █`) is concealed. Upon drawer pull-up closure, it reappears using a character-by-character letter-scramble decode sequence (`scramblePromptBrand()`).
+- **Dismissal & Hotkeys**:
+  - Global hotkeys: <kbd>~</kbd> / <kbd>`</kbd> toggles CLI; <kbd>Enter</kbd> (when drawer is closed on general page) opens the CLI and focuses `#cli-input`.
+  - Click-outside dismissal automatically closes drawer, strictly ignoring clicks inside the drawer, on `#terminal-brand-btn`, or on `.header-controls`.
+  - Drawer animations use `drawerSlideDown` on open and `drawerSlideUp` (`.closing` class) on close.
+
+### Bootloader (`start`), Decompiler (`shutdown`), & State Routing
+- **Status Color Palette**:
+  - `OFFLINE`: Red (`#ef4444` / `#ff4d4d`)
+  - `BOOTING...` / `SHUTTING DOWN...`: Amber Gold (`var(--warning-amber)` / `#fbbf24`) with pulsing dot animation
+  - `ONLINE`: Glacial Mint (`var(--glacial-mint)` / `#00f59b`)
+- **Homepage vs. Direct Sub-Page Routing**:
+  - **Homepage (`/`)**: Unbooted visitors start in gated `system-offline` mode requiring `start` (or clicking `[ ⚡ START ]`).
+  - **Direct Sub-pages (e.g. `/games/`, `/support/`)**: Unbooted visitors automatically trigger the full 10-second compilation bootloader upon page arrival, compiling sub-page elements and transitioning to `ONLINE`.
+- **`start` Sequence**: 10-second top-down compilation decoding elements via `decodeTextElement()`. `start` is the only command that automatically closes the drawer once compilation is complete.
+- **`shutdown` Sequence**: 7-second graceful bottom-up decompilation encoding elements into cyber noise glyphs via `encodeTextElement()`, returning system to `OFFLINE`.
+- **`reboot` Sequence**: Gracefully decompiles to `OFFLINE` and immediately re-initializes the top-down `start` bootloader.
+
+### Terminal Command Processor Invariants
+- **Empty Submissions**: Pressing <kbd>Enter</kbd> without text prints a clean `user@vapok.io:~$` line without erroring or triggering boot.
+- **Focus Retention**: Cursor automatically re-focuses in `#cli-input` after command execution.
+- **Non-disruptive Telemetry**: In-terminal commands (`fuel`, `support`, `games`, `mods`, `status`, `crt`, `pwd`) print formatted ASCII data/links into the buffer instead of forcing page navigation or synthetic DOM click events.
+- **`crt` Command Guardrail**: Must call `toggleCrtEffect()` directly in state and `localStorage` without dispatching synthetic DOM click events that trigger click-outside handlers.
+
+### Hidden Directory Matrix / Sitemap (`dir`, `ls`, `ls -l`, `ls -la`)
+- **Hidden Command**: Not listed in the public `help` directory.
+- **Interactive Tree Navigation**:
+  - <kbd>→</kbd> (Right Arrow): Expands parent directory node to reveal nested children (`level-1`, `level-2`).
+  - <kbd>←</kbd> (Left Arrow): Collapses expanded node or jumps back up to parent.
+  - <kbd>↑</kbd> / <kbd>↓</kbd> (Up / Down): Traverses through visible tree nodes.
+  - <kbd>Enter</kbd>: Navigates/redirects browser to selected URL and refreshes.
+  - <kbd>Escape</kbd>: Cancels sitemap mode.
+
