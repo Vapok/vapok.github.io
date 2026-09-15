@@ -282,11 +282,14 @@ function initModFilters() {
 /* ==========================================================================
    5. LIVE SYSTEM CLOCK & UPTIME
    ========================================================================== */
+let isClockScrambling = false;
+
 function initSystemClock() {
   const clockEl = document.getElementById('system-clock');
   if (!clockEl) return;
 
   function updateClock() {
+    if (isClockScrambling) return;
     const now = new Date();
     const utc = now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
     clockEl.textContent = utc;
@@ -421,6 +424,42 @@ function initBootloaderAndCli() {
       }
       iteration += 1 / 2;
     }, 30);
+  }
+
+  function scrambleClockTransition(durationMs = 1200) {
+    const clockEl = document.getElementById('system-clock');
+    if (!clockEl) return;
+
+    isClockScrambling = true;
+    const chars = '01#*+=-:.·˙_[]{}<>/\\$!%^&';
+    const startTime = Date.now();
+
+    const interval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(1.0, elapsed / durationMs);
+
+      const now = new Date();
+      const targetText = now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+      const settledLen = Math.floor(progress * targetText.length);
+
+      clockEl.textContent = targetText
+        .split('')
+        .map((char, index) => {
+          if (char === ' ' || char === ':') return char;
+          if (index < settledLen) {
+            return targetText[index];
+          }
+          return chars[Math.floor(Math.random() * chars.length)];
+        })
+        .join('');
+
+      if (progress >= 1.0) {
+        clearInterval(interval);
+        const finalNow = new Date();
+        clockEl.textContent = finalNow.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+        isClockScrambling = false;
+      }
+    }, 35);
   }
 
   function toggleCli(forceOpen = null) {
@@ -1127,11 +1166,15 @@ function initBootloaderAndCli() {
         decodeTextElement(navMenu, 1500);
       }
       if (fuelBtn) {
+        fuelBtn.style.maxWidth = '180px';
+        fuelBtn.style.padding = '0.2rem 0.6rem';
+        fuelBtn.style.borderWidth = '1px';
         fuelBtn.style.opacity = '1';
-        fuelBtn.style.transform = 'translateY(0)';
+        fuelBtn.style.pointerEvents = 'auto';
         decodeTextElement(fuelBtn, 1500);
       }
       scramblePromptBrand();
+      scrambleClockTransition(1200);
     }, 1500);
 
     setTimeout(() => {
@@ -1200,6 +1243,10 @@ function initBootloaderAndCli() {
           sec.style.opacity = '';
           sec.style.transform = '';
           sec.style.transition = '';
+          sec.style.maxWidth = '';
+          sec.style.padding = '';
+          sec.style.borderWidth = '';
+          sec.style.pointerEvents = '';
         }
       });
 
@@ -1288,14 +1335,20 @@ function initBootloaderAndCli() {
       printLine('[4.80s] Disengaging navigation links & support endpoints... OK', 'info');
       if (navMenu) {
         encodeTextElement(navMenu, 600);
-        navMenu.style.transition = 'opacity 0.5s ease';
+        navMenu.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         navMenu.style.opacity = '0';
+        navMenu.style.transform = 'translateY(-10px)';
       }
       if (fuelBtn) {
         encodeTextElement(fuelBtn, 600);
-        fuelBtn.style.transition = 'opacity 0.5s ease';
+        fuelBtn.style.transition = 'max-width 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease, padding 0.8s ease';
+        fuelBtn.style.maxWidth = '0';
+        fuelBtn.style.padding = '0';
+        fuelBtn.style.borderWidth = '0';
         fuelBtn.style.opacity = '0';
+        fuelBtn.style.pointerEvents = 'none';
       }
+      scrambleClockTransition(800);
     }, 4800);
 
     // 6. [5.50s] Decompilation Complete
@@ -1322,6 +1375,10 @@ function initBootloaderAndCli() {
           sec.style.opacity = '';
           sec.style.transform = '';
           sec.style.transition = '';
+          sec.style.maxWidth = '';
+          sec.style.padding = '';
+          sec.style.borderWidth = '';
+          sec.style.pointerEvents = '';
         }
       });
 
