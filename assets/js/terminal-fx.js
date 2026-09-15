@@ -429,12 +429,12 @@ function initBootloaderAndCli() {
     document.documentElement.classList.add('system-offline');
     if (statusText) {
       statusText.textContent = 'OFFLINE';
-      statusText.style.color = 'var(--warning-amber)';
+      statusText.style.color = '#ef4444';
     }
     toggleCli(true);
     printLine('======================================================================', 'warn');
     printLine(' VAPOK.IO SECURE MAINFRAME // FIRMWARE v2026.1', 'cmd');
-    printLine(' SYSTEM STATUS: [ OFFLINE ]', 'warn');
+    printLine(' SYSTEM STATUS: [ OFFLINE ]', 'error');
     printLine('======================================================================', 'warn');
     printLine('Main subsystems and user interface are currently dormant.', 'info');
     printLine('Type "boot" or "./launch" (or click [ ⚡ BOOT ]) to initialize system.', 'success');
@@ -569,7 +569,7 @@ function initBootloaderAndCli() {
 
     if (statusText) {
       statusText.textContent = 'BOOTING...';
-      statusText.style.color = 'var(--ice-blue-bright)';
+      statusText.style.color = 'var(--warning-amber)';
     }
 
     printLine('--------------------------------------------------', 'warn');

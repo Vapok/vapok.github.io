@@ -295,22 +295,22 @@ html.system-offline #header-fuel-btn {
 }
 
 html.system-offline #system-status-dot {
-  background-color: var(--warning-amber) !important;
-  box-shadow: 0 0 10px var(--warning-amber) !important;
+  background-color: #ef4444 !important;
+  box-shadow: 0 0 10px #ef4444 !important;
 }
 
 html.system-offline #system-status-text {
-  color: var(--warning-amber) !important;
+  color: #ff4d4d !important;
 }
 
 html.system-booting #system-status-dot {
-  background-color: var(--ice-blue) !important;
-  box-shadow: 0 0 12px var(--ice-blue) !important;
+  background-color: var(--warning-amber) !important;
+  box-shadow: 0 0 12px var(--warning-amber) !important;
   animation: pulse 0.5s infinite ease-in-out !important;
 }
 
 html.system-booting #system-status-text {
-  color: var(--ice-blue-bright) !important;
+  color: var(--warning-amber) !important;
 }
 
 /* ==========================================================================
