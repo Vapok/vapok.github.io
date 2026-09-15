@@ -143,12 +143,17 @@ body.crt-off .crt-overlay {
    ========================================================================== */
 
 .cyber-header {
-  margin: 1.5rem 0 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  margin: 0 0 1.5rem 0;
   border: 1px solid var(--border-subtle);
-  background: rgba(11, 17, 26, 0.85);
-  backdrop-filter: blur(8px);
+  border-top: none;
+  background: rgba(6, 8, 14, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   padding: 0.75rem 1.25rem;
-  box-shadow: var(--card-shadow);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 15px rgba(100, 240, 252, 0.08);
 }
 
 .system-status-bar {
