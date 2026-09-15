@@ -1087,10 +1087,7 @@ function initBootloaderAndCli() {
       case 'commands':
         printLine('AVAILABLE SYSTEM DIRECTIVES:', 'cmd');
         printLine('  start            - Power up system and compile graphical UI', 'info');
-        printLine('  doors / play     - Enter retro BBS Door Games (L.O.R.D., TradeWars, BRE)', 'success');
-        printLine('  lord             - Play Legend of the Red Dragon (v2026.1)', 'success');
-        printLine('  tradewars        - Play TradeWars 2002 (Space Trading & Combat)', 'success');
-        printLine('  bre              - Play Barren Realms Elite (Planetary 4X Strategy)', 'success');
+        printLine('  play             - Launch retro BBS Door Games (L.O.R.D., TradeWars, BRE)', 'success');
         printLine('  status           - Display kernel telemetry & active nodes', 'info');
         printLine('  mods             - View mod catalog dossier repository', 'info');
         printLine('  games            - Display currently playing & rotation games', 'info');
