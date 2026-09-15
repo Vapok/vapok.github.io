@@ -456,7 +456,6 @@ function initBootloaderAndCli() {
       statusText.textContent = 'OFFLINE';
       statusText.style.color = '#ef4444';
     }
-    toggleCli(true);
     printLine('======================================================================', 'warn');
     printLine(' VAPOK.IO SECURE MAINFRAME // FIRMWARE v2026.1', 'cmd');
     printLine(' SYSTEM STATUS: [ OFFLINE ]', 'error');
