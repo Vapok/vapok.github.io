@@ -506,19 +506,32 @@ function initBootloaderAndCli() {
     }
   });
 
+  const isHomepage =
+    window.location.pathname === '/' ||
+    window.location.pathname === '/index.html' ||
+    window.location.pathname === '' ||
+    window.location.pathname.endsWith('/vapok.github.io/') ||
+    window.location.pathname.endsWith('/vapok.github.io/index.html');
+
   // Check initial state
   if (!isBooted) {
-    document.documentElement.classList.add('system-offline');
-    if (statusText) {
-      statusText.textContent = 'OFFLINE';
-      statusText.style.color = '#ef4444';
+    if (isHomepage) {
+      document.documentElement.classList.add('system-offline');
+      if (statusText) {
+        statusText.textContent = 'OFFLINE';
+        statusText.style.color = '#ef4444';
+      }
+      printLine('======================================================================', 'warn');
+      printLine(' VAPOK.IO SECURE MAINFRAME // FIRMWARE v2026.1', 'cmd');
+      printLine(' SYSTEM STATUS: [ OFFLINE ]', 'error');
+      printLine('======================================================================', 'warn');
+      printLine('Main subsystems and user interface are currently dormant.', 'info');
+      printLine('Type "start" (or click [ ⚡ START ]) to initialize system.', 'success');
+    } else {
+      // Direct link to a sub-page: automatically open CLI and run full start sequence
+      toggleCli(true);
+      startBootSequence();
     }
-    printLine('======================================================================', 'warn');
-    printLine(' VAPOK.IO SECURE MAINFRAME // FIRMWARE v2026.1', 'cmd');
-    printLine(' SYSTEM STATUS: [ OFFLINE ]', 'error');
-    printLine('======================================================================', 'warn');
-    printLine('Main subsystems and user interface are currently dormant.', 'info');
-    printLine('Type "start" (or click [ ⚡ START ]) to initialize system.', 'success');
   } else {
     document.documentElement.classList.remove('system-offline');
     if (statusText) {
@@ -699,9 +712,10 @@ function initBootloaderAndCli() {
     const logsSection = document.getElementById('logs');
     const aboutSection = document.getElementById('about');
     const footer = document.querySelector('.cyber-footer');
+    const mainContent = document.getElementById('main-content') || document.querySelector('.page-content') || document.querySelector('main');
 
     // Hide sections initially to prepare for progressive reveal
-    [heroAscii, modsSection, logsSection, aboutSection, footer].forEach((sec) => {
+    [heroAscii, modsSection, logsSection, aboutSection, footer, !isHomepage ? mainContent : null].forEach((sec) => {
       if (sec) {
         sec.style.opacity = '0';
         sec.style.transform = 'translateY(15px)';
@@ -722,6 +736,11 @@ function initBootloaderAndCli() {
         heroAscii.style.opacity = '1';
         heroAscii.style.transform = 'translateY(0)';
         decodeTextElement(heroAscii, 2000);
+      }
+      if (!isHomepage && mainContent) {
+        mainContent.style.opacity = '1';
+        mainContent.style.transform = 'translateY(0)';
+        decodeTextElement(mainContent, 2000);
       }
     }, 3200);
 
@@ -771,7 +790,7 @@ function initBootloaderAndCli() {
       }
 
       // Reset styles cleanly
-      [heroAscii, modsSection, logsSection, aboutSection, footer].forEach((sec) => {
+      [heroAscii, modsSection, logsSection, aboutSection, footer, mainContent].forEach((sec) => {
         if (sec) {
           sec.style.opacity = '';
           sec.style.transform = '';
