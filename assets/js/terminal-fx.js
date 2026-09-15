@@ -494,9 +494,9 @@ function initBootloaderAndCli() {
       e.stopPropagation();
       const raw = cliInput.value.trim();
       cliInput.value = '';
-      if (!raw && !isBooted) {
-        executeCommand('boot');
-      } else if (raw) {
+      if (!raw) {
+        printLine('user@vapok.io:~$', 'cmd');
+      } else {
         executeCommand(raw);
       }
       if (cliInput) {
