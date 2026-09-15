@@ -118,12 +118,16 @@ All web pages, layout templates, and UI components in this repository adhere to 
 - **Non-disruptive Telemetry**: In-terminal commands (`fuel`, `support`, `games`, `mods`, `status`, `crt`, `pwd`) print formatted ASCII data/links into the buffer instead of forcing page navigation or synthetic DOM click events.
 - **`crt` Command Guardrail**: Must call `toggleCrtEffect()` directly in state and `localStorage` without dispatching synthetic DOM click events that trigger click-outside handlers.
 
-### Hidden Directory Matrix / Sitemap (`dir`, `ls`, `ls -l`, `ls -la`)
+### Hidden Directory Matrix / Sitemap TUI (`dir`, `ls`, `ls -l`, `ls -la`, `sitemap`)
 - **Hidden Command**: Not listed in the public `help` directory.
+- **Bounded TUI Architecture**:
+  - Launches as a dedicated full-drawer console program (`.cyber-cli-drawer.tui-active`), temporarily concealing the log buffer and prompt input.
+  - **Fixed Header & Footer**: Includes a fixed status title bar (`// VAPOK_OS DIRECTORY MATRIX EXPLORER v2026.1`) with a live item counter (`[ 1/6 ]`), and a fixed action button footer.
+  - **Auto-Scrolling Viewport**: The middle tree container (`.cli-tui-body`) independently scrolls and automatically invokes `el.scrollIntoView({ block: 'nearest', behavior: 'smooth' })` whenever the selection moves, ensuring deep multi-level expansion never causes the active cursor or toolbar to scroll out of view.
 - **Interactive Tree Navigation**:
-  - <kbd>→</kbd> (Right Arrow): Expands parent directory node to reveal nested children (`level-1`, `level-2`).
+  - <kbd>→</kbd> (Right Arrow): Expands parent directory node to reveal nested children (`level-1`, `level-2`) or moves down into the first child.
   - <kbd>←</kbd> (Left Arrow): Collapses expanded node or jumps back up to parent.
-  - <kbd>↑</kbd> / <kbd>↓</kbd> (Up / Down): Traverses through visible tree nodes.
+  - <kbd>↑</kbd> / <kbd>↓</kbd> (Up / Down): Traverses through visible tree nodes with auto-scroll centering.
   - <kbd>Enter</kbd>: Navigates/redirects browser to selected URL and refreshes.
-  - <kbd>Escape</kbd>: Cancels sitemap mode.
+  - <kbd>Escape</kbd> (or `[ ESC ] EXIT TUI`): Exits the console program cleanly, restores CLI terminal output/prompt, and re-focuses `#cli-input`.
 
