@@ -934,14 +934,11 @@ function initBootloaderAndCli() {
         printLine('AVAILABLE SYSTEM DIRECTIVES:', 'cmd');
         printLine('  start            - Power up system and compile graphical UI', 'info');
         printLine('  status           - Display kernel telemetry & active nodes', 'info');
-        printLine('  pwd              - Print current page URL location', 'info');
         printLine('  mods             - View mod catalog dossier repository', 'info');
         printLine('  games            - Display currently playing & rotation games', 'info');
         printLine('  fuel / support   - Open creator support & donation channels', 'info');
         printLine('  discord          - Connect to Vapok Gaming Community Discord', 'info');
         printLine('  crt              - Toggle retro CRT scanline filter', 'info');
-        printLine('  clear / cls      - Clear terminal log output', 'info');
-        printLine('  exit / close     - Minimize terminal drawer', 'info');
         printLine('  shutdown         - Gracefully decompile UI & enter OFFLINE mode', 'info');
         printLine('  reboot           - Gracefully decompile and re-initialize system', 'info');
         break;
