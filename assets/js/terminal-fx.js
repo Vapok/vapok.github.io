@@ -472,7 +472,10 @@ function initBootloaderAndCli() {
       cliDrawer.classList.remove('closing');
       cliDrawer.classList.add('open');
       if (cyberHeader) cyberHeader.classList.add('cli-open');
-      if (brandBtn) brandBtn.style.display = 'none';
+      if (brandBtn) {
+        brandBtn.classList.add('active');
+        brandBtn.title = 'Click to minimize Interactive CLI (~)';
+      }
       if (cliToggleBtn) {
         cliToggleBtn.classList.add('active');
         cliToggleBtn.textContent = '[ CLI: <_ ]';
@@ -492,7 +495,8 @@ function initBootloaderAndCli() {
       }
       if (cyberHeader) cyberHeader.classList.remove('cli-open');
       if (brandBtn) {
-        brandBtn.style.display = '';
+        brandBtn.classList.remove('active');
+        brandBtn.title = 'Click to toggle Terminal Prompt (~)';
         scramblePromptBrand();
       }
       if (cliToggleBtn) {
