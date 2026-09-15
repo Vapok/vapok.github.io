@@ -18,7 +18,11 @@ All web pages, layout templates, and UI components in this repository adhere to 
 
 ---
 
-## 2. Mod Releases Pipeline & Directory Structure
+## 2. Mod Releases Pipeline & Authorship Scope
+
+### Authorship Guardrail
+- Only include mods created and maintained by `Vapok` (namespace `Vapok`).
+- `XPortalNetworks` is Vapok's mod; do not include external author releases like `XPortal` (SpikeHimself).
 
 ### Source Releases Directory
 - Location: `/home/vapok/Modding/Releases/<ModName>-Vapok/`
@@ -28,16 +32,19 @@ All web pages, layout templates, and UI components in this repository adhere to 
   - `CHANGELOG.md` (version release notes)
   - `icon.png` (mod badge image)
 
-### Automated Sync Workflow
+### Automated Sync & Live Metrics Workflow
 - Whenever releases are created or updated, run:
   ```bash
   python3 scripts/sync_releases.py
   ```
-- This automatically updates `_mods/*.md`, `_includes/changelogs/*.md`, and `assets/images/mods/*/icon.png`.
+- This script automatically:
+  1. Queries Thunderstore API for `Vapok` packages to pull real-time download numbers.
+  2. Queries Discord API for server `5YAJkRFBXt` (*Vapok's Gaming Community*) for live member counts.
+  3. Updates `_data/stats.yml`, `_mods/*.md`, `_includes/changelogs/*.md`, and `assets/images/mods/*/icon.png`.
 
 ---
 
-## 3. Codebase Architecture & Layouts Hierarchy
+## 3. Codebase Architecture & Conventions
 
 ### Collections & Layouts
 - `collections.mods` in `_config.yml` (`permalink: /mods/:slug/`).
@@ -45,11 +52,12 @@ All web pages, layout templates, and UI components in this repository adhere to 
 - `_layouts/mod.html`: Individual mod dossier layout with icon box, metadata specs, and tabbed README vs CHANGELOG viewer.
 - `_layouts/page.html`: Dossier format for policy/legal/documentation pages.
 - `_layouts/post.html`: Dispatch format for devlog updates in `_posts/`.
-- `_includes/header.html`: Terminal system bar with status pulse, UTC clock, CRT switch, and navigation.
-- `_includes/ascii-banner.html`: Responsive ASCII logo header with metrics and hover scrambler.
-- `_includes/mod-card.html`: DOS-style dossier card.
-- `_includes/footer.html`: Terminal system footer with legal and social links.
+
+### Includes & Liquid Scoping
+- `_includes/ascii-banner.html`: Hero banner displaying live stats (`total_downloads`, `active_mods`, `discord_members` link).
+- `_includes/mod-card.html`: DOS-style dossier card. Always include `{% assign mod = include.mod | default: mod %}` at line 1.
+- `_includes/header.html` & `_includes/footer.html`: System bars with UTC clock, status indicator, CRT switch, and links.
 
 ### Styling & Scripts
 - Stylesheet: `assets/css/terminal.css` (Vanilla CSS with CSS custom properties).
-- Interaction Engine: `assets/js/terminal-fx.js` (Canvas particle grid, text decoder on hover, dossier tab switcher, CRT state persistence).
+- Interaction Engine: `assets/js/terminal-fx.js` (Canvas particle grid, text decoder on hover, dossier tab switcher, CRT state persistence). Always validate with `node --check assets/js/terminal-fx.js`.
