@@ -9,6 +9,8 @@ version: "v2.0.1"
 status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/AutoFeedRedux"
+thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/AutoFeedRedux/"
+downloads: "24.2K+"
 icon: "/assets/images/mods/autofeedredux/icon.png"
 description: "Tired of forgetting to feed your pets? Make feeding your animals a breeze with the Auto Feed Redux! A simple Valheim mod for feeding your tames!"
 dependencies:

@@ -30,6 +30,12 @@
           <td class="meta-label">VERSION:</td>
           <td class="meta-val" style="color: var(--glacial-mint)">{{ mod.version }}</td>
         </tr>
+        {% if mod.downloads and mod.downloads != "" %}
+          <tr>
+            <td class="meta-label">DOWNLOADS:</td>
+            <td class="meta-val" style="color: var(--ice-blue-bright)">{{ mod.downloads }} (TS)</td>
+          </tr>
+        {% endif %}
       </tbody>
     </table>
 
@@ -54,6 +60,11 @@
     <a href="{{ mod.url | relative_url }}" class="cyber-btn">
       [ > VIEW DOSSIER ]
     </a>
+    {% if mod.thunderstore_url %}
+      <a href="{{ mod.thunderstore_url }}" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-secondary">
+        [ > THUNDERSTORE ]
+      </a>
+    {% endif %}
     {% if mod.website_url %}
       <a href="{{ mod.website_url }}" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-secondary">
         [ &lt;/&gt; SOURCE ]

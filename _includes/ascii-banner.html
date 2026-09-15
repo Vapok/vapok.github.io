@@ -18,16 +18,16 @@
 
   <div class="hero-stats-row">
     <div class="stat-box">
-      <span class="stat-num">800K+</span>
-      <span class="stat-label">Total Downloads</span>
+      <span class="stat-num">{{ site.data.stats.total_downloads | default: '1.0M+' }}</span>
+      <span class="stat-label">Thunderstore Downloads</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num">{{ site.data.stats.active_mods | default: '11' }}</span>
+      <span class="stat-label">Active Releases</span>
     </div>
     <div class="stat-box">
       <span class="stat-num">100%</span>
       <span class="stat-label">Open Source & Free</span>
-    </div>
-    <div class="stat-box">
-      <span class="stat-num">ACTIVE</span>
-      <span class="stat-label">Build Engine</span>
     </div>
     <div class="stat-box">
       <span class="stat-num">v0.217+</span>

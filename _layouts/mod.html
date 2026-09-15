@@ -42,6 +42,12 @@ layout: default
           <span class="spec-k">VERSION:</span>
           <span class="spec-v" style="color: var(--glacial-mint)">{{ page.version }}</span>
         </div>
+        {% if page.downloads and page.downloads != "" %}
+          <div class="spec-pill">
+            <span class="spec-k">DOWNLOADS:</span>
+            <span class="spec-v" style="color: var(--ice-blue-bright)">{{ page.downloads }} (TS)</span>
+          </div>
+        {% endif %}
       </div>
 
       {% if page.dependencies and page.dependencies.size > 0 %}
@@ -56,8 +62,13 @@ layout: default
       {% endif %}
 
       <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.25rem;">
+        {% if page.thunderstore_url %}
+          <a href="{{ page.thunderstore_url }}" target="_blank" rel="noopener noreferrer" class="cyber-btn">
+            [ > THUNDERSTORE ]
+          </a>
+        {% endif %}
         {% if page.website_url %}
-          <a href="{{ page.website_url }}" target="_blank" rel="noopener noreferrer" class="cyber-btn">
+          <a href="{{ page.website_url }}" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-secondary">
             [ &lt;/&gt; GITHUB REPOSITORY ]
           </a>
         {% endif %}

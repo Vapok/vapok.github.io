@@ -9,6 +9,8 @@ version: "v2.0.2"
 status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/ShieldMeBruh"
+thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/ShieldMeBruh/"
+downloads: "93.8K+"
 icon: "/assets/images/mods/shieldmebruh/icon.png"
 description: "A Valheim Quality of Life Mod that will auto equip a selected shield when a one-handed weapon is equipped. I need a shield! Shield me Bruh!"
 dependencies:

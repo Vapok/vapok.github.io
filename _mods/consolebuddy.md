@@ -9,6 +9,8 @@ version: "v2.0.1"
 status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/ConsoleBuddy"
+thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/ConsoleBuddy/"
+downloads: "2.7K+"
 icon: "/assets/images/mods/consolebuddy/icon.png"
 description: "A simple Valheim mod that allows you to adjust the look and feel of the in-game Console"
 dependencies:

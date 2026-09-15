@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-Vapok Modding — Releases Synchronizer
+Vapok Modding — Releases Synchronizer with Live Thunderstore Metrics
 Synchronizes /home/vapok/Modding/Releases into Jekyll _mods collection,
+fetches live downloads from Thunderstore API for author 'Vapok',
 copies icons, extracts manifest metadata, READMEs, and CHANGELOGs.
 """
 
@@ -9,27 +10,75 @@ import os
 import json
 import re
 import shutil
+import urllib.request
 
 RELEASES_DIR = "/home/vapok/Modding/Releases"
 SITE_DIR = "/home/vapok/Modding/Vapok GitHub Pages/vapok.github.io"
 MODS_DIR = os.path.join(SITE_DIR, "_mods")
+DATA_DIR = os.path.join(SITE_DIR, "_data")
+CHANGELOGS_DIR = os.path.join(SITE_DIR, "_includes", "changelogs")
 ASSETS_IMG_DIR = os.path.join(SITE_DIR, "assets", "images", "mods")
 
 os.makedirs(MODS_DIR, exist_ok=True)
+os.makedirs(DATA_DIR, exist_ok=True)
+os.makedirs(CHANGELOGS_DIR, exist_ok=True)
 os.makedirs(ASSETS_IMG_DIR, exist_ok=True)
 
 def slugify(text):
     return re.sub(r'[\s_]+', '-', re.sub(r'[^\w\s-]', '', text).strip().lower())
+
+def format_count(count):
+    if count >= 1_000_000:
+        return f"{count / 1_000_000:.1f}M+"
+    if count >= 1_000:
+        return f"{count / 1_000:.1f}K+"
+    return f"{count:,}"
+
+def fetch_thunderstore_metrics():
+    url = "https://thunderstore.io/c/valheim/api/v1/package/"
+    metrics = {}
+    total = 0
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "VapokModdingSync/1.0"})
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            for p in data:
+                owner = (p.get("owner") or p.get("namespace") or "").strip()
+                if owner.lower() == "vapok":
+                    name = p.get("name", "")
+                    dl = sum(v.get("downloads", 0) for v in p.get("versions", [])) or p.get("downloads", 0)
+                    pkg_url = p.get("package_url") or f"https://valheim.thunderstore.io/package/Vapok/{name}/"
+                    metrics[name.lower()] = {
+                        "downloads": dl,
+                        "downloads_formatted": format_count(dl),
+                        "thunderstore_url": pkg_url
+                    }
+                    total += dl
+        print(f"Successfully fetched Thunderstore stats for {len(metrics)} Vapok mods (Total: {total:,})")
+    except Exception as e:
+        print(f"Warning: Could not fetch Thunderstore API ({e}). Using existing/fallback stats.")
+    return metrics, total
 
 def sync():
     if not os.path.exists(RELEASES_DIR):
         print(f"Releases directory not found at {RELEASES_DIR}")
         return
 
+    ts_metrics, ts_total = fetch_thunderstore_metrics()
+
     folders = sorted(os.listdir(RELEASES_DIR))
     processed_mods = []
 
+    # Clean existing _mods to prevent deleted releases from lingering
+    for old_file in os.listdir(MODS_DIR):
+        if old_file.endswith(".md"):
+            os.remove(os.path.join(MODS_DIR, old_file))
+
     for folder_name in folders:
+        # Exclude SpikeHimself or non-Vapok releases
+        if folder_name.lower() in ["xportal-vapok", "xportal"]:
+            continue
+
         folder_path = os.path.join(RELEASES_DIR, folder_name)
         if not os.path.isdir(folder_path):
             continue
@@ -77,18 +126,18 @@ def sync():
             with open(changelog_path, "r", encoding="utf-8-sig", errors="replace") as f:
                 changelog_content = f.read()
 
-        # Escape potential triple dashes or liquid tags inside README/CHANGELOG if any
-        # Format markdown page for Jekyll collection
-        mod_file_path = os.path.join(MODS_DIR, f"{slug}.md")
+        # Check metrics
+        mod_metrics = ts_metrics.get(raw_name.lower(), {})
+        downloads_formatted = mod_metrics.get("downloads_formatted", "")
+        ts_url = mod_metrics.get("thunderstore_url", f"https://valheim.thunderstore.io/package/Vapok/{raw_name}/")
 
-        # Create frontmatter
-        deps_yaml = "\n".join([f'  - "{d}"' for d in dependencies]) if dependencies else "  []"
-        
-        # Save changelog to _includes/changelogs for dynamic rendering
-        changelog_file_path = os.path.join(SITE_DIR, "_includes", "changelogs")
-        os.makedirs(changelog_file_path, exist_ok=True)
-        with open(os.path.join(changelog_file_path, f"{slug}.md"), "w", encoding="utf-8") as cf:
+        # Save changelog
+        with open(os.path.join(CHANGELOGS_DIR, f"{slug}.md"), "w", encoding="utf-8") as cf:
             cf.write(changelog_content)
+
+        # Save mod document
+        mod_file_path = os.path.join(MODS_DIR, f"{slug}.md")
+        deps_yaml = "\n".join([f'  - "{d}"' for d in dependencies]) if dependencies else "  []"
 
         frontmatter = f"""---
 layout: mod
@@ -101,6 +150,8 @@ version: "v{version}"
 status: "ACTIVE"
 badge_color: "mint"
 website_url: "{website_url}"
+thunderstore_url: "{ts_url}"
+downloads: "{downloads_formatted}"
 icon: "{icon_rel_path}"
 description: {json.dumps(description)}
 dependencies:
@@ -113,14 +164,26 @@ has_changelog: {str(bool(changelog_content)).lower()}
         with open(mod_file_path, "w", encoding="utf-8") as mf:
             mf.write(frontmatter)
 
-        print(f"Synced mod: {raw_name} -> {mod_file_path}")
+        print(f"Synced mod: {raw_name} (v{version}) [Downloads: {downloads_formatted or 'N/A'}]")
         processed_mods.append({
             "name": raw_name,
             "slug": slug,
             "version": version
         })
 
-    print(f"\nSuccessfully synced {len(processed_mods)} mods from Releases!")
+    # Save overall stats to _data/stats.yml
+    stats_data = {
+        "total_downloads_raw": ts_total,
+        "total_downloads": format_count(ts_total) if ts_total > 0 else "1.0M+",
+        "active_mods": len(processed_mods),
+        "target_game": "Valheim"
+    }
+
+    with open(os.path.join(DATA_DIR, "stats.yml"), "w", encoding="utf-8") as sf:
+        for k, v in stats_data.items():
+            sf.write(f"{k}: \"{v}\"\n")
+
+    print(f"\nSuccessfully synced {len(processed_mods)} Vapok mods! Total Downloads: {stats_data['total_downloads']}")
 
 if __name__ == "__main__":
     sync()

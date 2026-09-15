@@ -9,6 +9,8 @@ version: "v2.0.1"
 status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/BetterSleepBruh"
+thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/BetterSleepBruh/"
+downloads: "2.8K+"
 icon: "/assets/images/mods/bettersleepbruh/icon.png"
 description: "A Valheim Mod that Sleeps Like Enshrouded! Sleep on your own terms! Sleep the night away faster without everyone having to be in a bed! Get Better Sleep, Bruh!"
 dependencies:
