@@ -430,6 +430,19 @@ function initBootloaderAndCli() {
     }
   });
 
+  // Click outside to close CLI drawer
+  document.addEventListener('click', (e) => {
+    if (!cliDrawer || !cliDrawer.classList.contains('open')) return;
+
+    const clickedInsideCli = cliDrawer.contains(e.target);
+    const clickedBrandBtn = brandBtn && brandBtn.contains(e.target);
+    const clickedToggleBtn = cliToggleBtn && cliToggleBtn.contains(e.target);
+
+    if (!clickedInsideCli && !clickedBrandBtn && !clickedToggleBtn) {
+      toggleCli(false);
+    }
+  });
+
   // Check initial state
   if (!isBooted) {
     document.documentElement.classList.add('system-offline');
