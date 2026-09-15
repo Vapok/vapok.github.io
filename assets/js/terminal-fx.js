@@ -475,12 +475,16 @@ function initBootloaderAndCli() {
   if (cliForm) {
     cliForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      e.stopPropagation();
       const raw = cliInput.value.trim();
       cliInput.value = '';
       if (!raw && !isBooted) {
         executeCommand('boot');
       } else if (raw) {
         executeCommand(raw);
+      }
+      if (cliInput) {
+        setTimeout(() => cliInput.focus(), 10);
       }
     });
   }
@@ -512,12 +516,13 @@ function initBootloaderAndCli() {
         printLine('AVAILABLE SYSTEM DIRECTIVES:', 'cmd');
         printLine('  boot / ./launch  - Power up system and compile graphical UI', 'info');
         printLine('  status           - Display kernel telemetry & active nodes', 'info');
-        printLine('  mods             - Open mod catalog dossier repository', 'info');
+        printLine('  mods             - View mod catalog dossier repository', 'info');
         printLine('  games            - Display currently playing & rotation games', 'info');
         printLine('  fuel / support   - Open creator support & donation channels', 'info');
         printLine('  discord          - Connect to Vapok Gaming Community Discord', 'info');
         printLine('  crt              - Toggle retro CRT scanline filter', 'info');
         printLine('  clear / cls      - Clear terminal log output', 'info');
+        printLine('  exit / close     - Minimize terminal drawer', 'info');
         printLine('  reboot / shutdown- Re-enter OFFLINE mode to replay boot sequence', 'info');
         break;
 
@@ -534,7 +539,12 @@ function initBootloaderAndCli() {
 
       case 'mods':
         printLine('Accessing // MODULE_REPOSITORY...', 'success');
-        window.location.href = '/#mods';
+        const modsSection = document.getElementById('mods');
+        if (modsSection) {
+          modsSection.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.location.href = '/#mods';
+        }
         break;
 
       case 'games':
@@ -566,6 +576,14 @@ function initBootloaderAndCli() {
       case 'cls':
         if (cliOutput) cliOutput.innerHTML = '';
         printLine('// Terminal buffer cleared.', 'info');
+        break;
+
+      case 'exit':
+      case 'close':
+      case 'quit':
+      case 'hide':
+        printLine('Minimizing interactive CLI terminal drawer...', 'info');
+        setTimeout(() => toggleCli(false), 200);
         break;
 
       case 'reboot':
@@ -687,11 +705,6 @@ function initBootloaderAndCli() {
           sec.style.transition = '';
         }
       });
-
-      // Auto close CLI drawer after 2.5s if desired, or keep ready
-      setTimeout(() => {
-        toggleCli(false);
-      }, 2500);
     }, 10000);
   }
 
