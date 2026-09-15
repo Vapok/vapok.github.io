@@ -1091,6 +1091,8 @@ html.system-booting #header-fuel-btn {
   color: var(--text-main);
   line-height: 1.55;
   margin-bottom: 1rem;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .mod-feature-list {
@@ -1406,6 +1408,12 @@ html.system-booting #header-fuel-btn {
   background: rgba(0, 0, 0, 0.5);
   border: 1px dashed var(--border-subtle);
   padding: 0.15rem 0.45rem;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .terminal-tab-bar {
@@ -1445,7 +1453,10 @@ html.system-booting #header-fuel-btn {
 
 @media (max-width: 768px) {
   .site-wrapper {
-    padding: 0 0.5rem 2rem 0.5rem;
+    padding: 0 1rem 2.5rem 1rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
     overflow-x: hidden;
   }
   
@@ -1673,12 +1684,38 @@ html.system-booting #header-fuel-btn {
   
   /* Mod Cards & Grid */
   .mod-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    max-width: 100%;
+    gap: 1.25rem;
   }
 
   .mod-card {
     padding: 1rem;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .mod-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    width: 100%;
+  }
+
+  .mod-card-actions .cyber-btn {
+    flex: 1 1 calc(50% - 0.45rem);
+    min-width: 110px;
+    max-width: 100%;
+    font-size: 0.72rem;
+    padding: 0.4rem 0.35rem;
+    text-align: center;
+    justify-content: center;
+    box-sizing: border-box;
+    white-space: nowrap;
   }
 
   .mod-card-header {
