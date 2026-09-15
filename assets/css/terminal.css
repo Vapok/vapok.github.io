@@ -1465,19 +1465,18 @@ html.system-booting #header-fuel-btn {
   
   .status-indicator {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
-    width: 100%;
+    gap: 0.4rem;
     font-size: 0.75rem;
   }
 
   .header-controls {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
-    width: 100%;
-    gap: 0.35rem;
-    flex-wrap: nowrap;
+    gap: 0.45rem;
+    flex-wrap: wrap;
   }
 
   #system-clock {
@@ -1502,17 +1501,19 @@ html.system-booting #header-fuel-btn {
   .nav-container {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: 0.45rem;
     width: 100%;
   }
 
   .terminal-prompt-brand {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+    width: auto;
+    display: inline-flex;
+    justify-content: flex-start;
     align-items: center;
+    gap: 0.35rem;
     font-size: 0.85rem;
-    padding: 0.25rem 0.55rem;
+    padding: 0.2rem 0.5rem;
     box-sizing: border-box;
   }
 
