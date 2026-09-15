@@ -1,7 +1,7 @@
-# Vapok Modding — Design, Architecture & Multi-Game Release Standards
+# Vapok Gaming — Design, Architecture & Multi-Game Release Standards
 
 ## 1. Visual Identity & Atmosphere ("Cyber-Console / Arctic Terminal")
-All web pages, layout templates, and UI components in this repository adhere to a custom **Cyber-Console / Neo-Terminal** aesthetic blending retro DOS/ASCII nostalgia with modern interactive web polish.
+All web pages, layout templates, and UI components in this repository adhere to a custom **Cyber-Console / Neo-Terminal** aesthetic representing **Vapok Gaming** and the **Vapok Gaming Community**.
 
 ### Core Color Palette
 - **Background Obsidian Black**: `#06080e` (base canvas), `#0b111a` (panels), `#111a28` (elevated cards).
@@ -13,13 +13,29 @@ All web pages, layout templates, and UI components in this repository adhere to 
 
 ### Typography & Framing
 - **Monospace Stack**: Primary font is `JetBrains Mono` with `VT323` for retro display banners and ASCII headers.
-- **ASCII & Box-Drawing Borders**: Use Unicode box frames (`┌─┐`, `│`, `└─┘`, `╔═╗`, `║`, `╚═╝`) and command-line prompt prefixes (`vapok@modding:~$`, `SYS_NODE: [ vapok.github.io ]`).
+- **ASCII & Box-Drawing Borders**: Use Unicode box frames (`┌─┐`, `│`, `└─┘`, `╔═╗`, `║`, `╚═╝`) and command-line prompt prefixes (`vapok@gaming:~$`, `SYS_NODE: [ vapok.io ]`).
 - **Scanlines & CRT Effect**: Supported globally via `.crt-overlay` with toggle in header.
 - **ASCII Scrambler Guardrail**: 2D ASCII banners must preserve exact character cell widths, spaces, and line-breaks during hover glitching.
 
 ---
 
-## 2. Multi-Game Release Pipeline & Directories
+## 2. Active Games & Rotation Architecture (`/games/`)
+
+### Data Registry (`_data/games.yml`)
+- Structured list of games under two main tiers: `category: "active"` and `category: "rotation"`.
+- Fields: `title`, `slug`, `category`, `genre`, `platform`, `status_tag`, `status_type`, `banner_url`, `description`, `current_focus`, `modding_status`, `discord_channel`, `discord_link`.
+
+### Card & Banner Invariants
+- **16:9 Aspect Ratio**: Image banners must be wrapped in `.game-card-img-wrap` (`aspect-ratio: 16 / 9`) with `object-fit: cover` to avoid cutting off game logos or art.
+- **Steam Assets**: Use official `capsule_616x353.jpg` endpoints (checking for hashed CDN paths on new/unreleased titles).
+- **Non-Steam Assets**: Store official publisher assets in `assets/images/games/` with 16:9 compositing.
+- **Current Focus Guardrail**: The `CURRENT FOCUS` block must strictly render only for active games (`category == 'active'`). In-rotation cards remain streamlined.
+- **Category Filtering**: Cards use `data-category="{{ game.category }}"` wired to `.filter-btn` controls (`[ ALL ]`, `[ ⚡ ACTIVELY PLAYING ]`, `[ 🔄 IN ROTATION ]`).
+- **Discord Spotlight Alignment**: Channel tags mirror the Discord server's *Gaming Spotlight* channels (e.g. `#valheim`, `#world-of-warcraft`, `#satisfactory`, `#enshrouded`, `#techtonica`, `#aska`, `#v-rising`, `#icarus`, `#fellowship`, `#alchemy-factory`, `#windrose`).
+
+---
+
+## 3. Multi-Game Release Pipeline & Directories
 
 ### Source Releases Directories
 - **Valheim**: `/home/vapok/Modding/Releases/<ModName>-Vapok/` (Thunderstore & Nexus)
@@ -39,7 +55,7 @@ All web pages, layout templates, and UI components in this repository adhere to 
 
 ---
 
-## 3. Support & Backer Channels Architecture
+## 4. Support & Backer Channels Architecture
 
 ### Support Channels
 - **Discord Subscriptions**: `donations.discord_sub` in `_config.yml` (VIP channels, early releases, tickets).
@@ -49,18 +65,18 @@ All web pages, layout templates, and UI components in this repository adhere to 
 
 ### UI Integration
 - Header Control: Glowing amber `[ ⚡ FUEL: $$$ ]` button (`.fuel-btn` with hover text scramble).
-- Nav Menu: Streamlined (`/HOME`, `/MODS`, `/LOGS`, `/ABOUT`).
+- Nav Menu: Streamlined (`/HOME`, `/MODS`, `/GAMES`, `/LOGS`, `/ABOUT`).
 - Dedicated Page: `support.md` (`permalink: /support/`) with backer manifesto, channel cards, and perks matrix table.
 
 ---
 
-## 4. Codebase Architecture & Conventions
+## 5. Codebase Architecture & Conventions
 
 ### Collections & Layouts
 - `collections.mods` in `_config.yml` (`permalink: /mods/:slug/`).
 - `_layouts/default.html`: Root HTML template hosting canvas, scanlines, header, and footer.
 - `_layouts/mod.html`: Individual mod dossier layout with icon box, metadata specs, and tabbed README vs CHANGELOG viewer.
-- `_layouts/page.html`: Dossier format for policy/legal/documentation/support pages.
+- `_layouts/page.html`: Dossier format for policy/legal/documentation/support/games pages.
 - `_layouts/post.html`: Dispatch format for devlog updates in `_posts/`.
 
 ### Includes & Liquid Scoping
