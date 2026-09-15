@@ -23,7 +23,7 @@ You don't need to manually build HTML files! Everything is handled automatically
 
 1. **Commit and Push**: Any time you push changes to the `main` branch, GitHub Actions automatically triggers the workflow defined in `.github/workflows/jekyll-gh-pages.yml`.
 2. **Automatic Build**: GitHub builds the Jekyll site using your `_config.yml` settings and Markdown files.
-3. **Live Site**: Within 1-2 minutes, your updated site goes live at `https://vapok.github.io`.
+3. **Live Site**: Within 1-2 minutes, your updated site goes live at `https://vapok.io`.
 
 ### GitHub Repository Settings Check
 Make sure GitHub Pages is configured properly in your repository on GitHub:
