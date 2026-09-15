@@ -332,6 +332,11 @@ html.system-booting #system-status-text {
   animation: drawerSlideDown 0.3s ease forwards;
 }
 
+.cyber-header.cli-open #terminal-brand-btn,
+.cyber-header:has(.cyber-cli-drawer.open) #terminal-brand-btn {
+  display: none !important;
+}
+
 @keyframes drawerSlideDown {
   from { opacity: 0; transform: translateY(-8px); }
   to { opacity: 1; transform: translateY(0); }

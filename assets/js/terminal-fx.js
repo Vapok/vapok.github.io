@@ -370,15 +370,21 @@ function initBootloaderAndCli() {
     cliOutput.scrollTop = cliOutput.scrollHeight;
   }
 
+  const cyberHeader = document.querySelector('.cyber-header');
+
   function toggleCli(forceOpen = null) {
     if (!cliDrawer) return;
     const shouldOpen = forceOpen !== null ? forceOpen : !cliDrawer.classList.contains('open');
     if (shouldOpen) {
       cliDrawer.classList.add('open');
+      if (cyberHeader) cyberHeader.classList.add('cli-open');
+      if (brandBtn) brandBtn.style.display = 'none';
       if (cliToggleBtn) cliToggleBtn.textContent = '[ CLI: <_ ]';
       if (cliInput) setTimeout(() => cliInput.focus(), 100);
     } else {
       cliDrawer.classList.remove('open');
+      if (cyberHeader) cyberHeader.classList.remove('cli-open');
+      if (brandBtn) brandBtn.style.display = '';
       if (cliToggleBtn) cliToggleBtn.textContent = '[ CLI: >_ ]';
     }
   }
