@@ -1173,17 +1173,25 @@ function initBootloaderAndCli() {
       case 'help':
       case '?':
       case 'commands':
-        printLine('AVAILABLE SYSTEM DIRECTIVES:', 'cmd');
-        printLine('  start            - Power up system and compile graphical UI', 'info');
-        printLine('  play             - Launch retro BBS Door Games', 'success');
-        printLine('  status           - Display kernel telemetry & active nodes', 'info');
-        printLine('  mods             - View mod catalog dossier repository', 'info');
-        printLine('  games            - Display currently playing & rotation games', 'info');
-        printLine('  fuel / support   - Open creator support & donation channels', 'info');
-        printLine('  discord          - Connect to Vapok Gaming Community Discord', 'info');
-        printLine('  crt              - Toggle retro CRT scanline filter', 'info');
-        printLine('  shutdown         - Gracefully decompile UI & enter OFFLINE mode', 'info');
-        printLine('  reboot           - Gracefully decompile and re-initialize system', 'info');
+        if (!isBooted) {
+          printLine('AVAILABLE SYSTEM DIRECTIVES (OFFLINE):', 'cmd');
+          printLine('  start            - Power up system and compile graphical UI', 'info');
+          printLine('  status           - Display kernel telemetry & active nodes', 'info');
+          printLine('  crt              - Toggle retro CRT scanline filter', 'info');
+          printLine('  clear            - Clear terminal buffer output', 'info');
+        } else {
+          printLine('AVAILABLE SYSTEM DIRECTIVES:', 'cmd');
+          printLine('  play             - Launch retro BBS Door Games', 'success');
+          printLine('  status           - Display kernel telemetry & active nodes', 'info');
+          printLine('  mods             - View mod catalog dossier repository', 'info');
+          printLine('  games            - Display currently playing & rotation games', 'info');
+          printLine('  fuel / support   - Open creator support & donation channels', 'info');
+          printLine('  discord          - Connect to Vapok Gaming Community Discord', 'info');
+          printLine('  crt              - Toggle retro CRT scanline filter', 'info');
+          printLine('  clear            - Clear terminal buffer output', 'info');
+          printLine('  shutdown         - Gracefully decompile UI & enter OFFLINE mode', 'info');
+          printLine('  reboot           - Gracefully decompile and re-initialize system', 'info');
+        }
         break;
 
       case 'doors':
