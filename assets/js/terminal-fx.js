@@ -447,6 +447,11 @@ function initBootloaderAndCli() {
     cliOutput.scrollTop = cliOutput.scrollHeight;
   }
 
+  // Bind BBS Door Games Engine Output
+  if (window.BBSDoorManager) {
+    window.BBSDoorManager.setPrintFunction(printLine);
+  }
+
   function updatePowerButtonState() {
     if (!bootQuickBtn) return;
     if (isBooted) {
@@ -1029,6 +1034,18 @@ function initBootloaderAndCli() {
         return;
       }
 
+      // Check if user is actively playing a BBS Door Game
+      if (window.BBSDoorManager && window.BBSDoorManager.isDoorActive()) {
+        if (raw) {
+          printLine(`> ${raw}`, 'cmd');
+        }
+        const handled = window.BBSDoorManager.handleInput(raw);
+        if (handled) {
+          if (cliInput) setTimeout(() => cliInput.focus(), 10);
+          return;
+        }
+      }
+
       if (!raw) {
         printLine('user@vapok.io:~$', 'cmd');
       } else {
@@ -1070,6 +1087,10 @@ function initBootloaderAndCli() {
       case 'commands':
         printLine('AVAILABLE SYSTEM DIRECTIVES:', 'cmd');
         printLine('  start            - Power up system and compile graphical UI', 'info');
+        printLine('  doors / play     - Enter retro BBS Door Games (L.O.R.D., TradeWars, BRE)', 'success');
+        printLine('  lord             - Play Legend of the Red Dragon (v2026.1)', 'success');
+        printLine('  tradewars        - Play TradeWars 2002 (Space Trading & Combat)', 'success');
+        printLine('  bre              - Play Barren Realms Elite (Planetary 4X Strategy)', 'success');
         printLine('  status           - Display kernel telemetry & active nodes', 'info');
         printLine('  mods             - View mod catalog dossier repository', 'info');
         printLine('  games            - Display currently playing & rotation games', 'info');
@@ -1078,6 +1099,49 @@ function initBootloaderAndCli() {
         printLine('  crt              - Toggle retro CRT scanline filter', 'info');
         printLine('  shutdown         - Gracefully decompile UI & enter OFFLINE mode', 'info');
         printLine('  reboot           - Gracefully decompile and re-initialize system', 'info');
+        break;
+
+      case 'doors':
+      case 'door':
+      case 'bbs':
+      case 'play':
+      case 'minigames':
+      case 'minigame':
+        if (window.BBSDoorManager) {
+          window.BBSDoorManager.showDoorsMenu();
+        } else {
+          printLine('BBS Door Matrix module loading...', 'warn');
+        }
+        break;
+
+      case 'lord':
+      case 'reddragon':
+      case 'dragon':
+        if (window.BBSDoorManager) {
+          window.BBSDoorManager.openDoor('lord');
+        } else {
+          printLine('BBS Door Matrix module loading...', 'warn');
+        }
+        break;
+
+      case 'tradewars':
+      case 'tw2002':
+      case 'tw':
+        if (window.BBSDoorManager) {
+          window.BBSDoorManager.openDoor('tradewars');
+        } else {
+          printLine('BBS Door Matrix module loading...', 'warn');
+        }
+        break;
+
+      case 'bre':
+      case 'barren':
+      case 'barrenrealms':
+        if (window.BBSDoorManager) {
+          window.BBSDoorManager.openDoor('bre');
+        } else {
+          printLine('BBS Door Matrix module loading...', 'warn');
+        }
         break;
 
       case 'status':
