@@ -432,7 +432,7 @@ function initBootloaderAndCli() {
   }
 
   if (bootQuickBtn) {
-    bootQuickBtn.addEventListener('click', () => executeCommand('boot'));
+    bootQuickBtn.addEventListener('click', () => executeCommand('startup'));
   }
 
   // Global hotkeys: '~' / '`' or 'Enter' when closed to open console
@@ -477,7 +477,7 @@ function initBootloaderAndCli() {
     printLine(' SYSTEM STATUS: [ OFFLINE ]', 'error');
     printLine('======================================================================', 'warn');
     printLine('Main subsystems and user interface are currently dormant.', 'info');
-    printLine('Type "boot" or "./launch" (or click [ ⚡ BOOT ]) to initialize system.', 'success');
+    printLine('Type "startup" (or click [ ⚡ STARTUP ]) to initialize system.', 'success');
   } else {
     document.documentElement.classList.remove('system-offline');
     if (statusText) {
@@ -510,9 +510,8 @@ function initBootloaderAndCli() {
     printLine(`user@vapok.io:~$ ${rawCmd}`, 'cmd');
 
     switch (cmd) {
+      case 'startup':
       case 'boot':
-      case './launch':
-      case 'launch':
       case 'start':
       case 'poweron':
       case 'power on':
@@ -526,12 +525,17 @@ function initBootloaderAndCli() {
         }
         break;
 
+      case 'pwd':
+        printLine(window.location.href, 'info');
+        break;
+
       case 'help':
       case '?':
       case 'commands':
         printLine('AVAILABLE SYSTEM DIRECTIVES:', 'cmd');
-        printLine('  boot / ./launch  - Power up system and compile graphical UI', 'info');
+        printLine('  startup          - Power up system and compile graphical UI', 'info');
         printLine('  status           - Display kernel telemetry & active nodes', 'info');
+        printLine('  pwd              - Print current page URL location', 'info');
         printLine('  mods             - View mod catalog dossier repository', 'info');
         printLine('  games            - Display currently playing & rotation games', 'info');
         printLine('  fuel / support   - Open creator support & donation channels', 'info');
@@ -539,7 +543,7 @@ function initBootloaderAndCli() {
         printLine('  crt              - Toggle retro CRT scanline filter', 'info');
         printLine('  clear / cls      - Clear terminal log output', 'info');
         printLine('  exit / close     - Minimize terminal drawer', 'info');
-        printLine('  reboot / shutdown- Re-enter OFFLINE mode to replay boot sequence', 'info');
+        printLine('  reboot / shutdown- Re-enter OFFLINE mode to replay startup sequence', 'info');
         break;
 
       case 'status':
