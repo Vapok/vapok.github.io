@@ -436,11 +436,6 @@ html.system-booting #header-fuel-btn {
   pointer-events: none;
 }
 
-.cyber-header.cli-open #terminal-brand-btn,
-.cyber-header:has(.cyber-cli-drawer.open) #terminal-brand-btn {
-  display: none !important;
-}
-
 @keyframes drawerContentFadeIn {
   from {
     opacity: 0;
@@ -1444,49 +1439,265 @@ html.system-booting #header-fuel-btn {
   display: block;
 }
 
-@media (max-width: 768px) {
-  .mod-dossier-hero {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  .mod-dossier-specs {
-    justify-content: center;
-  }
-}
-
 /* ==========================================================================
-   RESPONSIVE ADJUSTMENTS
+   RESPONSIVE ADJUSTMENTS (MOBILE & TABLET)
    ========================================================================== */
 
 @media (max-width: 768px) {
   .site-wrapper {
-    padding: 0 0.75rem 2rem 0.75rem;
+    padding: 0 0.5rem 2rem 0.5rem;
+    overflow-x: hidden;
   }
   
+  /* Header & System Status Bar */
+  .cyber-header {
+    padding: 0.6rem 0.75rem;
+    margin: 0 0 1rem 0;
+  }
+
   .system-status-bar {
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    gap: 0.45rem;
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.5rem;
   }
   
+  .status-indicator {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-size: 0.75rem;
+  }
+
+  .header-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 0.35rem;
+    flex-wrap: nowrap;
+  }
+
+  #system-clock {
+    font-size: 0.7rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .ctrl-btn {
+    font-size: 0.68rem;
+    padding: 0.2rem 0.4rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .fuel-btn {
+    font-size: 0.68rem;
+    padding: 0.2rem 0.45rem;
+  }
+
+  /* Navigation & Terminal Brand Anchor */
+  .nav-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    width: 100%;
+  }
+
+  .terminal-prompt-brand {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    padding: 0.25rem 0.55rem;
+    box-sizing: border-box;
+  }
+
+  #header-nav-menu {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .nav-menu {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.25rem;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 0.72rem;
+    padding: 0.35rem 0.15rem;
+    width: 100%;
+    box-sizing: border-box;
+    white-space: nowrap;
+  }
+
+  /* Interactive CLI Drawer */
+  .cyber-cli-drawer {
+    padding: 0.65rem;
+    margin-top: 0.65rem;
+  }
+
+  .cli-output-window {
+    min-height: 180px;
+    max-height: 280px;
+    font-size: 0.75rem;
+    padding: 0.5rem;
+  }
+
+  .cli-input-line {
+    flex-wrap: nowrap;
+  }
+
+  .cli-prompt-label {
+    font-size: 0.72rem;
+  }
+
+  .cli-input-field {
+    font-size: 0.75rem;
+  }
+
+  .cli-submit-btn {
+    font-size: 0.72rem;
+    padding: 0.3rem 0.5rem;
+  }
+  
+  /* Hero & ASCII Banner */
   .hero-ascii-section {
-    padding: 1rem;
+    padding: 1rem 0.75rem;
+    margin: 0.75rem 0 1.5rem 0;
+    overflow-x: hidden;
+  }
+
+  .hero-ascii-section::before {
+    font-size: 0.55rem;
+    right: 8px;
+    top: 4px;
+    opacity: 0.7;
+  }
+
+  .ascii-banner-container {
+    overflow-x: hidden;
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
   
   .ascii-art {
-    font-size: 0.65rem;
+    font-size: clamp(0.44rem, 2.8vw, 0.75rem);
+    line-height: 1.08;
+  }
+
+  .hero-bio {
+    font-size: 0.84rem;
+    line-height: 1.55;
+    padding: 0 0.25rem;
+  }
+
+  .hero-stats-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .stat-box {
+    padding: 0.75rem 0.5rem;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-size: 1.35rem;
+  }
+
+  .stat-label {
+    font-size: 0.66rem;
+    letter-spacing: 0.5px;
+  }
+
+  /* Section Headers & Filters */
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.65rem;
+    margin: 1.75rem 0 1rem 0;
+  }
+
+  .section-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+    font-size: 1.1rem;
+  }
+
+  .section-title-tag {
+    font-size: 0.72rem;
+    white-space: nowrap;
+  }
+
+  .filter-bar {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.3rem;
+  }
+
+  .filter-btn {
+    width: 100%;
+    text-align: center;
+    padding: 0.35rem 0.2rem;
+    font-size: 0.72rem;
   }
   
+  /* Mod Cards & Grid */
   .mod-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .mod-card {
+    padding: 1rem;
+  }
+
+  .mod-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+
+  .mod-status-pill {
+    align-self: flex-start;
+  }
+
+  .mod-dossier-hero {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .mod-dossier-specs {
+    justify-content: center;
   }
   
   .content-terminal-box {
-    padding: 1.25rem;
+    padding: 1rem 0.75rem;
   }
   
+  /* Footer */
   .footer-top, .footer-bottom {
     flex-direction: column;
     align-items: flex-start;
+    gap: 0.75rem;
   }
 }
