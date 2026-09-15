@@ -613,26 +613,37 @@ function initBootloaderAndCli() {
         break;
 
       case 'mods':
-        printLine('Accessing // MODULE_REPOSITORY...', 'success');
+        printLine('--- MODULE REPOSITORY [ VALHEIM & TECHTONICA ] ---', 'success');
+        printLine('16 active mods in development. Browse dossiers at: https://vapok.io/#mods', 'info');
         const modsSection = document.getElementById('mods');
         if (modsSection) {
           modsSection.scrollIntoView({ behavior: 'smooth' });
-        } else {
-          window.location.href = '/#mods';
         }
         break;
 
       case 'games':
       case 'playing':
-        printLine('Accessing // CURRENTLY_PLAYING_MATRIX...', 'success');
-        window.location.href = '/games/';
+        printLine('--- CURRENTLY PLAYING MATRIX ---', 'success');
+        printLine('Active Rotation: WoW: Midnight, Valheim, Techtonica, Satisfactory, Dune: Awakening...', 'info');
+        printLine('Full matrix directory: https://vapok.io/games/', 'info');
+        const gamesSection = document.querySelector('.games-directory, .games-grid');
+        if (gamesSection) {
+          gamesSection.scrollIntoView({ behavior: 'smooth' });
+        }
         break;
 
       case 'fuel':
       case 'support':
       case 'donate':
-        printLine('Redirecting to [ ⚡ FUEL THE DEVELOPER ]...', 'warn');
-        window.location.href = '/support/';
+        printLine('--- ⚡ FUEL THE DEVELOPER [ SUPPORT DIRECTIVE ] ---', 'warn');
+        printLine('Support continued modding & open-source tools:', 'info');
+        printLine('  • Dossier: https://vapok.io/support/', 'info');
+        printLine('  • Buy Me A Coffee: https://buymeacoffee.com/vapok', 'info');
+        printLine('  • GitHub Sponsors: https://github.com/sponsors/Vapok', 'info');
+        const supportSection = document.querySelector('.support-hero, .support-matrix');
+        if (supportSection) {
+          supportSection.scrollIntoView({ behavior: 'smooth' });
+        }
         break;
 
       case 'discord':
