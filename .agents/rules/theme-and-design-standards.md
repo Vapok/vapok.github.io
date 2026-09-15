@@ -1,4 +1,4 @@
-# Vapok Modding — Design, Architecture & Release Standards
+# Vapok Modding — Design, Architecture & Multi-Game Release Standards
 
 ## 1. Visual Identity & Atmosphere ("Cyber-Console / Arctic Terminal")
 All web pages, layout templates, and UI components in this repository adhere to a custom **Cyber-Console / Neo-Terminal** aesthetic blending retro DOS/ASCII nostalgia with modern interactive web polish.
@@ -19,34 +19,23 @@ All web pages, layout templates, and UI components in this repository adhere to 
 
 ---
 
-## 2. Mod Releases Pipeline & Authorship Scope
+## 2. Multi-Game Release Pipeline & Directories
 
-### Authorship Guardrail
-- Only include mods created and maintained by `Vapok` (namespace `Vapok`).
-- `XPortalNetworks` is Vapok's mod; do not include external author releases like `XPortal` (SpikeHimself).
+### Source Releases Directories
+- **Valheim**: `/home/vapok/Modding/Releases/<ModName>-Vapok/` (Thunderstore & Nexus)
+- **Techtonica**: `/home/vapok/Modding/Techtonica/Releases/Vapok-<ModName>-<Version>/` (Thunderstore only)
 
-### Source Releases Directory
-- Location: `/home/vapok/Modding/Releases/<ModName>-Vapok/`
-- Standard release files:
-  - `manifest.json` (name, version_number, description, website_url, dependencies)
-  - `README.md` (documentation & usage)
-  - `CHANGELOG.md` (version release notes)
-  - `icon.png` (mod badge image)
+### Standard Release File Schema
+- `manifest.json` (name, version_number, description, website_url, dependencies)
+- `README.md` (documentation & usage)
+- `CHANGELOG.md` (version release notes)
+- `icon.png` (mod badge image)
 
-### Category & Multi-Game Support
-- Currently all active mods are in category `valheim`.
-- Filter buttons on `index.md` currently include `[ ALL ]` and `[ VALHEIM ]`.
-- As Vapok branches into other games or shared tool libraries, new categories (e.g. `enshrouded`, `unity-tools`) should be registered in `_data/mods.yml` / `_mods/` frontmatter and corresponding filter buttons added to the filter bar.
-
-### Automated Sync & Live Metrics Workflow
-- Whenever releases are created or updated, run:
-  ```bash
-  python3 scripts/sync_releases.py
-  ```
-- This script automatically:
-  1. Queries Thunderstore API for `Vapok` packages to pull real-time download numbers.
-  2. Queries Discord API for server `5YAJkRFBXt` (*Vapok's Gaming Community*) for live member counts.
-  3. Updates `_data/stats.yml`, `_mods/*.md`, `_includes/changelogs/*.md`, and `assets/images/mods/*/icon.png`.
+### Automated Sync Workflow (`scripts/sync_releases.py`)
+- Run `python3 scripts/sync_releases.py` whenever releases are created or updated across any supported game.
+- Automatically queries Thunderstore community APIs (`valheim`, `techtonica`) and Discord API (`5YAJkRFBXt`).
+- Automatically injects `markdown="1"` into HTML `<div>` tags in READMEs so Kramdown renders markdown correctly.
+- Outputs to `_mods/*.md`, `_data/mods.yml`, `_data/stats.yml`, `_includes/changelogs/*.md`, and `assets/images/mods/*/icon.png`.
 
 ---
 
@@ -60,8 +49,8 @@ All web pages, layout templates, and UI components in this repository adhere to 
 
 ### UI Integration
 - Header Control: Glowing amber `[ ⚡ FUEL: $$$ ]` button (`.fuel-btn` with hover text scramble).
-- Nav Menu: `[ /SUPPORT ]` leading to `/support/` (`support.md`).
-- Dedicated Page: `support.md` with backer manifesto, channel cards, and perks matrix table.
+- Nav Menu: Streamlined (`/HOME`, `/MODS`, `/LOGS`, `/ABOUT`).
+- Dedicated Page: `support.md` (`permalink: /support/`) with backer manifesto, channel cards, and perks matrix table.
 
 ---
 
