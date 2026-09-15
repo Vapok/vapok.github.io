@@ -504,6 +504,12 @@ function initBootloaderAndCli() {
       return;
     }
 
+    if (e.key === 'Escape' && cliDrawer && cliDrawer.classList.contains('open')) {
+      e.preventDefault();
+      toggleCli(false);
+      return;
+    }
+
     if (e.key === '`' || e.key === '~') {
       if (document.activeElement !== cliInput) {
         e.preventDefault();
