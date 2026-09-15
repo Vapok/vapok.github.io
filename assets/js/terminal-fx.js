@@ -28,6 +28,12 @@ function initAsciiCanvas() {
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
 
+  let isMobile = window.innerWidth <= 768 || !window.matchMedia('(hover: hover)').matches;
+  if (isMobile) {
+    // Disable canvas render loop on mobile to save CPU/GPU fillrate and battery
+    return;
+  }
+
   let width = (canvas.width = window.innerWidth);
   let height = (canvas.height = window.innerHeight);
 
@@ -63,15 +69,29 @@ function initAsciiCanvas() {
     mouse.y = e.clientY;
   }, { passive: true });
 
+  let animFrameId = null;
   let resizeTimeout = null;
+
   window.addEventListener('resize', () => {
+    const nowMobile = window.innerWidth <= 768 || !window.matchMedia('(hover: hover)').matches;
+    if (nowMobile) {
+      if (animFrameId) {
+        cancelAnimationFrame(animFrameId);
+        animFrameId = null;
+      }
+      return;
+    }
+
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
     clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(buildGrid, 150);
+    resizeTimeout = setTimeout(() => {
+      buildGrid();
+      if (!animFrameId && !document.hidden) {
+        animFrameId = requestAnimationFrame(render);
+      }
+    }, 150);
   }, { passive: true });
-
-  let animFrameId = null;
 
   function render() {
     ctx.fillStyle = '#06080e';
@@ -125,13 +145,13 @@ function initAsciiCanvas() {
         animFrameId = null;
       }
     } else {
-      if (!animFrameId) {
+      if (!animFrameId && window.innerWidth > 768 && window.matchMedia('(hover: hover)').matches) {
         animFrameId = requestAnimationFrame(render);
       }
     }
   });
 
-  render();
+  animFrameId = requestAnimationFrame(render);
 }
 
 /* ==========================================================================
@@ -166,9 +186,12 @@ function initCrtToggle() {
 }
 
 /* ==========================================================================
-   3. TEXT DECODER / SCRAMBLER HOVER EFFECT
+   3. TEXT DECODER / SCRAMBLER HOVER EFFECT (DESKTOP / POINTER DEVICES)
    ========================================================================== */
 function initTextScramble() {
+  const isPointerFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (!isPointerFine) return;
+
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!<>-_\\/[]{}—=+*^?#________';
   const scrambleElements = document.querySelectorAll('.scramble-hover:not(.ascii-art), .cyber-btn');
 
@@ -209,11 +232,13 @@ function initTextScramble() {
 }
 
 /**
- * Continuous Matrix ASCII Glitch for the Banner
+ * Continuous Matrix ASCII Glitch for the Banner (Desktop / Pointer Devices)
  */
 function initAsciiBannerGlitch() {
   const asciiEl = document.querySelector('.ascii-art');
   if (!asciiEl) return;
+  const isPointerFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (!isPointerFine) return;
 
   const originalAscii = asciiEl.textContent;
   const glitchGlyphs = ['█', '▓', '▒', '░', '═', '║', '╔', '╗', '╚', '╝', '0', '1', '#', '+', 'X', '/', '\\', '<', '>', '*'];

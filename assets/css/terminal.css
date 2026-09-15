@@ -1483,6 +1483,15 @@ html.system-booting #header-fuel-btn {
     overflow-x: hidden;
   }
   
+  /* Disable heavy continuous overlays on mobile to save GPU compositing and battery */
+  .crt-overlay {
+    display: none !important;
+  }
+
+  #ascii-bg-canvas {
+    display: none !important;
+  }
+
   /* Header & System Status Bar */
   .node-full,
   .fuel-text-full,
@@ -1748,6 +1757,13 @@ html.system-booting #header-fuel-btn {
     min-width: 0;
     box-sizing: border-box;
     overflow: hidden;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(11, 17, 26, 0.96);
+  }
+
+  .mod-card:hover {
+    transform: none !important;
   }
 
   .mod-card-actions {
@@ -1792,6 +1808,9 @@ html.system-booting #header-fuel-btn {
   
   .content-terminal-box {
     padding: 1rem 0.75rem;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(11, 17, 26, 0.96);
   }
   
   /* Footer */
