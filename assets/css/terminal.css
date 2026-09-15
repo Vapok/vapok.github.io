@@ -212,6 +212,16 @@ body.crt-off .crt-overlay {
   box-shadow: 0 0 8px var(--ice-blue-glow);
 }
 
+#cli-toggle-btn.active,
+.cyber-header.cli-open #cli-toggle-btn,
+.cyber-header:has(.cyber-cli-drawer.open) #cli-toggle-btn {
+  background: rgba(100, 240, 252, 0.15) !important;
+  color: var(--ice-blue-bright) !important;
+  border-color: var(--ice-blue) !important;
+  box-shadow: 0 0 12px var(--ice-blue-glow), inset 0 0 8px rgba(100, 240, 252, 0.2) !important;
+  font-weight: 700;
+}
+
 .fuel-btn {
   color: var(--warning-amber) !important;
   border-color: rgba(251, 191, 36, 0.45) !important;
