@@ -79,7 +79,7 @@ description: "Explore the games Vapok is actively playing, modding, and organizi
           {{ game.description }}
         </p>
 
-        {% if game.current_focus %}
+        {% if game.category == 'active' and game.current_focus %}
           <div style="margin-top: 0.85rem; padding: 0.65rem 0.8rem; background: rgba(0, 0, 0, 0.4); border-left: 2px solid var(--ice-blue); font-size: 0.82rem; color: var(--text-muted); line-height: 1.5;">
             <strong style="color: var(--text-main); display: block; margin-bottom: 0.2rem;">CURRENT FOCUS:</strong>
             {{ game.current_focus }}
