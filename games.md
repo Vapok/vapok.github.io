@@ -39,7 +39,9 @@ description: "Explore the games Vapok is actively playing, modding, and organizi
     <article class="mod-card">
       <div>
         {% if game.banner_url %}
-          <img src="{{ game.banner_url | relative_url }}" alt="{{ game.title }} Cover" class="game-card-img" loading="lazy">
+          <div class="game-card-img-wrap">
+            <img src="{{ game.banner_url | relative_url }}" alt="{{ game.title }} Cover" class="game-card-img" loading="lazy">
+          </div>
         {% endif %}
 
         <div class="mod-card-header">
