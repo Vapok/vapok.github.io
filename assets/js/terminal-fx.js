@@ -1101,7 +1101,7 @@ function initBootloaderAndCli() {
     const mainContent = document.getElementById('main-content') || document.querySelector('.page-content') || document.querySelector('main');
 
     // Hide sections initially to prepare for progressive reveal
-    [heroAscii, modsSection, logsSection, aboutSection, footer, !isHomepage ? mainContent : null].forEach((sec) => {
+    [heroAscii, modsSection, logsSection, aboutSection, footer, !isHomepage ? mainContent : null, navMenu, fuelBtn].forEach((sec) => {
       if (sec) {
         sec.style.opacity = '0';
         sec.style.transform = 'translateY(15px)';
@@ -1109,11 +1109,29 @@ function initBootloaderAndCli() {
       }
     });
 
+    if (navMenu) {
+      navMenu.style.transform = 'translateY(-10px)';
+      navMenu.style.transition = 'opacity 1.2s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)';
+    }
+    if (fuelBtn) {
+      fuelBtn.style.transform = 'translateY(-10px)';
+      fuelBtn.style.transition = 'opacity 1.2s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)';
+    }
+
     // Compilation Log Milestones over 10 seconds
     setTimeout(() => {
       printLine('[1.50s] Mounting multi-game subsystems (Valheim, Techtonica)... OK', 'info');
-      if (navMenu) decodeTextElement(navMenu, 1500);
-      if (fuelBtn) decodeTextElement(fuelBtn, 1500);
+      if (navMenu) {
+        navMenu.style.opacity = '1';
+        navMenu.style.transform = 'translateY(0)';
+        decodeTextElement(navMenu, 1500);
+      }
+      if (fuelBtn) {
+        fuelBtn.style.opacity = '1';
+        fuelBtn.style.transform = 'translateY(0)';
+        decodeTextElement(fuelBtn, 1500);
+      }
+      scramblePromptBrand();
     }, 1500);
 
     setTimeout(() => {
@@ -1177,7 +1195,7 @@ function initBootloaderAndCli() {
       }
 
       // Reset styles cleanly
-      [heroAscii, modsSection, logsSection, aboutSection, footer, mainContent].forEach((sec) => {
+      [heroAscii, modsSection, logsSection, aboutSection, footer, mainContent, navMenu, fuelBtn].forEach((sec) => {
         if (sec) {
           sec.style.opacity = '';
           sec.style.transform = '';
