@@ -1528,7 +1528,8 @@ function initMobileBackToTop() {
   }
 
   function handleScroll() {
-    if (window.innerWidth > 768) {
+    const isMobile = window.innerWidth <= 768;
+    if (!isMobile) {
       if (isVisible) {
         bttBtn.classList.remove('visible');
         isVisible = false;
@@ -1536,8 +1537,8 @@ function initMobileBackToTop() {
       return;
     }
 
-    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-    if (scrollY > 280) {
+    const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    if (scrollY > 150) {
       if (!isVisible) {
         isVisible = true;
         bttBtn.classList.add('visible');
@@ -1553,12 +1554,14 @@ function initMobileBackToTop() {
 
   window.addEventListener('scroll', handleScroll, { passive: true });
   window.addEventListener('resize', handleScroll, { passive: true });
+  handleScroll();
 
   bttBtn.addEventListener('click', (e) => {
     e.preventDefault();
     scrambleButton();
     window.scrollTo({
       top: 0,
+      left: 0,
       behavior: 'smooth'
     });
   });

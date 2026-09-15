@@ -1715,13 +1715,13 @@ html.system-booting #header-fuel-btn {
 
   /* Mobile Back-to-Top Button */
   .mobile-back-to-top {
-    display: flex;
+    display: inline-flex !important;
     align-items: center;
     justify-content: center;
     position: fixed;
     bottom: 1.25rem;
     right: 1rem;
-    z-index: 995;
+    z-index: 9999;
     background: rgba(6, 8, 14, 0.94);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -1735,14 +1735,16 @@ html.system-booting #header-fuel-btn {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.85), 0 0 12px rgba(100, 240, 252, 0.25);
     cursor: pointer;
     opacity: 0;
+    visibility: hidden;
     transform: translateY(16px) scale(0.92);
     pointer-events: none;
     user-select: none;
-    transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease, background 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   }
 
   .mobile-back-to-top.visible {
     opacity: 1;
+    visibility: visible;
     transform: translateY(0) scale(1);
     pointer-events: auto;
   }
@@ -1756,6 +1758,8 @@ html.system-booting #header-fuel-btn {
   }
 }
 
-.mobile-back-to-top {
-  display: none;
+@media (min-width: 769px) {
+  .mobile-back-to-top {
+    display: none !important;
+  }
 }
