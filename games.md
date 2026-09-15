@@ -30,13 +30,19 @@ description: "Explore the games Vapok is actively playing, modding, and organizi
 <div class="section-header">
   <div class="section-title">
     <span>// ACTIVE_ROSTER</span>
-    <span class="section-title-tag">[ CURRENTLY IN ROTATION ]</span>
+    <span class="section-title-tag">[ GAME ROTATION & SPOTLIGHT ]</span>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">[ ALL (11) ]</button>
+    <button class="filter-btn" data-filter="active">[ ⚡ ACTIVELY PLAYING (4) ]</button>
+    <button class="filter-btn" data-filter="rotation">[ 🔄 IN ROTATION (7) ]</button>
   </div>
 </div>
 
 <div class="mod-grid" style="grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));">
   {% for game in site.data.games %}
-    <article class="mod-card">
+    <article class="mod-card" data-category="{{ game.category | default: 'rotation' }}">
       <div>
         {% if game.banner_url %}
           <div class="game-card-img-wrap">
