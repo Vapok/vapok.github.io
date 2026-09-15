@@ -486,50 +486,109 @@ html.system-shutting-down #system-status-text {
   font-weight: 700;
 }
 
-/* INTERACTIVE CLI SITEMAP / DIR BROWSER */
-.cli-sitemap-container {
-  margin: 0.6rem 0;
+/* INTERACTIVE CLI SITEMAP / FULL-DRAWER TUI PROGRAM */
+.cyber-cli-drawer.tui-active .cli-output-window,
+.cyber-cli-drawer.tui-active .cli-input-line {
+  display: none !important;
+}
+
+.cli-tui-screen {
+  display: flex;
+  flex-direction: column;
+  height: 380px;
+  max-height: 55vh;
   border: 1px solid var(--border-strong);
-  background: rgba(3, 7, 14, 0.95);
-  padding: 0.65rem 0.85rem;
-  box-shadow: 0 0 14px rgba(100, 240, 252, 0.15);
+  background: rgba(2, 6, 12, 0.98);
+  box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.95), 0 0 15px rgba(100, 240, 252, 0.2);
+  margin-top: 0.25rem;
   font-family: var(--font-mono);
 }
 
-.cli-sitemap-header {
-  color: var(--ice-blue-bright);
-  font-weight: 700;
-  font-size: 0.74rem;
-  margin-bottom: 0.5rem;
-  border-bottom: 1px dashed var(--border-subtle);
-  padding-bottom: 0.35rem;
-  letter-spacing: 0.05em;
+.cli-tui-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: rgba(100, 240, 252, 0.12);
+  border-bottom: 1px solid var(--ice-blue);
+  padding: 0.45rem 0.75rem;
+  color: var(--ice-blue-bright);
+  font-weight: 700;
+  font-size: 0.76rem;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
 }
 
-.cli-sitemap-list {
+.cli-tui-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
+  scroll-behavior: smooth;
+}
+
+.cli-tui-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cli-tui-body::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+}
+
+.cli-tui-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  background: rgba(0, 0, 0, 0.9);
+  border-top: 1px solid var(--border-subtle);
+  padding: 0.4rem 0.75rem;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+
+.cli-tui-actions {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.cli-tui-btn {
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 0.15rem 0.45rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border-radius: 2px;
+}
+
+.cli-tui-btn:hover {
+  border-color: var(--ice-blue);
+  color: var(--ice-blue-bright);
+  box-shadow: 0 0 6px var(--ice-blue-glow);
 }
 
 .cli-sitemap-item {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.3rem 0.5rem;
+  padding: 0.35rem 0.5rem;
   border: 1px solid transparent;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.12s ease;
   font-size: 0.8rem;
   border-radius: 2px;
 }
 
 .cli-sitemap-item.selected,
 .cli-sitemap-item:hover {
-  background: rgba(100, 240, 252, 0.16);
+  background: rgba(100, 240, 252, 0.18);
   border-color: var(--ice-blue);
   color: var(--ice-blue-bright);
   box-shadow: 0 0 8px rgba(100, 240, 252, 0.25);
@@ -585,14 +644,6 @@ html.system-shutting-down #system-status-text {
   background: var(--ice-blue);
   color: #06080e;
   border-color: var(--ice-blue);
-}
-
-.cli-sitemap-footer {
-  margin-top: 0.5rem;
-  font-size: 0.7rem;
-  color: var(--text-dim);
-  border-top: 1px dashed var(--border-subtle);
-  padding-top: 0.35rem;
 }
 
 .cli-input-line {

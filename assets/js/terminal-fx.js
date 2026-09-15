@@ -425,6 +425,9 @@ function initBootloaderAndCli() {
       }
       if (cliInput) setTimeout(() => cliInput.focus(), 100);
     } else {
+      if (isSitemapActive) {
+        exitSitemapTui();
+      }
       if (isCurrentlyOpen) {
         cliDrawer.classList.remove('open');
         cliDrawer.classList.add('closing');
@@ -476,8 +479,31 @@ function initBootloaderAndCli() {
     bootQuickBtn.addEventListener('click', () => executeCommand('start'));
   }
 
-  // Global hotkeys: '~' / '`' or 'Enter' when closed to open console
+  // Global hotkeys: '~' / '`', 'Enter', and TUI navigation
   window.addEventListener('keydown', (e) => {
+    if (isSitemapActive) {
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setSitemapSelection(currentSitemapIndex - 1);
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setSitemapSelection(currentSitemapIndex + 1);
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        handleTuiRight();
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        handleTuiLeft();
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        navigateSitemapItem();
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        exitSitemapTui();
+      }
+      return;
+    }
+
     if (e.key === '`' || e.key === '~') {
       if (document.activeElement !== cliInput) {
         e.preventDefault();
@@ -617,7 +643,7 @@ function initBootloaderAndCli() {
 
   let currentSitemapIndex = 0;
   let isSitemapActive = false;
-  let sitemapContainerEl = null;
+  let tuiScreenEl = null;
   const expandedNodeIds = new Set();
   let flattenedSitemapList = [];
 
@@ -643,17 +669,29 @@ function initBootloaderAndCli() {
     return list;
   }
 
-  function renderInteractiveSitemap() {
-    if (!cliOutput) return;
+  function openSitemapTui() {
+    if (!cliDrawer) return;
     isSitemapActive = true;
+    cliDrawer.classList.add('tui-active');
+    flattenedSitemapList = getFlattenedSitemap();
+    currentSitemapIndex = 0;
+
+    if (!tuiScreenEl || !cliDrawer.contains(tuiScreenEl)) {
+      tuiScreenEl = document.createElement('div');
+      tuiScreenEl.className = 'cli-tui-screen';
+      tuiScreenEl.id = 'cli-tui-screen';
+      tuiScreenEl.setAttribute('tabindex', '0');
+      cliDrawer.appendChild(tuiScreenEl);
+    }
+
+    renderTuiContents();
+    tuiScreenEl.focus();
+  }
+
+  function renderTuiContents() {
+    if (!tuiScreenEl) return;
     flattenedSitemapList = getFlattenedSitemap();
     currentSitemapIndex = Math.min(currentSitemapIndex, Math.max(0, flattenedSitemapList.length - 1));
-
-    if (!sitemapContainerEl || !cliOutput.contains(sitemapContainerEl)) {
-      sitemapContainerEl = document.createElement('div');
-      sitemapContainerEl.className = 'cli-sitemap-container';
-      cliOutput.appendChild(sitemapContainerEl);
-    }
 
     let itemsHtml = flattenedSitemapList
       .map((item, idx) => {
@@ -672,20 +710,28 @@ function initBootloaderAndCli() {
       })
       .join('');
 
-    sitemapContainerEl.innerHTML = `
-      <div class="cli-sitemap-header">
-        <span>// DIRECTORY MATRIX SITEMAP [ TTY-1 ]</span>
-        <span style="color: var(--text-dim); font-size: 0.68rem;">[ ↑/↓: SELECT • →: EXPAND • ←: COLLAPSE • ENTER: REDIRECT ]</span>
+    tuiScreenEl.innerHTML = `
+      <div class="cli-tui-header">
+        <span>// VAPOK_OS DIRECTORY MATRIX EXPLORER v2026.1 // TTY-1</span>
+        <span id="tui-item-counter" style="color: var(--glacial-mint); font-size: 0.72rem;">[ ${currentSitemapIndex + 1}/${flattenedSitemapList.length} ]</span>
       </div>
-      <div class="cli-sitemap-list">
+      <div class="cli-tui-body" id="cli-tui-body">
         ${itemsHtml}
       </div>
-      <div class="cli-sitemap-footer">Use [ ↑ / ↓ ] to move • [ → ] expand children • [ ← ] return to parent • [ ENTER ] navigate • [ ESC ] exit</div>
+      <div class="cli-tui-footer">
+        <div class="cli-tui-actions">
+          <button type="button" class="cli-tui-btn" id="tui-btn-up">▲ [ ↑ ] UP</button>
+          <button type="button" class="cli-tui-btn" id="tui-btn-down">▼ [ ↓ ] DOWN</button>
+          <button type="button" class="cli-tui-btn" id="tui-btn-expand">▶ [ → ] EXPAND</button>
+          <button type="button" class="cli-tui-btn" id="tui-btn-collapse">◀ [ ← ] PARENT</button>
+          <button type="button" class="cli-tui-btn" id="tui-btn-go" style="color: var(--ice-blue-bright); border-color: var(--ice-blue);">↵ [ ENTER ] GO</button>
+        </div>
+        <button type="button" class="cli-tui-btn" id="tui-btn-exit" style="color: var(--warning-amber); border-color: rgba(251, 191, 36, 0.4);">[ ESC ] EXIT TUI</button>
+      </div>
     `;
 
-    cliOutput.scrollTop = cliOutput.scrollHeight;
-
-    const itemEls = sitemapContainerEl.querySelectorAll('.cli-sitemap-item');
+    // Hook item clicks
+    const itemEls = tuiScreenEl.querySelectorAll('.cli-sitemap-item');
     itemEls.forEach((el) => {
       el.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -701,34 +747,105 @@ function initBootloaderAndCli() {
         setSitemapSelection(parseInt(el.dataset.idx, 10));
       });
     });
+
+    // Hook button clicks
+    const btnUp = tuiScreenEl.querySelector('#tui-btn-up');
+    const btnDown = tuiScreenEl.querySelector('#tui-btn-down');
+    const btnExpand = tuiScreenEl.querySelector('#tui-btn-expand');
+    const btnCollapse = tuiScreenEl.querySelector('#tui-btn-collapse');
+    const btnGo = tuiScreenEl.querySelector('#tui-btn-go');
+    const btnExit = tuiScreenEl.querySelector('#tui-btn-exit');
+
+    if (btnUp) btnUp.addEventListener('click', () => setSitemapSelection(currentSitemapIndex - 1));
+    if (btnDown) btnDown.addEventListener('click', () => setSitemapSelection(currentSitemapIndex + 1));
+    if (btnExpand) btnExpand.addEventListener('click', () => handleTuiRight());
+    if (btnCollapse) btnCollapse.addEventListener('click', () => handleTuiLeft());
+    if (btnGo) btnGo.addEventListener('click', () => navigateSitemapItem());
+    if (btnExit) btnExit.addEventListener('click', () => exitSitemapTui());
+
+    // Auto-scroll to selected element
+    const selEl = tuiScreenEl.querySelector('.cli-sitemap-item.selected');
+    if (selEl) {
+      selEl.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
   }
 
   function setSitemapSelection(newIndex) {
     if (!flattenedSitemapList.length) return;
     currentSitemapIndex = (newIndex + flattenedSitemapList.length) % flattenedSitemapList.length;
-    if (sitemapContainerEl) {
-      const itemEls = sitemapContainerEl.querySelectorAll('.cli-sitemap-item');
+    if (tuiScreenEl) {
+      const itemEls = tuiScreenEl.querySelectorAll('.cli-sitemap-item');
       itemEls.forEach((el, idx) => {
-        el.classList.toggle('selected', idx === currentSitemapIndex);
+        const isSel = idx === currentSitemapIndex;
+        el.classList.toggle('selected', isSel);
+        if (isSel) {
+          el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        }
       });
+      const countEl = tuiScreenEl.querySelector('#tui-item-counter');
+      if (countEl) {
+        countEl.textContent = `[ ${currentSitemapIndex + 1}/${flattenedSitemapList.length} ]`;
+      }
     }
   }
 
   function expandSitemapNode(nodeId, targetIndex = null) {
     expandedNodeIds.add(nodeId);
     if (targetIndex !== null) currentSitemapIndex = targetIndex;
-    renderInteractiveSitemap();
+    renderTuiContents();
   }
 
   function collapseSitemapNode(nodeId) {
     expandedNodeIds.delete(nodeId);
-    renderInteractiveSitemap();
+    renderTuiContents();
+  }
+
+  function handleTuiRight() {
+    const item = flattenedSitemapList[currentSitemapIndex];
+    if (item && item.hasChildren) {
+      if (!item.isExpanded) {
+        expandSitemapNode(item.node.id);
+      } else {
+        setSitemapSelection(currentSitemapIndex + 1);
+      }
+    }
+  }
+
+  function handleTuiLeft() {
+    const item = flattenedSitemapList[currentSitemapIndex];
+    if (item) {
+      if (item.hasChildren && item.isExpanded) {
+        collapseSitemapNode(item.node.id);
+      } else if (item.parentId) {
+        const parentIdx = flattenedSitemapList.findIndex((i) => i.node.id === item.parentId);
+        if (parentIdx !== -1) {
+          currentSitemapIndex = parentIdx;
+          collapseSitemapNode(item.parentId);
+        }
+      }
+    }
+  }
+
+  function exitSitemapTui() {
+    if (!isSitemapActive) return;
+    isSitemapActive = false;
+    if (cliDrawer) {
+      cliDrawer.classList.remove('tui-active');
+    }
+    if (tuiScreenEl) {
+      tuiScreenEl.remove();
+      tuiScreenEl = null;
+    }
+    printLine('// Exited directory matrix explorer.', 'info');
+    if (cliInput) {
+      setTimeout(() => cliInput.focus(), 50);
+    }
   }
 
   function navigateSitemapItem(idx = currentSitemapIndex) {
     const item = flattenedSitemapList[idx];
     if (!item || !item.node) return;
-    
+
     if (item.hasChildren && !item.node.url) {
       if (item.isExpanded) {
         collapseSitemapNode(item.node.id);
@@ -738,6 +855,13 @@ function initBootloaderAndCli() {
       return;
     }
 
+    if (cliDrawer) {
+      cliDrawer.classList.remove('tui-active');
+    }
+    if (tuiScreenEl) {
+      tuiScreenEl.remove();
+      tuiScreenEl = null;
+    }
     isSitemapActive = false;
     printLine(`Navigating to node [ ${item.node.path} ]...`, 'success');
     setTimeout(() => {
@@ -747,47 +871,6 @@ function initBootloaderAndCli() {
         window.location.href = item.node.url;
       }
     }, 150);
-  }
-
-  if (cliInput) {
-    cliInput.addEventListener('keydown', (e) => {
-      if (isSitemapActive) {
-        if (e.key === 'ArrowUp') {
-          e.preventDefault();
-          setSitemapSelection(currentSitemapIndex - 1);
-        } else if (e.key === 'ArrowDown') {
-          e.preventDefault();
-          setSitemapSelection(currentSitemapIndex + 1);
-        } else if (e.key === 'ArrowRight') {
-          e.preventDefault();
-          const item = flattenedSitemapList[currentSitemapIndex];
-          if (item && item.hasChildren) {
-            if (!item.isExpanded) {
-              expandSitemapNode(item.node.id);
-            } else {
-              setSitemapSelection(currentSitemapIndex + 1);
-            }
-          }
-        } else if (e.key === 'ArrowLeft') {
-          e.preventDefault();
-          const item = flattenedSitemapList[currentSitemapIndex];
-          if (item) {
-            if (item.hasChildren && item.isExpanded) {
-              collapseSitemapNode(item.node.id);
-            } else if (item.parentId) {
-              const parentIdx = flattenedSitemapList.findIndex((i) => i.node.id === item.parentId);
-              if (parentIdx !== -1) {
-                currentSitemapIndex = parentIdx;
-                collapseSitemapNode(item.parentId);
-              }
-            }
-          }
-        } else if (e.key === 'Escape') {
-          isSitemapActive = false;
-          printLine('// Sitemap navigation cancelled.', 'info');
-        }
-      }
-    });
   }
 
   // Handle Command Submission
@@ -924,7 +1007,7 @@ function initBootloaderAndCli() {
       case 'ls -la':
       case 'ls -a':
       case 'sitemap':
-        renderInteractiveSitemap();
+        openSitemapTui();
         break;
 
       case 'exit':
