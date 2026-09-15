@@ -59,6 +59,29 @@ def fetch_thunderstore_metrics():
         print(f"Warning: Could not fetch Thunderstore API ({e}). Using existing/fallback stats.")
     return metrics, total
 
+def fetch_discord_metrics(invite_code="5YAJkRFBXt"):
+    url = f"https://discord.com/api/v9/invites/{invite_code}?with_counts=true"
+    result = {
+        "member_count": "1.3K+",
+        "member_count_raw": 1337,
+        "presence_count": 350,
+        "invite_url": f"https://discord.gg/{invite_code}"
+    }
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"})
+        with urllib.request.urlopen(req, timeout=5) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            m = data.get("approximate_member_count", 0)
+            p = data.get("approximate_presence_count", 0)
+            if m > 0:
+                result["member_count_raw"] = m
+                result["member_count"] = format_count(m)
+                result["presence_count"] = p
+                print(f"Successfully fetched Discord stats: {m:,} members ({p:,} online)")
+    except Exception as e:
+        print(f"Warning: Could not fetch Discord API ({e}). Using default stats.")
+    return result
+
 def sync():
     if not os.path.exists(RELEASES_DIR):
         print(f"Releases directory not found at {RELEASES_DIR}")
@@ -171,19 +194,25 @@ has_changelog: {str(bool(changelog_content)).lower()}
             "version": version
         })
 
+    discord_stats = fetch_discord_metrics("5YAJkRFBXt")
+
     # Save overall stats to _data/stats.yml
     stats_data = {
         "total_downloads_raw": ts_total,
         "total_downloads": format_count(ts_total) if ts_total > 0 else "1.0M+",
         "active_mods": len(processed_mods),
-        "target_game": "Valheim"
+        "target_game": "Valheim",
+        "discord_members": discord_stats["member_count"],
+        "discord_members_raw": discord_stats["member_count_raw"],
+        "discord_online": discord_stats["presence_count"],
+        "discord_invite": discord_stats["invite_url"]
     }
 
     with open(os.path.join(DATA_DIR, "stats.yml"), "w", encoding="utf-8") as sf:
         for k, v in stats_data.items():
             sf.write(f"{k}: \"{v}\"\n")
 
-    print(f"\nSuccessfully synced {len(processed_mods)} Vapok mods! Total Downloads: {stats_data['total_downloads']}")
+    print(f"\nSuccessfully synced {len(processed_mods)} Vapok mods! Total Downloads: {stats_data['total_downloads']} | Discord: {stats_data['discord_members']}")
 
 if __name__ == "__main__":
     sync()
