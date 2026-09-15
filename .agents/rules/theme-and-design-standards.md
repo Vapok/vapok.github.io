@@ -13,7 +13,7 @@ All web pages, layout templates, and UI components in this repository adhere to 
 
 ### Typography & Framing
 - **Monospace Stack**: Primary font is `JetBrains Mono` with `VT323` for retro display banners and ASCII headers.
-- **ASCII & Box-Drawing Borders**: Use Unicode box frames (`┌─┐`, `│`, `└─┘`, `╔═╗`, `║`, `╚═╝`) and command-line prompt prefixes (`vapok@gaming:~$`, `SYS_NODE: [ vapok.io ]`).
+- **ASCII & Box-Drawing Borders**: Use Unicode box frames (`┌─┐`, `│`, `└─┘`, `╔═╗`, `║`, `╚═╝`) and command-line prompt prefixes (`user@vapok.io:~$`, `SYS_NODE: [ vapok.io ]`).
 - **Scanlines & CRT Effect**: Supported globally via `.crt-overlay` with toggle in header.
 - **ASCII Scrambler Guardrail**: 2D ASCII banners must preserve exact character cell widths, spaces, and line-breaks during hover glitching.
 
