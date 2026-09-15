@@ -1,9 +1,9 @@
 <header class="cyber-header">
   <div class="system-status-bar">
     <div class="status-indicator">
-      <span id="system-status-dot" class="status-dot"></span>
+      <span id="system-status-dot" class="status-dot" aria-hidden="true"></span>
       <span class="status-node-label"><span class="node-full">SYS_NODE: [ vapok.io ]</span><span class="node-compact">vapok.io</span></span>
-      <span style="color: var(--text-dim)">|</span>
+      <span style="color: var(--text-dim)" aria-hidden="true">|</span>
       <span>STATUS: <strong id="system-status-text" style="color: var(--glacial-mint)">ONLINE</strong></span>
     </div>
     
@@ -11,19 +11,19 @@
 
     <div class="header-controls">
       <a href="{{ '/support/' | relative_url }}" id="header-fuel-btn" class="ctrl-btn fuel-btn" title="Donate & Support Vapok Gaming" style="color: var(--warning-amber); border-color: rgba(251, 191, 36, 0.45); text-decoration: none;"><span class="fuel-text-full">[ ⚡ FUEL: $$$ ]</span><span class="fuel-text-compact">[ ⚡ FUEL ]</span></a>
-      <button id="cli-toggle-btn" class="ctrl-btn" title="Toggle Interactive CLI Terminal">[ CLI: >_ ]</button>
-      <button id="crt-toggle-btn" class="ctrl-btn" title="Toggle CRT Scanline Effect">[ CRT: ON ]</button>
+      <button id="cli-toggle-btn" class="ctrl-btn" title="Toggle Interactive CLI Terminal" aria-expanded="false" aria-controls="cyber-cli-drawer">[ CLI: >_ ]</button>
+      <button id="crt-toggle-btn" class="ctrl-btn" title="Toggle CRT Scanline Effect" aria-label="Toggle retro CRT scanlines">[ CRT: ON ]</button>
     </div>
   </div>
 
   <div class="nav-container">
-    <div class="terminal-prompt-brand" id="terminal-brand-btn" role="button" tabindex="0" title="Click to toggle Terminal Prompt (~)">
+    <div class="terminal-prompt-brand" id="terminal-brand-btn" role="button" tabindex="0" title="Click to toggle Terminal Prompt (~)" aria-expanded="false" aria-controls="cyber-cli-drawer" aria-label="Toggle terminal emulator prompt">
       <span class="prompt-prefix">user@vapok.io:~$</span>
-      <span class="prompt-cursor">█</span>
+      <span class="prompt-cursor" aria-hidden="true">█</span>
       <span class="prompt-anchor-badge">[TTY-1]</span>
     </div>
 
-    <nav id="header-nav-menu">
+    <nav id="header-nav-menu" aria-label="Main Navigation">
       <ul class="nav-menu">
         {% for link in site.nav_links %}
           <li>
@@ -37,7 +37,7 @@
   </div>
 
   <!-- INTERACTIVE CLI TERMINAL DRAWER -->
-  <div id="cyber-cli-drawer" class="cyber-cli-drawer">
+  <div id="cyber-cli-drawer" class="cyber-cli-drawer" role="region" aria-label="Interactive CLI Terminal Drawer">
     <div class="cli-drawer-header">
       <div class="cli-title">
         <span style="color: var(--ice-blue);">// VAPOK_IO_TERMINAL_EMULATOR</span>
@@ -47,18 +47,18 @@
         <button id="cli-boot-quick-btn" class="cli-mini-btn" style="color: var(--warning-amber); border-color: rgba(251, 191, 36, 0.4);">[ ⚡ START ]</button>
         <button id="cli-help-quick-btn" class="cli-mini-btn">[ ❓ HELP ]</button>
         <button id="cli-clear-quick-btn" class="cli-mini-btn">[ 🧹 CLEAR ]</button>
-        <button id="cli-close-btn" class="cli-mini-btn" style="color: var(--text-muted);">[ ✕ CLOSE ]</button>
+        <button id="cli-close-btn" class="cli-mini-btn" style="color: var(--text-muted);" aria-label="Close terminal drawer">[ ✕ CLOSE ]</button>
       </div>
     </div>
 
-    <div id="cli-output" class="cli-output-window">
+    <div id="cli-output" class="cli-output-window" role="log" aria-live="polite" aria-relevant="additions" aria-atomic="false" aria-label="Terminal output log">
       <!-- Dynamic CLI Messages Injected by JavaScript -->
     </div>
 
     <form id="cli-form" class="cli-input-line">
       <span class="cli-prompt-label">user@vapok.io:~$</span>
-      <input type="text" id="cli-input" class="cli-input-field" placeholder="Enter command (e.g. boot, help, status, mods, games)..." autocomplete="off" spellcheck="false">
-      <button type="submit" class="cli-submit-btn">[ EXEC ]</button>
+      <input type="text" id="cli-input" class="cli-input-field" placeholder="Enter command (e.g. boot, help, status, mods, games)..." autocomplete="off" spellcheck="false" aria-label="Terminal command input">
+      <button type="submit" class="cli-submit-btn" aria-label="Execute command">[ EXEC ]</button>
     </form>
   </div>
 </header>

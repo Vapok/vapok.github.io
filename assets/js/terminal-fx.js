@@ -28,9 +28,10 @@ function initAsciiCanvas() {
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
 
-  let isMobile = window.innerWidth <= 768 || !window.matchMedia('(hover: hover)').matches;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let isMobile = window.innerWidth <= 768 || !window.matchMedia('(hover: hover)').matches || prefersReducedMotion;
   if (isMobile) {
-    // Disable canvas render loop on mobile to save CPU/GPU fillrate and battery
+    // Disable canvas render loop on mobile or reduced-motion to save CPU/GPU fillrate and battery
     return;
   }
 
@@ -481,6 +482,10 @@ function initBootloaderAndCli() {
     const promptPrefix = document.querySelector('#terminal-brand-btn .prompt-prefix');
     if (!promptPrefix) return;
     const targetText = 'user@vapok.io:~$';
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      promptPrefix.textContent = targetText;
+      return;
+    }
     const chars = '01#*+=-:.·˙_[]{}<>/\\$!%^&';
     let iteration = 0;
     const interval = setInterval(() => {
@@ -505,6 +510,11 @@ function initBootloaderAndCli() {
   function scrambleClockTransition(durationMs = 1200) {
     const clockEl = document.getElementById('system-clock');
     if (!clockEl) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      clockEl.innerHTML = formatClockHtml(new Date());
+      return;
+    }
 
     isClockScrambling = true;
     const chars = '01#*+=-:.·˙_[]{}<>/\\$!%^&';
@@ -557,10 +567,12 @@ function initBootloaderAndCli() {
       if (cyberHeader) cyberHeader.classList.add('cli-open');
       if (brandBtn) {
         brandBtn.classList.add('active');
+        brandBtn.setAttribute('aria-expanded', 'true');
         brandBtn.title = 'Click to minimize Interactive CLI (~)';
       }
       if (cliToggleBtn) {
         cliToggleBtn.classList.add('active');
+        cliToggleBtn.setAttribute('aria-expanded', 'true');
         cliToggleBtn.textContent = '[ CLI: <_ ]';
       }
       if (cliInput) setTimeout(() => cliInput.focus(), 100);
@@ -579,11 +591,13 @@ function initBootloaderAndCli() {
       if (cyberHeader) cyberHeader.classList.remove('cli-open');
       if (brandBtn) {
         brandBtn.classList.remove('active');
+        brandBtn.setAttribute('aria-expanded', 'false');
         brandBtn.title = 'Click to toggle Terminal Prompt (~)';
         scramblePromptBrand();
       }
       if (cliToggleBtn) {
         cliToggleBtn.classList.remove('active');
+        cliToggleBtn.setAttribute('aria-expanded', 'false');
         cliToggleBtn.textContent = '[ CLI: >_ ]';
       }
     }
@@ -1583,6 +1597,7 @@ function initBootloaderAndCli() {
 
   // Progressive Text Decoder helper for compiling elements
   function decodeTextElement(container, durationMs = 1500) {
+    if (!container || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const chars = '01#*+=-:.·˙_[]{}<>/\\';
     const textNodes = [];
 
@@ -1639,6 +1654,10 @@ function initMobileBackToTop() {
 
   function scrambleButton() {
     if (isScrambling) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      bttBtn.textContent = targetText;
+      return;
+    }
     isScrambling = true;
     const startTime = Date.now();
     const durationMs = 320;
