@@ -16,6 +16,7 @@ title: Home
     <div class="filter-bar">
       <button class="filter-btn active" data-filter="all">[ ALL ]</button>
       <button class="filter-btn" data-filter="valheim">[ VALHEIM ]</button>
+      <button class="filter-btn" data-filter="techtonica">[ TECHTONICA ]</button>
     </div>
   </div>
 
