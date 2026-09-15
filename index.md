@@ -21,7 +21,11 @@ title: Home
   </div>
 
   <div class="mod-grid">
-    {% for mod in site.mods %}
+    {% assign all_mods = site.mods %}
+    {% if all_mods == nil or all_mods.size == 0 %}
+      {% assign all_mods = site.data.mods %}
+    {% endif %}
+    {% for mod in all_mods %}
       {% include mod-card.html mod=mod %}
     {% endfor %}
   </div>

@@ -189,10 +189,47 @@ has_changelog: {str(bool(changelog_content)).lower()}
 
         print(f"Synced mod: {raw_name} (v{version}) [Downloads: {downloads_formatted or 'N/A'}]")
         processed_mods.append({
-            "name": raw_name,
+            "id": slug,
             "slug": slug,
-            "version": version
+            "name": raw_name,
+            "game": "Valheim",
+            "category": "valheim",
+            "version": f"v{version}",
+            "status": "ACTIVE",
+            "badge_color": "mint",
+            "website_url": website_url,
+            "thunderstore_url": ts_url,
+            "downloads": downloads_formatted,
+            "icon": icon_rel_path,
+            "url": f"/mods/{slug}/",
+            "description": description,
+            "dependencies": dependencies
         })
+
+    # Save to _data/mods.yml as fallback
+    with open(os.path.join(DATA_DIR, "mods.yml"), "w", encoding="utf-8") as dmf:
+        for mod in processed_mods:
+            dmf.write(f"- id: \"{mod['id']}\"\n")
+            dmf.write(f"  slug: \"{mod['slug']}\"\n")
+            dmf.write(f"  name: \"{mod['name']}\"\n")
+            dmf.write(f"  game: \"{mod['game']}\"\n")
+            dmf.write(f"  category: \"{mod['category']}\"\n")
+            dmf.write(f"  version: \"{mod['version']}\"\n")
+            dmf.write(f"  status: \"{mod['status']}\"\n")
+            dmf.write(f"  badge_color: \"{mod['badge_color']}\"\n")
+            dmf.write(f"  website_url: \"{mod['website_url']}\"\n")
+            dmf.write(f"  thunderstore_url: \"{mod['thunderstore_url']}\"\n")
+            dmf.write(f"  downloads: \"{mod['downloads']}\"\n")
+            dmf.write(f"  icon: \"{mod['icon']}\"\n")
+            dmf.write(f"  url: \"{mod['url']}\"\n")
+            dmf.write(f"  description: {json.dumps(mod['description'])}\n")
+            if mod['dependencies']:
+                dmf.write("  dependencies:\n")
+                for dep in mod['dependencies']:
+                    dmf.write(f"    - \"{dep}\"\n")
+            else:
+                dmf.write("  dependencies: []\n")
+            dmf.write("\n")
 
     discord_stats = fetch_discord_metrics("5YAJkRFBXt")
 
