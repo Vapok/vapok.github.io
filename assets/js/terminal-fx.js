@@ -541,56 +541,161 @@ function initBootloaderAndCli() {
     printLine('VAPOK_OS v2026.1 // System Online. Type "help" for commands.', 'info');
   }
 
-  const sitemapItems = [
-    { path: '/ (Mainframe Base)', url: '/', desc: 'Primary landing hub & system dossier' },
-    { path: '/#mods (Mod Catalog)', url: '/#mods', desc: '16 Valheim & Techtonica mod releases' },
-    { path: '/games/ (Games Matrix)', url: '/games/', desc: 'Currently playing & active rotation' },
-    { path: '/support/ (Fuel Support)', url: '/support/', desc: 'Creator support & sponsorship channels' },
-    { path: 'discord.gg/5YAJkRFBXt', url: 'https://discord.gg/5YAJkRFBXt', desc: 'Community Discord bridge', isExternal: true },
-    { path: 'github.com/Vapok', url: 'https://github.com/Vapok', desc: 'GitHub modding repositories', isExternal: true }
+  const sitemapTree = [
+    {
+      id: 'home',
+      path: '/ (Mainframe Base)',
+      url: '/',
+      desc: 'Primary landing hub & system dossier',
+      children: [
+        { id: 'home-mods', path: '#mods (Mod Catalog Section)', url: '/#mods', desc: 'Jump to Mod Catalog dossiers on homepage' },
+        { id: 'home-logs', path: '#logs (Transmission Logs)', url: '/#logs', desc: 'System changelogs & status broadcasts' },
+        { id: 'home-about', path: '#about (Creator Directives)', url: '/#about', desc: 'About Vapok & vision statement' }
+      ]
+    },
+    {
+      id: 'mods',
+      path: '/#mods (Mod Catalog)',
+      url: '/#mods',
+      desc: '16 Valheim & Techtonica mod releases',
+      children: [
+        {
+          id: 'valheim-mods',
+          path: 'Valheim Mods (11 releases)',
+          url: '/#mods',
+          desc: 'Valheim gameplay, QoL & expansion mods',
+          children: [
+            { id: 'm-advbp', path: 'AdventureBackpacks', url: 'https://valheim.thunderstore.io/package/Vapok/AdventureBackpacks/', desc: 'Thematic upgradable adventure backpacks', isExternal: true },
+            { id: 'm-autofeed', path: 'AutoFeedRedux', url: 'https://valheim.thunderstore.io/package/Vapok/AutoFeedRedux/', desc: 'Automated container feeding for animals', isExternal: true },
+            { id: 'm-xportal', path: 'XPortalNetworks', url: 'https://valheim.thunderstore.io/package/Vapok/XPortalNetworks/', desc: 'Named & private portal networks', isExternal: true },
+            { id: 'm-fastitem', path: 'FastItemTransfer', url: 'https://valheim.thunderstore.io/package/Vapok/FastItemTransfer/', desc: '1-click quick inventory sorting & transfer', isExternal: true },
+            { id: 'm-shieldme', path: 'ShieldMeBruh', url: 'https://valheim.thunderstore.io/package/Vapok/ShieldMeBruh/', desc: 'Defensive ward protective visual shield', isExternal: true },
+            { id: 'm-console', path: 'ConsoleBuddy', url: 'https://valheim.thunderstore.io/package/Vapok/ConsoleBuddy/', desc: 'Command console enhancements', isExternal: true }
+          ]
+        },
+        {
+          id: 'techtonica-mods',
+          path: 'Techtonica Mods (5 releases)',
+          url: '/#mods',
+          desc: 'Factory automation & diagnostics',
+          children: [
+            { id: 'm-bcm', path: 'BetterCoreManagement', url: 'https://techtonica.thunderstore.io/package/Vapok/BetterCoreManagement/', desc: 'Core cluster management & diagnostics', isExternal: true },
+            { id: 'm-cresizer', path: 'ContainerResizer', url: 'https://techtonica.thunderstore.io/package/Vapok/ContainerResizer/', desc: 'Expand container storage dimensions', isExternal: true },
+            { id: 'm-encumb', path: 'KnowEncumbrance', url: 'https://techtonica.thunderstore.io/package/Vapok/KnowEncumbrance/', desc: 'Weight capacity & encumbrance HUD', isExternal: true }
+          ]
+        }
+      ]
+    },
+    {
+      id: 'games',
+      path: '/games/ (Games Matrix)',
+      url: '/games/',
+      desc: 'Currently playing & active rotation (11 titles)',
+      children: [
+        { id: 'g-wow', path: 'World of Warcraft: Midnight', url: '/games/', desc: '⚡ Actively Playing • Blizzard Entertainment' },
+        { id: 'g-valheim', path: 'Valheim', url: '/games/', desc: '⚡ Actively Playing • Iron Gate Studio' },
+        { id: 'g-techtonica', path: 'Techtonica', url: '/games/', desc: '⚡ Actively Playing • Fire Hose Games' },
+        { id: 'g-satisfactory', path: 'Satisfactory', url: '/games/', desc: '⚡ Actively Playing • Coffee Stain Studios' },
+        { id: 'g-enshrouded', path: 'Enshrouded', url: '/games/', desc: '⚡ Actively Playing • Keen Games' },
+        { id: 'g-dune', path: 'Dune: Awakening', url: '/games/', desc: '🔄 In Rotation • Funcom' }
+      ]
+    },
+    {
+      id: 'support',
+      path: '/support/ (Fuel Support)',
+      url: '/support/',
+      desc: 'Creator support & sponsorship channels',
+      children: [
+        { id: 's-bmc', path: 'Buy Me A Coffee', url: 'https://buymeacoffee.com/vapok', desc: 'Direct fuel donations & coffee support', isExternal: true },
+        { id: 's-gh', path: 'GitHub Sponsors', url: 'https://github.com/sponsors/Vapok', desc: 'Monthly open-source development sponsor', isExternal: true },
+        { id: 's-patreon', path: 'Patreon Tier', url: 'https://patreon.com/vapok', desc: 'Early mod access & insider directives', isExternal: true }
+      ]
+    },
+    { id: 'discord', path: 'discord.gg/5YAJkRFBXt', url: 'https://discord.gg/5YAJkRFBXt', desc: 'Community Discord server bridge', isExternal: true },
+    { id: 'github', path: 'github.com/Vapok', url: 'https://github.com/Vapok', desc: 'GitHub modding repositories', isExternal: true }
   ];
 
   let currentSitemapIndex = 0;
   let isSitemapActive = false;
   let sitemapContainerEl = null;
+  const expandedNodeIds = new Set();
+  let flattenedSitemapList = [];
+
+  function getFlattenedSitemap() {
+    const list = [];
+    function traverse(nodes, level = 0, parentId = null) {
+      nodes.forEach((node) => {
+        const hasChildren = node.children && node.children.length > 0;
+        const isExpanded = expandedNodeIds.has(node.id);
+        list.push({
+          node,
+          level,
+          parentId,
+          hasChildren,
+          isExpanded
+        });
+        if (hasChildren && isExpanded) {
+          traverse(node.children, level + 1, node.id);
+        }
+      });
+    }
+    traverse(sitemapTree, 0, null);
+    return list;
+  }
 
   function renderInteractiveSitemap() {
     if (!cliOutput) return;
     isSitemapActive = true;
-    currentSitemapIndex = 0;
+    flattenedSitemapList = getFlattenedSitemap();
+    currentSitemapIndex = Math.min(currentSitemapIndex, Math.max(0, flattenedSitemapList.length - 1));
 
-    sitemapContainerEl = document.createElement('div');
-    sitemapContainerEl.className = 'cli-sitemap-container';
+    if (!sitemapContainerEl || !cliOutput.contains(sitemapContainerEl)) {
+      sitemapContainerEl = document.createElement('div');
+      sitemapContainerEl.className = 'cli-sitemap-container';
+      cliOutput.appendChild(sitemapContainerEl);
+    }
 
-    let itemsHtml = sitemapItems
-      .map((item, idx) => `
-        <div class="cli-sitemap-item ${idx === 0 ? 'selected' : ''}" data-idx="${idx}">
-          <span class="sitemap-cursor">&gt;</span>
-          <span class="sitemap-path">${item.path}</span>
-          <span class="sitemap-desc">${item.desc}</span>
-        </div>
-      `)
+    let itemsHtml = flattenedSitemapList
+      .map((item, idx) => {
+        const badge = item.hasChildren
+          ? `<span class="sitemap-toggle-badge">${item.isExpanded ? '[-] EXP' : '[+] DIR'}</span>`
+          : '';
+        const levelClass = item.level > 0 ? `level-${item.level}` : '';
+        return `
+          <div class="cli-sitemap-item ${levelClass} ${idx === currentSitemapIndex ? 'selected' : ''}" data-idx="${idx}">
+            <span class="sitemap-cursor">&gt;</span>
+            ${badge}
+            <span class="sitemap-path">${item.node.path}</span>
+            <span class="sitemap-desc">${item.node.desc || ''}</span>
+          </div>
+        `;
+      })
       .join('');
 
     sitemapContainerEl.innerHTML = `
       <div class="cli-sitemap-header">
         <span>// DIRECTORY MATRIX SITEMAP [ TTY-1 ]</span>
-        <span style="color: var(--text-dim); font-size: 0.68rem;">[ ↑ / ↓ ARROWS • ENTER TO REDIRECT ]</span>
+        <span style="color: var(--text-dim); font-size: 0.68rem;">[ ↑/↓: SELECT • →: EXPAND • ←: COLLAPSE • ENTER: REDIRECT ]</span>
       </div>
       <div class="cli-sitemap-list">
         ${itemsHtml}
       </div>
-      <div class="cli-sitemap-footer">Select node with [ ↑ / ↓ ] or click • Press [ ENTER ] to execute redirect • [ ESC ] to cancel</div>
+      <div class="cli-sitemap-footer">Use [ ↑ / ↓ ] to move • [ → ] expand children • [ ← ] return to parent • [ ENTER ] navigate • [ ESC ] exit</div>
     `;
 
-    cliOutput.appendChild(sitemapContainerEl);
     cliOutput.scrollTop = cliOutput.scrollHeight;
 
     const itemEls = sitemapContainerEl.querySelectorAll('.cli-sitemap-item');
     itemEls.forEach((el) => {
-      el.addEventListener('click', () => {
+      el.addEventListener('click', (e) => {
+        e.stopPropagation();
         const idx = parseInt(el.dataset.idx, 10);
-        navigateSitemapItem(idx);
+        const item = flattenedSitemapList[idx];
+        if (item && item.hasChildren && !item.isExpanded) {
+          expandSitemapNode(item.node.id, idx);
+        } else {
+          navigateSitemapItem(idx);
+        }
       });
       el.addEventListener('mouseenter', () => {
         setSitemapSelection(parseInt(el.dataset.idx, 10));
@@ -599,25 +704,47 @@ function initBootloaderAndCli() {
   }
 
   function setSitemapSelection(newIndex) {
-    if (!sitemapContainerEl) return;
-    const itemEls = sitemapContainerEl.querySelectorAll('.cli-sitemap-item');
-    if (!itemEls.length) return;
-    currentSitemapIndex = (newIndex + itemEls.length) % itemEls.length;
-    itemEls.forEach((el, idx) => {
-      el.classList.toggle('selected', idx === currentSitemapIndex);
-    });
+    if (!flattenedSitemapList.length) return;
+    currentSitemapIndex = (newIndex + flattenedSitemapList.length) % flattenedSitemapList.length;
+    if (sitemapContainerEl) {
+      const itemEls = sitemapContainerEl.querySelectorAll('.cli-sitemap-item');
+      itemEls.forEach((el, idx) => {
+        el.classList.toggle('selected', idx === currentSitemapIndex);
+      });
+    }
+  }
+
+  function expandSitemapNode(nodeId, targetIndex = null) {
+    expandedNodeIds.add(nodeId);
+    if (targetIndex !== null) currentSitemapIndex = targetIndex;
+    renderInteractiveSitemap();
+  }
+
+  function collapseSitemapNode(nodeId) {
+    expandedNodeIds.delete(nodeId);
+    renderInteractiveSitemap();
   }
 
   function navigateSitemapItem(idx = currentSitemapIndex) {
-    const item = sitemapItems[idx];
-    if (!item) return;
-    isSitemapActive = false;
-    printLine(`Navigating to node [ ${item.path} ]...`, 'success');
-    setTimeout(() => {
-      if (item.isExternal) {
-        window.open(item.url, '_blank');
+    const item = flattenedSitemapList[idx];
+    if (!item || !item.node) return;
+    
+    if (item.hasChildren && !item.node.url) {
+      if (item.isExpanded) {
+        collapseSitemapNode(item.node.id);
       } else {
-        window.location.href = item.url;
+        expandSitemapNode(item.node.id);
+      }
+      return;
+    }
+
+    isSitemapActive = false;
+    printLine(`Navigating to node [ ${item.node.path} ]...`, 'success');
+    setTimeout(() => {
+      if (item.node.isExternal) {
+        window.open(item.node.url, '_blank');
+      } else {
+        window.location.href = item.node.url;
       }
     }, 150);
   }
@@ -631,6 +758,30 @@ function initBootloaderAndCli() {
         } else if (e.key === 'ArrowDown') {
           e.preventDefault();
           setSitemapSelection(currentSitemapIndex + 1);
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          const item = flattenedSitemapList[currentSitemapIndex];
+          if (item && item.hasChildren) {
+            if (!item.isExpanded) {
+              expandSitemapNode(item.node.id);
+            } else {
+              setSitemapSelection(currentSitemapIndex + 1);
+            }
+          }
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          const item = flattenedSitemapList[currentSitemapIndex];
+          if (item) {
+            if (item.hasChildren && item.isExpanded) {
+              collapseSitemapNode(item.node.id);
+            } else if (item.parentId) {
+              const parentIdx = flattenedSitemapList.findIndex((i) => i.node.id === item.parentId);
+              if (parentIdx !== -1) {
+                currentSitemapIndex = parentIdx;
+                collapseSitemapNode(item.parentId);
+              }
+            }
+          }
         } else if (e.key === 'Escape') {
           isSitemapActive = false;
           printLine('// Sitemap navigation cancelled.', 'info');

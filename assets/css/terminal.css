@@ -556,10 +556,35 @@ html.system-shutting-down #system-status-text {
   color: var(--ice-blue-bright);
 }
 
-.cli-sitemap-item .sitemap-desc {
-  color: var(--text-muted);
-  font-size: 0.74rem;
-  flex: 1;
+.cli-sitemap-item.level-1 {
+  padding-left: 1.6rem;
+  border-left: 1px dashed rgba(100, 240, 252, 0.25);
+  margin-left: 0.5rem;
+  font-size: 0.78rem;
+}
+
+.cli-sitemap-item.level-2 {
+  padding-left: 2.6rem;
+  border-left: 1px dashed rgba(100, 240, 252, 0.2);
+  margin-left: 1.2rem;
+  font-size: 0.75rem;
+}
+
+.sitemap-toggle-badge {
+  font-size: 0.68rem;
+  color: var(--ice-blue);
+  background: rgba(100, 240, 252, 0.12);
+  border: 1px solid rgba(100, 240, 252, 0.3);
+  padding: 0.05rem 0.3rem;
+  border-radius: 2px;
+  font-weight: 700;
+  margin-right: 0.2rem;
+}
+
+.cli-sitemap-item.selected .sitemap-toggle-badge {
+  background: var(--ice-blue);
+  color: #06080e;
+  border-color: var(--ice-blue);
 }
 
 .cli-sitemap-footer {
