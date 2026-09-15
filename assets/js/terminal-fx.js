@@ -172,10 +172,16 @@ function initCrtToggle() {
   if (!toggleBtn) return;
 
   const savedCrt = localStorage.getItem('vapok_crt_state');
-  if (savedCrt === 'off') {
+  const isMobile = window.innerWidth <= 768;
+
+  // If user hasn't explicitly set a preference, default to OFF on mobile and ON on desktop
+  const shouldBeOff = savedCrt !== null ? savedCrt === 'off' : isMobile;
+
+  if (shouldBeOff) {
     document.body.classList.add('crt-off');
     toggleBtn.textContent = '[ CRT: OFF ]';
   } else {
+    document.body.classList.remove('crt-off');
     toggleBtn.textContent = '[ CRT: ON ]';
   }
 

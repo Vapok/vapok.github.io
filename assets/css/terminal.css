@@ -1483,8 +1483,13 @@ html.system-booting #header-fuel-btn {
     overflow-x: hidden;
   }
   
-  /* Disable heavy continuous overlays on mobile to save GPU compositing and battery */
+  /* Mobile CRT overlay adjustments (opt-in toggle on mobile) */
   .crt-overlay {
+    opacity: 0.6;
+    background-size: 100% 4px, 8px 100%;
+  }
+
+  body.crt-off .crt-overlay {
     display: none !important;
   }
 
