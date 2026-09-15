@@ -33,33 +33,45 @@ function initAsciiCanvas() {
 
   const chars = '01#*+=-:.·˙VAPOK';
   const fontSize = 14;
-  const columns = Math.floor(width / fontSize);
-  const rows = Math.floor(height / fontSize);
-  
-  const grid = [];
-  for (let r = 0; r < rows; r++) {
-    const row = [];
-    for (let c = 0; c < columns; c++) {
-      row.push({
-        char: chars[Math.floor(Math.random() * chars.length)],
-        intensity: Math.random() * 0.15,
-        targetIntensity: 0.08,
-      });
+  let columns = Math.floor(width / fontSize);
+  let rows = Math.floor(height / fontSize);
+  let grid = [];
+
+  function buildGrid() {
+    columns = Math.floor(width / fontSize);
+    rows = Math.floor(height / fontSize);
+    grid = [];
+    for (let r = 0; r < rows; r++) {
+      const row = [];
+      for (let c = 0; c < columns; c++) {
+        row.push({
+          char: chars[Math.floor(Math.random() * chars.length)],
+          intensity: Math.random() * 0.15,
+          targetIntensity: 0.08,
+        });
+      }
+      grid.push(row);
     }
-    grid.push(row);
   }
+
+  buildGrid();
 
   let mouse = { x: -1000, y: -1000, radius: 140 };
 
   window.addEventListener('mousemove', (e) => {
     mouse.x = e.clientX;
     mouse.y = e.clientY;
-  });
+  }, { passive: true });
 
+  let resizeTimeout = null;
   window.addEventListener('resize', () => {
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
-  });
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(buildGrid, 150);
+  }, { passive: true });
+
+  let animFrameId = null;
 
   function render() {
     ctx.fillStyle = '#06080e';
@@ -102,8 +114,22 @@ function initAsciiCanvas() {
       }
     }
 
-    requestAnimationFrame(render);
+    animFrameId = requestAnimationFrame(render);
   }
+
+  // Pause canvas render loop when document is hidden to optimize CPU / battery
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      if (animFrameId) {
+        cancelAnimationFrame(animFrameId);
+        animFrameId = null;
+      }
+    } else {
+      if (!animFrameId) {
+        animFrameId = requestAnimationFrame(render);
+      }
+    }
+  });
 
   render();
 }

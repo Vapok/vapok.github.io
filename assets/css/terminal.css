@@ -448,6 +448,17 @@ html.system-booting #header-fuel-btn {
   pointer-events: none;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes drawerContentFadeIn {
   from {
     opacity: 0;
