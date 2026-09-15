@@ -478,33 +478,99 @@ function initBootloaderAndCli() {
   const cyberHeader = document.querySelector('.cyber-header');
   let closeAnimationTimeout = null;
 
-  function scramblePromptBrand() {
+  let promptScrambleInterval = null;
+
+  function scatterPromptBrandOut() {
     const promptPrefix = document.querySelector('#terminal-brand-btn .prompt-prefix');
+    const promptCursor = document.querySelector('#terminal-brand-btn .prompt-cursor');
     if (!promptPrefix) return;
-    const targetText = 'user@vapok.io:~$';
+
+    if (promptScrambleInterval) {
+      clearInterval(promptScrambleInterval);
+      promptScrambleInterval = null;
+    }
+
+    if (promptCursor) promptCursor.style.display = 'none';
+
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      promptPrefix.textContent = targetText;
+      promptPrefix.textContent = '';
       return;
     }
+
+    const currentText = promptPrefix.textContent || 'user@vapok.io:~$';
     const chars = '01#*+=-:.·˙_[]{}<>/\\$!%^&';
-    let iteration = 0;
-    const interval = setInterval(() => {
+    const startTime = Date.now();
+    const durationMs = 220;
+
+    promptScrambleInterval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(1.0, elapsed / durationMs);
+      const remainingLen = Math.floor((1 - progress) * currentText.length);
+
+      if (remainingLen <= 0 || progress >= 1.0) {
+        clearInterval(promptScrambleInterval);
+        promptScrambleInterval = null;
+        promptPrefix.textContent = '';
+      } else {
+        let noise = '';
+        for (let i = 0; i < remainingLen; i++) {
+          noise += chars[Math.floor(Math.random() * chars.length)];
+        }
+        promptPrefix.textContent = noise;
+      }
+    }, 25);
+  }
+
+  function scramblePromptBrandIn() {
+    const promptPrefix = document.querySelector('#terminal-brand-btn .prompt-prefix');
+    const promptCursor = document.querySelector('#terminal-brand-btn .prompt-cursor');
+    if (!promptPrefix) return;
+
+    if (promptScrambleInterval) {
+      clearInterval(promptScrambleInterval);
+      promptScrambleInterval = null;
+    }
+
+    const targetText = 'user@vapok.io:~$';
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      promptPrefix.textContent = targetText;
+      if (promptCursor) promptCursor.style.display = '';
+      return;
+    }
+
+    if (promptCursor) promptCursor.style.display = '';
+
+    const chars = '01#*+=-:.·˙_[]{}<>/\\$!%^&';
+    const startTime = Date.now();
+    const durationMs = 280;
+
+    promptScrambleInterval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(1.0, elapsed / durationMs);
+      const settledLen = Math.floor(progress * targetText.length);
+
       promptPrefix.textContent = targetText
         .split('')
         .map((char, index) => {
-          if (index < iteration) {
+          if (index < settledLen) {
             return targetText[index];
           }
           return chars[Math.floor(Math.random() * chars.length)];
         })
         .join('');
 
-      if (iteration >= targetText.length) {
-        clearInterval(interval);
+      if (progress >= 1.0) {
+        clearInterval(promptScrambleInterval);
+        promptScrambleInterval = null;
         promptPrefix.textContent = targetText;
       }
-      iteration += 1 / 2;
-    }, 30);
+    }, 25);
+  }
+
+  // Alias for backward-compatible call in bootloader
+  function scramblePromptBrand() {
+    scramblePromptBrandIn();
   }
 
   function scrambleClockTransition(durationMs = 1200) {
@@ -569,6 +635,7 @@ function initBootloaderAndCli() {
         brandBtn.classList.add('active');
         brandBtn.setAttribute('aria-expanded', 'true');
         brandBtn.title = 'Click to minimize Interactive CLI (~)';
+        scatterPromptBrandOut();
       }
       if (cliToggleBtn) {
         cliToggleBtn.classList.add('active');
@@ -593,7 +660,7 @@ function initBootloaderAndCli() {
         brandBtn.classList.remove('active');
         brandBtn.setAttribute('aria-expanded', 'false');
         brandBtn.title = 'Click to toggle Terminal Prompt (~)';
-        scramblePromptBrand();
+        scramblePromptBrandIn();
       }
       if (cliToggleBtn) {
         cliToggleBtn.classList.remove('active');
