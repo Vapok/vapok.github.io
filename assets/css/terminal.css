@@ -284,6 +284,193 @@ body.crt-off .crt-overlay {
 }
 
 /* ==========================================================================
+   SYSTEM BOOTLOADER & OFFLINE STATES
+   ========================================================================== */
+
+html.system-offline #main-content,
+html.system-offline .cyber-footer,
+html.system-offline #header-nav-menu,
+html.system-offline #header-fuel-btn {
+  display: none !important;
+}
+
+html.system-offline #system-status-dot {
+  background-color: var(--warning-amber) !important;
+  box-shadow: 0 0 10px var(--warning-amber) !important;
+}
+
+html.system-offline #system-status-text {
+  color: var(--warning-amber) !important;
+}
+
+html.system-booting #system-status-dot {
+  background-color: var(--ice-blue) !important;
+  box-shadow: 0 0 12px var(--ice-blue) !important;
+  animation: pulse 0.5s infinite ease-in-out !important;
+}
+
+html.system-booting #system-status-text {
+  color: var(--ice-blue-bright) !important;
+}
+
+/* ==========================================================================
+   INTERACTIVE CLI TERMINAL DRAWER
+   ========================================================================== */
+.cyber-cli-drawer {
+  display: none;
+  margin-top: 1rem;
+  border-top: 1px dashed var(--border-subtle);
+  background: rgba(3, 5, 10, 0.95);
+  border: 1px solid var(--border-strong);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.9), 0 5px 20px rgba(100, 240, 252, 0.15);
+  padding: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.cyber-cli-drawer.open {
+  display: block;
+  animation: drawerSlideDown 0.3s ease forwards;
+}
+
+@keyframes drawerSlideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cli-drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.78rem;
+}
+
+.cli-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cli-controls {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.cli-mini-btn {
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.15rem 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cli-mini-btn:hover {
+  color: var(--ice-blue);
+  border-color: var(--ice-blue);
+  box-shadow: 0 0 6px var(--ice-blue-glow);
+}
+
+.cli-output-window {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  max-height: 240px;
+  overflow-y: auto;
+  padding: 0.5rem;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(100, 240, 252, 0.15);
+  margin-bottom: 0.75rem;
+  color: var(--text-main);
+}
+
+.cli-output-window::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cli-output-window::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+}
+
+.cli-line {
+  margin-bottom: 0.25rem;
+  word-break: break-word;
+}
+
+.cli-line.cmd {
+  color: var(--ice-blue-bright);
+  font-weight: 700;
+}
+
+.cli-line.info {
+  color: var(--cyber-teal);
+}
+
+.cli-line.success {
+  color: var(--glacial-mint);
+  font-weight: 600;
+}
+
+.cli-line.warn {
+  color: var(--warning-amber);
+}
+
+.cli-line.error {
+  color: #ff5555;
+}
+
+.cli-input-line {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid var(--border-strong);
+  padding: 0.4rem 0.6rem;
+}
+
+.cli-prompt-label {
+  color: var(--glacial-mint);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.cli-input-field {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--ice-blue-bright);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.cli-submit-btn {
+  background: var(--ice-blue);
+  color: #06080e;
+  border: 1px solid var(--ice-blue);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cli-submit-btn:hover {
+  background: var(--ice-blue-bright);
+  box-shadow: 0 0 10px var(--ice-blue-glow);
+}
+
+/* ==========================================================================
    ASCII HERO & BANNER
    ========================================================================== */
 

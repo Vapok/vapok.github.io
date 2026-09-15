@@ -1,11 +1,12 @@
 /**
  * VAPOK GAMING — CYBER-CONSOLE INTERACTIVE ENGINE
- * Real-time text scrambling, matrix rain canvas, command palette, and UI sounds
- * - Text Glitch / Decoder Effect on Hover
- * - CRT Scanline State Toggle
- * - Mod Category Quick Filtering
- * - Live Terminal Clock & Uptime
- * - Mod Dossier Tabbed Viewer
+ * Features:
+ * - First-Time Visitor OFFLINE State & Bootloader Sequence
+ * - Interactive Dropdown CLI Terminal Emulator & Command Processor
+ * - Reactive ASCII Particle Matrix Canvas
+ * - Glitch / Text Decoder on Hover & Section Compilation
+ * - CRT Scanline Filter Toggle & Persistence
+ * - Mod Category Quick Filtering & Dossier Tab Switcher
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -15,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initModFilters();
   initSystemClock();
   initDossierTabs();
+  initBootloaderAndCli();
 });
 
 /* ==========================================================================
@@ -335,5 +337,380 @@ function initDossierTabs() {
 
   if (window.location.hash === '#tab-changelog' || window.location.hash === '#changelog') {
     switchTab('panel-changelog');
+  }
+}
+
+/* ==========================================================================
+   7. INTERACTIVE BOOTLOADER & CLI TERMINAL ENGINE
+   ========================================================================== */
+function initBootloaderAndCli() {
+  const statusDot = document.getElementById('system-status-dot');
+  const statusText = document.getElementById('system-status-text');
+  const brandBtn = document.getElementById('terminal-brand-btn');
+  const cliToggleBtn = document.getElementById('cli-toggle-btn');
+  const cliDrawer = document.getElementById('cyber-cli-drawer');
+  const cliOutput = document.getElementById('cli-output');
+  const cliForm = document.getElementById('cli-form');
+  const cliInput = document.getElementById('cli-input');
+  
+  const bootQuickBtn = document.getElementById('cli-boot-quick-btn');
+  const helpQuickBtn = document.getElementById('cli-help-quick-btn');
+  const clearQuickBtn = document.getElementById('cli-clear-quick-btn');
+  const closeBtn = document.getElementById('cli-close-btn');
+
+  let isBooted = localStorage.getItem('vapok_system_booted') === 'true';
+  let isBooting = false;
+
+  function printLine(text, type = 'info') {
+    if (!cliOutput) return;
+    const line = document.createElement('div');
+    line.className = `cli-line ${type}`;
+    line.textContent = text;
+    cliOutput.appendChild(line);
+    cliOutput.scrollTop = cliOutput.scrollHeight;
+  }
+
+  function toggleCli(forceOpen = null) {
+    if (!cliDrawer) return;
+    const shouldOpen = forceOpen !== null ? forceOpen : !cliDrawer.classList.contains('open');
+    if (shouldOpen) {
+      cliDrawer.classList.add('open');
+      if (cliToggleBtn) cliToggleBtn.textContent = '[ CLI: <_ ]';
+      if (cliInput) setTimeout(() => cliInput.focus(), 100);
+    } else {
+      cliDrawer.classList.remove('open');
+      if (cliToggleBtn) cliToggleBtn.textContent = '[ CLI: >_ ]';
+    }
+  }
+
+  // Toggle Hooks
+  if (brandBtn) {
+    brandBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleCli();
+    });
+  }
+
+  if (cliToggleBtn) {
+    cliToggleBtn.addEventListener('click', () => toggleCli());
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => toggleCli(false));
+  }
+
+  if (clearQuickBtn) {
+    clearQuickBtn.addEventListener('click', () => {
+      if (cliOutput) cliOutput.innerHTML = '';
+      printLine('// Terminal buffer cleared.', 'info');
+    });
+  }
+
+  if (helpQuickBtn) {
+    helpQuickBtn.addEventListener('click', () => executeCommand('help'));
+  }
+
+  if (bootQuickBtn) {
+    bootQuickBtn.addEventListener('click', () => executeCommand('boot'));
+  }
+
+  // Global hotkey '~' or '`' to open console
+  window.addEventListener('keydown', (e) => {
+    if (e.key === '`' || e.key === '~') {
+      if (document.activeElement !== cliInput) {
+        e.preventDefault();
+        toggleCli(true);
+      }
+    }
+  });
+
+  // Check initial state
+  if (!isBooted) {
+    document.documentElement.classList.add('system-offline');
+    if (statusText) {
+      statusText.textContent = 'OFFLINE';
+      statusText.style.color = 'var(--warning-amber)';
+    }
+    toggleCli(true);
+    printLine('======================================================================', 'warn');
+    printLine(' VAPOK.IO SECURE MAINFRAME // FIRMWARE v2026.1', 'cmd');
+    printLine(' SYSTEM STATUS: [ OFFLINE ]', 'warn');
+    printLine('======================================================================', 'warn');
+    printLine('Main subsystems and user interface are currently dormant.', 'info');
+    printLine('Type "boot" or "./launch" (or click [ ⚡ BOOT ]) to initialize system.', 'success');
+  } else {
+    document.documentElement.classList.remove('system-offline');
+    if (statusText) {
+      statusText.textContent = 'ONLINE';
+      statusText.style.color = 'var(--glacial-mint)';
+    }
+    printLine('VAPOK_OS v2026.1 // System Online. Type "help" for commands.', 'info');
+  }
+
+  // Handle Command Submission
+  if (cliForm) {
+    cliForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const raw = cliInput.value.trim();
+      cliInput.value = '';
+      if (!raw && !isBooted) {
+        executeCommand('boot');
+      } else if (raw) {
+        executeCommand(raw);
+      }
+    });
+  }
+
+  function executeCommand(rawCmd) {
+    const cmd = rawCmd.trim().toLowerCase();
+    printLine(`user@vapok.io:~$ ${rawCmd}`, 'cmd');
+
+    switch (cmd) {
+      case 'boot':
+      case './launch':
+      case 'launch':
+      case 'start':
+      case 'poweron':
+      case 'power on':
+      case 'run':
+        if (isBooted) {
+          printLine('System is already ONLINE and fully operational.', 'info');
+        } else if (isBooting) {
+          printLine('System compilation already in progress...', 'warn');
+        } else {
+          startBootSequence();
+        }
+        break;
+
+      case 'help':
+      case '?':
+      case 'commands':
+        printLine('AVAILABLE SYSTEM DIRECTIVES:', 'cmd');
+        printLine('  boot / ./launch  - Power up system and compile graphical UI', 'info');
+        printLine('  status           - Display kernel telemetry & active nodes', 'info');
+        printLine('  mods             - Open mod catalog dossier repository', 'info');
+        printLine('  games            - Display currently playing & rotation games', 'info');
+        printLine('  fuel / support   - Open creator support & donation channels', 'info');
+        printLine('  discord          - Connect to Vapok Gaming Community Discord', 'info');
+        printLine('  crt              - Toggle retro CRT scanline filter', 'info');
+        printLine('  clear / cls      - Clear terminal log output', 'info');
+        printLine('  reboot / shutdown- Re-enter OFFLINE mode to replay boot sequence', 'info');
+        break;
+
+      case 'status':
+      case 'info':
+        printLine('--- SYSTEM TELEMETRY ---', 'cmd');
+        printLine(`Node: vapok.io [185.199.108.153]`, 'info');
+        printLine(`Kernel: VAPOK-OS v2026.1-x86_64`, 'info');
+        printLine(`Status: ${isBooted ? 'ONLINE (Optimal)' : 'OFFLINE (Dormant)'}`, isBooted ? 'success' : 'warn');
+        printLine(`Active Mod Releases: 16 projects (Valheim & Techtonica)`, 'info');
+        printLine(`Spotlight Games: 11 active titles in rotation`, 'info');
+        printLine(`Uptime: ${Math.floor(performance.now() / 1000)}s since session start`, 'info');
+        break;
+
+      case 'mods':
+        printLine('Accessing // MODULE_REPOSITORY...', 'success');
+        window.location.href = '/#mods';
+        break;
+
+      case 'games':
+      case 'playing':
+        printLine('Accessing // CURRENTLY_PLAYING_MATRIX...', 'success');
+        window.location.href = '/games/';
+        break;
+
+      case 'fuel':
+      case 'support':
+      case 'donate':
+        printLine('Redirecting to [ ⚡ FUEL THE DEVELOPER ]...', 'warn');
+        window.location.href = '/support/';
+        break;
+
+      case 'discord':
+        printLine('Opening Vapok Gaming Community Discord portal...', 'success');
+        window.open('https://discord.gg/5YAJkRFBXt', '_blank');
+        break;
+
+      case 'crt':
+        const toggleBtn = document.getElementById('crt-toggle-btn');
+        if (toggleBtn) toggleBtn.click();
+        const crtOff = document.body.classList.contains('crt-off');
+        printLine(`CRT Scanlines: [ ${crtOff ? 'OFF' : 'ON'} ]`, 'info');
+        break;
+
+      case 'clear':
+      case 'cls':
+        if (cliOutput) cliOutput.innerHTML = '';
+        printLine('// Terminal buffer cleared.', 'info');
+        break;
+
+      case 'reboot':
+      case 'shutdown':
+      case 'poweroff':
+        printLine('Initiating system shutdown sequence...', 'warn');
+        localStorage.removeItem('vapok_system_booted');
+        isBooted = false;
+        setTimeout(() => {
+          window.location.reload();
+        }, 600);
+        break;
+
+      default:
+        printLine(`Command not recognized: "${rawCmd}". Type "help" for available commands.`, 'error');
+        break;
+    }
+  }
+
+  // 10-Second Progressive Top-Down Compilation Sequence
+  function startBootSequence() {
+    isBooting = true;
+    document.documentElement.classList.remove('system-offline');
+    document.documentElement.classList.add('system-booting');
+
+    if (statusText) {
+      statusText.textContent = 'BOOTING...';
+      statusText.style.color = 'var(--ice-blue-bright)';
+    }
+
+    printLine('--------------------------------------------------', 'warn');
+    printLine('>>> INITIATING VAPOK.IO SYSTEM BOOTLOADER <<<', 'cmd');
+    printLine('[0.00s] Initializing Vapok OS Kernel v2026.1...', 'info');
+
+    // Section References for Staggered Reveal
+    const navMenu = document.getElementById('header-nav-menu');
+    const fuelBtn = document.getElementById('header-fuel-btn');
+    const heroAscii = document.querySelector('.hero-ascii-section');
+    const modsSection = document.getElementById('mods');
+    const logsSection = document.getElementById('logs');
+    const aboutSection = document.getElementById('about');
+    const footer = document.querySelector('.cyber-footer');
+
+    // Hide sections initially to prepare for progressive reveal
+    [heroAscii, modsSection, logsSection, aboutSection, footer].forEach((sec) => {
+      if (sec) {
+        sec.style.opacity = '0';
+        sec.style.transform = 'translateY(15px)';
+        sec.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+      }
+    });
+
+    // Compilation Log Milestones over 10 seconds
+    setTimeout(() => {
+      printLine('[1.50s] Mounting multi-game subsystems (Valheim, Techtonica)... OK', 'info');
+      if (navMenu) decodeTextElement(navMenu, 1500);
+      if (fuelBtn) decodeTextElement(fuelBtn, 1500);
+    }, 1500);
+
+    setTimeout(() => {
+      printLine('[3.20s] Synchronizing Thunderstore metrics & Discord bridge... OK', 'info');
+      if (heroAscii) {
+        heroAscii.style.opacity = '1';
+        heroAscii.style.transform = 'translateY(0)';
+        decodeTextElement(heroAscii, 2000);
+      }
+    }, 3200);
+
+    setTimeout(() => {
+      printLine('[5.00s] Compiling module repository & release dossiers... OK', 'info');
+      if (modsSection) {
+        modsSection.style.opacity = '1';
+        modsSection.style.transform = 'translateY(0)';
+        decodeTextElement(modsSection, 2200);
+      }
+    }, 5000);
+
+    setTimeout(() => {
+      printLine('[7.20s] Decrypting transmission logs & creator directive... OK', 'info');
+      if (logsSection) {
+        logsSection.style.opacity = '1';
+        logsSection.style.transform = 'translateY(0)';
+      }
+      if (aboutSection) {
+        aboutSection.style.opacity = '1';
+        aboutSection.style.transform = 'translateY(0)';
+        decodeTextElement(aboutSection, 1800);
+      }
+    }, 7200);
+
+    setTimeout(() => {
+      printLine('[9.00s] Initializing graphical render canvas & cyber shaders... OK', 'info');
+      if (footer) {
+        footer.style.opacity = '1';
+        footer.style.transform = 'translateY(0)';
+      }
+    }, 9000);
+
+    setTimeout(() => {
+      printLine('======================================================================', 'success');
+      printLine(' [10.00s] SYSTEM BOOT COMPLETE // ALL MODULES ONLINE', 'success');
+      printLine('======================================================================', 'success');
+
+      document.documentElement.classList.remove('system-booting');
+      isBooted = true;
+      isBooting = false;
+      localStorage.setItem('vapok_system_booted', 'true');
+
+      if (statusText) {
+        statusText.textContent = 'ONLINE';
+        statusText.style.color = 'var(--glacial-mint)';
+      }
+
+      // Reset styles cleanly
+      [heroAscii, modsSection, logsSection, aboutSection, footer].forEach((sec) => {
+        if (sec) {
+          sec.style.opacity = '';
+          sec.style.transform = '';
+          sec.style.transition = '';
+        }
+      });
+
+      // Auto close CLI drawer after 2.5s if desired, or keep ready
+      setTimeout(() => {
+        toggleCli(false);
+      }, 2500);
+    }, 10000);
+  }
+
+  // Progressive Text Decoder helper for compiling elements
+  function decodeTextElement(container, durationMs = 1500) {
+    const chars = '01#*+=-:.·˙_[]{}<>/\\';
+    const textNodes = [];
+
+    const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while ((node = walker.nextNode())) {
+      if (node.nodeValue.trim().length > 0) {
+        textNodes.push({
+          node: node,
+          original: node.nodeValue,
+        });
+      }
+    }
+
+    const startTime = Date.now();
+    const interval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(1.0, elapsed / durationMs);
+
+      textNodes.forEach(({ node, original }) => {
+        const settledLen = Math.floor(progress * original.length);
+        node.nodeValue = original
+          .split('')
+          .map((c, i) => {
+            if (c === ' ' || c === '\n' || c === '\t' || i < settledLen) {
+              return original[i];
+            }
+            return chars[Math.floor(Math.random() * chars.length)];
+          })
+          .join('');
+      });
+
+      if (progress >= 1.0) {
+        clearInterval(interval);
+        textNodes.forEach(({ node, original }) => {
+          node.nodeValue = original;
+        });
+      }
+    }, 40);
   }
 }

@@ -11,6 +11,17 @@
   
   <!-- Favicon / Meta -->
   <meta name="theme-color" content="#06080e">
+  
+  <script>
+    (function() {
+      try {
+        var booted = localStorage.getItem('vapok_system_booted');
+        if (booted !== 'true') {
+          document.documentElement.classList.add('system-offline');
+        }
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body id="top">
   <!-- Interactive ASCII Background Canvas -->
