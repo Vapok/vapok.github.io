@@ -1456,45 +1456,56 @@ html.system-booting #header-fuel-btn {
   }
 
   .system-status-bar {
-    display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 0.5rem 0.6rem;
+    align-items: center;
     margin-bottom: 0.6rem;
     padding-bottom: 0.5rem;
+    width: 100%;
   }
   
   .status-indicator {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
     display: flex;
-    justify-content: flex-start;
     align-items: center;
-    gap: 0.4rem;
-    font-size: 0.75rem;
-  }
-
-  .header-controls {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 0.45rem;
-    flex-wrap: wrap;
+    gap: 0.35rem;
+    font-size: 0.72rem;
+    white-space: nowrap;
   }
 
   #system-clock {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
     font-size: 0.7rem;
     white-space: nowrap;
-    flex-shrink: 0;
+    text-align: right;
+    margin: 0;
   }
 
-  .ctrl-btn {
-    font-size: 0.68rem;
-    padding: 0.2rem 0.4rem;
+  .header-controls {
+    grid-column: 1 / 3;
+    grid-row: 2 / 3;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    width: 100%;
+  }
+
+  .header-controls .ctrl-btn,
+  .header-controls .fuel-btn {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 0.72rem;
+    padding: 0.32rem 0.2rem;
+    box-sizing: border-box;
     white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .fuel-btn {
-    font-size: 0.68rem;
-    padding: 0.2rem 0.45rem;
   }
 
   /* Navigation & Terminal Brand Anchor */
