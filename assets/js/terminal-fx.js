@@ -435,10 +435,16 @@ function initBootloaderAndCli() {
     bootQuickBtn.addEventListener('click', () => executeCommand('boot'));
   }
 
-  // Global hotkey '~' or '`' to open console
+  // Global hotkeys: '~' / '`' or 'Enter' when closed to open console
   window.addEventListener('keydown', (e) => {
     if (e.key === '`' || e.key === '~') {
       if (document.activeElement !== cliInput) {
+        e.preventDefault();
+        toggleCli(true);
+      }
+    } else if (e.key === 'Enter' && (!cliDrawer || !cliDrawer.classList.contains('open'))) {
+      const activeTag = document.activeElement ? document.activeElement.tagName : '';
+      if (activeTag !== 'INPUT' && activeTag !== 'TEXTAREA') {
         e.preventDefault();
         toggleCli(true);
       }
