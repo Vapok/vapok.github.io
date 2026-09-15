@@ -110,6 +110,16 @@ function initAsciiCanvas() {
 /* ==========================================================================
    2. CRT SCANLINE TOGGLE
    ========================================================================== */
+function toggleCrtEffect() {
+  const toggleBtn = document.getElementById('crt-toggle-btn');
+  const isOff = document.body.classList.toggle('crt-off');
+  if (toggleBtn) {
+    toggleBtn.textContent = isOff ? '[ CRT: OFF ]' : '[ CRT: ON ]';
+  }
+  localStorage.setItem('vapok_crt_state', isOff ? 'off' : 'on');
+  return isOff;
+}
+
 function initCrtToggle() {
   const toggleBtn = document.getElementById('crt-toggle-btn');
   if (!toggleBtn) return;
@@ -122,10 +132,9 @@ function initCrtToggle() {
     toggleBtn.textContent = '[ CRT: ON ]';
   }
 
-  toggleBtn.addEventListener('click', () => {
-    const isOff = document.body.classList.toggle('crt-off');
-    toggleBtn.textContent = isOff ? '[ CRT: OFF ]' : '[ CRT: ON ]';
-    localStorage.setItem('vapok_crt_state', isOff ? 'off' : 'on');
+  toggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleCrtEffect();
   });
 }
 
@@ -443,8 +452,9 @@ function initBootloaderAndCli() {
     const clickedInsideCli = cliDrawer.contains(e.target);
     const clickedBrandBtn = brandBtn && brandBtn.contains(e.target);
     const clickedToggleBtn = cliToggleBtn && cliToggleBtn.contains(e.target);
+    const clickedHeaderControls = e.target.closest && e.target.closest('.header-controls');
 
-    if (!clickedInsideCli && !clickedBrandBtn && !clickedToggleBtn) {
+    if (!clickedInsideCli && !clickedBrandBtn && !clickedToggleBtn && !clickedHeaderControls) {
       toggleCli(false);
     }
   });
@@ -566,10 +576,8 @@ function initBootloaderAndCli() {
         break;
 
       case 'crt':
-        const toggleBtn = document.getElementById('crt-toggle-btn');
-        if (toggleBtn) toggleBtn.click();
-        const crtOff = document.body.classList.contains('crt-off');
-        printLine(`CRT Scanlines: [ ${crtOff ? 'OFF' : 'ON'} ]`, 'info');
+        const isCrtOff = toggleCrtEffect();
+        printLine(`CRT Scanlines: [ ${isCrtOff ? 'OFF' : 'ON'} ]`, 'info');
         break;
 
       case 'clear':
