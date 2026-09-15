@@ -380,6 +380,21 @@ function initBootloaderAndCli() {
     cliOutput.scrollTop = cliOutput.scrollHeight;
   }
 
+  function updatePowerButtonState() {
+    if (!bootQuickBtn) return;
+    if (isBooted) {
+      bootQuickBtn.textContent = '[ 🛑 STOP ]';
+      bootQuickBtn.style.color = 'var(--error-crimson)';
+      bootQuickBtn.style.borderColor = 'rgba(244, 63, 94, 0.4)';
+      bootQuickBtn.title = 'Power off system (shutdown)';
+    } else {
+      bootQuickBtn.textContent = '[ ⚡ START ]';
+      bootQuickBtn.style.color = 'var(--warning-amber)';
+      bootQuickBtn.style.borderColor = 'rgba(251, 191, 36, 0.4)';
+      bootQuickBtn.title = 'Power on system (start)';
+    }
+  }
+
   const cyberHeader = document.querySelector('.cyber-header');
   let closeAnimationTimeout = null;
 
@@ -476,7 +491,13 @@ function initBootloaderAndCli() {
   }
 
   if (bootQuickBtn) {
-    bootQuickBtn.addEventListener('click', () => executeCommand('start'));
+    bootQuickBtn.addEventListener('click', () => {
+      if (isBooted) {
+        executeCommand('shutdown');
+      } else {
+        executeCommand('start');
+      }
+    });
   }
 
   // Global hotkeys: '~' / '`', 'Enter', and TUI navigation
@@ -547,6 +568,7 @@ function initBootloaderAndCli() {
 
   // Check initial state
   if (!isBooted) {
+    updatePowerButtonState();
     if (isHomepage) {
       document.documentElement.classList.add('system-offline');
       if (statusText) {
@@ -565,6 +587,7 @@ function initBootloaderAndCli() {
       startBootSequence();
     }
   } else {
+    updatePowerButtonState();
     document.documentElement.classList.remove('system-offline');
     if (statusText) {
       statusText.textContent = 'ONLINE';
@@ -1024,6 +1047,7 @@ function initBootloaderAndCli() {
       case 'shutdown':
       case 'poweroff':
       case 'power off':
+      case 'stop':
         if (!isBooted) {
           printLine('System is already OFFLINE (dormant).', 'warn');
         } else if (isShuttingDown || isBooting) {
@@ -1145,6 +1169,7 @@ function initBootloaderAndCli() {
       isBooted = true;
       isBooting = false;
       localStorage.setItem('vapok_system_booted', 'true');
+      updatePowerButtonState();
 
       if (statusText) {
         statusText.textContent = 'ONLINE';
@@ -1266,6 +1291,7 @@ function initBootloaderAndCli() {
       isBooted = false;
       isShuttingDown = false;
       localStorage.removeItem('vapok_system_booted');
+      updatePowerButtonState();
 
       if (statusText) {
         statusText.textContent = 'OFFLINE';
