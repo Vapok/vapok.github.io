@@ -369,6 +369,7 @@ function initBootloaderAndCli() {
 
   let isBooted = localStorage.getItem('vapok_system_booted') === 'true';
   let isBooting = false;
+  let isShuttingDown = false;
 
   function printLine(text, type = 'info') {
     if (!cliOutput) return;
@@ -583,7 +584,8 @@ function initBootloaderAndCli() {
         printLine('  crt              - Toggle retro CRT scanline filter', 'info');
         printLine('  clear / cls      - Clear terminal log output', 'info');
         printLine('  exit / close     - Minimize terminal drawer', 'info');
-        printLine('  reboot / shutdown- Re-enter OFFLINE mode to replay startup sequence', 'info');
+        printLine('  shutdown         - Gracefully decompile UI & enter OFFLINE mode', 'info');
+        printLine('  reboot           - Gracefully decompile and re-initialize system', 'info');
         break;
 
       case 'status':
@@ -644,15 +646,27 @@ function initBootloaderAndCli() {
         setTimeout(() => toggleCli(false), 200);
         break;
 
-      case 'reboot':
       case 'shutdown':
       case 'poweroff':
-        printLine('Initiating system shutdown sequence...', 'warn');
-        localStorage.removeItem('vapok_system_booted');
-        isBooted = false;
-        setTimeout(() => {
-          window.location.reload();
-        }, 600);
+      case 'power off':
+        if (!isBooted) {
+          printLine('System is already OFFLINE (dormant).', 'warn');
+        } else if (isShuttingDown || isBooting) {
+          printLine('System state transition already in progress...', 'warn');
+        } else {
+          startShutdownSequence(false);
+        }
+        break;
+
+      case 'reboot':
+      case 'restart':
+        if (isShuttingDown || isBooting) {
+          printLine('System state transition already in progress...', 'warn');
+        } else if (!isBooted) {
+          startBootSequence();
+        } else {
+          startShutdownSequence(true);
+        }
         break;
 
       default:
@@ -665,6 +679,7 @@ function initBootloaderAndCli() {
   function startBootSequence() {
     isBooting = true;
     document.documentElement.classList.remove('system-offline');
+    document.documentElement.classList.remove('system-shutting-down');
     document.documentElement.classList.add('system-booting');
 
     if (statusText) {
@@ -769,6 +784,176 @@ function initBootloaderAndCli() {
         toggleCli(false);
       }, 500);
     }, 10000);
+  }
+
+  // Progressive Bottom-Up Decompilation Sequence
+  function startShutdownSequence(isReboot = false) {
+    isShuttingDown = true;
+    document.documentElement.classList.remove('system-booting');
+    document.documentElement.classList.add('system-shutting-down');
+
+    if (statusText) {
+      statusText.textContent = isReboot ? 'REBOOTING...' : 'SHUTTING DOWN...';
+      statusText.style.color = 'var(--warning-amber)';
+    }
+
+    printLine('--------------------------------------------------', 'warn');
+    printLine('>>> INITIATING VAPOK.IO SYSTEM DECOMPILATION <<<', 'warn');
+    printLine('[0.00s] Commencing graceful shutdown of UI & kernel modules...', 'info');
+
+    // Section References for Staggered Decompile
+    const navMenu = document.getElementById('header-nav-menu');
+    const fuelBtn = document.getElementById('header-fuel-btn');
+    const heroAscii = document.querySelector('.hero-ascii-section');
+    const modsSection = document.getElementById('mods');
+    const logsSection = document.getElementById('logs');
+    const aboutSection = document.getElementById('about');
+    const footer = document.querySelector('.cyber-footer');
+
+    // 1. [0.80s] Footer & Canvas Disconnect
+    setTimeout(() => {
+      printLine('[0.80s] Disconnecting graphical render canvas & cyber shaders... OK', 'info');
+      if (footer) {
+        encodeTextElement(footer, 800);
+        footer.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        footer.style.opacity = '0';
+        footer.style.transform = 'translateY(15px)';
+      }
+    }, 800);
+
+    // 2. [1.80s] About & Logs Decompile
+    setTimeout(() => {
+      printLine('[1.80s] Encrypting transmission logs & creator directive... OK', 'info');
+      if (aboutSection) {
+        encodeTextElement(aboutSection, 800);
+        aboutSection.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        aboutSection.style.opacity = '0';
+        aboutSection.style.transform = 'translateY(15px)';
+      }
+      if (logsSection) {
+        logsSection.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        logsSection.style.opacity = '0';
+        logsSection.style.transform = 'translateY(15px)';
+      }
+    }, 1800);
+
+    // 3. [2.80s] Mods Catalog Decompile
+    setTimeout(() => {
+      printLine('[2.80s] Unmounting mod catalog dossiers & release tables... OK', 'info');
+      if (modsSection) {
+        encodeTextElement(modsSection, 800);
+        modsSection.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        modsSection.style.opacity = '0';
+        modsSection.style.transform = 'translateY(15px)';
+      }
+    }, 2800);
+
+    // 4. [3.80s] Hero Section & Game Spotlight Suspension
+    setTimeout(() => {
+      printLine('[3.80s] Releasing Thunderstore cache & matrix buffers... OK', 'info');
+      if (heroAscii) {
+        encodeTextElement(heroAscii, 800);
+        heroAscii.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        heroAscii.style.opacity = '0';
+        heroAscii.style.transform = 'translateY(15px)';
+      }
+    }, 3800);
+
+    // 5. [4.80s] Header Navigation & Support Unmount
+    setTimeout(() => {
+      printLine('[4.80s] Disengaging navigation links & support endpoints... OK', 'info');
+      if (navMenu) {
+        encodeTextElement(navMenu, 600);
+        navMenu.style.transition = 'opacity 0.5s ease';
+        navMenu.style.opacity = '0';
+      }
+      if (fuelBtn) {
+        encodeTextElement(fuelBtn, 600);
+        fuelBtn.style.transition = 'opacity 0.5s ease';
+        fuelBtn.style.opacity = '0';
+      }
+    }, 4800);
+
+    // 6. [5.50s] Decompilation Complete
+    setTimeout(() => {
+      printLine('======================================================================', 'error');
+      printLine(' [5.50s] SYSTEM DECOMPILATION COMPLETE // MAINFRAME OFFLINE', 'error');
+      printLine('======================================================================', 'warn');
+
+      document.documentElement.classList.remove('system-shutting-down');
+      document.documentElement.classList.add('system-offline');
+      isBooted = false;
+      isShuttingDown = false;
+      localStorage.removeItem('vapok_system_booted');
+
+      if (statusText) {
+        statusText.textContent = 'OFFLINE';
+        statusText.style.color = '#ef4444';
+      }
+
+      // Reset inline styles cleanly
+      [heroAscii, modsSection, logsSection, aboutSection, footer, navMenu, fuelBtn].forEach((sec) => {
+        if (sec) {
+          sec.style.opacity = '';
+          sec.style.transform = '';
+          sec.style.transition = '';
+        }
+      });
+
+      if (isReboot) {
+        printLine('Initiating warm reboot sequence...', 'info');
+        setTimeout(() => {
+          startBootSequence();
+        }, 800);
+      } else {
+        printLine('Subsystems dormant. Type "start" (or click [ ⚡ START ]) to initialize.', 'info');
+      }
+    }, 5500);
+  }
+
+  // Progressive Text Encoder helper for decompiling elements into cyber noise
+  function encodeTextElement(container, durationMs = 800) {
+    if (!container) return;
+    const chars = '01#*+=-:.·˙_[]{}<>/\\';
+    const textNodes = [];
+
+    const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while ((node = walker.nextNode())) {
+      if (node.nodeValue.trim().length > 0) {
+        textNodes.push({
+          node: node,
+          original: node.nodeValue,
+        });
+      }
+    }
+
+    const startTime = Date.now();
+    const interval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(1.0, elapsed / durationMs);
+
+      textNodes.forEach(({ node, original }) => {
+        const scrambledLen = Math.floor(progress * original.length);
+        node.nodeValue = original
+          .split('')
+          .map((c, i) => {
+            if (c === ' ' || c === '\n' || c === '\t') return c;
+            if (i < scrambledLen) {
+              return chars[Math.floor(Math.random() * chars.length)];
+            }
+            return original[i];
+          })
+          .join('');
+      });
+
+      if (progress >= 1.0) {
+        clearInterval(interval);
+        textNodes.forEach(({ node, original }) => {
+          node.nodeValue = original;
+        });
+      }
+    }, 35);
   }
 
   // Progressive Text Decoder helper for compiling elements

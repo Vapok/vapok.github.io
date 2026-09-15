@@ -313,13 +313,15 @@ html.system-offline #system-status-text {
   color: #ff4d4d !important;
 }
 
-html.system-booting #system-status-dot {
+html.system-booting #system-status-dot,
+html.system-shutting-down #system-status-dot {
   background-color: var(--warning-amber) !important;
   box-shadow: 0 0 12px var(--warning-amber) !important;
   animation: pulse 0.5s infinite ease-in-out !important;
 }
 
-html.system-booting #system-status-text {
+html.system-booting #system-status-text,
+html.system-shutting-down #system-status-text {
   color: var(--warning-amber) !important;
 }
 
