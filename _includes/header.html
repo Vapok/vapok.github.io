@@ -2,15 +2,15 @@
   <div class="system-status-bar">
     <div class="status-indicator">
       <span id="system-status-dot" class="status-dot"></span>
-      <span>SYS_NODE: [ vapok.io ]</span>
+      <span class="status-node-label"><span class="node-full">SYS_NODE: [ vapok.io ]</span><span class="node-compact">vapok.io</span></span>
       <span style="color: var(--text-dim)">|</span>
       <span>STATUS: <strong id="system-status-text" style="color: var(--glacial-mint)">ONLINE</strong></span>
     </div>
     
-    <span id="system-clock" style="color: var(--text-muted)">--:--:-- UTC</span>
+    <span id="system-clock" style="color: var(--text-muted)"><span class="clock-date">2026-09-15 </span><span class="clock-time">--:--:-- UTC</span></span>
 
     <div class="header-controls">
-      <a href="{{ '/support/' | relative_url }}" id="header-fuel-btn" class="ctrl-btn fuel-btn scramble-hover" data-text="[ ⚡ FUEL: $$$ ]" title="Donate & Support Vapok Gaming" style="color: var(--warning-amber); border-color: rgba(251, 191, 36, 0.45); text-decoration: none;">[ ⚡ FUEL: $$$ ]</a>
+      <a href="{{ '/support/' | relative_url }}" id="header-fuel-btn" class="ctrl-btn fuel-btn" title="Donate & Support Vapok Gaming" style="color: var(--warning-amber); border-color: rgba(251, 191, 36, 0.45); text-decoration: none;"><span class="fuel-text-full">[ ⚡ FUEL: $$$ ]</span><span class="fuel-text-compact">[ ⚡ FUEL ]</span></a>
       <button id="cli-toggle-btn" class="ctrl-btn" title="Toggle Interactive CLI Terminal">[ CLI: >_ ]</button>
       <button id="crt-toggle-btn" class="ctrl-btn" title="Toggle CRT Scanline Effect">[ CRT: ON ]</button>
     </div>

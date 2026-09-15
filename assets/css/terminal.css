@@ -169,6 +169,18 @@ body.crt-off .crt-overlay {
   color: var(--text-muted);
 }
 
+.node-compact,
+.fuel-text-compact {
+  display: none;
+}
+
+.node-full,
+.fuel-text-full,
+.clock-date,
+.clock-time {
+  display: inline;
+}
+
 .status-indicator {
   display: inline-flex;
   align-items: center;
@@ -1461,20 +1473,37 @@ html.system-booting #header-fuel-btn {
   }
   
   /* Header & System Status Bar */
+  .node-full,
+  .fuel-text-full,
+  .clock-date {
+    display: none !important;
+  }
+
+  .node-compact,
+  .fuel-text-compact,
+  .clock-time {
+    display: inline !important;
+  }
+
   .cyber-header {
-    padding: 0.6rem 0.75rem;
+    padding: 0.6rem 0.65rem;
     margin: 0 0 1rem 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
   }
 
   .system-status-bar {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: minmax(0, 1fr) auto;
     grid-template-rows: auto auto;
-    gap: 0.5rem 0.6rem;
+    gap: 0.45rem 0.5rem;
     align-items: center;
     margin-bottom: 0.6rem;
     padding-bottom: 0.5rem;
     width: 100%;
+    box-sizing: border-box;
   }
   
   .status-indicator {
@@ -1485,6 +1514,7 @@ html.system-booting #header-fuel-btn {
     gap: 0.35rem;
     font-size: 0.72rem;
     white-space: nowrap;
+    min-width: 0;
   }
 
   #system-clock {
@@ -1494,27 +1524,31 @@ html.system-booting #header-fuel-btn {
     white-space: nowrap;
     text-align: right;
     margin: 0;
+    flex-shrink: 0;
   }
 
   .header-controls {
     grid-column: 1 / 3;
     grid-row: 2 / 3;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     align-items: center;
     gap: 0.35rem;
     width: 100%;
+    box-sizing: border-box;
   }
 
   .header-controls .ctrl-btn,
   .header-controls .fuel-btn {
-    flex: 1 1 0;
+    width: 100%;
     min-width: 0;
+    max-width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     font-size: 0.72rem;
-    padding: 0.32rem 0.2rem;
+    padding: 0.32rem 0.15rem;
     box-sizing: border-box;
     white-space: nowrap;
   }
@@ -1526,6 +1560,7 @@ html.system-booting #header-fuel-btn {
     align-items: flex-start;
     gap: 0.45rem;
     width: 100%;
+    box-sizing: border-box;
   }
 
   .terminal-prompt-brand {
@@ -1534,23 +1569,26 @@ html.system-booting #header-fuel-btn {
     justify-content: flex-start;
     align-items: center;
     gap: 0.35rem;
-    font-size: 0.85rem;
-    padding: 0.2rem 0.5rem;
+    font-size: 0.82rem;
+    padding: 0.2rem 0.4rem;
     box-sizing: border-box;
   }
 
   #header-nav-menu {
     width: 100%;
     margin-left: 0;
+    box-sizing: border-box;
   }
 
   .nav-menu {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 0.25rem;
     width: 100%;
     margin: 0;
     padding: 0;
+    list-style: none;
+    box-sizing: border-box;
   }
 
   .nav-link {
@@ -1558,11 +1596,13 @@ html.system-booting #header-fuel-btn {
     justify-content: center;
     align-items: center;
     text-align: center;
-    font-size: 0.72rem;
-    padding: 0.35rem 0.15rem;
+    font-size: clamp(0.6rem, 2.1vw, 0.72rem);
+    padding: 0.32rem 0.08rem;
     width: 100%;
+    min-width: 0;
     box-sizing: border-box;
     white-space: nowrap;
+    overflow: hidden;
   }
 
   /* Interactive CLI Drawer */

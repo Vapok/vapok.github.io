@@ -285,6 +285,13 @@ function initModFilters() {
    ========================================================================== */
 let isClockScrambling = false;
 
+function formatClockHtml(d) {
+  const iso = d.toISOString();
+  const datePart = iso.substring(0, 10) + ' ';
+  const timePart = iso.substring(11, 19) + ' UTC';
+  return '<span class="clock-date">' + datePart + '</span><span class="clock-time">' + timePart + '</span>';
+}
+
 function initSystemClock() {
   const clockEl = document.getElementById('system-clock');
   if (!clockEl) return;
@@ -292,8 +299,7 @@ function initSystemClock() {
   function updateClock() {
     if (isClockScrambling) return;
     const now = new Date();
-    const utc = now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
-    clockEl.textContent = utc;
+    clockEl.innerHTML = formatClockHtml(now);
   }
 
   updateClock();
@@ -440,10 +446,13 @@ function initBootloaderAndCli() {
       const progress = Math.min(1.0, elapsed / durationMs);
 
       const now = new Date();
-      const targetText = now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+      const iso = now.toISOString();
+      const datePart = iso.substring(0, 10) + ' ';
+      const timePart = iso.substring(11, 19) + ' UTC';
+      const targetText = datePart + timePart;
       const settledLen = Math.floor(progress * targetText.length);
 
-      clockEl.textContent = targetText
+      const scrambledText = targetText
         .split('')
         .map((char, index) => {
           if (char === ' ' || char === ':') return char;
@@ -454,10 +463,14 @@ function initBootloaderAndCli() {
         })
         .join('');
 
+      const scrambledDate = scrambledText.substring(0, datePart.length);
+      const scrambledTime = scrambledText.substring(datePart.length);
+      clockEl.innerHTML = '<span class="clock-date">' + scrambledDate + '</span><span class="clock-time">' + scrambledTime + '</span>';
+
       if (progress >= 1.0) {
         clearInterval(interval);
         const finalNow = new Date();
-        clockEl.textContent = finalNow.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+        clockEl.innerHTML = formatClockHtml(finalNow);
         isClockScrambling = false;
       }
     }, 35);
