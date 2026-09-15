@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Vapok Modding — Multi-Game Releases Synchronizer with Live Thunderstore & Discord Metrics
+Vapok Gaming — Multi-Game Releases Synchronizer with Live Thunderstore & Discord Metrics
 Synchronizes:
 - Valheim Releases from /home/vapok/Modding/Releases
 - Techtonica Releases from /home/vapok/Modding/Techtonica/Releases

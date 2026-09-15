@@ -5,9 +5,7 @@ title: Privacy Policy
 
 # Privacy Policy
 
-**Last Updated:** September 12, 2026
-
-This Privacy Policy describes how **Vapok Modding** ("we", "us", or "our") handles information when you visit our website at [vapok.github.io](https://vapok.github.io) or use game modifications created by Vapok Modding.
+This Privacy Policy describes how **Vapok Gaming** ("we", "us", or "our") handles information when you visit our website at [vapok.io](https://vapok.io) or use game modifications created by Vapok.
 
 ---
 

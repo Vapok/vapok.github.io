@@ -2,7 +2,7 @@
 layout: page
 title: "Support & Backer Protocols"
 permalink: /support/
-description: "Support Vapok Modding through Discord Subscriptions, Buy Me A Coffee, PayPal, or Server Boosting."
+description: "Support Vapok Gaming through Discord Subscriptions, Buy Me A Coffee, PayPal, or Server Boosting."
 ---
 
 <div style="text-align: center; margin-bottom: 2rem; padding: 1.5rem; background: rgba(6, 8, 14, 0.7); border: 1px solid var(--border-subtle);">

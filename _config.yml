@@ -1,6 +1,6 @@
-title: Vapok Modding
-tagline: Game Modifications & Creative Systems
-description: High-performance game modifications, quality-of-life systems, and tools by Vapok.
+title: Vapok Gaming
+tagline: Gaming Community, Creative Systems & Game Modifications
+description: High-performance game modifications, active games, and gaming community hub by Vapok.
 url: "https://vapok.io"
 
 # Site Identity & Links
@@ -38,6 +38,8 @@ nav_links:
     url: "/"
   - title: "[ /MODS ]"
     url: "/#mods"
+  - title: "[ /GAMES ]"
+    url: "/games/"
   - title: "[ /LOGS ]"
     url: "/#logs"
   - title: "[ /ABOUT ]"

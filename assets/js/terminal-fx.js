@@ -1,7 +1,6 @@
 /**
- * VAPOK MODDING — CYBER-CONSOLE INTERACTIVE ENGINE
- * Features:
- * - Reactive ASCII Matrix / Particle Canvas
+ * VAPOK GAMING — CYBER-CONSOLE INTERACTIVE ENGINE
+ * Real-time text scrambling, matrix rain canvas, command palette, and UI sounds
  * - Text Glitch / Decoder Effect on Hover
  * - CRT Scanline State Toggle
  * - Mod Category Quick Filtering

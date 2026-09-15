@@ -1,13 +1,16 @@
-# Vapok Modding - GitHub Pages Site
+# Vapok Gaming - Official Web Portal
 
-This repository contains the source code for the **Vapok Modding** official GitHub Pages site ([vapok.github.io](https://vapok.github.io)), built with [Jekyll](https://jekyllrb.com/) and styled with the **Midnight** theme.
+This repository contains the source code for the **Vapok Gaming** official web portal ([vapok.io](https://vapok.io)), built with [Jekyll](https://jekyllrb.com/) and styled with custom Cyber-Console / Arctic Terminal architecture.
 
 ---
 
 ## 📂 Site Structure
 
-- `_config.yml` &mdash; Jekyll configuration file (site title, description, theme, navigation).
-- `index.md` &mdash; Home page welcoming visitors to Vapok Modding.
+- `_config.yml` &mdash; Jekyll configuration file (site title, description, navigation, social & donation links).
+- `index.md` &mdash; Terminal home portal welcoming visitors to Vapok Gaming and showcasing active mods & updates.
+- `games.md` &mdash; Currently Playing & Active Games dashboard (`/games/`).
+- `support.md` &mdash; Fuel the Dev / Support & Backer protocol page (`/support/`).
+- `_data/games.yml` &mdash; Data file powering the Currently Playing games roster.
 - `terms-of-service.md` &mdash; Terms of Service page covering game mod usage, disclaimers, and IP rights.
 - `privacy-policy.md` &mdash; Privacy Policy page covering data privacy and hosting terms.
 - `.github/workflows/jekyll-gh-pages.yml` &mdash; GitHub Actions workflow for automatic deployment.

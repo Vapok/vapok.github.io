@@ -7,28 +7,28 @@ title: Terms of Service
 
 **Last Updated:** September 12, 2026
 
-Welcome to **Vapok Modding**. By accessing our website at [vapok.github.io](https://vapok.github.io) or downloading, installing, or using any game modifications created by Vapok Modding ("Mods"), you agree to be bound by these Terms of Service ("Terms").
+Welcome to **Vapok Gaming**. By accessing our website at [vapok.io](https://vapok.io) or downloading, installing, or using any game modifications or tools created by Vapok Gaming ("Mods"), you agree to be bound by these Terms of Service ("Terms").
 
 ---
 
 ## 1. Description of Service
 
-Vapok Modding provides fan-made game modifications, utilities, and custom content ("Mods") for various PC video games. All Mods are offered as free fan additions intended to enhance gameplay experiences.
+Vapok Gaming provides fan-made game modifications, utilities, and custom content ("Mods") for various PC video games. All Mods are offered as free fan additions intended to enhance gameplay experiences.
 
 ---
 
 ## 2. License & Acceptable Use
 
 * **Personal Non-Commercial Use:** You are granted a limited, non-exclusive, non-transferable license to download and install Mods for personal, non-commercial use only.
-* **No Commercial Redistribution:** You may not sell, rent, lease, or monetize any Mods created by Vapok Modding, nor bundle them into paid packages, without express written permission.
+* **No Commercial Redistribution:** You may not sell, rent, lease, or monetize any Mods created by Vapok Gaming, nor bundle them into paid packages, without express written permission.
 * **Re-uploading:** Redistribution or hosting of Mods on unauthorized third-party platforms without permission or proper attribution is prohibited.
 
 ---
 
 ## 3. Intellectual Property & Third-Party Rights
 
-* **Game Developer Rights:** All base games, original assets, trademarks, logos, and intellectual property belong to their respective publishers and developers. Vapok Modding makes no claim of ownership over third-party game assets.
-* **Mod Rights:** Original code, custom assets, scripts, and original content authored by Vapok Modding remain the intellectual property of Vapok Modding.
+* **Game Developer Rights:** All base games, original assets, trademarks, logos, and intellectual property belong to their respective publishers and developers. Vapok Gaming makes no claim of ownership over third-party game assets.
+* **Mod Rights:** Original code, custom assets, scripts, and original content authored by Vapok Gaming remain the intellectual property of Vapok Gaming.
 * **EULA Compliance:** All Mods are designed to comply with the End User License Agreements (EULAs) and modding guidelines set forth by the respective game developers.
 
 ---
@@ -44,7 +44,7 @@ Vapok Modding provides fan-made game modifications, utilities, and custom conten
 
 ## 5. Limitation of Liability
 
-TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, VAPOK MODDING SHALL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, CONSEQUENTIAL, SPECIAL, OR PUNITIVE DAMAGES (INCLUDING LOSS OF DATA, SAVE GAME CORRUPTION, OR SYSTEM INSTABILITY) ARISING OUT OF OR IN CONNECTION WITH YOUR USE OR INABILITY TO USE OUR MODS OR WEBSITE.
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, VAPOK GAMING SHALL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, CONSEQUENTIAL, SPECIAL, OR PUNITIVE DAMAGES (INCLUDING LOSS OF DATA, SAVE GAME CORRUPTION, OR SYSTEM INSTABILITY) ARISING OUT OF OR IN CONNECTION WITH YOUR USE OR INABILITY TO USE OUR MODS OR WEBSITE.
 
 ---
 

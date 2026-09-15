@@ -92,18 +92,18 @@ title: Home
   <div class="section-header">
     <div class="section-title">
       <span>// CREATOR_DIRECTIVE</span>
-      <span class="section-title-tag">[ ABOUT VAPOK MODDING ]</span>
+      <span class="section-title-tag">[ ABOUT VAPOK GAMING ]</span>
     </div>
   </div>
 
   <div class="content-terminal-box" style="margin-top: 0;">
     <div class="markdown-body">
       <p>
-        <strong>Vapok Modding</strong> designs and engineers robust, multiplayer-safe modifications for PC titles. Every project is built from the ground up prioritizing performance, customizability, clean architecture, and long-term save game stability.
+        <strong>Vapok Gaming</strong> is a creator hub, community, and modding laboratory led by Vapok. We design and engineer robust, multiplayer-safe modifications, develop gaming tools, and host collaborative game sessions for titles across the PC gaming sphere.
       </p>
       
       <p>
-        Source repositories, issue trackers, and community builds are maintained publicly across GitHub and Nexus Mods.
+        From deep survival automation to complex QoL systems, every project prioritizes performance, customizability, clean architecture, and long-term save game stability.
       </p>
 
       <hr>
