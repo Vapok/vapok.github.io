@@ -1273,6 +1273,38 @@ function initBootloaderAndCli() {
   // 10-Second Progressive Top-Down Compilation Sequence
   function startBootSequence() {
     isBooting = true;
+
+    // Section References for Staggered Reveal
+    const navMenu = document.getElementById('header-nav-menu');
+    const fuelBtn = document.getElementById('header-fuel-btn');
+    const heroAscii = document.querySelector('.hero-ascii-section');
+    const modsSection = document.getElementById('mods');
+    const logsSection = document.getElementById('logs');
+    const fuelSection = document.getElementById('fuel');
+    const aboutSection = document.getElementById('about');
+    const footer = document.querySelector('.cyber-footer');
+    const mainContent = document.getElementById('main-content') || document.querySelector('.page-content') || document.querySelector('main');
+
+    // 1. Immediately hide all sections with transition: none BEFORE unhiding system-offline
+    const sectionsToHide = [heroAscii, modsSection, logsSection, fuelSection, aboutSection, footer, !isHomepage ? mainContent : null, navMenu, fuelBtn];
+    sectionsToHide.forEach((sec) => {
+      if (sec) {
+        sec.style.transition = 'none';
+        sec.style.opacity = '0';
+        sec.style.transform = 'translateY(15px)';
+      }
+    });
+
+    if (navMenu) {
+      navMenu.style.transform = 'translateY(-10px)';
+    }
+    if (fuelBtn) {
+      fuelBtn.style.transform = 'translateY(-10px)';
+    }
+
+    // Force a synchronous reflow so zero-opacity is rendered before class change
+    void document.documentElement.offsetHeight;
+
     document.documentElement.classList.remove('system-offline');
     document.documentElement.classList.remove('system-shutting-down');
     document.documentElement.classList.add('system-booting');
@@ -1286,43 +1318,18 @@ function initBootloaderAndCli() {
     printLine('>>> INITIATING VAPOK.IO SYSTEM BOOTLOADER <<<', 'cmd');
     printLine('[0.00s] Initializing Vapok OS Kernel v2026.1...', 'info');
 
-    // Section References for Staggered Reveal
-    const navMenu = document.getElementById('header-nav-menu');
-    const fuelBtn = document.getElementById('header-fuel-btn');
-    const heroAscii = document.querySelector('.hero-ascii-section');
-    const modsSection = document.getElementById('mods');
-    const logsSection = document.getElementById('logs');
-    const aboutSection = document.getElementById('about');
-    const footer = document.querySelector('.cyber-footer');
-    const mainContent = document.getElementById('main-content') || document.querySelector('.page-content') || document.querySelector('main');
-
-    // Hide sections initially to prepare for progressive reveal
-    [heroAscii, modsSection, logsSection, aboutSection, footer, !isHomepage ? mainContent : null, navMenu, fuelBtn].forEach((sec) => {
-      if (sec) {
-        sec.style.opacity = '0';
-        sec.style.transform = 'translateY(15px)';
-        sec.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-      }
-    });
-
-    if (navMenu) {
-      navMenu.style.transform = 'translateY(-10px)';
-      navMenu.style.transition = 'opacity 1.2s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)';
-    }
-    if (fuelBtn) {
-      fuelBtn.style.transform = 'translateY(-10px)';
-      fuelBtn.style.transition = 'opacity 1.2s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)';
-    }
-
     // Compilation Log Milestones over 10 seconds
     setTimeout(() => {
       printLine('[1.50s] Mounting multi-game subsystems (Valheim, Techtonica)... OK', 'info');
       if (navMenu) {
+        navMenu.style.transition = 'opacity 1.2s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)';
         navMenu.style.opacity = '1';
         navMenu.style.transform = 'translateY(0)';
         decodeTextElement(navMenu, 1500);
       }
       if (fuelBtn) {
+        fuelBtn.style.transition = 'max-width 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s ease, padding 1.2s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)';
+        fuelBtn.style.transform = 'translateY(0)';
         fuelBtn.style.maxWidth = '180px';
         fuelBtn.style.padding = '0.2rem 0.6rem';
         fuelBtn.style.borderWidth = '1px';
@@ -1337,11 +1344,13 @@ function initBootloaderAndCli() {
     setTimeout(() => {
       printLine('[3.20s] Synchronizing Thunderstore metrics & Discord bridge... OK', 'info');
       if (heroAscii) {
+        heroAscii.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
         heroAscii.style.opacity = '1';
         heroAscii.style.transform = 'translateY(0)';
         decodeTextElement(heroAscii, 2000);
       }
       if (!isHomepage && mainContent) {
+        mainContent.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
         mainContent.style.opacity = '1';
         mainContent.style.transform = 'translateY(0)';
         decodeTextElement(mainContent, 2000);
@@ -1351,6 +1360,7 @@ function initBootloaderAndCli() {
     setTimeout(() => {
       printLine('[5.00s] Compiling module repository & release dossiers... OK', 'info');
       if (modsSection) {
+        modsSection.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
         modsSection.style.opacity = '1';
         modsSection.style.transform = 'translateY(0)';
         decodeTextElement(modsSection, 2200);
@@ -1360,10 +1370,17 @@ function initBootloaderAndCli() {
     setTimeout(() => {
       printLine('[7.20s] Decrypting transmission logs & creator directive... OK', 'info');
       if (logsSection) {
+        logsSection.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
         logsSection.style.opacity = '1';
         logsSection.style.transform = 'translateY(0)';
       }
+      if (fuelSection) {
+        fuelSection.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        fuelSection.style.opacity = '1';
+        fuelSection.style.transform = 'translateY(0)';
+      }
       if (aboutSection) {
+        aboutSection.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
         aboutSection.style.opacity = '1';
         aboutSection.style.transform = 'translateY(0)';
         decodeTextElement(aboutSection, 1800);
@@ -1373,6 +1390,7 @@ function initBootloaderAndCli() {
     setTimeout(() => {
       printLine('[9.00s] Initializing graphical render canvas & cyber shaders... OK', 'info');
       if (footer) {
+        footer.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
         footer.style.opacity = '1';
         footer.style.transform = 'translateY(0)';
       }
@@ -1395,7 +1413,7 @@ function initBootloaderAndCli() {
       }
 
       // Reset styles cleanly
-      [heroAscii, modsSection, logsSection, aboutSection, footer, mainContent, navMenu, fuelBtn].forEach((sec) => {
+      [heroAscii, modsSection, logsSection, fuelSection, aboutSection, footer, mainContent, navMenu, fuelBtn].forEach((sec) => {
         if (sec) {
           sec.style.opacity = '';
           sec.style.transform = '';
@@ -1435,6 +1453,7 @@ function initBootloaderAndCli() {
     const heroAscii = document.querySelector('.hero-ascii-section');
     const modsSection = document.getElementById('mods');
     const logsSection = document.getElementById('logs');
+    const fuelSection = document.getElementById('fuel');
     const aboutSection = document.getElementById('about');
     const footer = document.querySelector('.cyber-footer');
 
@@ -1465,7 +1484,7 @@ function initBootloaderAndCli() {
       }
     }, 1800);
 
-    // 3. [2.80s] Mods Catalog Decompile
+    // 3. [2.80s] Mods Catalog & Fuel Decompile
     setTimeout(() => {
       printLine('[2.80s] Unmounting mod catalog dossiers & release tables... OK', 'info');
       if (modsSection) {
@@ -1473,6 +1492,12 @@ function initBootloaderAndCli() {
         modsSection.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         modsSection.style.opacity = '0';
         modsSection.style.transform = 'translateY(15px)';
+      }
+      if (fuelSection) {
+        encodeTextElement(fuelSection, 800);
+        fuelSection.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        fuelSection.style.opacity = '0';
+        fuelSection.style.transform = 'translateY(15px)';
       }
     }, 2800);
 
@@ -1527,7 +1552,7 @@ function initBootloaderAndCli() {
       }
 
       // Reset inline styles cleanly
-      [heroAscii, modsSection, logsSection, aboutSection, footer, navMenu, fuelBtn].forEach((sec) => {
+      [heroAscii, modsSection, logsSection, fuelSection, aboutSection, footer, navMenu, fuelBtn].forEach((sec) => {
         if (sec) {
           sec.style.opacity = '';
           sec.style.transform = '';
@@ -1543,7 +1568,7 @@ function initBootloaderAndCli() {
         printLine('Initiating warm reboot sequence...', 'info');
         setTimeout(() => {
           startBootSequence();
-        }, 800);
+        }, 1200);
       } else {
         printLine('Subsystems dormant. Type "start" (or click [ ⚡ START ]) to initialize.', 'info');
       }

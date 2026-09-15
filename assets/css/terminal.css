@@ -443,6 +443,17 @@ html.system-shutting-down #system-status-text {
   color: var(--warning-amber) !important;
 }
 
+html.system-booting .hero-ascii-section,
+html.system-booting #mods,
+html.system-booting #logs,
+html.system-booting #fuel,
+html.system-booting #about,
+html.system-booting .cyber-footer,
+html.system-booting .page-content {
+  opacity: 0;
+  transform: translateY(15px);
+}
+
 html.system-booting #header-nav-menu {
   opacity: 0;
   transform: translateY(-8px);
