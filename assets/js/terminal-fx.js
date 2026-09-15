@@ -380,11 +380,41 @@ function initBootloaderAndCli() {
   }
 
   const cyberHeader = document.querySelector('.cyber-header');
+  let closeAnimationTimeout = null;
+
+  function scramblePromptBrand() {
+    const promptPrefix = document.querySelector('#terminal-brand-btn .prompt-prefix');
+    if (!promptPrefix) return;
+    const targetText = 'user@vapok.io:~$';
+    const chars = '01#*+=-:.·˙_[]{}<>/\\$!%^&';
+    let iteration = 0;
+    const interval = setInterval(() => {
+      promptPrefix.textContent = targetText
+        .split('')
+        .map((char, index) => {
+          if (index < iteration) {
+            return targetText[index];
+          }
+          return chars[Math.floor(Math.random() * chars.length)];
+        })
+        .join('');
+
+      if (iteration >= targetText.length) {
+        clearInterval(interval);
+        promptPrefix.textContent = targetText;
+      }
+      iteration += 1 / 2;
+    }, 30);
+  }
 
   function toggleCli(forceOpen = null) {
     if (!cliDrawer) return;
-    const shouldOpen = forceOpen !== null ? forceOpen : !cliDrawer.classList.contains('open');
+    const isCurrentlyOpen = cliDrawer.classList.contains('open');
+    const shouldOpen = forceOpen !== null ? forceOpen : !isCurrentlyOpen;
+
     if (shouldOpen) {
+      clearTimeout(closeAnimationTimeout);
+      cliDrawer.classList.remove('closing');
       cliDrawer.classList.add('open');
       if (cyberHeader) cyberHeader.classList.add('cli-open');
       if (brandBtn) brandBtn.style.display = 'none';
@@ -394,9 +424,19 @@ function initBootloaderAndCli() {
       }
       if (cliInput) setTimeout(() => cliInput.focus(), 100);
     } else {
-      cliDrawer.classList.remove('open');
+      if (isCurrentlyOpen) {
+        cliDrawer.classList.remove('open');
+        cliDrawer.classList.add('closing');
+        clearTimeout(closeAnimationTimeout);
+        closeAnimationTimeout = setTimeout(() => {
+          cliDrawer.classList.remove('closing');
+        }, 350);
+      }
       if (cyberHeader) cyberHeader.classList.remove('cli-open');
-      if (brandBtn) brandBtn.style.display = '';
+      if (brandBtn) {
+        brandBtn.style.display = '';
+        scramblePromptBrand();
+      }
       if (cliToggleBtn) {
         cliToggleBtn.classList.remove('active');
         cliToggleBtn.textContent = '[ CLI: >_ ]';
@@ -723,6 +763,11 @@ function initBootloaderAndCli() {
           sec.style.transition = '';
         }
       });
+
+      // Animate CLI drawer pulling back up into header now that system is ONLINE
+      setTimeout(() => {
+        toggleCli(false);
+      }, 500);
     }, 10000);
   }
 
