@@ -94,7 +94,11 @@ All web pages, layout templates, and UI components in this repository adhere to 
 
 ### Terminal Drawer & Sticky Header Integration
 - **Header Toggle**: `#cli-toggle-btn` toggles between `[ CLI: >_ ]` and `[ CLI: <_ ]`. When open, receives `.active` class with cyan glow (`box-shadow: 0 0 12px var(--ice-blue-glow), inset 0 0 8px rgba(100, 240, 252, 0.2)`).
-- **Sticky Prompt Concealment**: When the CLI drawer is open, `#terminal-brand-btn` (`user@vapok.io:~$ █`) is concealed. Upon drawer pull-up closure, it reappears using a character-by-character letter-scramble decode sequence (`scramblePromptBrand()`).
+- **Terminal Prompt Anchor**: When the CLI drawer opens, `#terminal-brand-btn` (`user@vapok.io:~$ █ [TTY-1]`) remains visible as the active glowing anchor point for the drawer. Main navigation links maintain `margin-left: auto;` to remain strictly anchored to the right side without layout shifting.
+- **Dynamic Quick Power Button**: `#cli-boot-quick-btn` dynamically reflects system power state:
+  - **OFFLINE**: Displays amber `[ ⚡ START ]` (`var(--warning-amber)`), executing `start`.
+  - **ONLINE**: Displays crimson red `[ 🛑 STOP ]` (`var(--error-crimson)`), executing `shutdown`.
+  - CLI recognizes `stop` as a direct alias for `shutdown` / `poweroff`.
 - **Dismissal & Hotkeys**:
   - Global hotkeys: <kbd>~</kbd> / <kbd>`</kbd> toggles CLI; <kbd>Enter</kbd> (when drawer is closed on general page) opens the CLI and focuses `#cli-input`.
   - Click-outside dismissal automatically closes drawer, strictly ignoring clicks inside the drawer, on `#terminal-brand-btn`, or on `.header-controls`.
@@ -109,6 +113,7 @@ All web pages, layout templates, and UI components in this repository adhere to 
   - **Homepage (`/`)**: Unbooted visitors start in gated `system-offline` mode requiring `start` (or clicking `[ ⚡ START ]`).
   - **Direct Sub-pages (e.g. `/games/`, `/support/`)**: Unbooted visitors automatically trigger the full 10-second compilation bootloader upon page arrival, compiling sub-page elements and transitioning to `ONLINE`.
 - **`start` Sequence**: 10-second top-down compilation decoding elements via `decodeTextElement()`. `start` is the only command that automatically closes the drawer once compilation is complete.
+- **Clock Scramble & Transition**: During boot and shutdown, `#system-clock` transitions position fluidly with `max-width` box-model interpolation on `#header-fuel-btn` while running cyber text matrix scramble-encoding and resolving into live UTC timestamps.
 - **`shutdown` Sequence**: 7-second graceful bottom-up decompilation encoding elements into cyber noise glyphs via `encodeTextElement()`, returning system to `OFFLINE`.
 - **`reboot` Sequence**: Gracefully decompiles to `OFFLINE` and immediately re-initializes the top-down `start` bootloader.
 
@@ -130,4 +135,25 @@ All web pages, layout templates, and UI components in this repository adhere to 
   - <kbd>↑</kbd> / <kbd>↓</kbd> (Up / Down): Traverses through visible tree nodes with auto-scroll centering.
   - <kbd>Enter</kbd>: Navigates/redirects browser to selected URL and refreshes.
   - <kbd>Escape</kbd> (or `[ ESC ] EXIT TUI`): Exits the console program cleanly, restores CLI terminal output/prompt, and re-focuses `#cli-input`.
+
+---
+
+## 7. Mobile Responsiveness & Viewport Containment Standards
+
+### Header Status Bar (Mobile)
+- Organized into a clean 2-row CSS Grid layout under `@media (max-width: 768px)`:
+  - **Row 1**: `SYS_NODE: [ vapok.io ] | STATUS: ONLINE` left-aligned, UTC clock right-aligned on the same line.
+  - **Row 2**: Action buttons (`[ ⚡ FUEL: $$$ ]`, `[ CLI: >_ ]`, `[ CRT: ON ]`) evenly distributed across 3 equal columns.
+- **Un-justified Command Elements**: Command prompt elements (`user@vapok.io:~$`, cursor `█`, `[TTY-1]`) must never be justified with `space-between`; they must remain left-aligned and grouped compactly.
+
+### Card & Text Viewport Containment
+- **Gutter Spacing**: `.site-wrapper` mobile horizontal padding is minimum `1rem` (16px).
+- **Unbroken String Truncation**: Long unspaced package or dependency identifiers (e.g. `denikson-BepInExPack_Valheim-5.4.2350`) must have `max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;` on `.dep-badge` to prevent pushing cards beyond the viewport.
+- **Grid Item Shrink**: `.mod-grid` uses `grid-template-columns: minmax(0, 1fr)` with `min-width: 0; box-sizing: border-box; overflow: hidden;` on `.mod-card`.
+- **Flexible Action Buttons**: `.mod-card-actions .cyber-btn` wrap flexibly on mobile (`flex: 1 1 calc(50% - 0.45rem)`).
+
+### Mobile Back-To-Top Button
+- Fixed in bottom-right corner on mobile screens, hidden on desktop (`min-width: 769px`).
+- Activates with a cyber matrix scatter-decoding text animation when user scrolls down past `150px`.
+- Smoothly scrolls back to top when tapped (`window.scrollTo({ top: 0, behavior: 'smooth' })`).
 
