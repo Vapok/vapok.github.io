@@ -1,0 +1,20 @@
+---
+layout: default
+---
+
+<div class="content-terminal-box">
+  <div class="doc-header-block">
+    <div class="status-badge cyan" style="display: inline-block; margin-bottom: 0.6rem;">DOC_FILE // 0x{{ page.title | size }}</div>
+    <h1 class="doc-title">{{ page.title }}</h1>
+    <div class="doc-metadata">
+      <span>PATH: [ {{ page.url }} ]</span>
+      {% if page.last_modified_at %}
+        <span>MODIFIED: {{ page.last_modified_at }}</span>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="markdown-body">
+    {{ content }}
+  </div>
+</div>

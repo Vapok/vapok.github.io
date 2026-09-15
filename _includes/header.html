@@ -1,0 +1,35 @@
+<header class="cyber-header">
+  <div class="system-status-bar">
+    <div class="status-indicator">
+      <span class="status-dot"></span>
+      <span>SYS_NODE: [ vapok.github.io ]</span>
+      <span style="color: var(--text-dim)">|</span>
+      <span>STATUS: <strong style="color: var(--glacial-mint)">ONLINE</strong></span>
+    </div>
+    
+    <div class="header-controls">
+      <span id="system-clock" style="color: var(--text-muted)">--:--:-- UTC</span>
+      <button id="crt-toggle-btn" class="ctrl-btn" title="Toggle CRT Scanline Effect">[ CRT: ON ]</button>
+    </div>
+  </div>
+
+  <div class="nav-container">
+    <a href="{{ '/' | relative_url }}" class="terminal-prompt-brand">
+      <span class="prompt-prefix">vapok@modding:~$</span>
+      <span>./launch</span>
+      <span class="prompt-cursor">█</span>
+    </a>
+
+    <nav>
+      <ul class="nav-menu">
+        {% for link in site.nav_links %}
+          <li>
+            <a href="{{ link.url | relative_url }}" class="nav-link {% if page.url == link.url %}active{% endif %}">
+              {{ link.title }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+</header>

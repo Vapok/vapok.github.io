@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: Welcome to the New Vapok Modding Site!
 date: 2026-09-13
 categories: [news, updates]

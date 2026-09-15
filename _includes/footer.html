@@ -1,0 +1,32 @@
+<footer class="cyber-footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span>// VAPOK MODDING LABS</span>
+      <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">
+        Independent Game Modification & Engineering
+      </p>
+    </div>
+
+    <ul class="footer-social-links">
+      {% for link in site.social_links %}
+        <li>
+          <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="footer-social-link">
+            [ {{ link.title }} ]
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="footer-bottom">
+    <div>
+      &copy; {{ 'now' | date: "%Y" }} Vapok Modding. All rights reserved.
+    </div>
+
+    <ul class="footer-legal-links">
+      <li><a href="{{ '/terms-of-service' | relative_url }}">[ Terms of Service ]</a></li>
+      <li><a href="{{ '/privacy-policy' | relative_url }}">[ Privacy Policy ]</a></li>
+      <li><a href="#top">[ ^ TOP ]</a></li>
+    </ul>
+  </div>
+</footer>

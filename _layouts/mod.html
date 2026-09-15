@@ -1,0 +1,105 @@
+---
+layout: default
+---
+
+<div class="content-terminal-box">
+  <!-- Top Breadcrumb -->
+  <div style="margin-bottom: 1.25rem; font-size: 0.82rem; color: var(--text-muted); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
+    <div>
+      <span style="color: var(--cyber-teal)">vapok@modding:~$</span>
+      <a href="{{ '/' | relative_url }}" style="color: var(--ice-blue); text-decoration: none;">./root</a> /
+      <a href="{{ '/#mods' | relative_url }}" style="color: var(--ice-blue); text-decoration: none;">mods</a> /
+      <span style="color: var(--glacial-mint)">{{ page.name }}</span>
+    </div>
+    <a href="{{ '/#mods' | relative_url }}" class="ctrl-btn">[ &lt; ALL MODS ]</a>
+  </div>
+
+  <!-- Mod Dossier Hero -->
+  <div class="mod-dossier-hero">
+    {% if page.icon %}
+      <div class="mod-dossier-icon-box">
+        <img src="{{ page.icon | relative_url }}" alt="{{ page.name }} Icon" class="mod-dossier-icon">
+      </div>
+    {% endif %}
+
+    <div class="mod-dossier-info">
+      <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+        <span class="status-badge {{ page.badge_color }}">{{ page.status }}</span>
+        <span style="font-size: 0.8rem; color: var(--text-dim);">MODULE // 0x{{ page.slug }}</span>
+      </div>
+
+      <h1 class="mod-dossier-title">{{ page.name }}</h1>
+      <p style="color: var(--text-main); font-size: 0.95rem; margin-top: 0.35rem; line-height: 1.6;">
+        {{ page.description }}
+      </p>
+
+      <div class="mod-dossier-specs">
+        <div class="spec-pill">
+          <span class="spec-k">TARGET GAME:</span>
+          <span class="spec-v">{{ page.game }}</span>
+        </div>
+        <div class="spec-pill">
+          <span class="spec-k">VERSION:</span>
+          <span class="spec-v" style="color: var(--glacial-mint)">{{ page.version }}</span>
+        </div>
+      </div>
+
+      {% if page.dependencies and page.dependencies.size > 0 %}
+        <div style="margin-top: 0.85rem;">
+          <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Dependencies:</span>
+          <div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.3rem;">
+            {% for dep in page.dependencies %}
+              <span class="dep-badge">{{ dep }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.25rem;">
+        {% if page.website_url %}
+          <a href="{{ page.website_url }}" target="_blank" rel="noopener noreferrer" class="cyber-btn">
+            [ &lt;/&gt; GITHUB REPOSITORY ]
+          </a>
+        {% endif %}
+        {% if page.has_changelog %}
+          <a href="#tab-changelog" class="cyber-btn btn-secondary tab-trigger" data-target="panel-changelog">
+            [ > VIEW CHANGELOG ]
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabbed Terminal Viewer -->
+  <div class="terminal-tab-bar" style="margin-top: 2rem;">
+    <button class="terminal-tab-btn active" data-tab="panel-readme">
+      [ README.md (Documentation) ]
+    </button>
+    {% if page.has_changelog %}
+      <button class="terminal-tab-btn" data-tab="panel-changelog">
+        [ CHANGELOG.md (Release History) ]
+      </button>
+    {% endif %}
+  </div>
+
+  <!-- Tab Panels -->
+  <div id="panel-readme" class="tab-panel active">
+    <div class="markdown-body" style="padding-top: 1.5rem;">
+      {{ content }}
+    </div>
+  </div>
+
+  {% if page.has_changelog %}
+    <div id="panel-changelog" class="tab-panel" style="display: none;">
+      <div class="markdown-body" style="padding-top: 1.5rem;">
+        {% capture changelog_raw %}{% include changelogs/{{ page.slug }}.md %}{% endcapture %}
+        {{ changelog_raw | markdownify }}
+      </div>
+    </div>
+  {% endif %}
+
+  <div style="margin-top: 3rem; padding-top: 1.25rem; border-top: 1px dashed var(--border-subtle); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+    <a href="{{ '/#mods' | relative_url }}" class="cyber-btn">[ &lt; RETURN TO MODS REPOSITORY ]</a>
+    <a href="#top" class="ctrl-btn">[ ^ TOP ]</a>
+  </div>
+</div>

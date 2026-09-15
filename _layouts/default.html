@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ page.description | default: site.description }}">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="{{ '/assets/css/terminal.css' | relative_url }}">
+  
+  <!-- Favicon / Meta -->
+  <meta name="theme-color" content="#06080e">
+</head>
+<body id="top">
+  <!-- Interactive ASCII Background Canvas -->
+  <canvas id="ascii-bg-canvas"></canvas>
+
+  <!-- CRT Scanline Filter Layer -->
+  <div class="crt-overlay"></div>
+
+  <!-- Site Content Container -->
+  <div class="site-wrapper">
+    {% include header.html %}
+
+    <main id="main-content">
+      {{ content }}
+    </main>
+
+    {% include footer.html %}
+  </div>
+
+  <!-- JavaScript Engine -->
+  <script src="{{ '/assets/js/terminal-fx.js' | relative_url }}"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+---
+layout: default
+---
+
+<div class="content-terminal-box">
+  <div class="doc-header-block">
+    <div class="status-badge mint" style="display: inline-block; margin-bottom: 0.6rem;">LOG_ENTRY // {{ page.date | date: "%Y-%m-%d" }}</div>
+    <h1 class="doc-title">{{ page.title }}</h1>
+    <div class="doc-metadata">
+      <span>DATE: {{ page.date | date: "%B %d, %Y" }}</span>
+      {% if page.categories %}
+        <span>CATEGORIES: [ {{ page.categories | join: ", " }} ]</span>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="markdown-body">
+    {{ content }}
+  </div>
+
+  <div style="margin-top: 2.5rem; padding-top: 1rem; border-top: 1px dashed var(--border-subtle);">
+    <a href="{{ '/' | relative_url }}" class="cyber-btn">[ &lt; RETURN TO MAIN HUB ]</a>
+  </div>
+</div>
