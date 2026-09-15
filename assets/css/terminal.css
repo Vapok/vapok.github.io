@@ -340,12 +340,16 @@ html.system-shutting-down #system-status-text {
 
 .cyber-cli-drawer.open {
   display: block;
-  animation: drawerSlideDown 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: drawerSlideDown 0.38s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+}
+
+.cyber-cli-drawer.open > * {
+  animation: drawerContentFadeIn 0.3s ease 0.08s both;
 }
 
 .cyber-cli-drawer.closing {
   display: block;
-  animation: drawerSlideUp 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: drawerSlideUp 0.32s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   pointer-events: none;
 }
 
@@ -354,19 +358,35 @@ html.system-shutting-down #system-status-text {
   display: none !important;
 }
 
+@keyframes drawerContentFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes drawerSlideDown {
   0% {
     opacity: 0;
-    transform: translateY(-12px);
+    transform: translateY(-16px) scaleY(0.95);
+    transform-origin: top center;
     max-height: 0;
     padding-top: 0;
     padding-bottom: 0;
     margin-top: 0;
     overflow: hidden;
   }
+  60% {
+    opacity: 0.95;
+  }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scaleY(1);
+    transform-origin: top center;
     max-height: 700px;
     padding-top: 0.85rem;
     padding-bottom: 0.85rem;
@@ -377,7 +397,8 @@ html.system-shutting-down #system-status-text {
 @keyframes drawerSlideUp {
   0% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scaleY(1);
+    transform-origin: top center;
     max-height: 700px;
     padding-top: 0.85rem;
     padding-bottom: 0.85rem;
@@ -386,7 +407,8 @@ html.system-shutting-down #system-status-text {
   }
   100% {
     opacity: 0;
-    transform: translateY(-15px);
+    transform: translateY(-16px) scaleY(0.95);
+    transform-origin: top center;
     max-height: 0;
     padding-top: 0;
     padding-bottom: 0;
