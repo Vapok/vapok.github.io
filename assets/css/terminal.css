@@ -482,7 +482,92 @@ html.system-shutting-down #system-status-text {
 }
 
 .cli-line.error {
-  color: #ff5555;
+  color: #ff4d4d;
+  font-weight: 700;
+}
+
+/* INTERACTIVE CLI SITEMAP / DIR BROWSER */
+.cli-sitemap-container {
+  margin: 0.6rem 0;
+  border: 1px solid var(--border-strong);
+  background: rgba(3, 7, 14, 0.95);
+  padding: 0.65rem 0.85rem;
+  box-shadow: 0 0 14px rgba(100, 240, 252, 0.15);
+  font-family: var(--font-mono);
+}
+
+.cli-sitemap-header {
+  color: var(--ice-blue-bright);
+  font-weight: 700;
+  font-size: 0.74rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px dashed var(--border-subtle);
+  padding-bottom: 0.35rem;
+  letter-spacing: 0.05em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cli-sitemap-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.cli-sitemap-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-size: 0.8rem;
+  border-radius: 2px;
+}
+
+.cli-sitemap-item.selected,
+.cli-sitemap-item:hover {
+  background: rgba(100, 240, 252, 0.16);
+  border-color: var(--ice-blue);
+  color: var(--ice-blue-bright);
+  box-shadow: 0 0 8px rgba(100, 240, 252, 0.25);
+}
+
+.cli-sitemap-item .sitemap-cursor {
+  color: var(--ice-blue-bright);
+  font-weight: bold;
+  opacity: 0;
+  width: 12px;
+}
+
+.cli-sitemap-item.selected .sitemap-cursor {
+  opacity: 1;
+}
+
+.cli-sitemap-item .sitemap-path {
+  font-weight: 700;
+  color: #ffffff;
+  min-width: 140px;
+}
+
+.cli-sitemap-item.selected .sitemap-path {
+  color: var(--ice-blue-bright);
+}
+
+.cli-sitemap-item .sitemap-desc {
+  color: var(--text-muted);
+  font-size: 0.74rem;
+  flex: 1;
+}
+
+.cli-sitemap-footer {
+  margin-top: 0.5rem;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  border-top: 1px dashed var(--border-subtle);
+  padding-top: 0.35rem;
 }
 
 .cli-input-line {

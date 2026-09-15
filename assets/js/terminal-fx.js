@@ -541,6 +541,104 @@ function initBootloaderAndCli() {
     printLine('VAPOK_OS v2026.1 // System Online. Type "help" for commands.', 'info');
   }
 
+  const sitemapItems = [
+    { path: '/ (Mainframe Base)', url: '/', desc: 'Primary landing hub & system dossier' },
+    { path: '/#mods (Mod Catalog)', url: '/#mods', desc: '16 Valheim & Techtonica mod releases' },
+    { path: '/games/ (Games Matrix)', url: '/games/', desc: 'Currently playing & active rotation' },
+    { path: '/support/ (Fuel Support)', url: '/support/', desc: 'Creator support & sponsorship channels' },
+    { path: 'discord.gg/5YAJkRFBXt', url: 'https://discord.gg/5YAJkRFBXt', desc: 'Community Discord bridge', isExternal: true },
+    { path: 'github.com/Vapok', url: 'https://github.com/Vapok', desc: 'GitHub modding repositories', isExternal: true }
+  ];
+
+  let currentSitemapIndex = 0;
+  let isSitemapActive = false;
+  let sitemapContainerEl = null;
+
+  function renderInteractiveSitemap() {
+    if (!cliOutput) return;
+    isSitemapActive = true;
+    currentSitemapIndex = 0;
+
+    sitemapContainerEl = document.createElement('div');
+    sitemapContainerEl.className = 'cli-sitemap-container';
+
+    let itemsHtml = sitemapItems
+      .map((item, idx) => `
+        <div class="cli-sitemap-item ${idx === 0 ? 'selected' : ''}" data-idx="${idx}">
+          <span class="sitemap-cursor">&gt;</span>
+          <span class="sitemap-path">${item.path}</span>
+          <span class="sitemap-desc">${item.desc}</span>
+        </div>
+      `)
+      .join('');
+
+    sitemapContainerEl.innerHTML = `
+      <div class="cli-sitemap-header">
+        <span>// DIRECTORY MATRIX SITEMAP [ TTY-1 ]</span>
+        <span style="color: var(--text-dim); font-size: 0.68rem;">[ ↑ / ↓ ARROWS • ENTER TO REDIRECT ]</span>
+      </div>
+      <div class="cli-sitemap-list">
+        ${itemsHtml}
+      </div>
+      <div class="cli-sitemap-footer">Select node with [ ↑ / ↓ ] or click • Press [ ENTER ] to execute redirect • [ ESC ] to cancel</div>
+    `;
+
+    cliOutput.appendChild(sitemapContainerEl);
+    cliOutput.scrollTop = cliOutput.scrollHeight;
+
+    const itemEls = sitemapContainerEl.querySelectorAll('.cli-sitemap-item');
+    itemEls.forEach((el) => {
+      el.addEventListener('click', () => {
+        const idx = parseInt(el.dataset.idx, 10);
+        navigateSitemapItem(idx);
+      });
+      el.addEventListener('mouseenter', () => {
+        setSitemapSelection(parseInt(el.dataset.idx, 10));
+      });
+    });
+  }
+
+  function setSitemapSelection(newIndex) {
+    if (!sitemapContainerEl) return;
+    const itemEls = sitemapContainerEl.querySelectorAll('.cli-sitemap-item');
+    if (!itemEls.length) return;
+    currentSitemapIndex = (newIndex + itemEls.length) % itemEls.length;
+    itemEls.forEach((el, idx) => {
+      el.classList.toggle('selected', idx === currentSitemapIndex);
+    });
+  }
+
+  function navigateSitemapItem(idx = currentSitemapIndex) {
+    const item = sitemapItems[idx];
+    if (!item) return;
+    isSitemapActive = false;
+    printLine(`Navigating to node [ ${item.path} ]...`, 'success');
+    setTimeout(() => {
+      if (item.isExternal) {
+        window.open(item.url, '_blank');
+      } else {
+        window.location.href = item.url;
+      }
+    }, 150);
+  }
+
+  if (cliInput) {
+    cliInput.addEventListener('keydown', (e) => {
+      if (isSitemapActive) {
+        if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          setSitemapSelection(currentSitemapIndex - 1);
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          setSitemapSelection(currentSitemapIndex + 1);
+        } else if (e.key === 'Escape') {
+          isSitemapActive = false;
+          printLine('// Sitemap navigation cancelled.', 'info');
+        }
+      }
+    });
+  }
+
   // Handle Command Submission
   if (cliForm) {
     cliForm.addEventListener('submit', (e) => {
@@ -548,9 +646,16 @@ function initBootloaderAndCli() {
       e.stopPropagation();
       const raw = cliInput.value.trim();
       cliInput.value = '';
+
+      if (isSitemapActive && !raw) {
+        navigateSitemapItem();
+        return;
+      }
+
       if (!raw) {
         printLine('user@vapok.io:~$', 'cmd');
       } else {
+        isSitemapActive = false;
         executeCommand(raw);
       }
       if (cliInput) {
@@ -660,6 +765,15 @@ function initBootloaderAndCli() {
       case 'cls':
         if (cliOutput) cliOutput.innerHTML = '';
         printLine('// Terminal buffer cleared.', 'info');
+        break;
+
+      case 'dir':
+      case 'ls':
+      case 'ls -l':
+      case 'ls -la':
+      case 'ls -a':
+      case 'sitemap':
+        renderInteractiveSitemap();
         break;
 
       case 'exit':
