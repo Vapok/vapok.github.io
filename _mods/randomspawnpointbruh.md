@@ -20,7 +20,7 @@ dependencies:
 has_changelog: true
 ---
 
-<div align="center">
+<div align="center" markdown="1">
 
 # 📍 Random Spawn Point *Bruh!*
 
@@ -82,7 +82,7 @@ Configure via the in-game [BepInEx Configuration Manager](https://github.com/Bep
 
 ---
 
-<div align="center">
+<div align="center" markdown="1">
 
 ### 👨‍💻 Created by Vapok Gaming
 

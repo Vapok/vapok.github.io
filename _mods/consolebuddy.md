@@ -20,7 +20,7 @@ dependencies:
 has_changelog: true
 ---
 
-<div align="center">
+<div align="center" markdown="1">
 
 # 💻 ConsoleBuddy
 
@@ -97,7 +97,7 @@ Tailor all visual settings in real time via the in-game [BepInEx Configuration M
 
 ---
 
-<div align="center">
+<div align="center" markdown="1">
 
 ### 👨‍💻 Created by Vapok Gaming
 

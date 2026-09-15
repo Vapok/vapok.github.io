@@ -19,7 +19,7 @@ dependencies:
 has_changelog: true
 ---
 
-<div align="center">
+<div align="center" markdown="1">
 
 # 🌀 XPortal Networks
 
@@ -191,7 +191,7 @@ Use a mod manager like **r2modman** or **Thunderstore Mod Manager** to download 
 
 ---
 
-<div align="center">
+<div align="center" markdown="1">
 
 ### 👨‍💻 Created by Vapok Gaming
 

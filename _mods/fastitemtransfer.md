@@ -20,7 +20,7 @@ dependencies:
 has_changelog: true
 ---
 
-<div align="center">
+<div align="center" markdown="1">
 
 # ⚡ Fast Item Transfer
 
@@ -71,7 +71,7 @@ Say goodbye to tedious drag-and-drop inventory sorting! **Fast Item Transfer** g
 
 ## 🤝 Verified Mod Compatibility
 
-<div align="center">
+<div align="center" markdown="1">
 
 | Mod | Compatibility Status |
 | :--- | :--- |
@@ -88,7 +88,7 @@ Say goodbye to tedious drag-and-drop inventory sorting! **Fast Item Transfer** g
 
 ## 🌐 Available Translations
 
-<div align="center">
+<div align="center" markdown="1">
 
 🇺🇸 **English** • 🇩🇪 **German** • 🇫🇷 **French** • 🇪🇸 **Spanish** • 🇨🇳 **Chinese** • 🇷🇺 **Russian**
 
@@ -107,7 +107,7 @@ Say goodbye to tedious drag-and-drop inventory sorting! **Fast Item Transfer** g
 
 ---
 
-<div align="center">
+<div align="center" markdown="1">
 
 ### 👨‍💻 Created by Vapok Gaming
 

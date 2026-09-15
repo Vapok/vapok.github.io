@@ -20,7 +20,7 @@ dependencies:
 has_changelog: true
 ---
 
-<div align="center">
+<div align="center" markdown="1">
 
 # 🚪 DoorOpenerBruh
 
@@ -87,7 +87,7 @@ Fine-tune global toggles and per-door behavior in the in-game [BepInEx Configura
 
 ## 🤝 Verified Mod Compatibility
 
-<div align="center">
+<div align="center" markdown="1">
 
 | Mod | Compatibility Status |
 | :--- | :--- |
@@ -102,7 +102,7 @@ Fine-tune global toggles and per-door behavior in the in-game [BepInEx Configura
 
 ## 🌐 Available Translations
 
-<div align="center">
+<div align="center" markdown="1">
 
 🇺🇸 **English** • 🇩🇪 **German** • 🇫🇷 **French** • 🇪🇸 **Spanish** • 🇨🇳 **Chinese** • 🇷🇺 **Russian**
 
@@ -121,7 +121,7 @@ Fine-tune global toggles and per-door behavior in the in-game [BepInEx Configura
 
 ---
 
-<div align="center">
+<div align="center" markdown="1">
 
 ### 👨‍💻 Created by Vapok Gaming
 

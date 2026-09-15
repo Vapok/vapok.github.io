@@ -20,7 +20,7 @@ dependencies:
 has_changelog: true
 ---
 
-<div align="center">
+<div align="center" markdown="1">
 
 # 🌫️ No Fog *Bruh!*
 
@@ -77,7 +77,7 @@ Configure every biome setting individually via the in-game [BepInEx Configuratio
 
 ## 🤝 Verified Mod Compatibility
 
-<div align="center">
+<div align="center" markdown="1">
 
 | Mod | Compatibility Status |
 | :--- | :--- |
@@ -92,7 +92,7 @@ Configure every biome setting individually via the in-game [BepInEx Configuratio
 
 ## 🌐 Available Translations
 
-<div align="center">
+<div align="center" markdown="1">
 
 🇺🇸 **English** • 🇩🇪 **German** • 🇫🇷 **French** • 🇪🇸 **Spanish** • 🇨🇳 **Chinese** • 🇷🇺 **Russian**
 
@@ -111,7 +111,7 @@ Configure every biome setting individually via the in-game [BepInEx Configuratio
 
 ---
 
-<div align="center">
+<div align="center" markdown="1">
 
 ### 👨‍💻 Created by Vapok Gaming
 

@@ -20,7 +20,7 @@ dependencies:
 has_changelog: true
 ---
 
-<div align="center">
+<div align="center" markdown="1">
 
 # 🥩 AutoFeedRedux
 
@@ -74,7 +74,7 @@ All settings can be tailored in real-time using the in-game [BepInEx Configurati
 
 ## 🤝 Verified Mod Compatibility
 
-<div align="center">
+<div align="center" markdown="1">
 
 | Mod | Compatibility Status |
 | :--- | :--- |
@@ -91,7 +91,7 @@ All settings can be tailored in real-time using the in-game [BepInEx Configurati
 
 AutoFeedRedux supports community translations:
 
-<div align="center">
+<div align="center" markdown="1">
 
 🇺🇸 **English** • 🇩🇪 **German** • 🇫🇷 **French** • 🇪🇸 **Spanish** • 🇨🇳 **Chinese** • 🇷🇺 **Russian**
 
@@ -113,7 +113,7 @@ AutoFeedRedux supports community translations:
 
 ---
 
-<div align="center">
+<div align="center" markdown="1">
 
 ### 👨‍💻 Created by Vapok Gaming
 

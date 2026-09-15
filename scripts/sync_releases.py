@@ -143,11 +143,24 @@ def sync():
             with open(readme_path, "r", encoding="utf-8-sig", errors="replace") as f:
                 readme_content = f.read()
 
+        # Fix Kramdown markdown inside HTML block tags (e.g. <div align="center">)
+        def enable_kramdown_html_markdown(text):
+            # Replace <div ...> with <div ... markdown="1"> if not already present
+            def div_repl(m):
+                attrs = m.group(1)
+                if 'markdown=' not in attrs:
+                    return f'<div{attrs} markdown="1">'
+                return m.group(0)
+            text = re.sub(r'<div([^>]*?)>', div_repl, text, flags=re.IGNORECASE)
+            return text
+
+        readme_content = enable_kramdown_html_markdown(readme_content)
+
         # Read CHANGELOG
         changelog_content = ""
         if os.path.exists(changelog_path):
             with open(changelog_path, "r", encoding="utf-8-sig", errors="replace") as f:
-                changelog_content = f.read()
+                changelog_content = enable_kramdown_html_markdown(f.read())
 
         # Check metrics
         mod_metrics = ts_metrics.get(raw_name.lower(), {})

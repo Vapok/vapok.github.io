@@ -20,7 +20,7 @@ dependencies:
 has_changelog: true
 ---
 
-<div align="center">
+<div align="center" markdown="1">
 
 # 🎒 Adventure Backpacks
 
@@ -130,7 +130,7 @@ Mod developers can easily build custom backpacks and register effects using our 
 
 ## 🤝 Verified Mod Compatibility
 
-<div align="center">
+<div align="center" markdown="1">
 
 | Mod | Compatibility Status |
 | :--- | :--- |
@@ -158,7 +158,7 @@ Mod developers can easily build custom backpacks and register effects using our 
 
 Adventure Backpacks includes community translations for:
 
-<div align="center">
+<div align="center" markdown="1">
 
 🇨🇳 **Chinese (Simplified & Traditional)** • 🇨🇿 **Czech** • 🇺🇸 **English** • 🇫🇷 **French** • 🇩🇪 **German**  
 🇯🇵 **Japanese** • 🇰🇷 **Korean** • 🇳🇴 **Norwegian** • 🇵🇱 **Polish** • 🇧🇷 **Portuguese (BR)**  
@@ -183,7 +183,7 @@ Adventure Backpacks includes community translations for:
 
 ---
 
-<div align="center">
+<div align="center" markdown="1">
 
 ### 👨‍💻 Created by Vapok Gaming
 

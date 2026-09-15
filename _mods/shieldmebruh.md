@@ -20,7 +20,7 @@ dependencies:
 has_changelog: true
 ---
 
-<div align="center">
+<div align="center" markdown="1">
 
 # 🛡️ Shield Me *Bruh!*
 
@@ -67,7 +67,7 @@ Never get caught in battle with an empty off-hand! **Shield Me Bruh!** is a slee
 
 ## 🤝 Verified Mod Compatibility
 
-<div align="center">
+<div align="center" markdown="1">
 
 | Mod | Compatibility Status |
 | :--- | :--- |
@@ -83,7 +83,7 @@ Never get caught in battle with an empty off-hand! **Shield Me Bruh!** is a slee
 
 ## 🌐 Available Translations
 
-<div align="center">
+<div align="center" markdown="1">
 
 🇺🇸 **English** • 🇩🇪 **German** • 🇫🇷 **French** • 🇪🇸 **Spanish** • 🇨🇳 **Chinese** • 🇷🇺 **Russian**
 
@@ -102,7 +102,7 @@ Never get caught in battle with an empty off-hand! **Shield Me Bruh!** is a slee
 
 ---
 
-<div align="center">
+<div align="center" markdown="1">
 
 ### 👨‍💻 Created by Vapok Gaming
 
