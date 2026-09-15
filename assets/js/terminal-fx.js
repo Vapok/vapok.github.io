@@ -447,9 +447,16 @@ function initBootloaderAndCli() {
     cliOutput.scrollTop = cliOutput.scrollHeight;
   }
 
-  // Bind BBS Door Games Engine Output
+  function updateCliPrompt(label, placeholder = '') {
+    const promptLabel = document.querySelector('.cli-prompt-label');
+    if (promptLabel) promptLabel.textContent = label;
+    if (cliInput) cliInput.placeholder = placeholder;
+  }
+
+  // Bind BBS Door Games Engine Output & Dynamic Prompt
   if (window.BBSDoorManager) {
     window.BBSDoorManager.setPrintFunction(printLine);
+    window.BBSDoorManager.setPromptFunction(updateCliPrompt);
   }
 
   function updatePowerButtonState() {

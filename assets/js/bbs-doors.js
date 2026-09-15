@@ -11,9 +11,14 @@ window.BBSDoorManager = (function () {
 
   let activeDoor = null;
   let printFn = null;
+  let promptFn = null;
 
   function setPrintFunction(fn) {
     printFn = fn;
+  }
+
+  function setPromptFunction(fn) {
+    promptFn = fn;
   }
 
   function output(text, type = 'info') {
@@ -24,8 +29,18 @@ window.BBSDoorManager = (function () {
     }
   }
 
+  function setPrompt(label, placeholder = '') {
+    if (typeof promptFn === 'function') {
+      promptFn(label, placeholder);
+    }
+  }
+
   function isDesktop() {
     return window.innerWidth > 768;
+  }
+
+  function resetToDefaultPrompt() {
+    setPrompt('user@vapok.io:~$', 'Enter command (e.g. boot, help, status, mods, games)...');
   }
 
   /* ==========================================================================
@@ -35,6 +50,7 @@ window.BBSDoorManager = (function () {
     if (!isDesktop()) {
       output('// NOTICE: BBS Door games are designed for desktop terminal matrix interfaces.', 'warn');
       output('Please connect via desktop workstation to access full BBS doors.', 'info');
+      resetToDefaultPrompt();
       return;
     }
 
@@ -47,7 +63,7 @@ window.BBSDoorManager = (function () {
     output('║  [3] Barren Realms Elite (Planetary 4X Strategy & Dominion)               ║', 'warn');
     output('║  [Q] Exit to Mainframe CLI Prompt                                         ║', 'info');
     output('╚═══════════════════════════════════════════════════════════════════════════╝', 'warn');
-    output('Enter Door Number [1-3] or [Q] to quit: ', 'info');
+    setPrompt('BBS_DOOR [1-3, Q] >', 'Select Door # (1-3) or Q');
   }
 
   /* ==========================================================================
@@ -148,7 +164,7 @@ window.BBSDoorManager = (function () {
       output('  [H] Village Healer         [I] The Red Boar Inn', 'info');
       output('  [S] Warrior Dossier        [D] Slay The RED DRAGON', 'info');
       output('  [Q] Return to BBS Main Menu', 'warn');
-      output('Choice (? for help): ', 'cmd');
+      setPrompt('OAKHAVEN [F,T,W,A,H,I,S,D,Q] >', '');
     }
 
     function handleInput(cmd) {
@@ -188,6 +204,7 @@ window.BBSDoorManager = (function () {
             break;
           default:
             output('Invalid directive. Commands: F, T, W, A, H, I, S, D, Q', 'warn');
+            setPrompt('OAKHAVEN [F,T,W,A,H,I,S,D,Q] >', '');
             break;
         }
       } else if (state === 'forest_combat' || state === 'master_combat' || state === 'dragon_combat') {
@@ -216,7 +233,6 @@ window.BBSDoorManager = (function () {
       player.forestFights--;
       save();
 
-      // Pick monster matching player level tier
       const eligible = FOREST_MONSTERS.filter((m) => m.minLvl <= player.level);
       const template = eligible[Math.floor(Math.random() * eligible.length)] || FOREST_MONSTERS[0];
 
@@ -239,7 +255,7 @@ window.BBSDoorManager = (function () {
 
     function showCombatOptions() {
       output(`Enemy: [ ${currentEnemy.name} (HP: ${currentEnemy.hp}/${currentEnemy.maxHp}) ] vs [ ${player.name} (HP: ${player.hp}/${player.maxHp}) ]`, 'warn');
-      output('Combat Action: [A]ttack | [S]pell Strike | [R]un Away', 'cmd');
+      setPrompt('COMBAT [A=Attack, S=Spell, R=Run] >', 'A, S, or R');
     }
 
     function handleCombatInput(c) {
@@ -306,6 +322,8 @@ window.BBSDoorManager = (function () {
           save();
           showCombatOptions();
         }
+      } else {
+        showCombatOptions();
       }
     }
 
@@ -419,7 +437,7 @@ window.BBSDoorManager = (function () {
         output(`  [${idx + 1}] ${w.name.padEnd(24)} (Power: +${w.power}) ${eq}`, 'success');
       });
       output('  [Q] Return to Village Square', 'warn');
-      output('Select weapon number to purchase: ', 'cmd');
+      setPrompt('WEAPONS [1-9, Q] >', 'Select weapon # or Q');
     }
 
     function handleWeaponBuy(c) {
@@ -454,7 +472,7 @@ window.BBSDoorManager = (function () {
         output(`  [${idx + 1}] ${a.name.padEnd(24)} (Defense: +${a.defense}) ${eq}`, 'success');
       });
       output('  [Q] Return to Village Square', 'warn');
-      output('Select armor number to purchase: ', 'cmd');
+      setPrompt('ARMOR [1-9, Q] >', 'Select armor # or Q');
     }
 
     function handleArmorBuy(c) {
@@ -507,7 +525,7 @@ window.BBSDoorManager = (function () {
       output('  [2] Flirt with Violet the Barmaid', 'cmd');
       output('  [3] Rest in Room (+5 Forest Fights, 50 Gold)', 'warn');
       output('  [Q] Leave Tavern', 'info');
-      output('Select option: ', 'cmd');
+      setPrompt('RED_BOAR_INN [1-3, Q] >', '');
     }
 
     function handleInnInput(c) {
@@ -654,7 +672,7 @@ window.BBSDoorManager = (function () {
       output(`Cargo Holds: [ ${cargoUsed}/${ship.holds} Used ] (Ore: ${player.holds.ore} | Organics: ${player.holds.org} | Equip: ${player.holds.eq})`, 'info');
       output(`Warp Lanes to Sectors: [ ${sec.warps.join(', ')} ]`, 'cmd');
       output('Commands: [M]ove Sector | [P]ort Commerce | [U]pgrades / Shipyard | [I]nfo | [Q]uit', 'warn');
-      output('Command (?=Help)? : ', 'info');
+      setPrompt(`SECTOR_${sec.id} [M,P,U,I,Q] >`, '');
     }
 
     function handleInput(cmd) {
@@ -663,7 +681,8 @@ window.BBSDoorManager = (function () {
       if (state === 'command') {
         switch (c) {
           case 'M':
-            output(`Enter destination sector number [ ${getAdjacentSectors().join(', ')} ]: `, 'cmd');
+            output(`Warp trajectory calculation active. Target sector [ ${getAdjacentSectors().join(', ')} ].`, 'cmd');
+            setPrompt(`WARP [${getAdjacentSectors().join(',')}] >`, 'Enter sector #');
             state = 'warp_select';
             break;
           case 'P':
@@ -683,6 +702,7 @@ window.BBSDoorManager = (function () {
             break;
           default:
             output('Invalid command. Options: M (Move), P (Port), U (Upgrades), I (Info), Q (Quit)', 'warn');
+            showSectorStatus();
             break;
         }
       } else if (state === 'warp_select') {
@@ -743,7 +763,7 @@ window.BBSDoorManager = (function () {
       output('', 'info');
       output('⚠️ RED ALERT! SENSORS DETECT INCOMING HOSTILE VESSEL! ⚠️', 'error');
       output(`Encountered: [ ${currentPirate.name} (Shields: ${currentPirate.shields} | Fighters: ${currentPirate.fighters}) ]`, 'warn');
-      output('Tactical Directives: [F]ire Lasers | [D]eploy Fighters | [E]vasive Warp', 'cmd');
+      setPrompt('TACTICAL [F=Fire Lasers, D=Deploy Fighters, E=Evasion] >', 'F, D, or E');
     }
 
     function handleCombatInput(c) {
@@ -776,9 +796,11 @@ window.BBSDoorManager = (function () {
         }
 
         output(`Current Shields: [ Yours: ${player.shields}/${ship.shields} ] | [ Pirate: ${Math.max(0, currentPirate.shields)} ]`, 'warn');
+        setPrompt('TACTICAL [F=Fire Lasers, D=Deploy Fighters, E=Evasion] >', 'F, D, or E');
       } else if (c === 'D') {
         if (player.fighters <= 0) {
           output('No combat fighters remaining in launch bays!', 'error');
+          setPrompt('TACTICAL [F=Fire Lasers, D=Deploy Fighters, E=Evasion] >', 'F, D, or E');
           return;
         }
         const fighterLoss = Math.min(player.fighters, Math.floor(1 + Math.random() * 3));
@@ -792,6 +814,7 @@ window.BBSDoorManager = (function () {
           handlePirateDestroyed();
           return;
         }
+        setPrompt('TACTICAL [F=Fire Lasers, D=Deploy Fighters, E=Evasion] >', 'F, D, or E');
       } else if (c === 'E') {
         if (Math.random() < 0.6) {
           output('Evasive emergency burn successful! Escaped hostile fire cone.', 'success');
@@ -800,7 +823,10 @@ window.BBSDoorManager = (function () {
           output('Evasive maneuvers failed! Hostile fighters strafe your engines (-25 Shields)!', 'error');
           player.shields = Math.max(0, player.shields - 25);
           if (player.shields <= 0) handlePlayerDestroyed();
+          else setPrompt('TACTICAL [F=Fire Lasers, D=Deploy Fighters, E=Evasion] >', 'F, D, or E');
         }
+      } else {
+        setPrompt('TACTICAL [F=Fire Lasers, D=Deploy Fighters, E=Evasion] >', 'F, D, or E');
       }
     }
 
@@ -847,7 +873,7 @@ window.BBSDoorManager = (function () {
       output(`  [5] Buy Equipment       (${sec.port.eq.sell ? `Cost: ${sec.port.eq.sell} CR` : 'Not Selling'})`, 'success');
       output(`  [6] Sell Equipment      (${sec.port.eq.buy ? `Pays: ${sec.port.eq.buy} CR` : 'Not Buying'})`, 'info');
       output('  [Q] Exit Port to Star System', 'warn');
-      output('Commerce Action [1-6, Q]: ', 'cmd');
+      setPrompt('PORT_COMMERCE [1-6, Q] >', 'Select action # or Q');
     }
 
     function handlePortInput(c) {
@@ -970,7 +996,7 @@ window.BBSDoorManager = (function () {
         }
       });
       output('  [Q] Return to Sector View', 'warn');
-      output('Select Shipyard Service: ', 'cmd');
+      setPrompt('SHIPYARD [1-5, Q] >', 'Select service # or Q');
     }
 
     function handleShipyardInput(c) {
@@ -1105,7 +1131,7 @@ window.BBSDoorManager = (function () {
       output(`Military Strength: [ ${barony.infantry} Cyber-Infantry | ${barony.tanks} Heavy Tanks | ${barony.jets} Orbital Jets | ${barony.turrets} Turrets ]`, 'info');
       output(`Tax Rate: ${barony.taxRate}% | Tech Level: ${barony.techLevel}`, 'cmd');
       output('Directives: [N]ext Year Turn | [B]uildings & Land | [M]ilitary Recruitment | [W]ar & Conquest | [E]spionage | [Q]uit', 'warn');
-      output('Command: ', 'cmd');
+      setPrompt(`DOMAIN_${barony.year} [N,B,M,W,E,Q] >`, '');
     }
 
     function handleInput(cmd) {
@@ -1136,6 +1162,7 @@ window.BBSDoorManager = (function () {
             break;
           default:
             output('Invalid directive. Commands: N (Next Year), B (Build), M (Military), W (War), E (Espionage), Q (Quit)', 'warn');
+            setPrompt(`DOMAIN_${barony.year} [N,B,M,W,E,Q] >`, '');
             break;
         }
       } else if (state === 'build') {
@@ -1192,7 +1219,7 @@ window.BBSDoorManager = (function () {
       output('  [3] Research Cyber Tech Level Upgrade (2,500 Credits)', 'warn');
       output('  [4] Adjust Tax Rate (Currently: ' + barony.taxRate + '%)', 'cmd');
       output('  [Q] Return to Domain Command', 'info');
-      output('Select option: ', 'cmd');
+      setPrompt('BUILD_LAND [1-4, Q] >', 'Select option # or Q');
     }
 
     function handleBuildInput(c) {
@@ -1249,7 +1276,7 @@ window.BBSDoorManager = (function () {
       output('  [2] Build 5 Heavy Cyber-Tanks (500 Credits)', 'success');
       output('  [3] Construct 2 Orbital Strike Jets (600 Credits)', 'success');
       output('  [Q] Return to Domain Command', 'warn');
-      output('Recruitment Directive: ', 'cmd');
+      setPrompt('RECRUIT [1-3, Q] >', 'Select unit # or Q');
     }
 
     function handleMilitaryInput(c) {
@@ -1299,7 +1326,7 @@ window.BBSDoorManager = (function () {
         output(`  [${idx + 1}] Invade ${r.name.padEnd(32)} (Land: ${r.land} Acres | Def: ~${r.military})`, 'error');
       });
       output('  [Q] Abort Military Assault', 'warn');
-      output('Select Target Barony to Invade: ', 'cmd');
+      setPrompt('WAR_TARGET [1-3, Q] >', 'Select target # or Q');
     }
 
     function handleAttackInput(c) {
@@ -1349,7 +1376,7 @@ window.BBSDoorManager = (function () {
       output('  [2] Infiltrate Neo-Solaris Power Grids (350 Credits)', 'info');
       output('  [3] Sabotage Titan Foundry Cyber-Tanks (600 Credits)', 'warn');
       output('  [Q] Return to Domain Command', 'cmd');
-      output('Espionage Mission: ', 'cmd');
+      setPrompt('ESPIONAGE [1-3, Q] >', 'Select mission # or Q');
     }
 
     function handleEspionageInput(c) {
@@ -1403,6 +1430,7 @@ window.BBSDoorManager = (function () {
   function openDoor(doorName) {
     if (!isDesktop()) {
       output('// NOTICE: BBS Door games require a desktop terminal viewport.', 'warn');
+      resetToDefaultPrompt();
       return;
     }
 
@@ -1419,6 +1447,7 @@ window.BBSDoorManager = (function () {
     } else if (name === 'q' || name === 'exit' || name === 'quit') {
       activeDoor = null;
       output('// Exited BBS Door matrix. Returning to Vapok Mainframe Prompt.', 'info');
+      resetToDefaultPrompt();
     } else {
       showDoorsMenu();
     }
@@ -1450,6 +1479,7 @@ window.BBSDoorManager = (function () {
 
   return {
     setPrintFunction,
+    setPromptFunction,
     showDoorsMenu,
     openDoor,
     handleInput,
