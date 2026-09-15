@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSystemClock();
   initDossierTabs();
   initBootloaderAndCli();
+  initMobileBackToTop();
 });
 
 /* ==========================================================================
@@ -1485,3 +1486,81 @@ function initBootloaderAndCli() {
     }, 40);
   }
 }
+
+/* ==========================================================================
+   8. MOBILE BACK-TO-TOP BUTTON WITH SCATTER ENTRANCE
+   ========================================================================== */
+function initMobileBackToTop() {
+  const bttBtn = document.getElementById('mobile-back-to-top');
+  if (!bttBtn) return;
+
+  let isVisible = false;
+  let isScrambling = false;
+  const targetText = '[ ▲ TOP ]';
+  const chars = '01#*+=-:.·˙_[]{}<>/\\$!%^&';
+
+  function scrambleButton() {
+    if (isScrambling) return;
+    isScrambling = true;
+    const startTime = Date.now();
+    const durationMs = 320;
+
+    const interval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(1.0, elapsed / durationMs);
+      const settledLen = Math.floor(progress * targetText.length);
+
+      bttBtn.textContent = targetText
+        .split('')
+        .map((char, index) => {
+          if (char === ' ') return ' ';
+          if (index < settledLen) return targetText[index];
+          return chars[Math.floor(Math.random() * chars.length)];
+        })
+        .join('');
+
+      if (progress >= 1.0) {
+        clearInterval(interval);
+        bttBtn.textContent = targetText;
+        isScrambling = false;
+      }
+    }, 30);
+  }
+
+  function handleScroll() {
+    if (window.innerWidth > 768) {
+      if (isVisible) {
+        bttBtn.classList.remove('visible');
+        isVisible = false;
+      }
+      return;
+    }
+
+    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+    if (scrollY > 280) {
+      if (!isVisible) {
+        isVisible = true;
+        bttBtn.classList.add('visible');
+        scrambleButton();
+      }
+    } else {
+      if (isVisible) {
+        isVisible = false;
+        bttBtn.classList.remove('visible');
+      }
+    }
+  }
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  window.addEventListener('resize', handleScroll, { passive: true });
+
+  bttBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    scrambleButton();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+}
+
