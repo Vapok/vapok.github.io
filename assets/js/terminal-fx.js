@@ -432,7 +432,7 @@ function initBootloaderAndCli() {
   }
 
   if (bootQuickBtn) {
-    bootQuickBtn.addEventListener('click', () => executeCommand('startup'));
+    bootQuickBtn.addEventListener('click', () => executeCommand('start'));
   }
 
   // Global hotkeys: '~' / '`' or 'Enter' when closed to open console
@@ -477,7 +477,7 @@ function initBootloaderAndCli() {
     printLine(' SYSTEM STATUS: [ OFFLINE ]', 'error');
     printLine('======================================================================', 'warn');
     printLine('Main subsystems and user interface are currently dormant.', 'info');
-    printLine('Type "startup" (or click [ ⚡ STARTUP ]) to initialize system.', 'success');
+    printLine('Type "start" (or click [ ⚡ START ]) to initialize system.', 'success');
   } else {
     document.documentElement.classList.remove('system-offline');
     if (statusText) {
@@ -510,9 +510,9 @@ function initBootloaderAndCli() {
     printLine(`user@vapok.io:~$ ${rawCmd}`, 'cmd');
 
     switch (cmd) {
+      case 'start':
       case 'startup':
       case 'boot':
-      case 'start':
       case 'poweron':
       case 'power on':
       case 'run':
@@ -533,7 +533,7 @@ function initBootloaderAndCli() {
       case '?':
       case 'commands':
         printLine('AVAILABLE SYSTEM DIRECTIVES:', 'cmd');
-        printLine('  startup          - Power up system and compile graphical UI', 'info');
+        printLine('  start            - Power up system and compile graphical UI', 'info');
         printLine('  status           - Display kernel telemetry & active nodes', 'info');
         printLine('  pwd              - Print current page URL location', 'info');
         printLine('  mods             - View mod catalog dossier repository', 'info');
