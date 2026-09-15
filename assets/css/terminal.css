@@ -207,6 +207,20 @@ body.crt-off .crt-overlay {
   box-shadow: 0 0 8px var(--ice-blue-glow);
 }
 
+.fuel-btn {
+  color: var(--warning-amber) !important;
+  border-color: rgba(251, 191, 36, 0.45) !important;
+  box-shadow: 0 0 8px rgba(251, 191, 36, 0.15);
+  transition: all 0.25s ease;
+}
+
+.fuel-btn:hover {
+  background: var(--warning-amber) !important;
+  color: #06080e !important;
+  border-color: var(--warning-amber) !important;
+  box-shadow: 0 0 15px rgba(251, 191, 36, 0.5) !important;
+}
+
 .nav-container {
   display: flex;
   justify-content: space-between;

@@ -22,6 +22,13 @@ social_links:
     url: "https://discord.gg/5YAJkRFBXt"
     icon: "message-square"
 
+# Donation & Support Links
+donations:
+  discord_sub: "https://discord.com/servers/vapok-s-gaming-community-1070795270503288893"
+  buymeacoffee: "https://www.buymeacoffee.com/vapok"
+  paypal: "https://www.paypal.com/paypalme/vapokrocks"
+  discord_invite: "https://discord.gg/5YAJkRFBXt"
+
 plugins:
   - jekyll-admin
 
@@ -35,6 +42,8 @@ nav_links:
     url: "/#logs"
   - title: "[ /ABOUT ]"
     url: "/#about"
+  - title: "[ /SUPPORT ]"
+    url: "/support/"
 
 # Jekyll Settings
 markdown: kramdown
