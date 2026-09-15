@@ -1638,6 +1638,10 @@ function initBootloaderAndCli() {
         }, 1200);
       } else {
         printLine('Subsystems dormant. Type "start" (or click [ ⚡ START ]) to initialize.', 'info');
+        // Animate CLI drawer pulling back up into header now that system is OFFLINE
+        setTimeout(() => {
+          toggleCli(false);
+        }, 500);
       }
     }, 5500);
   }
