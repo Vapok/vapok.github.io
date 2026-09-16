@@ -65,8 +65,11 @@ All web pages, layout templates, and UI components in this repository adhere to 
 
 ### UI Integration
 - Header Control: Glowing amber `[ ⚡ FUEL: $$$ ]` button (`.fuel-btn` with hover text scramble).
-- Nav Menu: Streamlined (`/HOME`, `/MODS`, `/GAMES`, `/LOGS`, `/ABOUT`).
-- Dedicated Page: `support.md` (`permalink: /support/`) with backer manifesto, channel cards, and perks matrix table.
+- Nav Menu: Streamlined (`/HOME` -> `/`, `/MODS` -> `/modding/`, `/GAMES` -> `/games/`, `/LOGS` -> `/#logs`, `/ABOUT` -> `/about/`).
+- Dedicated Pages:
+  - `modding.md` (`permalink: /modding/`): Standalone module repository with interactive multi-game filters (`[ ALL (16) ]`, `[ VALHEIM (11) ]`, `[ TECHTONICA (5) ]`).
+  - `about.md` (`permalink: /about/`): Creator dossier with operator identity matrix, career origins (Skullz.net, 11 PAX conventions as PC Room Manager/Enforcer, 25-yr polyglot dev, Valheim modder), and extreme off-duty expeditions (storm chaser, EMT/FF, pilot, speaker/DJ).
+  - `support.md` (`permalink: /support/`): Backer manifesto, channel cards, and perks matrix table.
 
 ---
 
@@ -76,7 +79,7 @@ All web pages, layout templates, and UI components in this repository adhere to 
 - `collections.mods` in `_config.yml` (`permalink: /mods/:slug/`).
 - `_layouts/default.html`: Root HTML template hosting canvas, scanlines, header, and footer.
 - `_layouts/mod.html`: Individual mod dossier layout with icon box, metadata specs, and tabbed README vs CHANGELOG viewer.
-- `_layouts/page.html`: Dossier format for policy/legal/documentation/support/games pages.
+- `_layouts/page.html`: Dossier format for policy/legal/documentation/support/games/about/modding pages.
 - `_layouts/post.html`: Dispatch format for devlog updates in `_posts/`.
 
 ### Includes & Liquid Scoping
@@ -86,7 +89,8 @@ All web pages, layout templates, and UI components in this repository adhere to 
 
 ### Styling & Scripts
 - Stylesheet: `assets/css/terminal.css` (Vanilla CSS with CSS custom properties).
-- Interaction Engine: `assets/js/terminal-fx.js` (Canvas particle grid, text decoder on hover, dossier tab switcher, CRT state persistence). Always validate with `node --check assets/js/terminal-fx.js`.
+- Interaction Engine: `assets/js/terminal-fx.js` (Canvas particle grid, text decoder on hover, dossier tab switcher, CRT state persistence, sitemap explorer). Always validate with `node --check assets/js/terminal-fx.js`.
+- Door Games Engine: `assets/js/bbs-doors.js` (State machine, ANSI screens, game loops for LORD, TradeWars, BRE). Always validate with `node --check assets/js/bbs-doors.js`.
 
 ---
 
@@ -94,7 +98,7 @@ All web pages, layout templates, and UI components in this repository adhere to 
 
 ### Terminal Drawer & Sticky Header Integration
 - **Header Toggle**: `#cli-toggle-btn` toggles between `[ CLI: >_ ]` and `[ CLI: <_ ]`. When open, receives `.active` class with cyan glow (`box-shadow: 0 0 12px var(--ice-blue-glow), inset 0 0 8px rgba(100, 240, 252, 0.2)`).
-- **Terminal Prompt Anchor**: When the CLI drawer opens, `#terminal-brand-btn` (`user@vapok.io:~$ █ [TTY-1]`) remains visible as the active glowing anchor point for the drawer. Main navigation links maintain `margin-left: auto;` to remain strictly anchored to the right side without layout shifting.
+- **Terminal Prompt Anchor & Scatter Transition**: When the CLI drawer opens, `scatterPromptBrandOut()` dissolves `user@vapok.io:~$ █` into noise, leaving `#terminal-brand-btn` with `[TTY-1]` visible as the active glowing tab for the drawer. When closing, `scramblePromptBrandIn()` smoothly scrambles the prompt prefix and cursor back into view.
 - **Dynamic Quick Power Button**: `#cli-boot-quick-btn` dynamically reflects system power state:
   - **OFFLINE**: Displays amber `[ ⚡ START ]` (`var(--warning-amber)`), executing `start`.
   - **ONLINE**: Displays crimson red `[ 🛑 STOP ]` (`var(--error-crimson)`), executing `shutdown`.
@@ -111,17 +115,24 @@ All web pages, layout templates, and UI components in this repository adhere to 
   - `ONLINE`: Glacial Mint (`var(--glacial-mint)` / `#00f59b`)
 - **Homepage vs. Direct Sub-Page Routing**:
   - **Homepage (`/`)**: Unbooted visitors start in gated `system-offline` mode requiring `start` (or clicking `[ ⚡ START ]`).
-  - **Direct Sub-pages (e.g. `/games/`, `/support/`)**: Unbooted visitors automatically trigger the full 10-second compilation bootloader upon page arrival, compiling sub-page elements and transitioning to `ONLINE`.
+  - **Direct Sub-pages (e.g. `/games/`, `/support/`, `/modding/`, `/about/`)**: Unbooted visitors automatically trigger the full 10-second compilation bootloader upon page arrival, compiling sub-page elements and transitioning to `ONLINE`.
 - **`start` Sequence**: 10-second top-down compilation decoding elements via `decodeTextElement()`. `start` is the only command that automatically closes the drawer once compilation is complete.
+- **Flash Prevention Invariant**: Child sections (`.hero-ascii-section`, `#mods`, `#logs`, `#fuel`, `#about`, `.page-content`) must be pre-hidden with `opacity: 0; transform: translateY(15px); transition: none;` in CSS and JS *before* removing `.system-offline` to eliminate split-second 100% opacity flashing prior to progressive compilation.
 - **Clock Scramble & Transition**: During boot and shutdown, `#system-clock` transitions position fluidly with `max-width` box-model interpolation on `#header-fuel-btn` while running cyber text matrix scramble-encoding and resolving into live UTC timestamps.
-- **`shutdown` Sequence**: 7-second graceful bottom-up decompilation encoding elements into cyber noise glyphs via `encodeTextElement()`, returning system to `OFFLINE`.
+- **`shutdown` Sequence**: 5.5-second graceful bottom-up decompilation encoding elements into cyber noise glyphs via `encodeTextElement()`, returning system to `OFFLINE`. The CLI drawer automatically retracts with `setTimeout(() => toggleCli(false), 500)` upon shutdown completion.
 - **`reboot` Sequence**: Gracefully decompiles to `OFFLINE` and immediately re-initializes the top-down `start` bootloader.
+- **Offline Scoped Help Menu**: When `!isBooted`, the `help` directive strictly outputs `start`, `status`, `crt`, and `clear`.
 
 ### Terminal Command Processor Invariants
 - **Empty Submissions**: Pressing <kbd>Enter</kbd> without text prints a clean `user@vapok.io:~$` line without erroring or triggering boot.
 - **Focus Retention**: Cursor automatically re-focuses in `#cli-input` after command execution.
-- **Non-disruptive Telemetry**: In-terminal commands (`fuel`, `support`, `games`, `mods`, `status`, `crt`, `pwd`) print formatted ASCII data/links into the buffer instead of forcing page navigation or synthetic DOM click events.
+- **Non-disruptive Telemetry**: In-terminal commands (`fuel`, `support`, `games`, `mods`, `about`, `status`, `crt`, `pwd`) print formatted ASCII data/links into the buffer instead of forcing page navigation or synthetic DOM click events.
 - **`crt` Command Guardrail**: Must call `toggleCrtEffect()` directly in state and `localStorage` without dispatching synthetic DOM click events that trigger click-outside handlers.
+
+### Retro BBS Door Games Engine (`assets/js/bbs-doors.js`)
+- **Simulated Door Games**: Legend of the Red Dragon (LORD), TradeWars 2002, and Barren Realms Elite (BRE).
+- **Dynamic Prompt Transformation**: During active door gameplay, the `#cli-form` label dynamically transforms into the interactive BBS prompt (e.g. `[LORD] Command (?=Help) -> `).
+- **Streamlined Help Entry**: Single entry `play - Launch retro BBS Door Games` in the online help menu.
 
 ### Hidden Directory Matrix / Sitemap TUI (`dir`, `ls`, `ls -l`, `ls -la`, `sitemap`)
 - **Hidden Command**: Not listed in the public `help` directory.
@@ -156,4 +167,23 @@ All web pages, layout templates, and UI components in this repository adhere to 
 - Fixed in bottom-right corner on mobile screens, hidden on desktop (`min-width: 769px`).
 - Activates with a cyber matrix scatter-decoding text animation when user scrolls down past `150px`.
 - Smoothly scrolls back to top when tapped (`window.scrollTo({ top: 0, behavior: 'smooth' })`).
+
+---
+
+## 8. WCAG 2.1 AA Zero-Visual-Impact Accessibility Standards
+
+### Keyboard Navigation & Neon Focus Rings
+- Use `:focus-visible` with `2px solid var(--ice-blue)` outline and glow exclusively for keyboard navigators (<kbd>Tab</kbd>). Mouse clicks must never trigger focus rings (`:focus:not(:focus-visible) { outline: none; }`).
+- **Skip-to-Content**: Include `.skip-to-content` link positioned off-screen (`top: -100px`) until focused via keyboard (`:focus { top: 1rem; }`).
+
+### Screen Reader & Assistive Technology Support
+- **ASCII Art**: Wrap decorative ASCII banners in `role="img" aria-label="VAPOK GAMING - Cyber Terminal Logo"` with raw `<pre>` contents tagged `aria-hidden="true"`.
+- **Background Layers**: Tag `#ascii-bg-canvas` and `.crt-overlay` with `aria-hidden="true"`.
+- **Live Terminal Logging**: Tag `#cli-drawer` with `role="region"` and `#cli-output` with `role="log" aria-live="polite" aria-relevant="additions" aria-atomic="false"` for screen reader announcements of command outputs and BBS turns.
+- **ARIA Expanded State**: Dynamically manage `aria-expanded="true/false"` on `#cli-toggle-btn` and `#terminal-brand-btn`.
+
+### Vestibular & Reduced Motion Safety
+- Support `@media (prefers-reduced-motion: reduce)` in CSS to clamp animations and transitions to `0.01ms`.
+- In JavaScript, check `window.matchMedia('(prefers-reduced-motion: reduce)').matches` in all text decoders/scramblers and canvas animation loops to instantly resolve text without multi-second scrambling.
+
 
