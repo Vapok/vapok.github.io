@@ -811,6 +811,7 @@ function initBootloaderAndCli() {
       desc: 'Primary landing hub & system dossier',
       children: [
         { id: 'home-fuel', path: '#fuel (Fuel The Creator)', url: '/#fuel', desc: 'Sponsorship & donation directives' },
+        { id: 'home-partner', path: '#partner-infrastructure (Infrastructure Partner)', url: '/#partner-infrastructure', desc: 'Survival Servers dedicated Valheim host' },
         { id: 'home-about', path: '#about (Creator Directives)', url: '/#about', desc: 'About Vapok & vision statement' }
       ]
     },
@@ -1196,7 +1197,9 @@ function initBootloaderAndCli() {
           printLine('  status           - Display kernel telemetry & active nodes', 'info');
           printLine('  mods             - View mod catalog dossier repository', 'info');
           printLine('  games            - Display currently playing & rotation games', 'info');
+          printLine('  logs             - View transmission logs & dispatches archive', 'info');
           printLine('  about / whoami   - View creator dossier & operational history', 'info');
+          printLine('  server           - View Survival Servers Valheim partner details', 'info');
           printLine('  fuel / support   - Open creator support & donation channels', 'info');
           printLine('  discord          - Connect to Vapok Gaming Community Discord', 'info');
           printLine('  crt              - Toggle retro CRT scanline filter', 'info');
@@ -1283,6 +1286,41 @@ function initBootloaderAndCli() {
         const gamesSection = document.querySelector('.games-directory, .games-grid');
         if (gamesSection) {
           gamesSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        break;
+
+      case 'logs':
+      case 'log':
+      case 'transmissions':
+      case 'devlogs':
+      case 'devlog':
+        printLine('--- TRANSMISSION LOGS & DISPATCHES ---', 'success');
+        printLine('Official development dispatches and system changelogs: https://vapok.io/logs/', 'info');
+        if (window.location.pathname.includes('/logs')) {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          printLine('Navigating to Transmission Logs (/logs/)...', 'info');
+          setTimeout(() => {
+            window.location.href = '/logs/';
+          }, 400);
+        }
+        break;
+
+      case 'server':
+      case 'servers':
+      case 'valheimserver':
+      case 'survivalservers':
+      case 'sponsor':
+      case 'partner':
+        printLine('--- INFRASTRUCTURE PARTNER // SURVIVAL SERVERS ---', 'success');
+        printLine('Dedicated Valheim Server Host for Vapok Gaming Community', 'info');
+        printLine('  • Promo Code: VALHEIM25 (25% off)', 'warn');
+        printLine('  • Direct URL: https://www.survivalservers.com/services/game_servers/valheim/?ref=vapok', 'info');
+        const partnerSection = document.getElementById('partner-infrastructure');
+        if (partnerSection) {
+          partnerSection.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.open('https://www.survivalservers.com/services/game_servers/valheim/?ref=vapok', '_blank');
         }
         break;
 
@@ -1392,12 +1430,13 @@ function initBootloaderAndCli() {
     const modsSection = document.getElementById('mods');
     const logsSection = document.getElementById('logs');
     const fuelSection = document.getElementById('fuel');
+    const partnerSection = document.getElementById('partner-infrastructure');
     const aboutSection = document.getElementById('about');
     const footer = document.querySelector('.cyber-footer');
     const mainContent = document.getElementById('main-content') || document.querySelector('.page-content') || document.querySelector('main');
 
     // 1. Immediately hide all sections with transition: none BEFORE unhiding system-offline
-    const sectionsToHide = [heroAscii, modsSection, logsSection, fuelSection, aboutSection, footer, !isHomepage ? mainContent : null, navMenu, fuelBtn];
+    const sectionsToHide = [heroAscii, modsSection, logsSection, fuelSection, partnerSection, aboutSection, footer, !isHomepage ? mainContent : null, navMenu, fuelBtn];
     sectionsToHide.forEach((sec) => {
       if (sec) {
         sec.style.transition = 'none';
@@ -1490,6 +1529,11 @@ function initBootloaderAndCli() {
         fuelSection.style.opacity = '1';
         fuelSection.style.transform = 'translateY(0)';
       }
+      if (partnerSection) {
+        partnerSection.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        partnerSection.style.opacity = '1';
+        partnerSection.style.transform = 'translateY(0)';
+      }
       if (aboutSection) {
         aboutSection.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
         aboutSection.style.opacity = '1';
@@ -1524,7 +1568,7 @@ function initBootloaderAndCli() {
       }
 
       // Reset styles cleanly
-      [heroAscii, modsSection, logsSection, fuelSection, aboutSection, footer, mainContent, navMenu, fuelBtn].forEach((sec) => {
+      [heroAscii, modsSection, logsSection, fuelSection, partnerSection, aboutSection, footer, mainContent, navMenu, fuelBtn].forEach((sec) => {
         if (sec) {
           sec.style.opacity = '';
           sec.style.transform = '';
@@ -1565,6 +1609,7 @@ function initBootloaderAndCli() {
     const modsSection = document.getElementById('mods');
     const logsSection = document.getElementById('logs');
     const fuelSection = document.getElementById('fuel');
+    const partnerSection = document.getElementById('partner-infrastructure');
     const aboutSection = document.getElementById('about');
     const footer = document.querySelector('.cyber-footer');
 
@@ -1579,7 +1624,7 @@ function initBootloaderAndCli() {
       }
     }, 800);
 
-    // 2. [1.80s] About & Logs Decompile
+    // 2. [1.80s] About, Partner & Logs Decompile
     setTimeout(() => {
       printLine('[1.80s] Encrypting transmission logs & creator directive... OK', 'info');
       if (aboutSection) {
@@ -1587,6 +1632,12 @@ function initBootloaderAndCli() {
         aboutSection.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         aboutSection.style.opacity = '0';
         aboutSection.style.transform = 'translateY(15px)';
+      }
+      if (partnerSection) {
+        encodeTextElement(partnerSection, 800);
+        partnerSection.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        partnerSection.style.opacity = '0';
+        partnerSection.style.transform = 'translateY(15px)';
       }
       if (logsSection) {
         logsSection.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
