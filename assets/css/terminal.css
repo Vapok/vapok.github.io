@@ -1940,6 +1940,17 @@ html.system-booting #header-fuel-btn {
   }
 }
 
+/* Partner / Sponsor Banner Styling */
+.partner-banner-link {
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.partner-banner-link:hover {
+  border-color: var(--ice-blue) !important;
+  box-shadow: 0 0 16px rgba(100, 240, 252, 0.25);
+  transform: translateY(-2px);
+}
+
 /* Accessibility: Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
   *,

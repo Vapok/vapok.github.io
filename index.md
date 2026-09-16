@@ -36,6 +36,30 @@ title: Home
     </div>
   </div>
 
+  <!-- SERVER INFRASTRUCTURE SPONSOR -->
+  <div style="margin-bottom: 2rem; background: rgba(6, 8, 14, 0.85); border: 1px solid var(--border-subtle); padding: 1.25rem; backdrop-filter: blur(8px);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+      <div style="display: flex; align-items: center; gap: 0.6rem;">
+        <span class="status-badge mint">INFRASTRUCTURE PARTNER</span>
+        <span style="font-size: 0.78rem; color: var(--ice-blue); letter-spacing: 0.5px;">SURVIVAL SERVERS // VALHEIM DEDICATED HOST</span>
+      </div>
+      <span style="font-size: 0.78rem; color: var(--warning-amber); font-weight: 700; letter-spacing: 0.5px;">PROMO: [ 25% OFF CODE: VALHEIM25 ]</span>
+    </div>
+
+    <a href="https://www.survivalservers.com/services/game_servers/valheim/?ref=vapok" target="_blank" rel="noopener noreferrer" class="partner-banner-link" style="display: block; border: 1px solid rgba(100, 240, 252, 0.2); overflow: hidden; line-height: 0; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);">
+      <img src="{{ '/assets/images/sponsors/survivalservers-valheim-banner.png' | relative_url }}" alt="Survival Servers - Valheim 1.0 Dedicated Servers (25% off with code VALHEIM25)" style="width: 100%; height: auto; display: block; object-fit: contain;">
+    </a>
+
+    <div style="margin-top: 0.85rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; font-size: 0.84rem;">
+      <span style="color: var(--text-muted); line-height: 1.45;">
+        ⚡ <em>Survival Servers is the official dedicated server provider powering the upcoming <strong>Vapok Gaming Community</strong> Valheim world.</em>
+      </span>
+      <a href="https://www.survivalservers.com/services/game_servers/valheim/?ref=vapok" target="_blank" rel="noopener noreferrer" class="cyber-btn" style="font-size: 0.78rem; padding: 0.4rem 0.85rem; white-space: nowrap;">
+        [ VISIT SURVIVAL SERVERS &rarr; ]
+      </a>
+    </div>
+  </div>
+
   <div class="content-terminal-box" style="margin-top: 0;">
     <div class="markdown-body">
       <p>
