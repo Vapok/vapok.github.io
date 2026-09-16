@@ -810,21 +810,20 @@ function initBootloaderAndCli() {
       url: '/',
       desc: 'Primary landing hub & system dossier',
       children: [
-        { id: 'home-mods', path: '#mods (Mod Catalog Section)', url: '/#mods', desc: 'Jump to Mod Catalog dossiers on homepage' },
         { id: 'home-logs', path: '#logs (Transmission Logs)', url: '/#logs', desc: 'System changelogs & status broadcasts' },
         { id: 'home-about', path: '#about (Creator Directives)', url: '/#about', desc: 'About Vapok & vision statement' }
       ]
     },
     {
       id: 'mods',
-      path: '/#mods (Mod Catalog)',
-      url: '/#mods',
+      path: '/modding/ (Module Repository)',
+      url: '/modding/',
       desc: '16 Valheim & Techtonica mod releases',
       children: [
         {
           id: 'valheim-mods',
           path: 'Valheim Mods (11 releases)',
-          url: '/#mods',
+          url: '/modding/',
           desc: 'Valheim gameplay, QoL & expansion mods',
           children: [
             { id: 'm-advbp', path: 'AdventureBackpacks', url: 'https://valheim.thunderstore.io/package/Vapok/AdventureBackpacks/', desc: 'Thematic upgradable adventure backpacks', isExternal: true },
@@ -838,7 +837,7 @@ function initBootloaderAndCli() {
         {
           id: 'techtonica-mods',
           path: 'Techtonica Mods (5 releases)',
-          url: '/#mods',
+          url: '/modding/',
           desc: 'Factory automation & diagnostics',
           children: [
             { id: 'm-bcm', path: 'BetterCoreManagement', url: 'https://techtonica.thunderstore.io/package/Vapok/BetterCoreManagement/', desc: 'Core cluster management & diagnostics', isExternal: true },
@@ -1249,11 +1248,17 @@ function initBootloaderAndCli() {
         break;
 
       case 'mods':
+      case 'modding':
         printLine('--- MODULE REPOSITORY [ VALHEIM & TECHTONICA ] ---', 'success');
-        printLine('16 active mods in development. Browse dossiers at: https://vapok.io/#mods', 'info');
+        printLine('16 active mods in development. Browse dossiers at: https://vapok.io/modding/', 'info');
         const modsSection = document.getElementById('mods');
         if (modsSection) {
           modsSection.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          printLine('Navigating to Module Repository (/modding/)...', 'info');
+          setTimeout(() => {
+            window.location.href = '/modding/';
+          }, 400);
         }
         break;
 

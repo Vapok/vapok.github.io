@@ -37,7 +37,7 @@ nav_links:
   - title: "[ /HOME ]"
     url: "/"
   - title: "[ /MODS ]"
-    url: "/#mods"
+    url: "/modding/"
   - title: "[ /GAMES ]"
     url: "/games/"
   - title: "[ /LOGS ]"

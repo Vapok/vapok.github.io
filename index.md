@@ -5,34 +5,8 @@ title: Home
 
 {% include ascii-banner.html %}
 
-<!-- MOD SHOWCASE CATALOG -->
-<section id="mods">
-  <div class="section-header">
-    <div class="section-title">
-      <span>// MODULE_REPOSITORY</span>
-      <span class="section-title-tag">[ FEATURED MODS & SYSTEMS ]</span>
-    </div>
-
-    <div class="filter-bar">
-      <button class="filter-btn active" data-filter="all">[ ALL ]</button>
-      <button class="filter-btn" data-filter="valheim">[ VALHEIM ]</button>
-      <button class="filter-btn" data-filter="techtonica">[ TECHTONICA ]</button>
-    </div>
-  </div>
-
-  <div class="mod-grid">
-    {% assign all_mods = site.mods %}
-    {% if all_mods == nil or all_mods.size == 0 %}
-      {% assign all_mods = site.data.mods %}
-    {% endif %}
-    {% for mod in all_mods %}
-      {% include mod-card.html mod=mod %}
-    {% endfor %}
-  </div>
-</section>
-
 <!-- DEV LOGS / NEWS -->
-<section id="logs" style="margin-top: 3.5rem;">
+<section id="logs" style="margin-top: 2.5rem;">
   <div class="section-header">
     <div class="section-title">
       <span>// TRANSMISSION_LOGS</span>

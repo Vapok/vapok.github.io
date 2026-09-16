@@ -20,7 +20,7 @@ description: "Explore the games Vapok is actively playing, modding, and organizi
     <a href="{{ site.donations.discord_invite }}" target="_blank" rel="noopener noreferrer" class="cyber-btn" style="background: var(--glacial-mint); color: #06080e; border-color: var(--glacial-mint);">
       [ 💬 JOIN DISCORD GAME SESSIONS ]
     </a>
-    <a href="{{ '/#mods' | relative_url }}" class="cyber-btn">
+    <a href="{{ '/modding/' | relative_url }}" class="cyber-btn">
       [ ⚡ VIEW CREATED MODS ]
     </a>
   </div>
