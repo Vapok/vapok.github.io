@@ -1204,92 +1204,115 @@ html.system-booting #header-fuel-btn {
   font-family: var(--font-mono);
   font-size: 0.8rem;
   font-weight: 700;
-  text-decoration: none;
+  text-decoration: none !important;
+  text-shadow: none !important;
   padding: 0.45rem 0.85rem;
   border: 1px solid var(--ice-blue);
-  color: var(--ice-blue);
+  color: var(--ice-blue) !important;
   background: rgba(100, 240, 252, 0.04);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .cyber-btn:hover {
-  background: var(--ice-blue);
-  color: var(--bg-deep);
-  border-color: var(--ice-blue);
+  background: var(--ice-blue) !important;
+  color: #06080e !important;
+  border-color: var(--ice-blue) !important;
+  text-shadow: none !important;
   box-shadow: 0 0 15px var(--ice-blue-glow);
   transform: translateY(-1px);
 }
 
 .cyber-btn.btn-mint {
-  border-color: var(--glacial-mint);
-  color: #06080e;
-  background: var(--glacial-mint);
+  border-color: var(--glacial-mint) !important;
+  color: var(--glacial-mint) !important;
+  background: rgba(0, 245, 155, 0.06);
   font-weight: 700;
 }
 
 .cyber-btn.btn-mint:hover {
-  background: #34d399;
-  border-color: #34d399;
-  color: #06080e;
+  background: var(--glacial-mint) !important;
+  border-color: var(--glacial-mint) !important;
+  color: #06080e !important;
+  text-shadow: none !important;
+  box-shadow: 0 0 16px rgba(0, 245, 155, 0.45);
+  transform: translateY(-1px);
+}
+
+.cyber-btn.btn-mint-solid {
+  border-color: var(--glacial-mint) !important;
+  color: #06080e !important;
+  background: var(--glacial-mint) !important;
+  font-weight: 700;
+}
+
+.cyber-btn.btn-mint-solid:hover {
+  background: #34d399 !important;
+  border-color: #34d399 !important;
+  color: #06080e !important;
+  text-shadow: none !important;
   box-shadow: 0 0 16px rgba(0, 245, 155, 0.45);
   transform: translateY(-1px);
 }
 
 .cyber-btn.btn-cyan {
-  border-color: var(--ice-blue);
-  color: #06080e;
-  background: var(--ice-blue);
+  border-color: var(--ice-blue) !important;
+  color: var(--ice-blue) !important;
+  background: rgba(100, 240, 252, 0.04);
   font-weight: 700;
 }
 
 .cyber-btn.btn-cyan:hover {
-  background: #a5f3fc;
-  border-color: #a5f3fc;
-  color: #06080e;
+  background: var(--ice-blue) !important;
+  border-color: var(--ice-blue) !important;
+  color: #06080e !important;
+  text-shadow: none !important;
   box-shadow: 0 0 16px var(--ice-blue-glow);
   transform: translateY(-1px);
 }
 
 .cyber-btn.btn-amber {
-  border-color: var(--warning-amber);
-  color: var(--warning-amber);
+  border-color: var(--warning-amber) !important;
+  color: var(--warning-amber) !important;
   background: rgba(251, 191, 36, 0.06);
 }
 
 .cyber-btn.btn-amber:hover {
-  background: var(--warning-amber);
-  border-color: var(--warning-amber);
-  color: #06080e;
+  background: var(--warning-amber) !important;
+  border-color: var(--warning-amber) !important;
+  color: #06080e !important;
+  text-shadow: none !important;
   box-shadow: 0 0 16px rgba(251, 191, 36, 0.45);
   transform: translateY(-1px);
 }
 
 .cyber-btn.btn-amber-solid {
-  border-color: var(--warning-amber);
-  color: #06080e;
-  background: var(--warning-amber);
+  border-color: var(--warning-amber) !important;
+  color: #06080e !important;
+  background: var(--warning-amber) !important;
   font-weight: 800;
 }
 
 .cyber-btn.btn-amber-solid:hover {
-  background: #fcd34d;
-  border-color: #fcd34d;
-  color: #06080e;
+  background: #fcd34d !important;
+  border-color: #fcd34d !important;
+  color: #06080e !important;
+  text-shadow: none !important;
   box-shadow: 0 0 18px rgba(251, 191, 36, 0.6);
   transform: translateY(-1px);
 }
 
 .cyber-btn.btn-secondary {
-  border-color: var(--border-subtle);
-  color: var(--text-muted);
+  border-color: var(--border-subtle) !important;
+  color: var(--text-muted) !important;
   background: transparent;
 }
 
 .cyber-btn.btn-secondary:hover {
-  border-color: var(--cyber-teal);
-  color: var(--cyber-teal);
-  background: rgba(20, 184, 166, 0.12);
+  border-color: var(--cyber-teal) !important;
+  color: var(--cyber-teal) !important;
+  background: rgba(20, 184, 166, 0.12) !important;
+  text-shadow: none !important;
   box-shadow: 0 0 10px rgba(20, 184, 166, 0.25);
   transform: translateY(-1px);
 }
@@ -1365,14 +1388,14 @@ html.system-booting #header-fuel-btn {
   margin-bottom: 0.4rem;
 }
 
-.markdown-body a {
+.markdown-body a:not(.cyber-btn) {
   color: var(--ice-blue);
   text-decoration: underline;
   text-underline-offset: 3px;
   transition: color 0.2s ease;
 }
 
-.markdown-body a:hover {
+.markdown-body a:not(.cyber-btn):hover {
   color: var(--glacial-mint);
   text-shadow: 0 0 8px var(--glacial-mint-glow);
 }
