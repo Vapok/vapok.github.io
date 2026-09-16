@@ -65,9 +65,10 @@ All web pages, layout templates, and UI components in this repository adhere to 
 
 ### UI Integration
 - Header Control: Glowing amber `[ ⚡ FUEL: $$$ ]` button (`.fuel-btn` with hover text scramble).
-- Nav Menu: Streamlined (`/HOME` -> `/`, `/MODS` -> `/modding/`, `/GAMES` -> `/games/`, `/LOGS` -> `/#logs`, `/ABOUT` -> `/about/`).
+- Nav Menu: Streamlined (`/HOME` -> `/`, `/MODS` -> `/modding/`, `/GAMES` -> `/games/`, `/LOGS` -> `/logs/`, `/ABOUT` -> `/about/`).
 - Dedicated Pages:
   - `modding.md` (`permalink: /modding/`): Standalone module repository with interactive multi-game filters (`[ ALL (16) ]`, `[ VALHEIM (11) ]`, `[ TECHTONICA (5) ]`).
+  - `logs.md` (`permalink: /logs/`): Standalone transmission logs archive displaying recent dispatches, tags, and devlogs.
   - `about.md` (`permalink: /about/`): Creator dossier with operator identity matrix, career origins (Skullz.net, 11 PAX conventions as PC Room Manager/Enforcer, 25-yr polyglot dev, Valheim modder), and extreme off-duty expeditions (storm chaser, EMT/FF, pilot, speaker/DJ).
   - `support.md` (`permalink: /support/`): Backer manifesto, channel cards, and perks matrix table.
 
@@ -79,13 +80,27 @@ All web pages, layout templates, and UI components in this repository adhere to 
 - `collections.mods` in `_config.yml` (`permalink: /mods/:slug/`).
 - `_layouts/default.html`: Root HTML template hosting canvas, scanlines, header, and footer.
 - `_layouts/mod.html`: Individual mod dossier layout with icon box, metadata specs, and tabbed README vs CHANGELOG viewer.
-- `_layouts/page.html`: Dossier format for policy/legal/documentation/support/games/about/modding pages.
-- `_layouts/post.html`: Dispatch format for devlog updates in `_posts/`.
+- `_layouts/page.html`: Dossier format for policy/legal/documentation/support/games/about/modding/logs pages.
+- `_layouts/post.html`: Dispatch format for devlog updates in `_posts/` with backlink navigation buttons to `/logs/` and `/`.
 
 ### Includes & Liquid Scoping
 - `_includes/ascii-banner.html`: Hero banner displaying live stats (`total_downloads`, `active_mods`, `discord_members` link).
 - `_includes/mod-card.html`: DOS-style dossier card. Always include `{% assign mod = include.mod | default: mod %}` at line 1.
 - `_includes/header.html` & `_includes/footer.html`: System bars with UTC clock, status indicator, CRT switch, fuel button, and links.
+
+### Jekyll Data Hot-Reloading Convention
+- **Live Reloading Invariant**: `_config.yml` is parsed only once at Jekyll startup. Dynamic configuration (navigation links, active lists, community tags) must be stored in `_data/*.yml` (such as `_data/navigation.yml`) to enable automatic hot-reloading in `jekyll serve` without requiring a server reboot.
+- **Template Fallback**: Always implement fallback Liquid assignments in headers/layouts:
+  `{% assign nav_items = site.data.navigation | default: site.nav_links %}`.
+
+### Dispatch Taxonomies & Frontmatter Standards
+All blog posts and transmissions in `_posts/` support native and custom taxonomy metadata:
+- `categories`: Native Jekyll category list (e.g. `[news, updates]`).
+- `tags`: Native Jekyll tag list (e.g. `[valheim, patch-notes]`).
+- `badge`: Custom dispatch badge text in upper right of card (e.g. `"RELEASE"`, `"DEVLOG"`, `"SECURITY"`, `"HOTFIX"`).
+- `badge_color`: Badge theme color (`mint`, `cyan`, `amber`, `red`, `purple`).
+- `game`: Associated title tag (e.g. `"Valheim"` or `"Techtonica"`).
+- `excerpt`: Optional explicit summary; defaults to the first paragraph.
 
 ### Styling & Scripts
 - Stylesheet: `assets/css/terminal.css` (Vanilla CSS with CSS custom properties).
