@@ -42,18 +42,19 @@ description: "Official development dispatches, patch notes, changelogs, and syst
           <div>
             <div class="mod-card-header">
               <span class="mod-card-id">{{ post.date | date: "%Y.%m.%d" }}</span>
-              <span class="status-badge mint">DISPATCH // {{ forloop.rindex }}</span>
+              <span class="status-badge {{ post.badge_color | default: 'mint' }}">{{ post.badge | default: "DISPATCH" }}{% unless post.badge %} // {{ forloop.rindex }}{% endunless %}</span>
             </div>
             <h3 class="mod-title" style="font-size: 1.15rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
               <a href="{{ post.url | relative_url }}" style="color: inherit; text-decoration: none;">
                 {{ post.title }}
               </a>
             </h3>
-            {% if post.categories.size > 0 %}
+            {% assign post_taxonomies = post.tags | default: post.categories %}
+            {% if post_taxonomies.size > 0 %}
               <div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
-                {% for category in post.categories %}
+                {% for tag in post_taxonomies %}
                   <span style="font-size: 0.7rem; color: var(--ice-blue); background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.2); padding: 0.15rem 0.45rem; border-radius: 2px; letter-spacing: 0.5px;">
-                    #{{ category }}
+                    #{{ tag }}
                   </span>
                 {% endfor %}
               </div>

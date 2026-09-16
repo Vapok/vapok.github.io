@@ -8,8 +8,14 @@ layout: default
     <h1 class="doc-title">{{ page.title }}</h1>
     <div class="doc-metadata">
       <span>DATE: {{ page.date | date: "%B %d, %Y" }}</span>
-      {% if page.categories %}
+      {% if page.categories.size > 0 %}
         <span>CATEGORIES: [ {{ page.categories | join: ", " }} ]</span>
+      {% endif %}
+      {% if page.tags.size > 0 %}
+        <span>TAGS: [ {{ page.tags | join: ", " }} ]</span>
+      {% endif %}
+      {% if page.game %}
+        <span>GAME: {{ page.game }}</span>
       {% endif %}
     </div>
   </div>
