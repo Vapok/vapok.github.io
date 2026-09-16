@@ -43,7 +43,7 @@ nav_links:
   - title: "[ /LOGS ]"
     url: "/#logs"
   - title: "[ /ABOUT ]"
-    url: "/#about"
+    url: "/about/"
 
 # Jekyll Settings
 markdown: kramdown

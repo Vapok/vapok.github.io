@@ -1235,13 +1235,21 @@ html.system-booting #header-fuel-btn {
    CONTENT PAGES & DOSSIER LAYOUT (TERMS, PRIVACY, POSTS)
    ========================================================================== */
 
+/* Content Terminal Box */
 .content-terminal-box {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  padding: 2.2rem;
-  margin-top: 1.5rem;
+  padding: 2.5rem;
   box-shadow: var(--card-shadow);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* About Page Hero Grid */
+.about-hero-grid {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 2rem;
 }
 
 .doc-header-block {
@@ -1740,10 +1748,18 @@ html.system-booting #header-fuel-btn {
     padding: 0 0.25rem;
   }
 
-  .hero-stats-row {
-    display: grid;
+  .about-hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+    text-align: center;
+  }
+
+  .stat-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.5rem;
+  }
+
+  .hero-stats-row {
     margin-top: 1rem;
   }
 
@@ -1944,4 +1960,3 @@ html.system-booting #header-fuel-btn {
     animation: none !important;
   }
 }
-

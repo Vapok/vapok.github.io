@@ -862,6 +862,12 @@ function initBootloaderAndCli() {
       ]
     },
     {
+      id: 'about',
+      path: '/about/ (Creator Dossier)',
+      url: '/about/',
+      desc: 'Vapok biography, origins, PAX, & background'
+    },
+    {
       id: 'support',
       path: '/support/ (Fuel Support)',
       url: '/support/',
@@ -1184,6 +1190,7 @@ function initBootloaderAndCli() {
           printLine('  status           - Display kernel telemetry & active nodes', 'info');
           printLine('  mods             - View mod catalog dossier repository', 'info');
           printLine('  games            - Display currently playing & rotation games', 'info');
+          printLine('  about / whoami   - View creator dossier & operational history', 'info');
           printLine('  fuel / support   - Open creator support & donation channels', 'info');
           printLine('  discord          - Connect to Vapok Gaming Community Discord', 'info');
           printLine('  crt              - Toggle retro CRT scanline filter', 'info');
@@ -1270,6 +1277,24 @@ function initBootloaderAndCli() {
         const gamesSection = document.querySelector('.games-directory, .games-grid');
         if (gamesSection) {
           gamesSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        break;
+
+      case 'about':
+      case 'whoami':
+      case 'creator':
+      case 'vapok':
+        printLine('--- CREATOR DOSSIER // VAPOK ---', 'success');
+        printLine('Operator: Vapok | 25+ Years Software Engineering | Valheim & Techtonica Modder', 'info');
+        printLine('Background: Penny Arcade PAX PC Room Manager, Storm Chaser (NWS), EMT/FF, Pilot, Speaker.', 'info');
+        printLine('Full dossier: https://vapok.io/about/', 'info');
+        if (window.location.pathname.includes('/about')) {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          printLine('Navigating to Creator Dossier (/about/)...', 'info');
+          setTimeout(() => {
+            window.location.href = '/about/';
+          }, 400);
         }
         break;
 
