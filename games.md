@@ -17,7 +17,7 @@ description: "Explore the games Vapok is actively playing, modding, and organizi
     Beyond engineering modifications and automation tools, this is the live tactical radar of titles Vapok is currently playing, building mega-projects in, or testing with the <strong>Vapok Gaming Community</strong>.
   </p>
   <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
-    <a href="{{ site.donations.discord_invite }}" target="_blank" rel="noopener noreferrer" class="cyber-btn" style="background: var(--glacial-mint); color: #06080e; border-color: var(--glacial-mint);">
+    <a href="{{ site.donations.discord_invite }}" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-mint">
       [ 💬 JOIN DISCORD GAME SESSIONS ]
     </a>
     <a href="{{ '/modding/' | relative_url }}" class="cyber-btn">
@@ -121,7 +121,7 @@ description: "Explore the games Vapok is actively playing, modding, and organizi
         <li><strong>Hangout &amp; Theorycraft:</strong> Drop into voice chat, share builds, and vote on upcoming mod projects.</li>
       </ul>
       <div style="margin-top: 1.5rem;">
-        <a href="{{ site.donations.discord_invite }}" target="_blank" rel="noopener noreferrer" class="cyber-btn" style="background: var(--ice-blue); color: #06080e; border-color: var(--ice-blue); font-weight: 700;">
+        <a href="{{ site.donations.discord_invite }}" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-cyan">
           [ 🎮 JOIN THE VAPOK GAMING DISCORD ]
         </a>
       </div>

@@ -55,7 +55,7 @@ description: "Support Vapok Gaming through Discord Subscriptions, Buy Me A Coffe
     </div>
 
     <div class="mod-card-actions">
-      <a href="{{ site.donations.discord_sub }}" target="_blank" rel="noopener noreferrer" class="cyber-btn" style="background: var(--glacial-mint); color: #06080e; border-color: var(--glacial-mint);">
+      <a href="{{ site.donations.discord_sub }}" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-mint">
         [ > SUBSCRIBE ON DISCORD ]
       </a>
     </div>
@@ -84,7 +84,7 @@ description: "Support Vapok Gaming through Discord Subscriptions, Buy Me A Coffe
     </div>
 
     <div class="mod-card-actions">
-      <a href="{{ site.donations.buymeacoffee }}" target="_blank" rel="noopener noreferrer" class="cyber-btn" style="background: var(--warning-amber); color: #06080e; border-color: var(--warning-amber);">
+      <a href="{{ site.donations.buymeacoffee }}" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-amber-solid">
         [ > BUY ME A COFFEE ]
       </a>
     </div>

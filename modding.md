@@ -17,10 +17,10 @@ description: "Explore Vapok's open-source modifications, automation systems, and
     All modifications are 100% free, open-source, and engineered with an uncompromising focus on clean architecture, multiplayer stability, zero save-corruption risk, and comprehensive configuration options.
   </p>
   <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
-    <a href="https://github.com/Vapok" target="_blank" rel="noopener noreferrer" class="cyber-btn" style="background: var(--glacial-mint); color: #06080e; border-color: var(--glacial-mint);">
+    <a href="https://github.com/Vapok" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-mint">
       [ ⚡ GITHUB REPOSITORIES ]
     </a>
-    <a href="{{ '/support/' | relative_url }}" class="cyber-btn" style="border-color: var(--warning-amber); color: var(--warning-amber);">
+    <a href="{{ '/support/' | relative_url }}" class="cyber-btn btn-amber">
       [ ⚡ FUEL THE DEVELOPER ]
     </a>
     <a href="{{ site.donations.discord_invite }}" target="_blank" rel="noopener noreferrer" class="cyber-btn">

@@ -44,13 +44,13 @@ description: "Meet Vapok: Lifelong gamer, 25-year software engineer, Valheim & U
     </p>
 
     <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-      <a href="{{ site.donations.discord_invite }}" target="_blank" rel="noopener noreferrer" class="cyber-btn" style="background: var(--glacial-mint); color: #06080e; border-color: var(--glacial-mint); font-weight: 700;">
+      <a href="{{ site.donations.discord_invite }}" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-mint">
         [ 💬 JOIN DISCORD COMMUNITY ]
       </a>
       <a href="{{ '/modding/' | relative_url }}" class="cyber-btn">
         [ ⚡ EXPLORE MOD REPOSITORY ]
       </a>
-      <a href="{{ '/support/' | relative_url }}" class="cyber-btn" style="border-color: var(--warning-amber); color: var(--warning-amber);">
+      <a href="{{ '/support/' | relative_url }}" class="cyber-btn btn-amber">
         [ ⚡ FUEL THE REACTOR ]
       </a>
     </div>
@@ -197,7 +197,7 @@ description: "Meet Vapok: Lifelong gamer, 25-year software engineer, Valheim & U
     </p>
   </div>
   <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-    <a href="{{ site.donations.discord_invite }}" target="_blank" rel="noopener noreferrer" class="cyber-btn" style="background: var(--glacial-mint); color: #06080e; border-color: var(--glacial-mint); font-weight: 800; font-size: 0.95rem; padding: 0.7rem 1.4rem;">
+    <a href="{{ site.donations.discord_invite }}" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-mint" style="font-size: 0.95rem; padding: 0.7rem 1.4rem;">
       [ 💬 JOIN DISCORD SERVER ]
     </a>
     <a href="https://github.com/Vapok" target="_blank" rel="noopener noreferrer" class="cyber-btn" style="font-size: 0.95rem; padding: 0.7rem 1.25rem;">

@@ -17,7 +17,7 @@ description: "Official development dispatches, patch notes, changelogs, and syst
     Official project logs, release announcements, architectural updates, and technical devlogs across Vapok's game modifications, tooling, and community infrastructure.
   </p>
   <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
-    <a href="{{ site.donations.discord_invite }}" target="_blank" rel="noopener noreferrer" class="cyber-btn" style="background: var(--glacial-mint); color: #06080e; border-color: var(--glacial-mint);">
+    <a href="{{ site.donations.discord_invite }}" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-mint">
       [ 💬 JOIN DISCORD DISPATCHES ]
     </a>
     <a href="{{ '/modding/' | relative_url }}" class="cyber-btn">

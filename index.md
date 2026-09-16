@@ -82,13 +82,13 @@ title: Home
       <hr>
 
       <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-        <a href="{{ '/about/' | relative_url }}" class="cyber-btn" style="background: var(--glacial-mint); color: #06080e; border-color: var(--glacial-mint); font-weight: 700;">
+        <a href="{{ '/about/' | relative_url }}" class="cyber-btn btn-mint">
           [ &gt; FULL CREATOR DOSSIER ]
         </a>
         <a href="https://github.com/Vapok" target="_blank" rel="noopener noreferrer" class="cyber-btn">
           [ GITHUB REPOSITORIES ]
         </a>
-        <a href="{{ '/support/' | relative_url }}" class="cyber-btn" style="border-color: var(--warning-amber); color: var(--warning-amber);">
+        <a href="{{ '/support/' | relative_url }}" class="cyber-btn btn-amber">
           [ ⚡ DONATE &amp; SUPPORT ]
         </a>
         <a href="{{ '/terms-of-service' | relative_url }}" class="cyber-btn btn-secondary">
