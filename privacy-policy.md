@@ -5,6 +5,8 @@ title: Privacy Policy
 
 # Privacy Policy
 
+**Last Updated:** September 16, 2026
+
 This Privacy Policy describes how **Vapok Gaming** ("we", "us", or "our") handles information when you visit our website at [vapok.io](https://vapok.io) or use game modifications created by Vapok.
 
 ---
