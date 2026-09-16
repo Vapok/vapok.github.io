@@ -5,40 +5,6 @@ title: Home
 
 {% include ascii-banner.html %}
 
-<!-- DEV LOGS / NEWS -->
-<section id="logs" style="margin-top: 2.5rem;">
-  <div class="section-header">
-    <div class="section-title">
-      <span>// TRANSMISSION_LOGS</span>
-      <span class="section-title-tag">[ RECENT UPDATES & DEVLOGS ]</span>
-    </div>
-  </div>
-
-  <div class="mod-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));">
-    {% for post in site.posts limit:3 %}
-      <article class="mod-card">
-        <div>
-          <div class="mod-card-header">
-            <span class="mod-card-id">{{ post.date | date: "%Y.%m.%d" }}</span>
-            <span class="status-badge mint">DISPATCH</span>
-          </div>
-          <h3 class="mod-title" style="font-size: 1.05rem;">
-            <a href="{{ post.url | relative_url }}" style="color: inherit; text-decoration: none;">
-              {{ post.title }}
-            </a>
-          </h3>
-          <p class="mod-desc" style="margin-top: 0.6rem;">
-            {{ post.excerpt | strip_html | truncatewords: 24 }}
-          </p>
-        </div>
-        <div class="mod-card-actions">
-          <a href="{{ post.url | relative_url }}" class="cyber-btn">[ > READ LOG ]</a>
-        </div>
-      </article>
-    {% endfor %}
-  </div>
-</section>
-
 <!-- BACKER / FUEL CALLOUT -->
 <section id="fuel" style="margin-top: 3.5rem;">
   <div style="background: linear-gradient(135deg, rgba(26, 20, 10, 0.85) 0%, rgba(6, 8, 14, 0.95) 100%); border: 1px solid rgba(251, 191, 36, 0.35); padding: 1.75rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; box-shadow: 0 0 20px rgba(251, 191, 36, 0.08);">

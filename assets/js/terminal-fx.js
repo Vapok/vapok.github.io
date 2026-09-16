@@ -810,7 +810,7 @@ function initBootloaderAndCli() {
       url: '/',
       desc: 'Primary landing hub & system dossier',
       children: [
-        { id: 'home-logs', path: '#logs (Transmission Logs)', url: '/#logs', desc: 'System changelogs & status broadcasts' },
+        { id: 'home-fuel', path: '#fuel (Fuel The Creator)', url: '/#fuel', desc: 'Sponsorship & donation directives' },
         { id: 'home-about', path: '#about (Creator Directives)', url: '/#about', desc: 'About Vapok & vision statement' }
       ]
     },
@@ -860,6 +860,12 @@ function initBootloaderAndCli() {
         { id: 'g-enshrouded', path: 'Enshrouded', url: '/games/', desc: '⚡ Actively Playing • Keen Games' },
         { id: 'g-dune', path: 'Dune: Awakening', url: '/games/', desc: '🔄 In Rotation • Funcom' }
       ]
+    },
+    {
+      id: 'logs',
+      path: '/logs/ (Transmission Logs)',
+      url: '/logs/',
+      desc: 'System changelogs, devlogs & dispatches'
     },
     {
       id: 'about',

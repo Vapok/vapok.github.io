@@ -41,7 +41,7 @@ nav_links:
   - title: "[ /GAMES ]"
     url: "/games/"
   - title: "[ /LOGS ]"
-    url: "/#logs"
+    url: "/logs/"
   - title: "[ /ABOUT ]"
     url: "/about/"
 
