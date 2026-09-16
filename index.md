@@ -20,7 +20,7 @@ title: Home
       </p>
     </div>
     <div>
-      <a href="{{ '/support/' | relative_url }}" class="cyber-btn scramble-hover" data-text="[ ⚡ FUEL THE DEV: $$$ ]" style="background: var(--warning-amber); color: #06080e; border-color: var(--warning-amber); font-size: 0.9rem; padding: 0.65rem 1.25rem; font-weight: 800;">
+      <a href="{{ '/support/' | relative_url }}" class="cyber-btn btn-amber-solid scramble-hover" data-text="[ ⚡ FUEL THE DEV: $$$ ]" style="font-size: 0.9rem; padding: 0.65rem 1.25rem;">
         [ ⚡ FUEL THE DEV: $$$ ]
       </a>
     </div>
