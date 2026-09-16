@@ -34,7 +34,9 @@ We are not responsible for the privacy practices, content, or policies of third-
 
 ## 3. Cookies & Analytics
 
-We do not use tracking cookies or third-party analytics scripts on this website.
+We use **Google Analytics** to collect aggregate, anonymous statistics about website traffic and usage patterns (such as popular pages, general referral sources, and visitor counts). Google Analytics uses cookies to gather this standard internet log information.
+
+This data is processed in a way that does not directly identify individual visitors. You can prevent Google Analytics from tracking your visits by using browser ad blockers, privacy extensions, or the [Google Analytics Opt-out Browser Add-on](https://tools.google.com/dlpage/gaoptout).
 
 ---
 

@@ -2,6 +2,8 @@ title: Vapok Gaming
 tagline: Gaming Community, Creative Systems & Game Modifications
 description: High-performance game modifications, active games, and gaming community hub by Vapok.
 url: "https://vapok.io"
+baseurl: ""
+google_analytics: "G-WKCE821DL8"
 
 # Site Identity & Links
 author:

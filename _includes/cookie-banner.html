@@ -1,0 +1,94 @@
+<!-- Terminal Cyber-Console Cookie & Telemetry Consent Banner -->
+<div id="cookie-consent-banner" class="cookie-banner" role="dialog" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-desc" style="display: none;">
+  <div class="cookie-banner-inner">
+    <div class="cookie-banner-header">
+      <span class="cookie-banner-icon">⚡</span>
+      <span id="cookie-banner-title" class="cookie-banner-title">[ DIRECTIVE // TELEMETRY &amp; COOKIES ]</span>
+      <span class="cookie-banner-badge">SYS_AUTH</span>
+    </div>
+    <div class="cookie-banner-body">
+      <p id="cookie-banner-desc" class="cookie-banner-text">
+        <span class="cookie-prompt">&gt;</span> vapok.io requests authorization to collect anonymous traffic &amp; telemetry data via <strong>Google Analytics 4</strong>. No personal identification data is stored.
+      </p>
+      <p class="cookie-banner-subtext">
+        Review our <a href="{{ '/privacy-policy/' | relative_url }}" class="cookie-link">[ PRIVACY POLICY ]</a>.
+      </p>
+    </div>
+    <div class="cookie-banner-actions">
+      <button type="button" id="cookie-accept-btn" class="cookie-btn cookie-btn-accept" title="Authorize anonymous analytics cookies">
+        [ AUTHORIZE ]
+      </button>
+      <button type="button" id="cookie-decline-btn" class="cookie-btn cookie-btn-decline" title="Block all analytics cookies">
+        [ REJECT ]
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    var banner = document.getElementById('cookie-consent-banner');
+    var acceptBtn = document.getElementById('cookie-accept-btn');
+    var declineBtn = document.getElementById('cookie-decline-btn');
+
+    function updateConsent(decision) {
+      try {
+        localStorage.setItem('vapok_cookie_consent', decision);
+      } catch (e) {}
+
+      if (typeof window.gtag === 'function') {
+        window.gtag('consent', 'update', {
+          'analytics_storage': decision
+        });
+      }
+
+      if (banner) {
+        banner.classList.remove('active');
+        banner.classList.add('closing');
+        setTimeout(function() {
+          banner.style.display = 'none';
+          banner.classList.remove('closing');
+        }, 300);
+      }
+    }
+
+    function showBanner() {
+      if (!banner) return;
+      banner.style.display = 'block';
+      // Force reflow
+      void banner.offsetWidth;
+      banner.classList.add('active');
+    }
+
+    window.openCookieConsent = function() {
+      showBanner();
+      if (acceptBtn) {
+        acceptBtn.focus();
+      }
+    };
+
+    if (acceptBtn) {
+      acceptBtn.addEventListener('click', function() {
+        updateConsent('granted');
+      });
+    }
+
+    if (declineBtn) {
+      declineBtn.addEventListener('click', function() {
+        updateConsent('denied');
+      });
+    }
+
+    // Auto-display if no consent decision recorded yet
+    document.addEventListener('DOMContentLoaded', function() {
+      var saved = null;
+      try {
+        saved = localStorage.getItem('vapok_cookie_consent');
+      } catch (e) {}
+
+      if (!saved) {
+        setTimeout(showBanner, 700);
+      }
+    });
+  })();
+</script>

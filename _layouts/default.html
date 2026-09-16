@@ -22,6 +22,9 @@
       } catch (e) {}
     })();
   </script>
+  
+  <!-- Analytics -->
+  {% include google-analytics.html %}
 </head>
 <body id="top">
   <!-- Skip to Main Content (WCAG 2.4.1 Bypass Blocks) -->
@@ -50,5 +53,8 @@
   <!-- JavaScript Engine & BBS Doors -->
   <script src="{{ '/assets/js/bbs-doors.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/terminal-fx.js' | relative_url }}"></script>
+
+  <!-- Cookie & Telemetry Consent Banner -->
+  {% include cookie-banner.html %}
 </body>
 </html>
