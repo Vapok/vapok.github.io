@@ -28,7 +28,7 @@
         </tr>
         <tr>
           <td class="meta-label">VERSION:</td>
-          <td class="meta-val" style="color: var(--glacial-mint)">{{ mod.version }}</td>
+          <td class="meta-val mod-version-val" style="color: var(--glacial-mint)">{{ mod.version }}</td>
         </tr>
         {% if mod.downloads and mod.downloads != "" %}
           <tr>
@@ -36,6 +36,13 @@
             <td class="meta-val" style="color: var(--ice-blue-bright)">{{ mod.downloads }} (TS)</td>
           </tr>
         {% endif %}
+        <tr class="mod-live-players-row" data-mod-slug="{{ mod.slug | default: mod.id }}" data-mod-name="{{ mod.name }}">
+          <td class="meta-label">ACTIVE (30M):</td>
+          <td class="meta-val mod-live-players-val" style="color: var(--glacial-mint);">
+            <span class="telemetry-radar-dot mini" aria-hidden="true"></span>
+            <span class="mod-players-count">--</span>
+          </td>
+        </tr>
       </tbody>
     </table>
 

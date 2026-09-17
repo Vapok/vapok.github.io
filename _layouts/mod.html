@@ -40,7 +40,7 @@ layout: default
         </div>
         <div class="spec-pill">
           <span class="spec-k">VERSION:</span>
-          <span class="spec-v" style="color: var(--glacial-mint)">{{ page.version }}</span>
+          <span class="spec-v mod-version-val" style="color: var(--glacial-mint)">{{ page.version }}</span>
         </div>
         {% if page.downloads and page.downloads != "" %}
           <div class="spec-pill">
@@ -48,6 +48,13 @@ layout: default
             <span class="spec-v" style="color: var(--ice-blue-bright)">{{ page.downloads }} (TS)</span>
           </div>
         {% endif %}
+        <div class="spec-pill mod-live-spec-pill" data-mod-slug="{{ page.slug }}" data-mod-name="{{ page.name }}" title="Active players in the last 30 minutes">
+          <span class="spec-k">ACTIVE (30M):</span>
+          <span class="spec-v mod-live-players-val" style="color: var(--glacial-mint);">
+            <span class="telemetry-radar-dot mini" aria-hidden="true"></span>
+            <span class="mod-players-count">--</span>
+          </span>
+        </div>
       </div>
 
       {% if page.dependencies and page.dependencies.size > 0 %}

@@ -989,6 +989,24 @@ html.system-booting #header-fuel-btn {
   flex-shrink: 0;
 }
 
+.telemetry-radar-dot.mini {
+  width: 6px;
+  height: 6px;
+  box-shadow: 0 0 5px var(--glacial-mint);
+  margin-right: 0.2rem;
+  vertical-align: middle;
+}
+
+.mod-live-players-val {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.spec-pill.mod-live-spec-pill {
+  border-color: rgba(0, 245, 155, 0.3);
+}
+
 @keyframes telemetryPulse {
   0%, 100% {
     opacity: 1;

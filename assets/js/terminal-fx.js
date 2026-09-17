@@ -1917,25 +1917,36 @@ function initMobileBackToTop() {
 }
 
 /* ==========================================================================
-   9. LIVE TELEMETRY / ACTIVE PLAYER COUNTER
+   9. LIVE TELEMETRY / ACTIVE PLAYER COUNTER & MOD BREAKDOWN
    ========================================================================== */
 function initLivePlayerCounter() {
-  const counterEl = document.getElementById('hero-live-players-count');
-  if (!counterEl) return;
+  const heroCounterEl = document.getElementById('hero-live-players-count');
+  const modRows = document.querySelectorAll('.mod-live-players-row');
+  const modPills = document.querySelectorAll('.mod-live-spec-pill');
+
+  if (!heroCounterEl && modRows.length === 0 && modPills.length === 0) {
+    return;
+  }
 
   const endpoint = window.VAPOK_TELEMETRY_ENDPOINT ||
                    localStorage.getItem('vapok_telemetry_endpoint') ||
                    'https://wandering-wood-4a54.vapokrocks.workers.dev/';
 
-  let currentCount = null;
+  let currentHeroCount = null;
+  const modCurrentCounts = new Map();
 
-  function animateCounter(targetVal) {
+  function normalize(str) {
+    return (str || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  }
+
+  function animateElementCount(el, targetVal, currentValTracker, key) {
+    if (!el) return;
     if (typeof targetVal !== 'number' || isNaN(targetVal)) {
-      counterEl.textContent = targetVal;
+      el.textContent = targetVal;
       return;
     }
 
-    const startVal = typeof currentCount === 'number' ? currentCount : 0;
+    const startVal = typeof currentValTracker === 'number' ? currentValTracker : 0;
     const duration = 1200;
     const startTime = performance.now();
 
@@ -1944,17 +1955,64 @@ function initLivePlayerCounter() {
       const progress = Math.min(elapsed / duration, 1);
       const ease = 1 - Math.pow(1 - progress, 3);
       const current = Math.round(startVal + (targetVal - startVal) * ease);
-      counterEl.textContent = current.toLocaleString();
+      el.textContent = current.toLocaleString();
 
       if (progress < 1) {
         requestAnimationFrame(step);
       } else {
-        currentCount = targetVal;
-        counterEl.textContent = targetVal.toLocaleString();
+        if (key) modCurrentCounts.set(key, targetVal);
+        el.textContent = targetVal.toLocaleString();
       }
     }
 
     requestAnimationFrame(step);
+  }
+
+  function updateModElements(modsList) {
+    if (!Array.isArray(modsList)) return;
+
+    const allElements = [...modRows, ...modPills];
+    allElements.forEach((container) => {
+      const slug = container.getAttribute('data-mod-slug') || '';
+      const name = container.getAttribute('data-mod-name') || '';
+      const countEl = container.querySelector('.mod-players-count');
+      if (!countEl) return;
+
+      const normSlug = normalize(slug);
+      const normName = normalize(name);
+
+      const matchedMod = modsList.find((m) => {
+        const normM = normalize(m.name);
+        return normM === normName ||
+               normM === normSlug ||
+               normM.includes(normSlug) ||
+               normSlug.includes(normM);
+      });
+
+      if (matchedMod) {
+        if (typeof matchedMod.activePlayers === 'number') {
+          const targetCount = matchedMod.activePlayers;
+          const currentVal = modCurrentCounts.get(slug || name);
+          animateElementCount(countEl, targetCount, currentVal, slug || name);
+        }
+
+        // Live Version Sync
+        if (matchedMod.version) {
+          const card = container.closest('.mod-card');
+          if (card) {
+            const verEl = card.querySelector('.mod-version-val');
+            if (verEl) verEl.textContent = matchedMod.version;
+          }
+          const hero = container.closest('.mod-dossier-hero');
+          if (hero) {
+            const verEl = hero.querySelector('.mod-version-val');
+            if (verEl) verEl.textContent = matchedMod.version;
+          }
+        }
+      } else {
+        countEl.textContent = '--';
+      }
+    });
   }
 
   async function fetchLiveTelemetry() {
@@ -1962,7 +2020,10 @@ function initLivePlayerCounter() {
       const debugVal = localStorage.getItem('vapok_mock_active_players');
       if (debugVal !== null) {
         const val = parseInt(debugVal, 10);
-        animateCounter(isNaN(val) ? 42 : val);
+        if (heroCounterEl) {
+          animateElementCount(heroCounterEl, isNaN(val) ? 42 : val, currentHeroCount, 'hero');
+          currentHeroCount = isNaN(val) ? 42 : val;
+        }
         return;
       }
 
@@ -1973,23 +2034,29 @@ function initLivePlayerCounter() {
 
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
+      window.VAPOK_LATEST_TELEMETRY = data;
 
-      const count = data.activePlayers ?? data.activeUsers ?? data.count ?? data.total;
-      if (typeof count === 'number') {
-        animateCounter(count);
-      } else {
-        throw new Error('Invalid telemetry payload format');
+      // 1. Update Hero Total
+      const totalCount = data.activePlayers ?? data.activeUsers ?? data.count ?? data.total;
+      if (heroCounterEl && typeof totalCount === 'number') {
+        animateElementCount(heroCounterEl, totalCount, currentHeroCount, 'hero');
+        currentHeroCount = totalCount;
+      }
+
+      // 2. Update Mod Cards & Dossiers
+      if (data.mods && Array.isArray(data.mods)) {
+        updateModElements(data.mods);
       }
     } catch (err) {
-      if (currentCount === null) {
-        counterEl.textContent = '--';
+      if (heroCounterEl && currentHeroCount === null) {
+        heroCounterEl.textContent = '--';
       }
     }
   }
 
   fetchLiveTelemetry();
 
-  // Poll every 10 seconds (for testing interval responsiveness)
+  // Poll every 10 seconds
   setInterval(fetchLiveTelemetry, 10000);
 
   document.addEventListener('visibilitychange', () => {
@@ -2007,5 +2074,6 @@ function initLivePlayerCounter() {
     fetchLiveTelemetry();
   };
 }
+
 
 
