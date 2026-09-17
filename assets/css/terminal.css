@@ -1458,6 +1458,55 @@ html.system-booting #header-fuel-btn {
   font-size: 0.95rem;
 }
 
+.footer-brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.footer-brand-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 6px rgba(100, 240, 252, 0.3));
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), filter 0.25s ease;
+}
+
+.footer-brand-link:hover .footer-brand-logo {
+  transform: scale(1.08) rotate(3deg);
+  filter: drop-shadow(0 0 14px rgba(100, 240, 252, 0.75));
+}
+
+.footer-brand-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-brand-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  color: var(--ice-blue);
+  font-size: 0.98rem;
+  letter-spacing: 0.04em;
+  transition: color 0.2s ease;
+}
+
+.footer-brand-link:hover .footer-brand-title {
+  color: var(--glacial-mint);
+}
+
+.footer-brand-tagline {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+  margin-bottom: 0;
+  line-height: 1.35;
+}
+
 .footer-social-links {
   display: flex;
   gap: 1rem;
