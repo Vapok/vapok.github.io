@@ -1,0 +1,51 @@
+---
+layout: null
+sitemap: false
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Core Site Pages -->
+  {% for page in site.pages %}
+    {% if page.url contains '.xml' or page.url contains 'assets' or page.url contains 'robots.txt' or page.url contains '404' or page.sitemap == false %}
+      {% continue %}
+    {% endif %}
+    {% unless page.url contains '.css' or page.url contains '.js' or page.url contains '.json' or page.url contains '.map' or page.url contains 'CNAME' %}
+    <url>
+      <loc>{{ page.url | replace: 'index.html', '' | absolute_url }}</loc>
+      {% if page.last_modified_at %}
+      <lastmod>{{ page.last_modified_at | date_to_xmlschema }}</lastmod>
+      {% elsif page.date %}
+      <lastmod>{{ page.date | date_to_xmlschema }}</lastmod>
+      {% else %}
+      <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+      {% endif %}
+      <changefreq>{% if page.url == '/' %}daily{% else %}weekly{% endif %}</changefreq>
+      <priority>{% if page.url == '/' %}1.0{% else %}0.8{% endif %}</priority>
+    </url>
+    {% endunless %}
+  {% endfor %}
+
+  <!-- Mod Dossier Catalog Pages -->
+  {% for mod in site.mods %}
+    {% if mod.sitemap != false %}
+    <url>
+      <loc>{{ mod.url | absolute_url }}</loc>
+      <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.9</priority>
+    </url>
+    {% endif %}
+  {% endfor %}
+
+  <!-- Transmission Logs / Blog Posts -->
+  {% for post in site.posts %}
+    {% if post.sitemap != false %}
+    <url>
+      <loc>{{ post.url | absolute_url }}</loc>
+      <lastmod>{{ post.date | date_to_xmlschema }}</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.7</priority>
+    </url>
+    {% endif %}
+  {% endfor %}
+</urlset>

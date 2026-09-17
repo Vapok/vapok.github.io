@@ -201,4 +201,21 @@ All blog posts and transmissions in `_posts/` support native and custom taxonomy
 - Support `@media (prefers-reduced-motion: reduce)` in CSS to clamp animations and transitions to `0.01ms`.
 - In JavaScript, check `window.matchMedia('(prefers-reduced-motion: reduce)').matches` in all text decoders/scramblers and canvas animation loops to instantly resolve text without multi-second scrambling.
 
+---
+
+## 9. Content Publishing & Mandatory Sitemap RFC Standards
+
+### Pre-Publishing Checklist
+Whenever an agent authors, stages, or updates content on `vapok.io`:
+1. **Sitemap Generation & Validation**:
+   - `sitemap.xml` **must always be present and refreshed** at the root of the site adhering to the official Sitemap XML protocol (`http://www.sitemaps.org/schemas/sitemap/0.9`).
+   - Must comprehensively index all static pages (`/`, `/modding/`, `/games/`, `/logs/`, `/about/`, `/support/`, `/privacy-policy/`, `/terms-of-service/`), all mod dossier pages (`/mods/:slug/`), and all transmission log posts (`/category/YYYY/MM/DD/:slug/`).
+   - Must output valid XML with proper `<loc>`, `<lastmod>` (in W3C Datetime format), `<changefreq>`, and `<priority>`.
+   - `robots.txt` must declare `Sitemap: https://vapok.io/sitemap.xml`.
+2. **Open Graph & SEO Meta**:
+   - Ensure title, description, excerpt, and social preview tags (`og:image`, `twitter:card`, etc.) are populated.
+3. **Build & Verify**:
+   - Always run `bundle exec jekyll build` before committing to verify zero build errors and validate that `_site/sitemap.xml` generates cleanly.
+
+
 
