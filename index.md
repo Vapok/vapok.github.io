@@ -28,7 +28,8 @@ title: Home
 </section>
 
 <!-- SERVER INFRASTRUCTURE SPONSOR -->
-<section id="partner-infrastructure" style="margin-top: 3.5rem;">
+<!--googleoff: all-->
+<section id="partner-infrastructure" data-nosnippet style="margin-top: 3.5rem;">
   <div class="section-header">
     <div class="section-title">
       <span>// INFRASTRUCTURE_PARTNER</span>
@@ -45,7 +46,7 @@ title: Home
       <span style="font-size: 0.78rem; color: var(--warning-amber); font-weight: 700; letter-spacing: 0.5px;">PROMO: [ 25% OFF CODE: VALHEIM25 ]</span>
     </div>
 
-    <a href="https://www.survivalservers.com/services/game_servers/valheim/?ref=vapok" target="_blank" rel="noopener noreferrer" class="partner-banner-link" style="display: block; border: 1px solid rgba(100, 240, 252, 0.2); overflow: hidden; line-height: 0; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);">
+    <a href="https://www.survivalservers.com/services/game_servers/valheim/?ref=vapok" target="_blank" rel="nofollow sponsored noopener noreferrer" class="partner-banner-link" style="display: block; border: 1px solid rgba(100, 240, 252, 0.2); overflow: hidden; line-height: 0; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);">
       <img src="{{ '/assets/images/sponsors/survivalservers-valheim-banner.png' | relative_url }}" alt="Survival Servers - Valheim 1.0 Dedicated Servers (25% off with code VALHEIM25)" style="width: 100%; height: auto; display: block; object-fit: contain;">
     </a>
 
@@ -53,12 +54,13 @@ title: Home
       <span style="color: var(--text-muted); line-height: 1.45;">
         ⚡ <em>Survival Servers is the official dedicated server provider powering the upcoming <strong>Vapok Gaming Community</strong> Valheim world.</em>
       </span>
-      <a href="https://www.survivalservers.com/services/game_servers/valheim/?ref=vapok" target="_blank" rel="noopener noreferrer" class="cyber-btn" style="font-size: 0.78rem; padding: 0.4rem 0.85rem; white-space: nowrap;">
+      <a href="https://www.survivalservers.com/services/game_servers/valheim/?ref=vapok" target="_blank" rel="nofollow sponsored noopener noreferrer" class="cyber-btn" style="font-size: 0.78rem; padding: 0.4rem 0.85rem; white-space: nowrap;">
         [ VISIT SURVIVAL SERVERS &rarr; ]
       </a>
     </div>
   </div>
 </section>
+<!--googleon: all-->
 
 <!-- ABOUT & PROTOCOLS -->
 <section id="about" style="margin-top: 3.5rem;">
