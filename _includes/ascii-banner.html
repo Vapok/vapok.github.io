@@ -20,9 +20,12 @@
       <span class="stat-num">{{ site.data.stats.total_downloads | default: '1.0M+' }}</span>
       <span class="stat-label">Thunderstore Downloads</span>
     </div>
-    <div class="stat-box">
-      <span class="stat-num">{{ site.data.stats.active_mods | default: '11' }}</span>
-      <span class="stat-label">Active Releases</span>
+    <div class="stat-box live-telemetry-stat-box" id="hero-live-players-box" title="Live active players in the last 30 minutes across Vapok modifications">
+      <span class="stat-num live-players-num" style="color: var(--glacial-mint);">
+        <span class="telemetry-radar-dot" aria-hidden="true"></span>
+        <span id="hero-live-players-count">--</span>
+      </span>
+      <span class="stat-label">Active Players (30m)</span>
     </div>
     <div class="stat-box">
       <span class="stat-num">100%</span>

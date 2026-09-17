@@ -960,6 +960,48 @@ html.system-booting #header-fuel-btn {
   border-color: var(--cyber-teal);
 }
 
+.live-telemetry-stat-box {
+  border-color: rgba(0, 245, 155, 0.35);
+  background: rgba(11, 17, 26, 0.9);
+  position: relative;
+}
+
+.live-telemetry-stat-box:hover {
+  border-color: var(--glacial-mint);
+  box-shadow: 0 0 15px rgba(0, 245, 155, 0.2);
+}
+
+.live-players-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+}
+
+.telemetry-radar-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: var(--glacial-mint);
+  box-shadow: 0 0 8px var(--glacial-mint);
+  animation: telemetryPulse 2s infinite ease-in-out;
+  flex-shrink: 0;
+}
+
+@keyframes telemetryPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 8px var(--glacial-mint);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.7);
+    box-shadow: 0 0 2px var(--glacial-mint);
+  }
+}
+
 .stat-num {
   font-size: 1.4rem;
   font-weight: 800;

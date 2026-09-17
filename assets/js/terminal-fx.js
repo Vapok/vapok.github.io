@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initDossierTabs();
   initBootloaderAndCli();
   initMobileBackToTop();
+  initLivePlayerCounter();
 });
 
 /* ==========================================================================
@@ -1914,4 +1915,97 @@ function initMobileBackToTop() {
     });
   });
 }
+
+/* ==========================================================================
+   9. LIVE TELEMETRY / ACTIVE PLAYER COUNTER
+   ========================================================================== */
+function initLivePlayerCounter() {
+  const counterEl = document.getElementById('hero-live-players-count');
+  if (!counterEl) return;
+
+  const endpoint = window.VAPOK_TELEMETRY_ENDPOINT ||
+                   localStorage.getItem('vapok_telemetry_endpoint') ||
+                   'https://wandering-wood-4a54.vapokrocks.workers.dev/';
+
+  let currentCount = null;
+
+  function animateCounter(targetVal) {
+    if (typeof targetVal !== 'number' || isNaN(targetVal)) {
+      counterEl.textContent = targetVal;
+      return;
+    }
+
+    const startVal = typeof currentCount === 'number' ? currentCount : 0;
+    const duration = 1200;
+    const startTime = performance.now();
+
+    function step(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(startVal + (targetVal - startVal) * ease);
+      counterEl.textContent = current.toLocaleString();
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        currentCount = targetVal;
+        counterEl.textContent = targetVal.toLocaleString();
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  async function fetchLiveTelemetry() {
+    try {
+      const debugVal = localStorage.getItem('vapok_mock_active_players');
+      if (debugVal !== null) {
+        const val = parseInt(debugVal, 10);
+        animateCounter(isNaN(val) ? 42 : val);
+        return;
+      }
+
+      const res = await fetch(endpoint, {
+        headers: { 'Accept': 'application/json' },
+        cache: 'no-cache'
+      });
+
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+
+      const count = data.activePlayers ?? data.activeUsers ?? data.count ?? data.total;
+      if (typeof count === 'number') {
+        animateCounter(count);
+      } else {
+        throw new Error('Invalid telemetry payload format');
+      }
+    } catch (err) {
+      if (currentCount === null) {
+        counterEl.textContent = '--';
+      }
+    }
+  }
+
+  fetchLiveTelemetry();
+
+  // Poll every 10 seconds (for testing interval responsiveness)
+  setInterval(fetchLiveTelemetry, 10000);
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      fetchLiveTelemetry();
+    }
+  });
+
+  window.setMockLivePlayers = function(num) {
+    if (num === null) {
+      localStorage.removeItem('vapok_mock_active_players');
+    } else {
+      localStorage.setItem('vapok_mock_active_players', num);
+    }
+    fetchLiveTelemetry();
+  };
+}
+
 
