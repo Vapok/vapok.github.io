@@ -8,7 +8,7 @@
   {% include seo-meta.html %}
   
   <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="{{ '/assets/css/terminal.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/terminal.css' | relative_url }}?v={{ site.time | date: '%s' }}">
   
   <!-- Favicon / Brand Meta -->
   <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" sizes="any">
@@ -58,8 +58,8 @@
   <button id="mobile-back-to-top" class="mobile-back-to-top" aria-label="Back to Top" title="Return to top of page">[ ▲ TOP ]</button>
 
   <!-- JavaScript Engine & BBS Doors -->
-  <script src="{{ '/assets/js/bbs-doors.js' | relative_url }}"></script>
-  <script src="{{ '/assets/js/terminal-fx.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/bbs-doors.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
+  <script src="{{ '/assets/js/terminal-fx.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
 
   <!-- Cookie & Telemetry Consent Banner -->
   {% include cookie-banner.html %}
