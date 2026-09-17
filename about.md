@@ -47,7 +47,7 @@ description: "Meet Vapok: Lifelong gamer, 25-year software engineer, Valheim & U
       <a href="{{ site.donations.discord_invite }}" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-mint">
         [ 💬 JOIN DISCORD COMMUNITY ]
       </a>
-      <a href="{{ '/modding/' | relative_url }}" class="cyber-btn">
+      <a href="{{ '/mods/' | relative_url }}" class="cyber-btn">
         [ ⚡ EXPLORE MOD REPOSITORY ]
       </a>
       <a href="{{ '/support/' | relative_url }}" class="cyber-btn btn-amber">

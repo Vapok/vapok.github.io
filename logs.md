@@ -20,7 +20,7 @@ description: "Official development dispatches, patch notes, changelogs, and syst
     <a href="{{ site.donations.discord_invite }}" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-mint">
       [ 💬 JOIN DISCORD DISPATCHES ]
     </a>
-    <a href="{{ '/modding/' | relative_url }}" class="cyber-btn">
+    <a href="{{ '/mods/' | relative_url }}" class="cyber-btn">
       [ ⚡ VIEW MOD CATALOG ]
     </a>
   </div>

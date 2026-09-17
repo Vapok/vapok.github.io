@@ -216,6 +216,6 @@ description: "Support Vapok Gaming through Discord Subscriptions, Buy Me A Coffe
     Whether you support through Discord, Buy Me A Coffee, PayPal, or simply by sharing and leaving positive feedback on Thunderstore, you make this entire journey possible.
   </p>
   <div style="margin-top: 1.25rem;">
-    <a href="{{ '/modding/' | relative_url }}" class="cyber-btn">[ &lt; RETURN TO MODS REPOSITORY ]</a>
+    <a href="{{ '/mods/' | relative_url }}" class="cyber-btn">[ &lt; RETURN TO MODS REPOSITORY ]</a>
   </div>
 </div>

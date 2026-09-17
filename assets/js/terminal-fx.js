@@ -818,14 +818,14 @@ function initBootloaderAndCli() {
     },
     {
       id: 'mods',
-      path: '/modding/ (Module Repository)',
-      url: '/modding/',
+      path: '/mods/ (Module Repository)',
+      url: '/mods/',
       desc: '16 Valheim & Techtonica mod releases',
       children: [
         {
           id: 'valheim-mods',
           path: 'Valheim Mods (11 releases)',
-          url: '/modding/',
+          url: '/mods/',
           desc: 'Valheim gameplay, QoL & expansion mods',
           children: [
             { id: 'm-advbp', path: 'AdventureBackpacks', url: 'https://valheim.thunderstore.io/package/Vapok/AdventureBackpacks/', desc: 'Thematic upgradable adventure backpacks', isExternal: true },
@@ -839,7 +839,7 @@ function initBootloaderAndCli() {
         {
           id: 'techtonica-mods',
           path: 'Techtonica Mods (5 releases)',
-          url: '/modding/',
+          url: '/mods/',
           desc: 'Factory automation & diagnostics',
           children: [
             { id: 'm-bcm', path: 'BetterCoreManagement', url: 'https://techtonica.thunderstore.io/package/Vapok/BetterCoreManagement/', desc: 'Core cluster management & diagnostics', isExternal: true },
@@ -1267,14 +1267,14 @@ function initBootloaderAndCli() {
       case 'mods':
       case 'modding':
         printLine('--- MODULE REPOSITORY [ VALHEIM & TECHTONICA ] ---', 'success');
-        printLine('16 active mods in development. Browse dossiers at: https://vapok.io/modding/', 'info');
+        printLine('16 active mods in development. Browse dossiers at: https://vapok.io/mods/', 'info');
         const modsSection = document.getElementById('mods');
         if (modsSection) {
           modsSection.scrollIntoView({ behavior: 'smooth' });
         } else {
-          printLine('Navigating to Module Repository (/modding/)...', 'info');
+          printLine('Navigating to Module Repository (/mods/)...', 'info');
           setTimeout(() => {
-            window.location.href = '/modding/';
+            window.location.href = '/mods/';
           }, 400);
         }
         break;

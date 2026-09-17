@@ -15,7 +15,7 @@
   description: "Exploring the 10th Norse realm, engineering production-grade QoL and combat systems, and maintaining dedicated multiplayer community servers."
   current_focus: "Tracking mod changes required for Valheim 1.0 support, and preparing for a fresh playthrough on the upcoming Vapok Gaming Community Server."
   modding_status: "10+ Active Mods Maintained"
-  mods_link: "/modding/"
+  mods_link: "/mods/"
   discord_channel: "#valheim"
   discord_link: "https://discord.gg/5YAJkRFBXt"
 
@@ -74,7 +74,7 @@
   banner_url: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1457320/capsule_616x353.jpg"
   description: "Digging through the bioluminescent subterranean depths of Calyx, designing mega-factories and automation tooling."
   modding_status: "4+ Active Mods Maintained"
-  mods_link: "/modding/"
+  mods_link: "/mods/"
   discord_channel: "#techtonica"
   discord_link: "https://discord.gg/5YAJkRFBXt"
 

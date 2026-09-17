@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Module Repository"
-permalink: /modding/
+permalink: /mods/
 description: "Explore Vapok's open-source modifications, automation systems, and quality-of-life enhancements for Valheim and Techtonica."
 ---
 
