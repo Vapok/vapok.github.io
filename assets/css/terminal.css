@@ -3290,6 +3290,13 @@ html.system-booting #header-fuel-btn {
   position: relative;
 }
 
+.discord-stat-box:hover,
+.discord-stat-box:focus-within {
+  border-color: var(--ice-blue);
+  box-shadow: 0 0 15px var(--ice-blue-glow);
+  z-index: 100;
+}
+
 .discord-dot {
   background: var(--ice-blue) !important;
   box-shadow: 0 0 8px var(--ice-blue-glow) !important;
@@ -3301,13 +3308,14 @@ html.system-booting #header-fuel-btn {
 }
 
 .hero-discord-tooltip {
-  bottom: calc(100% + 14px);
-  top: auto;
+  top: calc(100% + 12px);
+  bottom: auto;
   right: 0;
   left: auto;
-  transform: translateY(6px);
+  transform: translateY(-6px);
   width: 350px;
   max-width: 92vw;
+  padding: 0.75rem 0.95rem;
   border-radius: 2px;
   z-index: 9999;
 }
@@ -3323,12 +3331,13 @@ html.system-booting #header-fuel-btn {
 .hero-discord-tooltip::after {
   content: '';
   position: absolute;
-  top: 100%;
+  bottom: 100%;
+  top: auto;
   right: 42px;
   transform: none;
   border-width: 6px;
   border-style: solid;
-  border-color: var(--border-strong) transparent transparent transparent;
+  border-color: transparent transparent var(--border-strong) transparent;
 }
 
 .discord-meta-line {
@@ -3501,7 +3510,7 @@ html.system-booting #header-fuel-btn {
     width: 290px;
     right: auto;
     left: 50%;
-    transform: translateX(-50%) translateY(6px);
+    transform: translateX(-50%) translateY(-6px);
   }
   .discord-stat-box:hover .hero-discord-tooltip,
   .discord-stat-box:focus-within .hero-discord-tooltip {
@@ -3511,6 +3520,9 @@ html.system-booting #header-fuel-btn {
     right: auto;
     left: 50%;
     transform: translateX(-50%);
+    bottom: 100%;
+    top: auto;
+    border-color: transparent transparent var(--border-strong) transparent;
   }
   .mod-telemetry-tooltip {
     width: 220px;
