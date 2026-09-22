@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initModFilters();
   initSystemClock();
   initDossierTabs();
+  initCyberLightbox();
   initBootloaderAndCli();
   initMobileBackToTop();
   initLivePlayerCounter();
@@ -416,6 +417,104 @@ function initDossierTabs() {
   if (window.location.hash === '#tab-changelog' || window.location.hash === '#changelog') {
     switchTab('panel-changelog');
   }
+  if (window.location.hash === '#tab-gallery' || window.location.hash === '#gallery') {
+    switchTab('panel-gallery');
+  }
+}
+
+/* ==========================================================================
+   6. CYBER LIGHTBOX IMAGE VIEWER
+   ========================================================================== */
+function initCyberLightbox() {
+  const lightbox = document.getElementById('cyber-lightbox');
+  if (!lightbox) return;
+
+  const backdrop = lightbox.querySelector('.cyber-lightbox-backdrop');
+  const closeBtn = lightbox.querySelector('.cyber-lightbox-close');
+  const prevBtn = lightbox.querySelector('.cyber-lightbox-prev');
+  const nextBtn = lightbox.querySelector('.cyber-lightbox-next');
+  const imgEl = document.getElementById('cyber-lightbox-img');
+  const titleEl = document.getElementById('cyber-lightbox-title');
+  const descEl = document.getElementById('cyber-lightbox-desc');
+  const counterEl = document.getElementById('cyber-lightbox-counter');
+
+  const cards = Array.from(document.querySelectorAll('.cyber-gallery-card'));
+  if (!cards.length) return;
+
+  let currentIndex = 0;
+
+  function openLightbox(index) {
+    currentIndex = index;
+    updateStage();
+    lightbox.style.display = 'flex';
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.style.display = 'none';
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  function updateStage() {
+    if (currentIndex < 0) currentIndex = cards.length - 1;
+    if (currentIndex >= cards.length) currentIndex = 0;
+
+    const card = cards[currentIndex];
+    const src = card.dataset.fullSrc;
+    const title = card.dataset.title || '';
+    const desc = card.dataset.desc || '';
+
+    if (imgEl) {
+      imgEl.style.opacity = '0';
+      imgEl.src = src;
+      imgEl.alt = title;
+      imgEl.onload = () => {
+        imgEl.style.opacity = '1';
+      };
+    }
+
+    if (titleEl) titleEl.textContent = title;
+    if (descEl) descEl.textContent = desc;
+    if (counterEl) {
+      const curStr = String(currentIndex + 1).padStart(2, '0');
+      const totalStr = String(cards.length).padStart(2, '0');
+      counterEl.textContent = `[ ${curStr} / ${totalStr} ]`;
+    }
+  }
+
+  function nextImage() {
+    currentIndex++;
+    updateStage();
+  }
+
+  function prevImage() {
+    currentIndex--;
+    updateStage();
+  }
+
+  cards.forEach((card, idx) => {
+    card.addEventListener('click', () => openLightbox(idx));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openLightbox(idx);
+      }
+    });
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+  if (backdrop) backdrop.addEventListener('click', closeLightbox);
+  if (prevBtn) prevBtn.addEventListener('click', prevImage);
+  if (nextBtn) nextBtn.addEventListener('click', nextImage);
+
+  document.addEventListener('keydown', (e) => {
+    if (lightbox.style.display === 'none') return;
+    if (e.key === 'Escape') closeLightbox();
+    else if (e.key === 'ArrowRight') nextImage();
+    else if (e.key === 'ArrowLeft') prevImage();
+  });
 }
 
 /* ==========================================================================

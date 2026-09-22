@@ -91,6 +91,11 @@ layout: default
             [ &lt;/&gt; GITHUB REPOSITORY ]
           </a>
         {% endif %}
+        {% if page.gallery and page.gallery.size > 0 %}
+          <a href="#tab-gallery" class="cyber-btn btn-mint tab-trigger" data-target="panel-gallery">
+            [ > SCREENSHOTS ({{ page.gallery.size }}) ]
+          </a>
+        {% endif %}
         {% if page.has_changelog %}
           <a href="#tab-changelog" class="cyber-btn btn-secondary tab-trigger" data-target="panel-changelog">
             [ > VIEW CHANGELOG ]
@@ -105,6 +110,11 @@ layout: default
     <button class="terminal-tab-btn active" data-tab="panel-readme">
       [ README.md (Documentation) ]
     </button>
+    {% if page.gallery and page.gallery.size > 0 %}
+      <button class="terminal-tab-btn" data-tab="panel-gallery">
+        [ SCREENSHOTS.gfx ({{ page.gallery.size }}) ]
+      </button>
+    {% endif %}
     {% if page.has_changelog %}
       <button class="terminal-tab-btn" data-tab="panel-changelog">
         [ CHANGELOG.md (Release History) ]
@@ -119,6 +129,42 @@ layout: default
     </div>
   </div>
 
+  {% if page.gallery and page.gallery.size > 0 %}
+    <div id="panel-gallery" class="tab-panel" style="display: none;">
+      <div class="gallery-container" style="padding-top: 1.5rem;">
+        <div class="gallery-header" style="margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 0.5rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.75rem;">
+          <div>
+            <div style="font-size: 0.75rem; color: var(--ice-blue); letter-spacing: 1px; margin-bottom: 0.25rem;">// VISUAL_INTEL // ARCHIVE_GALLERY</div>
+            <h3 style="color: var(--ice-blue-bright); margin: 0; font-size: 1.25rem;">In-Game Captured Interface &amp; Features</h3>
+          </div>
+          <span style="font-size: 0.8rem; color: var(--text-dim); font-family: var(--font-mono);">[ {{ page.gallery.size }} CAPTURES LOADED • CLICK TO EXPAND ]</span>
+        </div>
+
+        <div class="cyber-gallery-grid">
+          {% for item in page.gallery %}
+            <figure class="cyber-gallery-card" data-full-src="{{ item.image | relative_url }}" data-title="{{ item.title }}" data-desc="{{ item.desc }}" data-index="{{ forloop.index0 }}" tabindex="0" role="button" aria-label="Expand image: {{ item.title }}">
+              <div class="cyber-gallery-img-wrap">
+                <img src="{{ item.thumb | default: item.image | relative_url }}" alt="{{ item.title }}" class="cyber-gallery-img" loading="lazy">
+                <div class="cyber-gallery-overlay">
+                  <span class="cyber-gallery-zoom-badge">[ 🔍 EXPAND INTEL ]</span>
+                </div>
+              </div>
+              <figcaption class="cyber-gallery-meta">
+                <div class="cyber-gallery-title-row">
+                  <span class="cyber-gallery-index">#0{{ forloop.index }}</span>
+                  <strong class="cyber-gallery-title">{{ item.title }}</strong>
+                </div>
+                {% if item.desc %}
+                  <p class="cyber-gallery-desc">{{ item.desc }}</p>
+                {% endif %}
+              </figcaption>
+            </figure>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
   {% if page.has_changelog %}
     <div id="panel-changelog" class="tab-panel" style="display: none;">
       <div class="markdown-body" style="padding-top: 1.5rem;">
@@ -132,4 +178,32 @@ layout: default
     <a href="{{ '/mods/' | relative_url }}" class="cyber-btn">[ &lt; RETURN TO MODS REPOSITORY ]</a>
     <a href="#top" class="ctrl-btn">[ ^ TOP ]</a>
   </div>
+
+  <!-- Cyber Lightbox Modal -->
+  <div id="cyber-lightbox" class="cyber-lightbox" role="dialog" aria-modal="true" aria-hidden="true" style="display: none;">
+    <div class="cyber-lightbox-backdrop"></div>
+    <div class="cyber-lightbox-content">
+      <div class="cyber-lightbox-header">
+        <div class="cyber-lightbox-title-wrap">
+          <span class="cyber-lightbox-id">// INTEL_VIEWER</span>
+          <h4 id="cyber-lightbox-title" class="cyber-lightbox-title">Screenshot Title</h4>
+        </div>
+        <div class="cyber-lightbox-tools">
+          <span id="cyber-lightbox-counter" class="cyber-lightbox-counter">[ 01 / 08 ]</span>
+          <button type="button" class="cyber-lightbox-close cyber-btn" aria-label="Close Lightbox">[ X CLOSE (ESC) ]</button>
+        </div>
+      </div>
+      <div class="cyber-lightbox-stage">
+        <button type="button" class="cyber-lightbox-nav cyber-lightbox-prev cyber-btn" aria-label="Previous image">[ &lt; PREV ]</button>
+        <div class="cyber-lightbox-img-box">
+          <img id="cyber-lightbox-img" src="" alt="Full Resolution Screenshot" class="cyber-lightbox-img">
+        </div>
+        <button type="button" class="cyber-lightbox-nav cyber-lightbox-next cyber-btn" aria-label="Next image">[ NEXT &gt; ]</button>
+      </div>
+      <div class="cyber-lightbox-footer">
+        <p id="cyber-lightbox-desc" class="cyber-lightbox-desc"></p>
+      </div>
+    </div>
+  </div>
 </div>
+

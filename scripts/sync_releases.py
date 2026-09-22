@@ -50,7 +50,57 @@ MOD_OVERRIDES = {
         "slug": "bepinex-configdrawers",
         "telemetry": False,
         "website_url": "https://github.com/Vapok/BepInEx.ConfigDrawers",
-        "nexusmods_url": "https://www.nexusmods.com/valheim/mods/3909"
+        "nexusmods_url": "https://www.nexusmods.com/valheim/mods/3909",
+        "gallery": [
+            {
+                "image": "/assets/images/mods/bepinex-configdrawers/gallery/01-docked-left.png",
+                "thumb": "/assets/images/mods/bepinex-configdrawers/gallery/01-docked-left.png",
+                "title": "Docked Screen Rail (Left)",
+                "desc": "Seamless left-edge screen dock that stays accessible without obstructing in-game elements."
+            },
+            {
+                "image": "/assets/images/mods/bepinex-configdrawers/gallery/02-docked-right.png",
+                "thumb": "/assets/images/mods/bepinex-configdrawers/gallery/02-docked-right.png",
+                "title": "Docked Screen Rail (Right)",
+                "desc": "Single-click switch to the right rail to adapt to your custom HUD layout."
+            },
+            {
+                "image": "/assets/images/mods/bepinex-configdrawers/gallery/03-floating-window.png",
+                "thumb": "/assets/images/mods/bepinex-configdrawers/gallery/03-floating-window.png",
+                "title": "Draggable Floating Window",
+                "desc": "Undock into a free-floating, moveable window with adjustable width and opacity."
+            },
+            {
+                "image": "/assets/images/mods/bepinex-configdrawers/gallery/04-plugin-list.png",
+                "thumb": "/assets/images/mods/bepinex-configdrawers/gallery/04-plugin-list.png",
+                "title": "Plugin Drawer List",
+                "desc": "Real-time list of all loaded BepInEx plugins with active setting counts and instant search filter."
+            },
+            {
+                "image": "/assets/images/mods/bepinex-configdrawers/gallery/05-settings-drawer.png",
+                "thumb": "/assets/images/mods/bepinex-configdrawers/gallery/05-settings-drawer.png",
+                "title": "Interactive Settings Drawers",
+                "desc": "Native setting controls for numeric sliders, dropdowns, vectors, and custom data tables."
+            },
+            {
+                "image": "/assets/images/mods/bepinex-configdrawers/gallery/06-color-picker.png",
+                "thumb": "/assets/images/mods/bepinex-configdrawers/gallery/06-color-picker.png",
+                "title": "Color Spectrum Picker",
+                "desc": "Real-time color wheel with HSV gradients, hex/RGB inputs, alpha slider, and palette swatches."
+            },
+            {
+                "image": "/assets/images/mods/bepinex-configdrawers/gallery/07-config-file-browser.png",
+                "thumb": "/assets/images/mods/bepinex-configdrawers/gallery/07-config-file-browser.png",
+                "title": "Config File Browser",
+                "desc": "In-game file browser scanning BepInEx config directories with category filters for .cfg, .json, and .yaml."
+            },
+            {
+                "image": "/assets/images/mods/bepinex-configdrawers/gallery/08-config-file-editor.png",
+                "thumb": "/assets/images/mods/bepinex-configdrawers/gallery/08-config-file-editor.png",
+                "title": "In-Game Code & File Editor",
+                "desc": "Full-screen code editor with syntax highlighting, line numbers, two-line metrics gutter, and live JSON/YAML validation."
+            }
+        ]
     }
 }
 
@@ -231,6 +281,16 @@ def sync():
             telemetry_yaml = f"telemetry: {str(mod_telemetry).lower()}\n"
             nexus_yaml = f'nexusmods_url: "{mod_nexusmods_url}"\n' if mod_nexusmods_url else ""
 
+            gallery_items = override.get("gallery", []) if override else []
+            gallery_yaml = ""
+            if gallery_items:
+                gallery_yaml = "gallery:\n"
+                for gi in gallery_items:
+                    gallery_yaml += f"  - image: \"{gi['image']}\"\n"
+                    gallery_yaml += f"    thumb: \"{gi['thumb']}\"\n"
+                    gallery_yaml += f"    title: {json.dumps(gi['title'])}\n"
+                    gallery_yaml += f"    desc: {json.dumps(gi['desc'])}\n"
+
             frontmatter = f"""---
 layout: mod
 title: "{mod_name}"
@@ -249,7 +309,7 @@ description: {json.dumps(description)}
 dependencies:
 {deps_yaml}
 has_changelog: {str(bool(changelog_content)).lower()}
-{telemetry_yaml}---
+{telemetry_yaml}{gallery_yaml}---
 
 {readme_content}
 """

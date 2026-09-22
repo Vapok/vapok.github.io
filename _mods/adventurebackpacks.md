@@ -10,7 +10,7 @@ status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/AdventureBackpacks"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/AdventureBackpacks/"
-downloads: "895.8K+"
+downloads: "896.8K+"
 icon: "/assets/images/mods/adventurebackpacks/icon.png"
 description: "A Valheim Mod to add a catalogue of Adventuring Backpacks to the Game. These packs will grow and become more useful as the game progresses."
 dependencies:
