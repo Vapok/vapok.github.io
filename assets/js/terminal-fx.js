@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initBootloaderAndCli();
   initMobileBackToTop();
   initLivePlayerCounter();
+  initDiscordComms();
 });
 
 /* ==========================================================================
@@ -2281,5 +2282,89 @@ function initLivePlayerCounter() {
   };
 }
 
+/* ==========================================================================
+   10. DISCORD COMMS HUD & ARCHITECT BEACON
+   ========================================================================== */
+function initDiscordComms() {
+  const onlineEl = document.getElementById('discord-online-count');
+  const vapokPill = document.getElementById('vapok-status-pill');
+  const vapokText = document.getElementById('vapok-status-text');
 
+  if (!onlineEl && !vapokPill) return;
 
+  const CACHE_KEY = 'vapok_discord_widget_cache';
+  const CACHE_TTL = 60 * 1000; // 60s cache TTL
+
+  function applyWidgetData(data) {
+    if (!data) return;
+
+    // Update active count
+    if (onlineEl && typeof data.presence_count === 'number') {
+      onlineEl.textContent = data.presence_count.toLocaleString();
+    }
+
+    // Update Vapok's presence
+    if (vapokPill && vapokText && Array.isArray(data.members)) {
+      const vapok = data.members.find(m => 
+        m.id === '104406926623784960' || 
+        (m.username && m.username.toLowerCase().includes('vapok'))
+      );
+
+      if (vapok) {
+        if (vapok.game && vapok.game.name) {
+          vapokPill.className = 'beacon-pill online';
+          vapokText.textContent = `IN ${vapok.game.name.toUpperCase()} ⚔️`;
+        } else if (vapok.status === 'idle') {
+          vapokPill.className = 'beacon-pill idle';
+          vapokText.textContent = 'STANDBY 🟡';
+        } else if (vapok.status === 'dnd') {
+          vapokPill.className = 'beacon-pill online';
+          vapokText.textContent = 'IN THE FORGE (DND) 🔴';
+        } else {
+          vapokPill.className = 'beacon-pill online';
+          vapokText.textContent = 'IN THE FORGE 🟢';
+        }
+      } else {
+        vapokPill.className = 'beacon-pill standby';
+        vapokText.textContent = 'STANDBY 🌙';
+      }
+    }
+  }
+
+  // 1. Check local session cache
+  try {
+    const raw = sessionStorage.getItem(CACHE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Date.now() - parsed.timestamp < CACHE_TTL) {
+        applyWidgetData(parsed.data);
+        return;
+      }
+    }
+  } catch (e) {
+    // Ignore sessionStorage error
+  }
+
+  // 2. Fetch live Discord widget
+  fetch('https://discord.com/api/guilds/1070795270503288893/widget.json')
+    .then(res => {
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    })
+    .then(data => {
+      applyWidgetData(data);
+      try {
+        sessionStorage.setItem(CACHE_KEY, JSON.stringify({
+          timestamp: Date.now(),
+          data: data
+        }));
+      } catch (e) {}
+    })
+    .catch(() => {
+      // Gracefully fall back to standby status
+      if (vapokPill && vapokText) {
+        vapokPill.className = 'beacon-pill standby';
+        vapokText.textContent = 'STANDBY 🌙';
+      }
+    });
+}

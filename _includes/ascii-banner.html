@@ -53,9 +53,77 @@
       <span class="stat-num">100%</span>
       <span class="stat-label">Open Source & Free</span>
     </div>
-    <a href="{{ site.data.stats.discord_invite | default: 'https://discord.gg/5YAJkRFBXt' }}" target="_blank" rel="noopener noreferrer" class="stat-box" style="text-decoration: none; display: block;">
-      <span class="stat-num" style="color: var(--ice-blue);">{{ site.data.stats.discord_members | default: '1.3K+' }}</span>
-      <span class="stat-label">Vapok Gaming Community ↗</span>
-    </a>
+    <div class="stat-box discord-stat-box cyber-tooltip-trigger" id="hero-discord-box" tabindex="0" role="region" aria-label="Vapok Gaming Community Discord status, channels and support">
+      <span class="stat-num" style="color: var(--ice-blue);">
+        <span class="telemetry-radar-dot discord-dot" aria-hidden="true"></span>
+        <span id="hero-discord-members">{{ site.data.stats.discord_members | default: '1.4K+' }}</span>
+      </span>
+      <span class="stat-label">
+        Vapok Community
+        <span class="tooltip-info-badge discord-badge" aria-hidden="true">COMMS</span>
+      </span>
+
+      <!-- HERO DISCORD COMMS HOVEROVER -->
+      <div class="cyber-tooltip hero-discord-tooltip" role="tooltip">
+        <div class="cyber-tooltip-header">
+          <span class="cyber-tooltip-id">// DISCORD_COMMS // FREQ_107.079</span>
+          <span class="status-badge mint" id="discord-hero-status">
+            <span class="telemetry-radar-dot" aria-hidden="true"></span>
+            <span id="discord-online-count">{{ site.data.stats.discord_online | default: '300+' }}</span> ACTIVE
+          </span>
+        </div>
+        <div class="cyber-tooltip-body">
+          <div class="discord-meta-line">
+            <span class="discord-roster-stat">ROSTER: <strong style="color: var(--ice-blue);">1,395</strong> OPERATIVES</span>
+            <span id="discord-vapok-beacon" class="vapok-beacon-status" title="Vapok Live Status">
+              <span class="beacon-label">ARCHITECT:</span>
+              <span class="beacon-pill" id="vapok-status-pill">
+                <span class="status-dot"></span> <span id="vapok-status-text">DETECTING...</span>
+              </span>
+            </span>
+          </div>
+
+          <div class="discord-section-divider">// DIRECT CHANNEL DISPATCH</div>
+          <div class="discord-channels-grid">
+            <a href="https://discord.com/channels/1070795270503288893/1168695142258065469" target="_blank" rel="noopener noreferrer" class="discord-channel-item" title="Mod troubleshooting & configs">
+              <span class="channel-tag">🔧 #get-help-here</span>
+              <span class="channel-desc">Mod crash triage &amp; configs</span>
+            </a>
+            <a href="https://discord.com/channels/1070795270503288893/1070795271556055047" target="_blank" rel="noopener noreferrer" class="discord-channel-item" title="Community lounge & gaming">
+              <span class="channel-tag">💬 #general-chat</span>
+              <span class="channel-desc">Community lounge &amp; gaming</span>
+            </a>
+            <a href="https://discord.com/channels/1070795270503288893/1070795271556055040" target="_blank" rel="noopener noreferrer" class="discord-channel-item" title="Official releases & dispatches">
+              <span class="channel-tag">📢 #announcements</span>
+              <span class="channel-desc">Official releases &amp; dev logs</span>
+            </a>
+            <a href="https://discord.com/channels/1070795270503288893/1550156429644800172" target="_blank" rel="noopener noreferrer" class="discord-channel-item" title="Live game & mod patch tracking">
+              <span class="channel-tag">⚔️ #valheim-updates</span>
+              <span class="channel-desc">Live patch tracking &amp; diffs</span>
+            </a>
+          </div>
+
+          <!-- OPTION B: SUPPORTER REACTOR CORE -->
+          <div class="discord-supporter-box">
+            <div class="supporter-box-header">
+              <span class="supporter-box-title">⚡ REACTOR CORE: SUPPORTER ACCESS</span>
+              <span class="supporter-price">$2.99 / MO</span>
+            </div>
+            <p class="supporter-box-desc">
+              Directly fuels mod development &amp; server infrastructure. Unlocks dev prototype builds, private channels, and custom VIP role.
+            </p>
+            <a href="https://discord.com/servers/vapok-s-gaming-community-1070795270503288893" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-amber" style="font-size: 0.72rem; padding: 0.35rem 0.65rem; width: 100%; justify-content: center;">
+              [ ⚡ SUBSCRIBE ON DISCORD &rarr; ]
+            </a>
+          </div>
+        </div>
+
+        <div class="cyber-tooltip-footer">
+          <a href="{{ site.data.stats.discord_invite | default: 'https://discord.gg/5YAJkRFBXt' }}" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-mint" style="font-size: 0.75rem; padding: 0.45rem 0.8rem; width: 100%; justify-content: center;">
+            [ 💬 CONNECT TO SERVER &rarr; DISCORD.GG ]
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
