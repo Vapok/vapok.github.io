@@ -2310,7 +2310,7 @@ function initDiscordComms() {
       onlineEl.textContent = data.presence_count.toLocaleString();
     }
 
-    // Update Vapok's presence
+    // Update Vapok's presence if found in widget sample
     if (vapokPill && vapokText && Array.isArray(data.members)) {
       const vapok = data.members.find(m => 
         m.id === '104406926623784960' || 
@@ -2326,17 +2326,38 @@ function initDiscordComms() {
           vapokText.textContent = 'STANDBY 🟡';
         } else if (vapok.status === 'dnd') {
           vapokPill.className = 'beacon-pill online';
-          vapokText.textContent = 'IN THE FORGE (DND) 🔴';
+          vapokText.textContent = 'BUSY / DND 🔴';
         } else {
           vapokPill.className = 'beacon-pill online';
-          vapokText.textContent = 'IN THE FORGE 🟢';
+          vapokText.textContent = 'ONLINE 🟢';
         }
-      } else {
-        vapokPill.className = 'beacon-pill standby';
-        vapokText.textContent = 'STANDBY 🌙';
       }
     }
   }
+
+  // Check Lanyard for 1-to-1 live Discord presence
+  fetch('https://api.lanyard.rest/v1/users/104406926623784960')
+    .then(r => r.json())
+    .then(res => {
+      if (res && res.success && res.data && vapokPill && vapokText) {
+        const d = res.data;
+        if (d.discord_status === 'online') {
+          vapokPill.className = 'beacon-pill online';
+          const game = d.activities && d.activities.find(a => a.type === 0);
+          vapokText.textContent = game ? `IN ${game.name.toUpperCase()} ⚔️` : 'ONLINE 🟢';
+        } else if (d.discord_status === 'dnd') {
+          vapokPill.className = 'beacon-pill online';
+          vapokText.textContent = 'BUSY / DND 🔴';
+        } else if (d.discord_status === 'idle') {
+          vapokPill.className = 'beacon-pill idle';
+          vapokText.textContent = 'STANDBY 🟡';
+        } else if (d.discord_status === 'offline') {
+          vapokPill.className = 'beacon-pill standby';
+          vapokText.textContent = 'OFFLINE 🌙';
+        }
+      }
+    })
+    .catch(() => {});
 
   // 1. Check local session cache
   try {
@@ -2368,10 +2389,6 @@ function initDiscordComms() {
       } catch (e) {}
     })
     .catch(() => {
-      // Gracefully fall back to standby status
-      if (vapokPill && vapokText) {
-        vapokPill.className = 'beacon-pill standby';
-        vapokText.textContent = 'STANDBY 🌙';
-      }
+      // Graceful fallback: maintain online state
     });
 }
