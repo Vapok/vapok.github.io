@@ -8,12 +8,13 @@ Fetches live metrics from Thunderstore APIs and Discord invite.
 """
 
 import os
+import sys
 import json
 import re
 import shutil
 import urllib.request
 
-SITE_DIR = "/home/vapok/Modding/Vapok GitHub Pages/vapok.github.io"
+SITE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 MODS_DIR = os.path.join(SITE_DIR, "_mods")
 DATA_DIR = os.path.join(SITE_DIR, "_data")
 CHANGELOGS_DIR = os.path.join(SITE_DIR, "_includes", "changelogs")
@@ -327,5 +328,150 @@ has_changelog: {str(bool(changelog_content)).lower()}
 
     print(f"\nSuccessfully synced {len(processed_mods)} mods across all games! Total Downloads: {stats_data['total_downloads']} | Discord: {stats_data['discord_members']}")
 
+def sync_metrics_only():
+    print("Running in metrics-only sync mode (Thunderstore & Discord metrics)...")
+    total_all_downloads = 0
+    all_ts_metrics = {}
+
+    for game_cfg in GAME_CONFIGS:
+        community = game_cfg["community"]
+        ts_api = game_cfg["ts_api"]
+        metrics, total = fetch_thunderstore_metrics(community, ts_api)
+        all_ts_metrics.update(metrics)
+        total_all_downloads += total
+
+    mods_file = os.path.join(DATA_DIR, "mods.yml")
+    if not os.path.exists(mods_file):
+        print(f"Error: {mods_file} does not exist.")
+        return
+
+    processed_mods = []
+    current_mod = {}
+    in_dependencies = False
+
+    with open(mods_file, "r", encoding="utf-8") as f:
+        for line in f:
+            stripped = line.strip()
+            if line.startswith("- id:"):
+                if current_mod:
+                    processed_mods.append(current_mod)
+                current_mod = {"dependencies": []}
+                in_dependencies = False
+                val = re.sub(r'^- id:\s*"?([^"]*)"?.*$', r'\1', stripped)
+                current_mod["id"] = val
+            elif line.strip().startswith("dependencies:"):
+                if "[]" in stripped:
+                    current_mod["dependencies"] = []
+                    in_dependencies = False
+                else:
+                    in_dependencies = True
+            elif in_dependencies and stripped.startswith("- "):
+                dep = re.sub(r'^-\s*"?([^"]*)"?.*$', r'\1', stripped)
+                current_mod["dependencies"].append(dep)
+            elif ":" in line and not line.startswith(" "):
+                in_dependencies = False
+            elif ":" in line and not in_dependencies:
+                k, v = line.split(":", 1)
+                k = k.strip()
+                v = v.strip().strip('"')
+                if v == "true":
+                    current_mod[k] = True
+                elif v == "false":
+                    current_mod[k] = False
+                else:
+                    current_mod[k] = v
+        if current_mod:
+            processed_mods.append(current_mod)
+
+    for mod in processed_mods:
+        mod_id = mod.get("id", "")
+        mod_name = mod.get("name", "")
+        pkg_keys = [
+            mod_id.lower(),
+            mod_name.lower(),
+            mod_id.replace("techtonica-", "").replace("bepinex-", "").lower(),
+            mod_name.replace(".", "_").lower()
+        ]
+        matched_metric = None
+        for k in pkg_keys:
+            if k in all_ts_metrics:
+                matched_metric = all_ts_metrics[k]
+                break
+
+        if matched_metric:
+            dl_formatted = matched_metric.get("downloads_formatted", "")
+            if dl_formatted:
+                mod["downloads"] = dl_formatted
+            ts_url = matched_metric.get("thunderstore_url")
+            if ts_url:
+                mod["thunderstore_url"] = ts_url
+
+        slug = mod.get("slug", mod_id)
+        mod_doc_path = os.path.join(MODS_DIR, f"{slug}.md")
+        if os.path.exists(mod_doc_path) and mod.get("downloads"):
+            with open(mod_doc_path, "r", encoding="utf-8") as mdf:
+                content = mdf.read()
+            new_content = re.sub(r'downloads:\s*"[^"]*"', f'downloads: "{mod["downloads"]}"', content)
+            if new_content != content:
+                with open(mod_doc_path, "w", encoding="utf-8") as mdf:
+                    mdf.write(new_content)
+
+    with open(os.path.join(DATA_DIR, "mods.yml"), "w", encoding="utf-8") as dmf:
+        for mod in processed_mods:
+            dmf.write(f"- id: \"{mod['id']}\"\n")
+            dmf.write(f"  slug: \"{mod['slug']}\"\n")
+            dmf.write(f"  name: \"{mod['name']}\"\n")
+            dmf.write(f"  game: \"{mod['game']}\"\n")
+            dmf.write(f"  category: \"{mod['category']}\"\n")
+            dmf.write(f"  version: \"{mod['version']}\"\n")
+            dmf.write(f"  status: \"{mod.get('status', 'ACTIVE')}\"\n")
+            dmf.write(f"  badge_color: \"{mod.get('badge_color', 'mint')}\"\n")
+            dmf.write(f"  website_url: \"{mod['website_url']}\"\n")
+            if mod.get("nexusmods_url"):
+                dmf.write(f"  nexusmods_url: \"{mod['nexusmods_url']}\"\n")
+            dmf.write(f"  thunderstore_url: \"{mod['thunderstore_url']}\"\n")
+            dmf.write(f"  downloads: \"{mod['downloads']}\"\n")
+            dmf.write(f"  icon: \"{mod['icon']}\"\n")
+            dmf.write(f"  url: \"{mod['url']}\"\n")
+            dmf.write(f"  description: {json.dumps(mod['description'])}\n")
+            if not mod.get("telemetry", True):
+                dmf.write("  telemetry: false\n")
+            if mod.get('dependencies'):
+                dmf.write("  dependencies:\n")
+                for dep in mod['dependencies']:
+                    dmf.write(f"    - \"{dep}\"\n")
+            else:
+                dmf.write("  dependencies: []\n")
+            dmf.write("\n")
+
+    discord_stats = fetch_discord_metrics("5YAJkRFBXt")
+
+    stats_data = {
+        "total_downloads_raw": total_all_downloads,
+        "total_downloads": format_count(total_all_downloads) if total_all_downloads > 0 else "1.0M+",
+        "active_mods": len(processed_mods),
+        "valheim_mods": len([m for m in processed_mods if m.get("category") == "valheim"]),
+        "techtonica_mods": len([m for m in processed_mods if m.get("category") == "techtonica"]),
+        "bepinex_mods": len([m for m in processed_mods if m.get("category") == "bepinex"]),
+        "discord_members": discord_stats["member_count"],
+        "discord_members_raw": discord_stats["member_count_raw"],
+        "discord_online": discord_stats["presence_count"],
+        "discord_invite": discord_stats["invite_url"]
+    }
+
+    with open(os.path.join(DATA_DIR, "stats.yml"), "w", encoding="utf-8") as sf:
+        for k, v in stats_data.items():
+            sf.write(f"{k}: \"{v}\"\n")
+
+    print(f"\n[METRICS SYNC] Successfully updated {len(processed_mods)} mods! Total Downloads: {stats_data['total_downloads']} | Discord: {stats_data['discord_members']}")
+
 if __name__ == "__main__":
-    sync()
+    if "--metrics-only" in sys.argv:
+        sync_metrics_only()
+    else:
+        has_local_releases = any(os.path.exists(cfg["releases_dir"]) for cfg in GAME_CONFIGS)
+        if has_local_releases:
+            sync()
+        else:
+            sync_metrics_only()
+

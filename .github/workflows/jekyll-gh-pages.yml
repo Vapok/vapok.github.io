@@ -6,12 +6,16 @@ on:
   push:
     branches: ["main"]
 
+  # Automated daily metrics sync at 06:00 UTC
+  schedule:
+    - cron: '0 6 * * *'
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages and metrics auto-commit
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -28,6 +32,30 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Sync Thunderstore & Community Metrics
+        run: |
+          python3 scripts/sync_releases.py --metrics-only
+
+      - name: Commit & Push Metrics Updates
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [[ -n $(git status --porcelain _data/ _mods/) ]]; then
+            git add _data/ _mods/
+            git commit -m "Auto-sync: Update Thunderstore & community metrics [skip ci]"
+            git push origin main
+          else
+            echo "No metrics changes to commit."
+          fi
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Build with Jekyll
