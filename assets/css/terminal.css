@@ -872,7 +872,8 @@ html.system-booting #header-fuel-btn {
   border: 1px solid var(--border-subtle);
   padding: 1.75rem;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
+  z-index: 30;
   box-shadow: var(--card-shadow);
 }
 
@@ -966,9 +967,11 @@ html.system-booting #header-fuel-btn {
   position: relative;
 }
 
-.live-telemetry-stat-box:hover {
+.live-telemetry-stat-box:hover,
+.live-telemetry-stat-box:focus-within {
   border-color: var(--glacial-mint);
   box-shadow: 0 0 15px rgba(0, 245, 155, 0.2);
+  z-index: 100;
 }
 
 .live-players-num {
@@ -1115,6 +1118,7 @@ html.system-booting #header-fuel-btn {
   border-color: var(--ice-blue);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), 0 0 15px rgba(100, 240, 252, 0.18);
   transform: translateY(-3px);
+  z-index: 50;
 }
 
 .mod-card-showcase {
@@ -1974,7 +1978,7 @@ html.system-booting #header-fuel-btn {
   .hero-ascii-section {
     padding: 1rem 0.75rem;
     margin: 0.75rem 0 1.5rem 0;
-    overflow-x: hidden;
+    overflow: visible;
   }
 
   .hero-ascii-section::before {
@@ -3111,12 +3115,17 @@ html.system-booting #header-fuel-btn {
   color: #fff;
 }
 
+.cyber-tooltip-trigger:hover,
+.cyber-tooltip-trigger:focus-within {
+  z-index: 100;
+}
+
 .cyber-tooltip {
   position: absolute;
-  z-index: 1200;
+  z-index: 9999;
   background: rgba(8, 12, 20, 0.98);
   border: 1px solid var(--border-strong);
-  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.9), 0 0 20px rgba(100, 240, 252, 0.15);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.95), 0 0 20px rgba(100, 240, 252, 0.2);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   padding: 0.85rem 1rem;
@@ -3203,13 +3212,15 @@ html.system-booting #header-fuel-btn {
 }
 
 /* Specific Placements */
-/* 1. Hero Stat Box Hoverover */
+/* 1. Hero Stat Box Hoverover: Positioned ABOVE so it floats inside hero section cleanly */
 .hero-telemetry-tooltip {
-  top: calc(100% + 12px);
+  bottom: calc(100% + 14px);
+  top: auto;
   left: 50%;
-  transform: translateX(-50%) translateY(-6px);
+  transform: translateX(-50%) translateY(6px);
   width: 320px;
   border-radius: 2px;
+  z-index: 9999;
 }
 
 .live-telemetry-stat-box:hover .hero-telemetry-tooltip,
@@ -3217,27 +3228,29 @@ html.system-booting #header-fuel-btn {
   transform: translateX(-50%) translateY(0);
 }
 
-/* Arrow indicator on top of hero tooltip */
+/* Arrow indicator on bottom of hero tooltip pointing to stat box */
 .hero-telemetry-tooltip::after {
   content: '';
   position: absolute;
-  bottom: 100%;
+  top: 100%;
   left: 50%;
   transform: translateX(-50%);
   border-width: 6px;
   border-style: solid;
-  border-color: transparent transparent var(--border-strong) transparent;
+  border-color: var(--border-strong) transparent transparent transparent;
 }
 
 /* 2. Compact Per-Mod Tooltip */
 .mod-telemetry-tooltip {
   bottom: calc(100% + 10px);
+  top: auto;
   left: 50%;
   transform: translateX(-50%) translateY(6px);
   width: 250px;
   padding: 0.65rem 0.8rem;
   font-size: 0.76rem;
   border-radius: 2px;
+  z-index: 9999;
 }
 
 .cyber-tooltip-trigger:hover .mod-telemetry-tooltip,
