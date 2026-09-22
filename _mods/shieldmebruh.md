@@ -5,19 +5,20 @@ slug: "shieldmebruh"
 name: "ShieldMeBruh"
 game: "Valheim"
 category: "valheim"
-version: "v2.0.2"
+version: "v2.1.0"
 status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/ShieldMeBruh"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/ShieldMeBruh/"
-downloads: "93.8K+"
+downloads: "108.0K+"
 icon: "/assets/images/mods/shieldmebruh/icon.png"
 description: "A Valheim Quality of Life Mod that will auto equip a selected shield when a one-handed weapon is equipped. I need a shield! Shield me Bruh!"
 dependencies:
   - "denikson-BepInExPack_Valheim-5.4.2350"
-  - "ValheimModding-Jotunn-2.30.0"
+  - "ValheimModding-Jotunn-2.30.1"
   - "ValheimModding-YamlDotNet-16.3.1"
 has_changelog: true
+telemetry: true
 ---
 
 <div align="center" markdown="1">
@@ -28,6 +29,8 @@ has_changelog: true
 
 [![GitHub Release](https://img.shields.io/github/v/release/Vapok/ShieldMeBruh?include_prereleases&logo=github&style=for-the-badge)](https://github.com/Vapok/ShieldMeBruh/releases)
 [![Thunderstore Version](https://img.shields.io/thunderstore/v/Vapok/ShieldMeBruh?logo=thunderstore&style=for-the-badge)](https://thunderstore.io/c/valheim/p/Vapok/ShieldMeBruh/)
+[![Nexus Mods](https://img.shields.io/badge/Nexus_Mods-Available-da8e35?logo=nexusmods&style=for-the-badge)](https://www.nexusmods.com/valheim/mods/2272)
+<br>
 [![Discord](https://img.shields.io/badge/Discord-Join%20Community-7289da?logo=discord&logoColor=white&style=for-the-badge)](https://discord.gg/5YAJkRFBXt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
@@ -39,12 +42,21 @@ Never get caught in battle with an empty off-hand! **Shield Me Bruh!** is a slee
 
 ---
 
+<div align="center" markdown="1">
+
+<br>
+
+[![Survival Servers](https://raw.githubusercontent.com/Vapok/ShieldMeBruh/main/images/survivalservers_banner.png)](https://www.survivalservers.com/services/game_servers/valheim/?ref=vapok)
+
+</div>
+
 ## ⚔️ How It Works
 
 * 🖱️ **Mark Your Shield**: Open your Player Inventory and <kbd>Middle-Click</kbd> your desired shield. A special *Shield Me Bruh!* icon appears on the item icon to confirm it is your designated combat shield.
 * 🔄 **Unmark or Swap**: <kbd>Middle-Click</kbd> the shield again to unmark it. If you middle-click a different shield while wielding a 1H weapon, your character will instantly equip the new shield!
-* ⚔️ **Automatic Combat Ready**: Whenever you equip a one-handed weapon, *Shield Me Bruh!* automatically equips your marked shield. Unequipping or switching to a 2H weapon safely stows your shield.
-* 💾 **Persistent Across Sessions**: Your shield selection persists across game saves, world transitions, and character logouts.
+* ⚔️ **Automatic Combat Ready**: Whenever you equip an eligible one-handed weapon, *Shield Me Bruh!* automatically equips your marked shield. Unequipping or switching to a 2H weapon safely stows your shield.
+* ❌ **Exclude Specific Weapons**: Don't want your shield to deploy when using utility tools like woodcutting axes? <kbd>Middle-Click</kbd> any 1-handed weapon to mark it with a **red X**. Equipping an excluded weapon leaves your off-hand free with no movement speed penalties! Multiple weapons can be excluded simultaneously.
+* 💾 **Persistent Across Sessions**: Your shield selection and weapon exclusions persist across inventory moves, chests, game saves, world transitions, and character logouts.
 
 ---
 
@@ -55,6 +67,7 @@ Never get caught in battle with an empty off-hand! **Shield Me Bruh!** is a slee
 | **Mark Shield** | <kbd>Middle-Click</kbd> (in Inventory) | Designates the clicked shield as your auto-equip shield. |
 | **Deselect Shield** | <kbd>Middle-Click</kbd> (on Marked Shield) | Removes the mark and disables auto-equip for that shield. |
 | **Quick Swap** | <kbd>Middle-Click</kbd> (on New Shield) | Instantly marks and auto-equips the new shield if a 1H weapon is held. |
+| **Exclude Weapon** | <kbd>Middle-Click</kbd> (on 1H Weapon) | Toggles the red X exclusion badge so the shield will not auto-deploy for this weapon. |
 
 ---
 
@@ -85,9 +98,11 @@ Never get caught in battle with an empty off-hand! **Shield Me Bruh!** is a slee
 
 <div align="center" markdown="1">
 
-🇺🇸 **English** • 🇩🇪 **German** • 🇫🇷 **French** • 🇪🇸 **Spanish** • 🇨🇳 **Chinese** • 🇷🇺 **Russian**
+🇺🇸 **English** (Default)
 
 </div>
+
+*Want to help translate Shield Me Bruh? Community translations are welcome! Please submit a PR on [GitHub](https://github.com/Vapok/ShieldMeBruh) or stop by our [Discord](https://discord.gg/5YAJkRFBXt).*
 
 ---
 
@@ -99,6 +114,20 @@ Never get caught in battle with an empty off-hand! **Shield Me Bruh!** is a slee
 
 ### Manual Installation
 * Copy `ShieldMeBruh.dll` to your `Valheim/BepInEx/plugins` directory.
+
+---
+
+## 🔒 Anonymous Telemetry, Error Reporting & Privacy
+
+Shield Me Bruh includes lightweight, privacy-first telemetry and error reporting to help monitor mod stability, diagnose unhandled bugs, and track active version adoption across game updates.
+
+* **100% Anonymous**: We never collect personal data, Steam IDs, IP addresses, character/world names, or file system paths. Stack traces from errors are automatically sanitized to strip local user directories.
+* **Granular Player Control**:
+  * **Anonymous Telemetry (Opt-In)**: Tracks version adoption and session launches. Defaults to **unchecked / disabled** when first loaded (`Enable Anonymous Telemetry = false`).
+  * **Error Reporting (Opt-Out)**: Captures sanitized mod crash diagnostics to rapidly identify and fix bugs. Defaults to **enabled** (`Send Error Reports = true`) with one-click opt-out.
+  * **Data Disclaimers**: Hover over any toggle in the startup modal for interactive tooltip disclaimers detailing exactly what data is transmitted.
+* **In-Game & Online Privacy Policy**: The full privacy policy can be viewed directly in-game by clicking **`[ PRIVACY POLICY ]`** on the startup splash modal, or online at [vapok.io/privacy-policy](https://vapok.io/privacy-policy/).
+* **Configuration Files**: Settings can be managed in-game via the startup modal, through the BepInEx Configuration Manager, or under `[Local Config]` in `BepInEx/config/vapok.mods.shieldmebruh.cfg`.
 
 ---
 

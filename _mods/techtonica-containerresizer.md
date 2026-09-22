@@ -16,6 +16,7 @@ description: "Resize individual chests on-the-fly to restrict how much a chest c
 dependencies:
   - "BepInEx-BepInExPack-5.4.2100"
 has_changelog: true
+telemetry: true
 ---
 
 # ContainerResizer by Vapok

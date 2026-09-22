@@ -820,7 +820,7 @@ function initBootloaderAndCli() {
       id: 'mods',
       path: '/mods/ (Module Repository)',
       url: '/mods/',
-      desc: '16 Valheim & Techtonica mod releases',
+      desc: '17 Valheim, Techtonica & BepInEx mod releases',
       children: [
         {
           id: 'valheim-mods',
@@ -845,6 +845,15 @@ function initBootloaderAndCli() {
             { id: 'm-bcm', path: 'BetterCoreManagement', url: 'https://techtonica.thunderstore.io/package/Vapok/BetterCoreManagement/', desc: 'Core cluster management & diagnostics', isExternal: true },
             { id: 'm-cresizer', path: 'ContainerResizer', url: 'https://techtonica.thunderstore.io/package/Vapok/ContainerResizer/', desc: 'Expand container storage dimensions', isExternal: true },
             { id: 'm-encumb', path: 'KnowEncumbrance', url: 'https://techtonica.thunderstore.io/package/Vapok/KnowEncumbrance/', desc: 'Weight capacity & encumbrance HUD', isExternal: true }
+          ]
+        },
+        {
+          id: 'bepinex-mods',
+          path: 'BepInEx Mods (1 release)',
+          url: '/mods/',
+          desc: 'Framework plugins & in-game configuration management',
+          children: [
+            { id: 'm-configdrawers', path: 'BepInEx.ConfigDrawers', url: 'https://thunderstore.io/c/valheim/p/Vapok/BepInEx_ConfigDrawers/', desc: 'Modern docking drawers & in-game configuration manager', isExternal: true }
           ]
         }
       ]
@@ -1259,15 +1268,15 @@ function initBootloaderAndCli() {
         printLine(`Node: vapok.io [185.199.108.153]`, 'info');
         printLine(`Kernel: VAPOK-OS v2026.1-x86_64`, 'info');
         printLine(`Status: ${isBooted ? 'ONLINE (Optimal)' : 'OFFLINE (Dormant)'}`, isBooted ? 'success' : 'warn');
-        printLine(`Active Mod Releases: 16 projects (Valheim & Techtonica)`, 'info');
+        printLine(`Active Mod Releases: 17 projects (Valheim, Techtonica & BepInEx)`, 'info');
         printLine(`Spotlight Games: 11 active titles in rotation`, 'info');
         printLine(`Uptime: ${Math.floor(performance.now() / 1000)}s since session start`, 'info');
         break;
 
       case 'mods':
       case 'modding':
-        printLine('--- MODULE REPOSITORY [ VALHEIM & TECHTONICA ] ---', 'success');
-        printLine('16 active mods in development. Browse dossiers at: https://vapok.io/mods/', 'info');
+        printLine('--- MODULE REPOSITORY [ VALHEIM, TECHTONICA & BEPINEX ] ---', 'success');
+        printLine('17 active mods in development. Browse dossiers at: https://vapok.io/mods/', 'info');
         const modsSection = document.getElementById('mods');
         if (modsSection) {
           modsSection.scrollIntoView({ behavior: 'smooth' });

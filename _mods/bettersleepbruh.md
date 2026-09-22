@@ -5,19 +5,20 @@ slug: "bettersleepbruh"
 name: "BetterSleepBruh"
 game: "Valheim"
 category: "valheim"
-version: "v2.0.1"
+version: "v2.0.7"
 status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/BetterSleepBruh"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/BetterSleepBruh/"
-downloads: "2.8K+"
+downloads: "5.2K+"
 icon: "/assets/images/mods/bettersleepbruh/icon.png"
 description: "A Valheim Mod that Sleeps Like Enshrouded! Sleep on your own terms! Sleep the night away faster without everyone having to be in a bed! Get Better Sleep, Bruh!"
 dependencies:
   - "denikson-BepInExPack_Valheim-5.4.2350"
-  - "ValheimModding-Jotunn-2.30.0"
+  - "ValheimModding-Jotunn-2.30.1"
   - "ValheimModding-YamlDotNet-16.3.1"
 has_changelog: true
+telemetry: true
 ---
 
 <div align="center" markdown="1">
@@ -28,6 +29,8 @@ has_changelog: true
 
 [![GitHub Release](https://img.shields.io/github/v/release/Vapok/BetterSleepBruh?include_prereleases&logo=github&style=for-the-badge)](https://github.com/Vapok/BetterSleepBruh/releases)
 [![Thunderstore Version](https://img.shields.io/thunderstore/v/Vapok/BetterSleepBruh?logo=thunderstore&style=for-the-badge)](https://thunderstore.io/c/valheim/p/Vapok/BetterSleepBruh/)
+[![Nexus Mods](https://img.shields.io/badge/Nexus_Mods-Available-da8e35?logo=nexusmods&style=for-the-badge)](https://www.nexusmods.com/valheim/mods/3280)
+<br>
 [![Discord](https://img.shields.io/badge/Discord-Join%20Community-7289da?logo=discord&logoColor=white&style=for-the-badge)](https://discord.gg/5YAJkRFBXt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
@@ -38,6 +41,14 @@ has_changelog: true
 Gone are the days of yelling in chat for everyone to sprint to bed or log off just to make the dark, perilous night pass. **Better Sleep Bruh!** introduces dynamic time acceleration to Valheim: the more players resting in bed on a multiplayer server, the faster night ticks away!
 
 ---
+
+<div align="center" markdown="1">
+
+<br>
+
+[![Survival Servers](https://raw.githubusercontent.com/Vapok/BetterSleepBruh/main/images/survivalservers_banner.png)](https://www.survivalservers.com/services/game_servers/valheim/?ref=vapok)
+
+</div>
 
 ## 🌙 How It Works
 
@@ -95,6 +106,18 @@ Configure via the in-game [BepInEx Configuration Manager](https://github.com/Bep
 
 ---
 
+## 🌐 Available Translations
+
+<div align="center" markdown="1">
+
+🇺🇸 **English** (Default)
+
+</div>
+
+*Want to help translate Better Sleep Bruh? Community translations are welcome! Please submit a PR on [GitHub](https://github.com/Vapok/BetterSleepBruh) or stop by our [Discord](https://discord.gg/5YAJkRFBXt).*
+
+---
+
 ## 📥 Installation & Server Setup
 
 ### Mod Manager (Recommended)
@@ -104,6 +127,20 @@ Configure via the in-game [BepInEx Configuration Manager](https://github.com/Bep
 ### Dedicated Servers
 * **Server Installation**: Place the DLL on the dedicated server to enable sleep acceleration for all players.
 * **Client Installation (Optional)**: Recommended for players who want to see the visual on-screen Pillow HUD.
+
+---
+
+## 🔒 Anonymous Telemetry, Error Reporting & Privacy
+
+BetterSleepBruh includes lightweight, privacy-first telemetry and error reporting to help monitor mod stability, diagnose unhandled bugs, and track active version adoption across game updates.
+
+* **100% Anonymous**: We never collect personal data, Steam IDs, IP addresses, character/world names, or file system paths. Stack traces from errors are automatically sanitized to strip local user directories.
+* **Granular Player Control**:
+  * **Anonymous Telemetry (Opt-In)**: Tracks version adoption and session launches. Defaults to **unchecked / disabled** when first loaded (`Enable Anonymous Telemetry = false`).
+  * **Error Reporting (Opt-Out)**: Captures sanitized mod crash diagnostics to rapidly identify and fix bugs. Defaults to **enabled** (`Send Error Reports = true`) with one-click opt-out.
+  * **Data Disclaimers**: Hover over any toggle in the startup modal for interactive tooltip disclaimers detailing exactly what data is transmitted.
+* **In-Game & Online Privacy Policy**: The full privacy policy can be viewed directly in-game by clicking **`[ PRIVACY POLICY ]`** on the startup splash modal, or online at [vapok.io/privacy-policy](https://vapok.io/privacy-policy/).
+* **Configuration Files**: Settings can be managed in-game via the startup modal, through the BepInEx Configuration Manager, or under `[Local Config]` in `BepInEx/config/vapok.mods.BetterSleepBruh.cfg`.
 
 ---
 

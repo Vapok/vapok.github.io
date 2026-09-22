@@ -5,19 +5,20 @@ slug: "adventurebackpacks"
 name: "AdventureBackpacks"
 game: "Valheim"
 category: "valheim"
-version: "v2.0.4"
+version: "v2.1.10"
 status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/AdventureBackpacks"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/AdventureBackpacks/"
-downloads: "787.1K+"
+downloads: "895.8K+"
 icon: "/assets/images/mods/adventurebackpacks/icon.png"
 description: "A Valheim Mod to add a catalogue of Adventuring Backpacks to the Game. These packs will grow and become more useful as the game progresses."
 dependencies:
   - "denikson-BepInExPack_Valheim-5.4.2350"
-  - "ValheimModding-Jotunn-2.26.1"
+  - "ValheimModding-Jotunn-2.30.2"
   - "ValheimModding-YamlDotNet-16.3.1"
 has_changelog: true
+telemetry: true
 ---
 
 <div align="center" markdown="1">
@@ -28,6 +29,8 @@ has_changelog: true
 
 [![GitHub Release](https://img.shields.io/github/v/release/Vapok/AdventureBackpacks?include_prereleases&logo=github&style=for-the-badge)](https://github.com/Vapok/AdventureBackpacks/releases)
 [![Thunderstore Version](https://img.shields.io/thunderstore/v/Vapok/AdventureBackpacks?logo=thunderstore&style=for-the-badge)](https://thunderstore.io/c/valheim/p/Vapok/AdventureBackpacks/)
+[![Nexus Mods](https://img.shields.io/badge/Nexus_Mods-Available-da8e35?logo=nexusmods&style=for-the-badge)](https://www.nexusmods.com/valheim/mods/2204)
+<br>
 [![Discord](https://img.shields.io/badge/Discord-Join%20Community-7289da?logo=discord&logoColor=white&style=for-the-badge)](https://discord.gg/5YAJkRFBXt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
@@ -39,10 +42,20 @@ Starting as a wee Viking rummaging through the tranquil fields of the Meadows, y
 
 ---
 
+<div align="center" markdown="1">
+
+<br>
+
+[![Survival Servers](https://raw.githubusercontent.com/Vapok/AdventureBackpacks/main/images/survivalservers_banner.png)](https://www.survivalservers.com/services/game_servers/valheim/?ref=vapok)
+
+</div>
+
 ## 🧭 How to Use Adventure Backpacks
 
 * 🔨 **Discover & Craft**: As you explore biomes, defeat creatures, and collect new materials, you will unlock recipes for Adventuring Backpacks.
 * 🎒 **Open Your Backpack**: The default hotkey is <kbd>I</kbd> to open your equipped backpack. Fully customizable for Keyboard, Mouse, and Gamepad / Controller inputs.
+* 🛠️ **Craft From Backpack**: Build with the hammer or craft at stations using supplies stored in your equipped backpack without needing to manually move materials.
+* 📥 **Auto Store & Overflow**: Route gathered loot into matching backpack stacks or overflow new items into your backpack when your main inventory is full.
 * 📈 **Progression & Upgrades**: Each backpack features unique inventory sizing, carry weight bonuses, movement speed modifiers, and environmental perks. Upgrading your backpack at a workbench or forge expands capacity and strengthens bonuses.
 * ⚙️ **Full Customization**: Almost every aspect of these backpacks (sizes, recipes, drop chances, effects, and weight multipliers) can be tailored via configuration files or the in-game Configuration Manager.
 
@@ -83,8 +96,18 @@ Starting as a wee Viking rummaging through the tranquil fields of the Meadows, y
 
 ## 🛡️ Advanced Mechanics & Safeguards
 
+* 🛠️ **Craft From Backpack**:
+  * **Hammer Building & Stations**: Available resources for building placeables and crafting station recipes take into account both your Player inventory and your currently equipped backpack.
+  * **Tiered Consumption**: Materials are consumed from the Player inventory first (skipping equipped items), only drawing from the backpack for any remaining unmet quantities.
+  * **Craft Output to Backpack**: When enabled and your player inventory is full, newly crafted items are placed directly into your equipped backpack if space is available (strictly excluding backpacks).
+* 📥 **Auto Store to Backpack & Inventory Overflow**:
+  * **Auto Store Existing Items**: When picking up or looting items that already exist in your equipped backpack, they automatically route directly into the backpack if space is available.
+  * **Inventory Overflow**: If your main player inventory is completely full, newly acquired items continue to enter your equipped backpack without triggering "Inventory Full" errors.
+  * **Partial Stack Support**: If a backpack only has room for a partial stack, it absorbs what fits and routes the remainder to player inventory.
+* 🌐 **Server-Enforced Configuration (`Server Config`)**:
+  * Craft from backpack, craft output overflow, auto-storing, and inventory overflow are server-authoritative. When playing on a dedicated server, the server dictates these settings globally for all connected clients.
 * ⚡ **Thor's Inventory Guard (Inception Prevention)**:
-  * Backpack-in-backpack nesting is strictly prevented to safeguard against data corruption and infinite inventory loops.
+  * Backpack-in-backpack nesting is strictly prevented across all crafting, auto-storing, and inventory interactions to safeguard against data corruption and infinite loops.
 * 🏷️ **Yard Sale Overflow Safeguard**:
   * If a backpack is resized or upgraded in a way that reduces slots below the stored item count, excess items are cleanly dropped at the player's feet rather than lost.
 * 🔀 **Right-Click Quick Transfer (Fast Item Transfer)**:
@@ -132,19 +155,24 @@ Mod developers can easily build custom backpacks and register effects using our 
 
 <div align="center" markdown="1">
 
-| Mod | Compatibility Status |
-| :--- | :--- |
-| **AzuCraftyBoxes & AzuAutoStore** | 🟢 Fully Supported (Crafting & auto-storing from equipped backpack) |
-| **Valheim Plus (CraftFromChest)** | 🟢 Fully Supported (Crafting calculation stack-interception) |
-| **Epic Loot** | 🟢 Fully Supported (Loot tables, enchanting, and weightless modifiers) |
-| **Cheb's Necromancy** | 🟢 Fully Supported (Includes *Spectral Shroud of Holding*) |
-| **ContentsWithin** | 🟢 Fully Supported (Backpack contents obfuscation) |
-| **ZenUI / ZenDragon ModLib** | 🟢 Fully Supported (Defensive UI transpiler hooks) |
-| **Quick Stack Store / Auto Split Stack** | 🟢 Fully Supported |
-| **Multi-User-Chests (MUC)** | 🟢 Fully Supported |
-| **Extra Slots / Equipment & Quick Slots** | 🟢 Fully Supported |
-| **Jewelcrafting** | 🟢 Fully Supported |
-| **Smoothbrain's Mods (Blacksmithing, etc.)** | 🟢 Fully Supported |
+| Mod | Author | Compatibility Status | Notes |
+| :--- | :--- | :--- | :--- |
+| **AzuCraftyBoxes** | Azumatt | 🟢 Fully Supported | Dynamic proxy bridge; draws crafting materials from equipped backpacks |
+| **AzuAutoStore** | Azumatt | 🟢 Fully Supported | External container auto-storing routes seamlessly into equipped packs |
+| **AzuExtendedPlayerInventory** | Azumatt | 🟢 Fully Supported | Custom equipment slots with automated bone reordering guard |
+| **Equipment & Quick Slots (EAQS)** | RandyKnapp | 🟢 Fully Supported | Dedicated UI durability bar alignment & hotkey integration |
+| **Extra Slots** | Shudnal | 🟢 Fully Supported | Native compatibility with expanded hotbar and utility slots |
+| **Epic Loot** | RandyKnapp | 🟢 Fully Supported | Seamless integration with enchanted gear, loot tables, and weight modifiers |
+| **Cheb's Necromancy** | ChebGonaz | 🟢 Fully Supported | Native API integration (*Spectral Shroud of Holding* custom pack & effect) |
+| **ContentsWithin** | MSchmoecker | 🟢 Fully Supported | Safe coexistence with world container hover inspection |
+| **Multi-User-Chests (MUC)** | MSchmoecker | 🟢 Fully Supported | Concurrent multi-player chest interaction support |
+| **Quick Stack, Store, Sort, Trash** | Goldenrevolver | 🟢 Fully Supported | Safe quick-stacking and inventory sorting |
+| **ZenUI / ZenDragon ModLib** | ZenDragon | 🟢 Fully Supported | Defensive UI transpiler hooks prevent layout conflicts |
+| **Jewelcrafting** | Smoothbrain | 🟢 Fully Supported | Socketing, gems, and dynamic runtime font isolation |
+| **Smoothbrain's Skill Mods** | Smoothbrain | 🟢 Fully Supported | Blacksmithing, Building, and crafting progression skills |
+| **Seasonality** | RustyMods | 🟢 Fully Supported | Cold resistance protects against winter seasonal freezing and cold debuffs |
+| **Seasons** | Shudnal | 🟢 Fully Supported | Seasonal biome temperature shifts and weather effects respect backpack protections |
+| **Valheim Plus (Community Fork)** | Grantapher | 🟢 Supported | Non-destructive crafting transpiler interception |
 
 </div>
 
@@ -180,6 +208,20 @@ Adventure Backpacks includes community translations for:
 * **Required on Both Client & Server**: Adventure Backpacks must be present on both the server and all connecting clients.
 * **Network Compatibility**: Built-in version checking ensures game-state and inventory consistency across clients.
 * **ServerSync**: Server configuration files automatically lock and sync settings down to non-admin players in real-time.
+
+---
+
+## 🔒 Anonymous Telemetry, Error Reporting & Privacy
+
+Adventure Backpacks includes lightweight, privacy-first telemetry and error reporting to help monitor mod stability, diagnose unhandled bugs, and track active version adoption across game updates.
+
+* **100% Anonymous**: We never collect personal data, Steam IDs, IP addresses, character/world names, or file system paths. Stack traces from errors are automatically sanitized to strip local user directories.
+* **Granular Player Control**:
+  * **Anonymous Telemetry (Opt-In)**: Tracks version adoption and session launches. Defaults to **unchecked / disabled** when first loaded (`Enable Anonymous Telemetry = false`).
+  * **Error Reporting (Opt-Out)**: Captures sanitized mod crash diagnostics to rapidly identify and fix bugs. Defaults to **enabled** (`Send Error Reports = true`) with one-click opt-out.
+  * **Data Disclaimers**: Hover over any toggle in the startup modal for interactive tooltip disclaimers detailing exactly what data is transmitted.
+* **In-Game & Online Privacy Policy**: The full privacy policy can be viewed directly in-game by clicking **`[ PRIVACY POLICY ]`** on the startup splash modal, or online at [vapok.io/privacy-policy](https://vapok.io/privacy-policy/).
+* **Configuration Files**: Settings can be managed in-game via the startup modal, through the BepInEx Configuration Manager, or under `[Local Config]` in `BepInEx/config/vapok.mods.adventurebackpacks.cfg`.
 
 ---
 

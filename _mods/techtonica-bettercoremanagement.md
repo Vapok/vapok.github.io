@@ -16,6 +16,7 @@ description: "Research Core Manager that allows virtual research cores to be add
 dependencies:
   - "BepInEx-BepInExPack-5.4.2100"
 has_changelog: true
+telemetry: true
 ---
 
 # BetterCoreManagement by Vapok

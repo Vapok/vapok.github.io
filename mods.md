@@ -2,7 +2,7 @@
 layout: page
 title: "Module Repository"
 permalink: /mods/
-description: "Explore Vapok's open-source modifications, automation systems, and quality-of-life enhancements for Valheim and Techtonica."
+description: "Explore Vapok's open-source modifications, automation systems, and quality-of-life enhancements for Valheim, Techtonica, and BepInEx."
 ---
 
 <!-- STATUS HERO CALLOUT -->
@@ -37,18 +37,23 @@ description: "Explore Vapok's open-source modifications, automation systems, and
       <span class="section-title-tag">[ FEATURED MODS &amp; SYSTEMS ]</span>
     </div>
 
-    <div class="filter-bar">
-      <button class="filter-btn active" data-filter="all">[ ALL (16) ]</button>
-      <button class="filter-btn" data-filter="valheim">[ VALHEIM (11) ]</button>
-      <button class="filter-btn" data-filter="techtonica">[ TECHTONICA (5) ]</button>
-    </div>
-  </div>
-
-  <div class="mod-grid">
     {% assign all_mods = site.mods %}
     {% if all_mods == nil or all_mods.size == 0 %}
       {% assign all_mods = site.data.mods %}
     {% endif %}
+    {% assign valheim_mods = all_mods | where: "category", "valheim" %}
+    {% assign techtonica_mods = all_mods | where: "category", "techtonica" %}
+    {% assign bepinex_mods = all_mods | where: "category", "bepinex" %}
+
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">[ ALL ({{ all_mods.size }}) ]</button>
+      <button class="filter-btn" data-filter="valheim">[ VALHEIM ({{ valheim_mods.size }}) ]</button>
+      <button class="filter-btn" data-filter="techtonica">[ TECHTONICA ({{ techtonica_mods.size }}) ]</button>
+      <button class="filter-btn" data-filter="bepinex">[ BEPINEX ({{ bepinex_mods.size }}) ]</button>
+    </div>
+  </div>
+
+  <div class="mod-grid">
     {% for mod in all_mods %}
       {% include mod-card.html mod=mod %}
     {% endfor %}

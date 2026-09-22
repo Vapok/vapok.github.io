@@ -5,19 +5,20 @@ slug: "consolebuddy"
 name: "ConsoleBuddy"
 game: "Valheim"
 category: "valheim"
-version: "v2.0.1"
+version: "v2.0.7"
 status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/ConsoleBuddy"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/ConsoleBuddy/"
-downloads: "2.7K+"
+downloads: "2.9K+"
 icon: "/assets/images/mods/consolebuddy/icon.png"
 description: "A simple Valheim mod that allows you to adjust the look and feel of the in-game Console"
 dependencies:
   - "denikson-BepInExPack_Valheim-5.4.2350"
-  - "ValheimModding-Jotunn-2.30.0"
+  - "ValheimModding-Jotunn-2.30.1"
   - "ValheimModding-YamlDotNet-16.3.1"
 has_changelog: true
+telemetry: true
 ---
 
 <div align="center" markdown="1">
@@ -28,6 +29,8 @@ has_changelog: true
 
 [![GitHub Release](https://img.shields.io/github/v/release/Vapok/ConsoleBuddy?include_prereleases&logo=github&style=for-the-badge)](https://github.com/Vapok/ConsoleBuddy/releases)
 [![Thunderstore Version](https://img.shields.io/thunderstore/v/Vapok/ConsoleBuddy?logo=thunderstore&style=for-the-badge)](https://thunderstore.io/c/valheim/p/Vapok/ConsoleBuddy/)
+[![Nexus Mods](https://img.shields.io/badge/Nexus_Mods-Available-da8e35?logo=nexusmods&style=for-the-badge)](https://www.nexusmods.com/valheim/mods/2315)
+<br>
 [![Discord](https://img.shields.io/badge/Discord-Join%20Community-7289da?logo=discord&logoColor=white&style=for-the-badge)](https://discord.gg/5YAJkRFBXt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
@@ -38,6 +41,14 @@ has_changelog: true
 Take full command over your Valheim console! **ConsoleBuddy** empowers developers, server administrators, and players to fully customize the in-game terminal with custom font faces, font sizes, colors, console dimensions, positioning, transparency, and expanded buffer history.
 
 ---
+
+<div align="center" markdown="1">
+
+<br>
+
+[![Survival Servers](https://raw.githubusercontent.com/Vapok/ConsoleBuddy/main/images/survivalservers_banner.png)](https://www.survivalservers.com/services/game_servers/valheim/?ref=vapok)
+
+</div>
 
 ## ✨ Features
 
@@ -86,6 +97,18 @@ Tailor all visual settings in real time via the in-game [BepInEx Configuration M
 
 ---
 
+## 🌐 Available Translations
+
+<div align="center" markdown="1">
+
+🇺🇸 **English** (Default)
+
+</div>
+
+*Want to help translate Console Buddy? Community translations are welcome! Please submit a PR on [GitHub](https://github.com/Vapok/ConsoleBuddy) or stop by our [Discord](https://discord.gg/5YAJkRFBXt).*
+
+---
+
 ## 📥 Installation
 
 ### Mod Manager (Recommended)
@@ -94,6 +117,20 @@ Tailor all visual settings in real time via the in-game [BepInEx Configuration M
 
 ### Manual Installation
 * Copy `ConsoleBuddy.dll` to your `Valheim/BepInEx/plugins` directory.
+
+---
+
+## 🔒 Anonymous Telemetry, Error Reporting & Privacy
+
+Console Buddy includes lightweight, privacy-first telemetry and error reporting to help monitor mod stability, diagnose unhandled bugs, and track active version adoption across game updates.
+
+* **100% Anonymous**: We never collect personal data, Steam IDs, IP addresses, character/world names, or file system paths. Stack traces from errors are automatically sanitized to strip local user directories.
+* **Granular Player Control**:
+  * **Anonymous Telemetry (Opt-In)**: Tracks version adoption and session launches. Defaults to **unchecked / disabled** when first loaded (`Enable Anonymous Telemetry = false`).
+  * **Error Reporting (Opt-Out)**: Captures sanitized mod crash diagnostics to rapidly identify and fix bugs. Defaults to **enabled** (`Send Error Reports = true`) with one-click opt-out.
+  * **Data Disclaimers**: Hover over any toggle in the startup modal for interactive tooltip disclaimers detailing exactly what data is transmitted.
+* **In-Game & Online Privacy Policy**: The full privacy policy can be viewed directly in-game by clicking **`[ PRIVACY POLICY ]`** on the startup splash modal, or online at [vapok.io/privacy-policy](https://vapok.io/privacy-policy/).
+* **Configuration Files**: Settings can be managed in-game via the startup modal, through the BepInEx Configuration Manager, or under `[Local Config]` in `BepInEx/config/vapok.mods.consolebuddy.cfg`.
 
 ---
 

@@ -41,6 +41,18 @@ GAME_CONFIGS = [
     }
 ]
 
+MOD_OVERRIDES = {
+    "bepinex_configdrawers": {
+        "name": "BepInEx.ConfigDrawers",
+        "game": "BepInEx",
+        "category": "bepinex",
+        "slug": "bepinex-configdrawers",
+        "telemetry": False,
+        "website_url": "https://github.com/Vapok/BepInEx.ConfigDrawers",
+        "nexusmods_url": "https://www.nexusmods.com/valheim/mods/3909"
+    }
+}
+
 def slugify(text):
     return re.sub(r'[\s_]+', '-', re.sub(r'[^\w\s-]', '', text).strip().lower())
 
@@ -167,7 +179,20 @@ def sync():
             website_url = manifest.get("website_url", f"https://github.com/Vapok/{raw_name}")
             dependencies = manifest.get("dependencies", [])
 
-            slug = slugify(f"{category}-{raw_name}") if category != "valheim" else slugify(raw_name)
+            override = MOD_OVERRIDES.get(raw_name.lower())
+            mod_name = override["name"] if override and "name" in override else raw_name
+            mod_game = override["game"] if override and "game" in override else game_name
+            mod_category = override["category"] if override and "category" in override else category
+            mod_telemetry = override.get("telemetry", True) if override else True
+            mod_nexusmods_url = override.get("nexusmods_url", "") if override else ""
+            if override and "website_url" in override:
+                website_url = override["website_url"]
+
+            if override and "slug" in override:
+                slug = override["slug"]
+            else:
+                slug = slugify(f"{mod_category}-{raw_name}") if mod_category != "valheim" else slugify(raw_name)
+
             mod_img_dir = os.path.join(ASSETS_IMG_DIR, slug)
             os.makedirs(mod_img_dir, exist_ok=True)
 
@@ -202,49 +227,53 @@ def sync():
             # Save mod document in _mods/
             mod_file_path = os.path.join(MODS_DIR, f"{slug}.md")
             deps_yaml = "\n".join([f'  - "{d}"' for d in dependencies]) if dependencies else "  []"
+            telemetry_yaml = f"telemetry: {str(mod_telemetry).lower()}\n"
+            nexus_yaml = f'nexusmods_url: "{mod_nexusmods_url}"\n' if mod_nexusmods_url else ""
 
             frontmatter = f"""---
 layout: mod
-title: "{raw_name}"
+title: "{mod_name}"
 slug: "{slug}"
-name: "{raw_name}"
-game: "{game_name}"
-category: "{category}"
+name: "{mod_name}"
+game: "{mod_game}"
+category: "{mod_category}"
 version: "v{version}"
 status: "ACTIVE"
 badge_color: "mint"
 website_url: "{website_url}"
-thunderstore_url: "{ts_url}"
+{nexus_yaml}thunderstore_url: "{ts_url}"
 downloads: "{downloads_formatted}"
 icon: "{icon_rel_path}"
 description: {json.dumps(description)}
 dependencies:
 {deps_yaml}
 has_changelog: {str(bool(changelog_content)).lower()}
----
+{telemetry_yaml}---
 
 {readme_content}
 """
             with open(mod_file_path, "w", encoding="utf-8") as mf:
                 mf.write(frontmatter)
 
-            print(f"  Synced: {raw_name} [{game_name}] (v{version}) [Downloads: {downloads_formatted or 'N/A'}]")
+            print(f"  Synced: {mod_name} [{mod_game}] (v{version}) [Downloads: {downloads_formatted or 'N/A'}]")
             processed_mods.append({
                 "id": slug,
                 "slug": slug,
-                "name": raw_name,
-                "game": game_name,
-                "category": category,
+                "name": mod_name,
+                "game": mod_game,
+                "category": mod_category,
                 "version": f"v{version}",
                 "status": "ACTIVE",
                 "badge_color": "mint",
                 "website_url": website_url,
+                "nexusmods_url": mod_nexusmods_url,
                 "thunderstore_url": ts_url,
                 "downloads": downloads_formatted,
                 "icon": icon_rel_path,
                 "url": f"/mods/{slug}/",
                 "description": description,
-                "dependencies": dependencies
+                "dependencies": dependencies,
+                "telemetry": mod_telemetry
             })
 
     # Save to _data/mods.yml as fallback
@@ -259,11 +288,15 @@ has_changelog: {str(bool(changelog_content)).lower()}
             dmf.write(f"  status: \"{mod['status']}\"\n")
             dmf.write(f"  badge_color: \"{mod['badge_color']}\"\n")
             dmf.write(f"  website_url: \"{mod['website_url']}\"\n")
+            if mod.get("nexusmods_url"):
+                dmf.write(f"  nexusmods_url: \"{mod['nexusmods_url']}\"\n")
             dmf.write(f"  thunderstore_url: \"{mod['thunderstore_url']}\"\n")
             dmf.write(f"  downloads: \"{mod['downloads']}\"\n")
             dmf.write(f"  icon: \"{mod['icon']}\"\n")
             dmf.write(f"  url: \"{mod['url']}\"\n")
             dmf.write(f"  description: {json.dumps(mod['description'])}\n")
+            if not mod.get("telemetry", True):
+                dmf.write("  telemetry: false\n")
             if mod['dependencies']:
                 dmf.write("  dependencies:\n")
                 for dep in mod['dependencies']:
@@ -281,6 +314,7 @@ has_changelog: {str(bool(changelog_content)).lower()}
         "active_mods": len(processed_mods),
         "valheim_mods": len([m for m in processed_mods if m["category"] == "valheim"]),
         "techtonica_mods": len([m for m in processed_mods if m["category"] == "techtonica"]),
+        "bepinex_mods": len([m for m in processed_mods if m["category"] == "bepinex"]),
         "discord_members": discord_stats["member_count"],
         "discord_members_raw": discord_stats["member_count_raw"],
         "discord_online": discord_stats["presence_count"],

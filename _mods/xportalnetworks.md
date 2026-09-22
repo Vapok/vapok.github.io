@@ -5,18 +5,19 @@ slug: "xportalnetworks"
 name: "XPortalNetworks"
 game: "Valheim"
 category: "valheim"
-version: "v2.0.1"
+version: "v2.0.8"
 status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/XPortalNetworks"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/XPortalNetworks/"
-downloads: "1.4K+"
+downloads: "9.2K+"
 icon: "/assets/images/mods/xportalnetworks/icon.png"
 description: "Select portal destination from a list of existing portals with custom networks and private portals support. No more tag pairing, and no more portal hubs!"
 dependencies:
   - "denikson-BepInExPack_Valheim-5.4.2350"
-  - "ValheimModding-Jotunn-2.30.0"
+  - "ValheimModding-Jotunn-2.30.1"
 has_changelog: true
+telemetry: true
 ---
 
 <div align="center" markdown="1">
@@ -27,6 +28,8 @@ has_changelog: true
 
 [![GitHub Release](https://img.shields.io/github/v/release/Vapok/XPortalNetworks?include_prereleases&logo=github&style=for-the-badge)](https://github.com/Vapok/XPortalNetworks/releases)
 [![Thunderstore Version](https://img.shields.io/thunderstore/v/Vapok/XPortalNetworks?logo=thunderstore&style=for-the-badge)](https://thunderstore.io/c/valheim/p/Vapok/XPortalNetworks/)
+[![Nexus Mods](https://img.shields.io/badge/Nexus_Mods-Available-da8e35?logo=nexusmods&style=for-the-badge)](https://www.nexusmods.com/valheim/mods/3719)
+<br>
 [![Discord](https://img.shields.io/badge/Discord-Join%20Community-7289da?logo=discord&logoColor=white&style=for-the-badge)](https://discord.gg/5YAJkRFBXt)
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL%203.0-blue.svg?style=for-the-badge)](https://opensource.org/licenses/GPL-3.0)
 
@@ -50,6 +53,14 @@ has_changelog: true
 </p>
 
 ---
+
+<div align="center" markdown="1">
+
+<br>
+
+[![Survival Servers](https://raw.githubusercontent.com/Vapok/XPortalNetworks/main/images/survivalservers_banner.png)](https://www.survivalservers.com/services/game_servers/valheim/?ref=vapok)
+
+</div>
 
 ## What's New in XPortal Networks
 
@@ -188,6 +199,20 @@ Use a mod manager like **r2modman** or **Thunderstore Mod Manager** to download 
 
 * **[SpikeHimself](https://github.com/SpikeHimself)**: Creator of the original **XPortal** mod, upon which XPortal Networks is built and expanded.
 * **Translations & Community**: Thanks to *kaiqueknup*, *makou*, *Smok3y97*, *MexExe*, *hanawa07*, *bonesbro*, *VasariRulez*, *Felix*, and *cawa-93* for original translations and community contributions.
+
+---
+
+## 🔒 Anonymous Telemetry, Error Reporting & Privacy
+
+XPortalNetworks includes lightweight, privacy-first telemetry and error reporting to help monitor mod stability, diagnose unhandled bugs, and track active version adoption across game updates.
+
+* **100% Anonymous**: We never collect personal data, Steam IDs, IP addresses, character/world names, or file system paths. Stack traces from errors are automatically sanitized to strip local user directories.
+* **Granular Player Control**:
+  * **Anonymous Telemetry (Opt-In)**: Tracks version adoption and session launches. Defaults to **unchecked / disabled** when first loaded (`Enable Anonymous Telemetry = false`).
+  * **Error Reporting (Opt-Out)**: Captures sanitized mod crash diagnostics to rapidly identify and fix bugs. Defaults to **enabled** (`Send Error Reports = true`) with one-click opt-out.
+  * **Data Disclaimers**: Hover over any toggle in the startup modal for interactive tooltip disclaimers detailing exactly what data is transmitted.
+* **In-Game & Online Privacy Policy**: The full privacy policy can be viewed directly in-game by clicking **`[ PRIVACY POLICY ]`** on the startup splash modal, or online at [vapok.io/privacy-policy](https://vapok.io/privacy-policy/).
+* **Configuration Files**: Settings can be managed in-game via the startup modal, through the BepInEx Configuration Manager, or under `[Local Config]` in `BepInEx/config/vapok.mods.xportalnetworks.cfg`.
 
 ---
 

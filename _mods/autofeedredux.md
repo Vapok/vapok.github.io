@@ -5,19 +5,20 @@ slug: "autofeedredux"
 name: "AutoFeedRedux"
 game: "Valheim"
 category: "valheim"
-version: "v2.0.1"
+version: "v2.0.7"
 status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/AutoFeedRedux"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/AutoFeedRedux/"
-downloads: "24.2K+"
+downloads: "29.4K+"
 icon: "/assets/images/mods/autofeedredux/icon.png"
 description: "Tired of forgetting to feed your pets? Make feeding your animals a breeze with the Auto Feed Redux! A simple Valheim mod for feeding your tames!"
 dependencies:
   - "denikson-BepInExPack_Valheim-5.4.2350"
-  - "ValheimModding-Jotunn-2.30.0"
+  - "ValheimModding-Jotunn-2.30.1"
   - "ValheimModding-YamlDotNet-16.3.1"
 has_changelog: true
+telemetry: true
 ---
 
 <div align="center" markdown="1">
@@ -28,6 +29,8 @@ has_changelog: true
 
 [![GitHub Release](https://img.shields.io/github/v/release/Vapok/AutoFeedRedux?include_prereleases&logo=github&style=for-the-badge)](https://github.com/Vapok/AutoFeedRedux/releases)
 [![Thunderstore Version](https://img.shields.io/thunderstore/v/Vapok/AutoFeedRedux?logo=thunderstore&style=for-the-badge)](https://thunderstore.io/c/valheim/p/Vapok/AutoFeedRedux/)
+[![Nexus Mods](https://img.shields.io/badge/Nexus_Mods-Available-da8e35?logo=nexusmods&style=for-the-badge)](https://www.nexusmods.com/valheim/mods/3168)
+<br>
 [![Discord](https://img.shields.io/badge/Discord-Join%20Community-7289da?logo=discord&logoColor=white&style=for-the-badge)](https://discord.gg/5YAJkRFBXt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
@@ -38,6 +41,14 @@ has_changelog: true
 Tired of tossing stacks of berries, mushrooms, and meat onto the muddy pen floor only for half of it to despawn or get trampled? **AutoFeedRedux** automates the feeding routine for your tamed livestock and beasts. Tames will dynamically pathfind to nearby storage containers (chests, carts, barrels) and eat directly from them when hungry!
 
 ---
+
+<div align="center" markdown="1">
+
+<br>
+
+[![Survival Servers](https://raw.githubusercontent.com/Vapok/AutoFeedRedux/main/images/survivalservers_banner.png)](https://www.survivalservers.com/services/game_servers/valheim/?ref=vapok)
+
+</div>
 
 ## 🐾 How It Works
 
@@ -89,15 +100,13 @@ All settings can be tailored in real-time using the in-game [BepInEx Configurati
 
 ## 🌐 Available Translations
 
-AutoFeedRedux supports community translations:
-
 <div align="center" markdown="1">
 
-🇺🇸 **English** • 🇩🇪 **German** • 🇫🇷 **French** • 🇪🇸 **Spanish** • 🇨🇳 **Chinese** • 🇷🇺 **Russian**
+🇺🇸 **English** (Default)
 
 </div>
 
-*Want to contribute a translation? Feel free to submit a pull request on [GitHub](https://github.com/Vapok/AutoFeedRedux) or join our [Discord](https://discord.gg/5YAJkRFBXt).*
+*Want to help translate Auto Feed Redux? Community translations are welcome! Please submit a PR on [GitHub](https://github.com/Vapok/AutoFeedRedux) or stop by our [Discord](https://discord.gg/5YAJkRFBXt).*
 
 ---
 
@@ -110,6 +119,20 @@ AutoFeedRedux supports community translations:
 ### Dedicated Server Requirements
 * **Client & Server Required**: AutoFeedRedux must be installed on both the dedicated server and connecting clients.
 * **ServerSync**: Configuration values set on the dedicated server will lock and synchronize to all connecting players.
+
+---
+
+## 🔒 Anonymous Telemetry, Error Reporting & Privacy
+
+AutoFeedRedux includes lightweight, privacy-first telemetry and error reporting to help monitor mod stability, diagnose unhandled bugs, and track active version adoption across game updates.
+
+* **100% Anonymous**: We never collect personal data, Steam IDs, IP addresses, character/world names, or file system paths. Stack traces from errors are automatically sanitized to strip local user directories.
+* **Granular Player Control**:
+  * **Anonymous Telemetry (Opt-In)**: Tracks version adoption and session launches. Defaults to **unchecked / disabled** when first loaded (`Enable Anonymous Telemetry = false`).
+  * **Error Reporting (Opt-Out)**: Captures sanitized mod crash diagnostics to rapidly identify and fix bugs. Defaults to **enabled** (`Send Error Reports = true`) with one-click opt-out.
+  * **Data Disclaimers**: Hover over any toggle in the startup modal for interactive tooltip disclaimers detailing exactly what data is transmitted.
+* **In-Game & Online Privacy Policy**: The full privacy policy can be viewed directly in-game by clicking **`[ PRIVACY POLICY ]`** on the startup splash modal, or online at [vapok.io/privacy-policy](https://vapok.io/privacy-policy/).
+* **Configuration Files**: Settings can be managed in-game via the startup modal, through the BepInEx Configuration Manager, or under `[Local Config]` in `BepInEx/config/vapok.mods.AutoFeedRedux.cfg`.
 
 ---
 

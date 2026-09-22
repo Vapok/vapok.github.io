@@ -16,6 +16,7 @@ description: "A Simple Techtonica mod that demystifies the Encumbrance Equation"
 dependencies:
   - "BepInEx-BepInExPack-5.4.2100"
 has_changelog: true
+telemetry: true
 ---
 
 # KnowEncumbrance by Vapok

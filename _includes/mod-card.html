@@ -37,13 +37,20 @@
             <td class="meta-val" style="color: var(--ice-blue-bright)">{{ mod.downloads }} (TS)</td>
           </tr>
         {% endif %}
-        <tr class="mod-live-players-row" data-mod-slug="{{ mod.slug | default: mod.id }}" data-mod-name="{{ mod.name }}">
-          <td class="meta-label">ACTIVE (30M):</td>
-          <td class="meta-val mod-live-players-val" style="color: var(--glacial-mint);">
-            <span class="telemetry-radar-dot mini" aria-hidden="true"></span>
-            <span class="mod-players-count">--</span>
-          </td>
-        </tr>
+        {% if mod.telemetry == false %}
+          <tr class="mod-live-players-row-disabled" title="Telemetry is not tracked for this mod">
+            <td class="meta-label">ACTIVE (30M):</td>
+            <td class="meta-val" style="color: var(--text-muted);">N/A</td>
+          </tr>
+        {% else %}
+          <tr class="mod-live-players-row" data-mod-slug="{{ mod.slug | default: mod.id }}" data-mod-name="{{ mod.name }}">
+            <td class="meta-label">ACTIVE (30M):</td>
+            <td class="meta-val mod-live-players-val" style="color: var(--glacial-mint);">
+              <span class="telemetry-radar-dot mini" aria-hidden="true"></span>
+              <span class="mod-players-count">--</span>
+            </td>
+          </tr>
+        {% endif %}
       </tbody>
     </table>
 
@@ -71,6 +78,11 @@
     {% if mod.thunderstore_url %}
       <a href="{{ mod.thunderstore_url }}" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-secondary">
         [ > THUNDERSTORE ]
+      </a>
+    {% endif %}
+    {% if mod.nexusmods_url %}
+      <a href="{{ mod.nexusmods_url }}" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-secondary">
+        [ > NEXUS MODS ]
       </a>
     {% endif %}
     {% if mod.website_url %}

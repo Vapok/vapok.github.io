@@ -16,6 +16,7 @@ description: "Mod to assist with configuration of BepInEx mods"
 dependencies:
   - "BepInEx-BepInExPack-5.4.2100"
 has_changelog: false
+telemetry: true
 ---
 
 - `Warning: At least BepInEx v5.4.20 is required as of v17.1!`
