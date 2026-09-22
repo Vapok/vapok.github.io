@@ -5,6 +5,200 @@ title: Home
 
 {% include ascii-banner.html %}
 
+{% assign featured_mod = site.mods | where: "slug", "bepinex-configdrawers" | first %}
+{% if featured_mod == nil %}
+  {% assign featured_mod = site.data.mods | where: "slug", "bepinex-configdrawers" | first %}
+{% endif %}
+
+<!-- FEATURED MOD SPOTLIGHT -->
+<section id="featured-mod" class="featured-spotlight-section" aria-label="Featured Mod Spotlight">
+  <div class="section-header">
+    <div class="section-title">
+      <span>// SPOTLIGHT_RELEASE</span>
+      <span class="section-title-tag">[ FEATURED MOD ]</span>
+    </div>
+    <div class="featured-status-tag">
+      <span class="telemetry-radar-dot" style="background: var(--glacial-mint); box-shadow: 0 0 8px var(--glacial-mint); width: 7px; height: 7px; border-radius: 50%; display: inline-block;" aria-hidden="true"></span>
+      <span>STATUS: ACTIVE // {{ featured_mod.version | default: 'v1.0.1' }}</span>
+    </div>
+  </div>
+
+  <div class="featured-spotlight-box">
+    <div class="featured-spotlight-grid">
+      
+      <!-- LEFT: METADATA & VALUE PROPOSITION -->
+      <div class="featured-spotlight-info">
+        <div class="featured-badge-row">
+          <span class="status-badge mint">★ FEATURED</span>
+          <span class="status-badge amber">NEW RELEASE</span>
+          <span class="status-badge cyan">BEPINEX 5</span>
+          <span class="status-badge subtle">UNITY uGUI</span>
+        </div>
+
+        <div class="featured-header-row">
+          <a href="{{ '/mods/bepinex-configdrawers/' | relative_url }}" class="featured-icon-link" aria-label="View BepInEx.ConfigDrawers Dossier">
+            <img src="{{ featured_mod.icon | default: '/assets/images/mods/bepinex-configdrawers/icon.png' | relative_url }}" alt="BepInEx.ConfigDrawers Icon" class="featured-mod-icon">
+          </a>
+          <div>
+            <h2 class="featured-mod-title">
+              <a href="{{ '/mods/bepinex-configdrawers/' | relative_url }}">BepInEx.ConfigDrawers</a>
+            </h2>
+            <div class="featured-mod-subhead">
+              Next-Gen In-Game Configuration Manager &amp; File Editor
+            </div>
+          </div>
+        </div>
+
+        <p class="featured-mod-desc">
+          An in-game configuration suite for BepInEx 5 plugins engineered on Unity uGUI. Offers zero-obstruction screen rail docking, free-floating windows, advanced input controls (HSV color spectrum, data tables, sliders), and a built-in code editor for raw configuration files.
+        </p>
+
+        <!-- Key Feature Highlights -->
+        <div class="featured-highlights-grid">
+          <div class="featured-highlight-item">
+            <span class="highlight-bullet">🗄️</span>
+            <div>
+              <strong>Dock &amp; Float Rails:</strong> Pin to left/right screen edges or undock to a draggable floating window.
+            </div>
+          </div>
+          <div class="featured-highlight-item">
+            <span class="highlight-bullet">🎨</span>
+            <div>
+              <strong>Rich Custom Drawers:</strong> Sliders, HSV color wheel, multi-column tables, and live hotkey rebinding.
+            </div>
+          </div>
+          <div class="featured-highlight-item">
+            <span class="highlight-bullet">📝</span>
+            <div>
+              <strong>In-Game Code Editor:</strong> Syntax-highlighted code editor for <code>.cfg</code>, <code>.json</code>, and <code>.yaml</code> with live metrics.
+            </div>
+          </div>
+          <div class="featured-highlight-item">
+            <span class="highlight-bullet">⚡</span>
+            <div>
+              <strong>ServerSync &amp; Legacy:</strong> Server-enforced indicators and legacy <code>ConfigurationManager</code> auto-suppression.
+            </div>
+          </div>
+        </div>
+
+        <!-- Specs row -->
+        <div class="featured-specs-row">
+          <div class="featured-spec-chip">
+            <span class="spec-label">CATEGORY:</span>
+            <span class="spec-val">BEPINEX 5</span>
+          </div>
+          <div class="featured-spec-chip">
+            <span class="spec-label">PLATFORM:</span>
+            <span class="spec-val">UNIVERSAL UNITY</span>
+          </div>
+          <div class="featured-spec-chip">
+            <span class="spec-label">VERSION:</span>
+            <span class="spec-val">{{ featured_mod.version | default: 'v1.0.1' }}</span>
+          </div>
+          <div class="featured-spec-chip">
+            <span class="spec-label">TELEMETRY:</span>
+            <span class="spec-val">LOCAL ONLY</span>
+          </div>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="featured-actions-row">
+          <a href="{{ '/mods/bepinex-configdrawers/' | relative_url }}" class="cyber-btn btn-mint-solid" style="font-size: 0.85rem; padding: 0.55rem 1.15rem;">
+            [ 📂 VIEW DOSSIER &amp; GALLERY &rarr; ]
+          </a>
+          <a href="{{ featured_mod.thunderstore_url | default: 'https://thunderstore.io/c/valheim/p/Vapok/BepInEx_ConfigDrawers/' }}" target="_blank" rel="noopener noreferrer" class="cyber-btn" style="font-size: 0.82rem; padding: 0.55rem 0.95rem;">
+            [ ⚡ THUNDERSTORE ]
+          </a>
+          <a href="{{ featured_mod.nexusmods_url | default: 'https://www.nexusmods.com/valheim/mods/3909' }}" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-amber" style="font-size: 0.82rem; padding: 0.55rem 0.95rem;">
+            [ 📦 NEXUS MODS ]
+          </a>
+          <a href="{{ featured_mod.website_url | default: 'https://github.com/Vapok/BepInEx.ConfigDrawers' }}" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-secondary" style="font-size: 0.82rem; padding: 0.55rem 0.85rem;">
+            [ GITHUB ]
+          </a>
+        </div>
+      </div>
+
+      <!-- RIGHT: INTERACTIVE SCREENSHOT SHOWCASE -->
+      <div class="featured-spotlight-media">
+        <div class="featured-preview-frame">
+          <div class="featured-preview-header">
+            <div class="preview-header-title">
+              <span class="preview-dot"></span>
+              <span id="featured-frame-file">// FEED: 01-docked-left.png</span>
+            </div>
+            <a href="{{ '/mods/bepinex-configdrawers/#gallery' | relative_url }}" class="preview-gallery-link">
+              [ FULL GALLERY &rarr; ]
+            </a>
+          </div>
+
+          <a href="{{ '/mods/bepinex-configdrawers/' | relative_url }}" id="featured-main-link" class="featured-preview-stage" title="Click to view full mod dossier">
+            <img id="featured-preview-img" 
+                 src="{{ '/assets/images/mods/bepinex-configdrawers/gallery/01-docked-left.png' | relative_url }}" 
+                 alt="BepInEx.ConfigDrawers Docked Rail View" 
+                 class="featured-preview-img">
+            <div class="featured-stage-badge">[ CLICK FOR FULL DOSSIER ]</div>
+          </a>
+
+          <div class="featured-preview-caption">
+            <div id="featured-caption-title" class="featured-caption-title">Docked Screen Rail (Left)</div>
+            <div id="featured-caption-desc" class="featured-caption-desc">Seamless left-edge screen dock that stays accessible without obstructing in-game elements.</div>
+          </div>
+
+          <!-- Thumbnail Strip -->
+          <div class="featured-thumb-strip" role="tablist" aria-label="Featured Screenshots">
+            <button type="button" class="featured-thumb-btn active" 
+                    data-img="{{ '/assets/images/mods/bepinex-configdrawers/gallery/01-docked-left.png' | relative_url }}"
+                    data-file="01-docked-left.png"
+                    data-title="Docked Screen Rail (Left)"
+                    data-desc="Seamless left-edge screen dock that stays accessible without obstructing in-game elements."
+                    aria-label="View Docked Screen Rail">
+              <img src="{{ '/assets/images/mods/bepinex-configdrawers/gallery/01-docked-left.png' | relative_url }}" alt="Docked Left">
+              <span>Dock Left</span>
+            </button>
+            <button type="button" class="featured-thumb-btn" 
+                    data-img="{{ '/assets/images/mods/bepinex-configdrawers/gallery/03-floating-window.png' | relative_url }}"
+                    data-file="03-floating-window.png"
+                    data-title="Draggable Floating Window"
+                    data-desc="Undock into a free-floating, moveable window with adjustable width and opacity."
+                    aria-label="View Floating Window">
+              <img src="{{ '/assets/images/mods/bepinex-configdrawers/gallery/03-floating-window.png' | relative_url }}" alt="Floating Window">
+              <span>Floating</span>
+            </button>
+            <button type="button" class="featured-thumb-btn" 
+                    data-img="{{ '/assets/images/mods/bepinex-configdrawers/gallery/05-settings-drawer.png' | relative_url }}"
+                    data-file="05-settings-drawer.png"
+                    data-title="Interactive Settings Drawers"
+                    data-desc="Native setting controls for numeric sliders, dropdowns, vectors, and custom data tables."
+                    aria-label="View Settings Drawers">
+              <img src="{{ '/assets/images/mods/bepinex-configdrawers/gallery/05-settings-drawer.png' | relative_url }}" alt="Settings Drawer">
+              <span>Drawers</span>
+            </button>
+            <button type="button" class="featured-thumb-btn" 
+                    data-img="{{ '/assets/images/mods/bepinex-configdrawers/gallery/06-color-picker.png' | relative_url }}"
+                    data-file="06-color-picker.png"
+                    data-title="Color Spectrum Picker"
+                    data-desc="Real-time color wheel with HSV gradients, hex/RGB inputs, alpha slider, and palette swatches."
+                    aria-label="View Color Picker">
+              <img src="{{ '/assets/images/mods/bepinex-configdrawers/gallery/06-color-picker.png' | relative_url }}" alt="Color Picker">
+              <span>Color Picker</span>
+            </button>
+            <button type="button" class="featured-thumb-btn" 
+                    data-img="{{ '/assets/images/mods/bepinex-configdrawers/gallery/08-config-file-editor.png' | relative_url }}"
+                    data-file="08-config-file-editor.png"
+                    data-title="In-Game Code &amp; File Editor"
+                    data-desc="Full-screen code editor with syntax highlighting, line numbers, two-line metrics gutter, and live JSON/YAML validation."
+                    aria-label="View Code Editor">
+              <img src="{{ '/assets/images/mods/bepinex-configdrawers/gallery/08-config-file-editor.png' | relative_url }}" alt="File Editor">
+              <span>Code Editor</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- BACKER / FUEL CALLOUT -->
 <section id="fuel" style="margin-top: 3.5rem;">
   <div style="background: linear-gradient(135deg, rgba(26, 20, 10, 0.85) 0%, rgba(6, 8, 14, 0.95) 100%); border: 1px solid rgba(251, 191, 36, 0.35); padding: 1.75rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; box-shadow: 0 0 20px rgba(251, 191, 36, 0.08);">

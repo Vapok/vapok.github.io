@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSystemClock();
   initDossierTabs();
   initCyberLightbox();
+  initFeaturedSpotlight();
   initBootloaderAndCli();
   initMobileBackToTop();
   initLivePlayerCounter();
@@ -514,6 +515,53 @@ function initCyberLightbox() {
     if (e.key === 'Escape') closeLightbox();
     else if (e.key === 'ArrowRight') nextImage();
     else if (e.key === 'ArrowLeft') prevImage();
+  });
+}
+
+/* ==========================================================================
+   6B. FEATURED SPOTLIGHT PREVIEW INTERACTION
+   ========================================================================== */
+function initFeaturedSpotlight() {
+  const container = document.querySelector('.featured-spotlight-box');
+  if (!container) return;
+
+  const mainImg = document.getElementById('featured-preview-img');
+  const frameFile = document.getElementById('featured-frame-file');
+  const capTitle = document.getElementById('featured-caption-title');
+  const capDesc = document.getElementById('featured-caption-desc');
+  const buttons = container.querySelectorAll('.featured-thumb-btn');
+
+  if (!mainImg || !buttons.length) return;
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const imgUrl = btn.getAttribute('data-img');
+      const file = btn.getAttribute('data-file');
+      const title = btn.getAttribute('data-title');
+      const desc = btn.getAttribute('data-desc');
+
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      if (mainImg && imgUrl) {
+        mainImg.style.opacity = '0.3';
+        mainImg.src = imgUrl;
+        mainImg.alt = title || 'BepInEx.ConfigDrawers Screenshot';
+        mainImg.onload = () => {
+          mainImg.style.opacity = '1';
+        };
+      }
+
+      if (frameFile && file) {
+        frameFile.textContent = `// FEED: ${file}`;
+      }
+      if (capTitle && title) {
+        capTitle.textContent = title;
+      }
+      if (capDesc && desc) {
+        capDesc.textContent = desc;
+      }
+    });
   });
 }
 
