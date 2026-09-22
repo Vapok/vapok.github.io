@@ -39,8 +39,8 @@
         {% endif %}
         {% if mod.telemetry == false %}
           <tr class="mod-live-players-row-disabled" title="Telemetry is not tracked for this mod">
-            <td class="meta-label">ACTIVE (30M):</td>
-            <td class="meta-val" style="color: var(--text-muted);">N/A</td>
+            <td class="meta-label">TELEMETRY:</td>
+            <td class="meta-val" style="color: var(--text-muted);">NONE</td>
           </tr>
         {% else %}
           <tr class="mod-live-players-row" data-mod-slug="{{ mod.slug | default: mod.id }}" data-mod-name="{{ mod.name }}">

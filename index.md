@@ -97,7 +97,7 @@ title: Home
           </div>
           <div class="featured-spec-chip">
             <span class="spec-label">TELEMETRY:</span>
-            <span class="spec-val">LOCAL ONLY</span>
+            <span class="spec-val">NONE</span>
           </div>
         </div>
 
