@@ -439,12 +439,12 @@ function initCyberLightbox() {
   const descEl = document.getElementById('cyber-lightbox-desc');
   const counterEl = document.getElementById('cyber-lightbox-counter');
 
-  const cards = Array.from(document.querySelectorAll('.cyber-gallery-card'));
-  if (!cards.length) return;
-
+  let activeItems = [];
   let currentIndex = 0;
 
-  function openLightbox(index) {
+  function openLightbox(items, index = 0) {
+    if (!items || !items.length) return;
+    activeItems = items;
     currentIndex = index;
     updateStage();
     lightbox.style.display = 'flex';
@@ -459,13 +459,14 @@ function initCyberLightbox() {
   }
 
   function updateStage() {
-    if (currentIndex < 0) currentIndex = cards.length - 1;
-    if (currentIndex >= cards.length) currentIndex = 0;
+    if (!activeItems.length) return;
+    if (currentIndex < 0) currentIndex = activeItems.length - 1;
+    if (currentIndex >= activeItems.length) currentIndex = 0;
 
-    const card = cards[currentIndex];
-    const src = card.dataset.fullSrc;
-    const title = card.dataset.title || '';
-    const desc = card.dataset.desc || '';
+    const item = activeItems[currentIndex];
+    const src = item.src || item.fullSrc;
+    const title = item.title || '';
+    const desc = item.desc || '';
 
     if (imgEl) {
       imgEl.style.opacity = '0';
@@ -480,7 +481,7 @@ function initCyberLightbox() {
     if (descEl) descEl.textContent = desc;
     if (counterEl) {
       const curStr = String(currentIndex + 1).padStart(2, '0');
-      const totalStr = String(cards.length).padStart(2, '0');
+      const totalStr = String(activeItems.length).padStart(2, '0');
       counterEl.textContent = `[ ${curStr} / ${totalStr} ]`;
     }
   }
@@ -495,15 +496,26 @@ function initCyberLightbox() {
     updateStage();
   }
 
-  cards.forEach((card, idx) => {
-    card.addEventListener('click', () => openLightbox(idx));
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openLightbox(idx);
-      }
+  window.openCyberLightbox = openLightbox;
+
+  const cards = Array.from(document.querySelectorAll('.cyber-gallery-card'));
+  if (cards.length) {
+    const cardItems = cards.map(card => ({
+      src: card.dataset.fullSrc,
+      title: card.dataset.title || '',
+      desc: card.dataset.desc || ''
+    }));
+
+    cards.forEach((card, idx) => {
+      card.addEventListener('click', () => openLightbox(cardItems, idx));
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openLightbox(cardItems, idx);
+        }
+      });
     });
-  });
+  }
 
   if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
   if (backdrop) backdrop.addEventListener('click', closeLightbox);
@@ -525,44 +537,82 @@ function initFeaturedSpotlight() {
   const container = document.querySelector('.featured-spotlight-box');
   if (!container) return;
 
+  const stage = document.getElementById('featured-preview-stage');
   const mainImg = document.getElementById('featured-preview-img');
   const frameFile = document.getElementById('featured-frame-file');
   const capTitle = document.getElementById('featured-caption-title');
   const capDesc = document.getElementById('featured-caption-desc');
-  const buttons = container.querySelectorAll('.featured-thumb-btn');
+  const expandBtn = document.getElementById('featured-expand-btn');
+  const buttons = Array.from(container.querySelectorAll('.featured-thumb-btn'));
 
   if (!mainImg || !buttons.length) return;
 
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const imgUrl = btn.getAttribute('data-img');
-      const file = btn.getAttribute('data-file');
-      const title = btn.getAttribute('data-title');
-      const desc = btn.getAttribute('data-desc');
+  const featuredItems = buttons.map(btn => ({
+    src: btn.getAttribute('data-img'),
+    title: btn.getAttribute('data-title') || '',
+    desc: btn.getAttribute('data-desc') || ''
+  }));
 
-      buttons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+  let activeIndex = 0;
 
-      if (mainImg && imgUrl) {
-        mainImg.style.opacity = '0.3';
-        mainImg.src = imgUrl;
-        mainImg.alt = title || 'BepInEx.ConfigDrawers Screenshot';
-        mainImg.onload = () => {
-          mainImg.style.opacity = '1';
-        };
-      }
+  function switchFeatured(idx) {
+    if (idx < 0 || idx >= buttons.length) return;
+    activeIndex = idx;
+    const btn = buttons[idx];
+    const imgUrl = btn.getAttribute('data-img');
+    const file = btn.getAttribute('data-file');
+    const title = btn.getAttribute('data-title');
+    const desc = btn.getAttribute('data-desc');
 
-      if (frameFile && file) {
-        frameFile.textContent = `// FEED: ${file}`;
-      }
-      if (capTitle && title) {
-        capTitle.textContent = title;
-      }
-      if (capDesc && desc) {
-        capDesc.textContent = desc;
+    buttons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    if (mainImg && imgUrl) {
+      mainImg.style.opacity = '0.3';
+      mainImg.src = imgUrl;
+      mainImg.alt = title || 'BepInEx.ConfigDrawers Screenshot';
+      mainImg.onload = () => {
+        mainImg.style.opacity = '1';
+      };
+    }
+
+    if (frameFile && file) {
+      frameFile.textContent = `// FEED: ${file}`;
+    }
+    if (capTitle && title) {
+      capTitle.textContent = title;
+    }
+    if (capDesc && desc) {
+      capDesc.textContent = desc;
+    }
+  }
+
+  buttons.forEach((btn, idx) => {
+    btn.addEventListener('click', () => switchFeatured(idx));
+  });
+
+  function triggerLightbox() {
+    if (typeof window.openCyberLightbox === 'function') {
+      window.openCyberLightbox(featuredItems, activeIndex);
+    }
+  }
+
+  if (stage) {
+    stage.addEventListener('click', triggerLightbox);
+    stage.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        triggerLightbox();
       }
     });
-  });
+  }
+
+  if (expandBtn) {
+    expandBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      triggerLightbox();
+    });
+  }
 }
 
 /* ==========================================================================

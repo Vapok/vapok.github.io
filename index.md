@@ -126,71 +126,41 @@ title: Home
               <span class="preview-dot"></span>
               <span id="featured-frame-file">// FEED: 01-docked-left.png</span>
             </div>
-            <a href="{{ '/mods/bepinex-configdrawers/#gallery' | relative_url }}" class="preview-gallery-link">
-              [ FULL GALLERY &rarr; ]
-            </a>
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <button type="button" id="featured-expand-btn" class="preview-expand-btn cyber-btn" title="Open full resolution in lightbox">[ ⛶ FULLSCREEN ]</button>
+              <a href="{{ '/mods/bepinex-configdrawers/#gallery' | relative_url }}" class="preview-gallery-link">
+                [ FULL GALLERY &rarr; ]
+              </a>
+            </div>
           </div>
 
-          <a href="{{ '/mods/bepinex-configdrawers/' | relative_url }}" id="featured-main-link" class="featured-preview-stage" title="Click to view full mod dossier">
+          <div id="featured-preview-stage" class="featured-preview-stage" role="button" tabindex="0" title="Click to view full resolution screenshot" aria-label="View full resolution screenshot in lightbox">
             <img id="featured-preview-img" 
                  src="{{ '/assets/images/mods/bepinex-configdrawers/gallery/01-docked-left.png' | relative_url }}" 
                  alt="BepInEx.ConfigDrawers Docked Rail View" 
                  class="featured-preview-img">
-            <div class="featured-stage-badge">[ CLICK FOR FULL DOSSIER ]</div>
-          </a>
+            <div class="featured-stage-badge">[ ⛶ CLICK FOR FULL RESOLUTION ]</div>
+          </div>
 
           <div class="featured-preview-caption">
             <div id="featured-caption-title" class="featured-caption-title">Docked Screen Rail (Left)</div>
             <div id="featured-caption-desc" class="featured-caption-desc">Seamless left-edge screen dock that stays accessible without obstructing in-game elements.</div>
           </div>
 
-          <!-- Thumbnail Strip -->
+          <!-- Thumbnail Strip (All 8 Screenshots) -->
           <div class="featured-thumb-strip" role="tablist" aria-label="Featured Screenshots">
-            <button type="button" class="featured-thumb-btn active" 
-                    data-img="{{ '/assets/images/mods/bepinex-configdrawers/gallery/01-docked-left.png' | relative_url }}"
-                    data-file="01-docked-left.png"
-                    data-title="Docked Screen Rail (Left)"
-                    data-desc="Seamless left-edge screen dock that stays accessible without obstructing in-game elements."
-                    aria-label="View Docked Screen Rail">
-              <img src="{{ '/assets/images/mods/bepinex-configdrawers/gallery/01-docked-left.png' | relative_url }}" alt="Docked Left">
-              <span>Dock Left</span>
-            </button>
-            <button type="button" class="featured-thumb-btn" 
-                    data-img="{{ '/assets/images/mods/bepinex-configdrawers/gallery/03-floating-window.png' | relative_url }}"
-                    data-file="03-floating-window.png"
-                    data-title="Draggable Floating Window"
-                    data-desc="Undock into a free-floating, moveable window with adjustable width and opacity."
-                    aria-label="View Floating Window">
-              <img src="{{ '/assets/images/mods/bepinex-configdrawers/gallery/03-floating-window.png' | relative_url }}" alt="Floating Window">
-              <span>Floating</span>
-            </button>
-            <button type="button" class="featured-thumb-btn" 
-                    data-img="{{ '/assets/images/mods/bepinex-configdrawers/gallery/05-settings-drawer.png' | relative_url }}"
-                    data-file="05-settings-drawer.png"
-                    data-title="Interactive Settings Drawers"
-                    data-desc="Native setting controls for numeric sliders, dropdowns, vectors, and custom data tables."
-                    aria-label="View Settings Drawers">
-              <img src="{{ '/assets/images/mods/bepinex-configdrawers/gallery/05-settings-drawer.png' | relative_url }}" alt="Settings Drawer">
-              <span>Drawers</span>
-            </button>
-            <button type="button" class="featured-thumb-btn" 
-                    data-img="{{ '/assets/images/mods/bepinex-configdrawers/gallery/06-color-picker.png' | relative_url }}"
-                    data-file="06-color-picker.png"
-                    data-title="Color Spectrum Picker"
-                    data-desc="Real-time color wheel with HSV gradients, hex/RGB inputs, alpha slider, and palette swatches."
-                    aria-label="View Color Picker">
-              <img src="{{ '/assets/images/mods/bepinex-configdrawers/gallery/06-color-picker.png' | relative_url }}" alt="Color Picker">
-              <span>Color Picker</span>
-            </button>
-            <button type="button" class="featured-thumb-btn" 
-                    data-img="{{ '/assets/images/mods/bepinex-configdrawers/gallery/08-config-file-editor.png' | relative_url }}"
-                    data-file="08-config-file-editor.png"
-                    data-title="In-Game Code &amp; File Editor"
-                    data-desc="Full-screen code editor with syntax highlighting, line numbers, two-line metrics gutter, and live JSON/YAML validation."
-                    aria-label="View Code Editor">
-              <img src="{{ '/assets/images/mods/bepinex-configdrawers/gallery/08-config-file-editor.png' | relative_url }}" alt="File Editor">
-              <span>Code Editor</span>
-            </button>
+            {% for item in featured_mod.gallery %}
+              <button type="button" class="featured-thumb-btn{% if forloop.first %} active{% endif %}" 
+                      data-index="{{ forloop.index0 }}"
+                      data-img="{{ item.image | relative_url }}"
+                      data-file="{{ item.image | split: '/' | last }}"
+                      data-title="{{ item.title | escape }}"
+                      data-desc="{{ item.desc | escape }}"
+                      aria-label="View {{ item.title | escape }}">
+                <img src="{{ item.thumb | default: item.image | relative_url }}" alt="{{ item.title | escape }}">
+                <span>{{ item.title | truncate: 12 }}</span>
+              </button>
+            {% endfor %}
           </div>
         </div>
       </div>
