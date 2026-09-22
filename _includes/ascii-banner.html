@@ -20,12 +20,34 @@
       <span class="stat-num">{{ site.data.stats.total_downloads | default: '1.0M+' }}</span>
       <span class="stat-label">Thunderstore Downloads</span>
     </div>
-    <div class="stat-box live-telemetry-stat-box" id="hero-live-players-box" title="Live active players in the last 30 minutes across Vapok modifications">
+    <div class="stat-box live-telemetry-stat-box cyber-tooltip-trigger" id="hero-live-players-box" tabindex="0" role="region" aria-label="Live active players count and opt-in telemetry disclosure">
       <span class="stat-num live-players-num" style="color: var(--glacial-mint);">
         <span class="telemetry-radar-dot" aria-hidden="true"></span>
         <span id="hero-live-players-count">--</span>
       </span>
-      <span class="stat-label">Active Players (30m)</span>
+      <span class="stat-label">
+        Active Players (30m)
+        <span class="tooltip-info-badge" aria-hidden="true">OPT-IN</span>
+      </span>
+
+      <!-- HERO TELEMETRY HOVEROVER -->
+      <div class="cyber-tooltip hero-telemetry-tooltip" role="tooltip">
+        <div class="cyber-tooltip-header">
+          <span class="cyber-tooltip-id">// TELEMETRY_DISCLOSURE</span>
+          <span class="status-badge mint">100% OPT-IN</span>
+        </div>
+        <div class="cyber-tooltip-body">
+          <p>
+            This count represents live active players who have explicitly <strong>opted into</strong> telemetry in their mod configuration files.
+          </p>
+          <p class="cyber-tooltip-thanks">
+            💙 <strong>Thank you to our players!</strong> Your voluntary telemetry data helps diagnose game update breakages, resolve mod incompatibilities, and power stability hotfixes.
+          </p>
+        </div>
+        <div class="cyber-tooltip-footer">
+          <span>[ PRIVACY: 100% ANONYMOUS &bull; ZERO PII ]</span>
+        </div>
+      </div>
     </div>
     <div class="stat-box">
       <span class="stat-num">100%</span>

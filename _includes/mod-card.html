@@ -45,9 +45,23 @@
         {% else %}
           <tr class="mod-live-players-row" data-mod-slug="{{ mod.slug | default: mod.id }}" data-mod-name="{{ mod.name }}">
             <td class="meta-label">ACTIVE (30M):</td>
-            <td class="meta-val mod-live-players-val" style="color: var(--glacial-mint);">
+            <td class="meta-val mod-live-players-val cyber-tooltip-trigger" style="color: var(--glacial-mint);" tabindex="0" aria-label="Opt-in telemetry disclosure">
               <span class="telemetry-radar-dot mini" aria-hidden="true"></span>
               <span class="mod-players-count">--</span>
+              <span class="tooltip-info-badge" aria-hidden="true">OPT-IN</span>
+
+              <!-- COMPACT PER-MOD TELEMETRY HOVEROVER -->
+              <div class="cyber-tooltip mod-telemetry-tooltip" role="tooltip">
+                <div class="cyber-tooltip-header">
+                  <span class="cyber-tooltip-id">// OPT-IN METRICS</span>
+                  <span class="status-badge mint">ANONYMOUS</span>
+                </div>
+                <div class="cyber-tooltip-body">
+                  <p>
+                    Count reflects players who opted into telemetry in this mod's config. Thank you for sharing your data to support active development!
+                  </p>
+                </div>
+              </div>
             </td>
           </tr>
         {% endif %}

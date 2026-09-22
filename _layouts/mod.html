@@ -54,12 +54,26 @@ layout: default
             <span class="spec-v" style="color: var(--text-muted);">NONE</span>
           </div>
         {% else %}
-          <div class="spec-pill mod-live-spec-pill" data-mod-slug="{{ page.slug }}" data-mod-name="{{ page.name }}" title="Active players in the last 30 minutes">
+          <div class="spec-pill mod-live-spec-pill cyber-tooltip-trigger" data-mod-slug="{{ page.slug }}" data-mod-name="{{ page.name }}" tabindex="0" aria-label="Opt-in telemetry disclosure">
             <span class="spec-k">ACTIVE (30M):</span>
             <span class="spec-v mod-live-players-val" style="color: var(--glacial-mint);">
               <span class="telemetry-radar-dot mini" aria-hidden="true"></span>
               <span class="mod-players-count">--</span>
             </span>
+            <span class="tooltip-info-badge" aria-hidden="true">OPT-IN</span>
+
+            <!-- COMPACT PER-MOD TELEMETRY HOVEROVER -->
+            <div class="cyber-tooltip mod-telemetry-tooltip" role="tooltip">
+              <div class="cyber-tooltip-header">
+                <span class="cyber-tooltip-id">// OPT-IN METRICS</span>
+                <span class="status-badge mint">ANONYMOUS</span>
+              </div>
+              <div class="cyber-tooltip-body">
+                <p>
+                  Count reflects players who opted into telemetry in this mod's config. Thank you for sharing your data to support active development!
+                </p>
+              </div>
+            </div>
           </div>
         {% endif %}
       </div>

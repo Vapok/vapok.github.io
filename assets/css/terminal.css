@@ -3077,6 +3077,202 @@ html.system-booting #header-fuel-btn {
   }
 }
 
+/* ==========================================================================
+   CYBER TOOLTIPS & TELEMETRY DISCLOSURE HOVEROVERS
+   ========================================================================== */
+.cyber-tooltip-trigger {
+  position: relative;
+  cursor: help;
+  outline: none;
+}
+
+.tooltip-info-badge {
+  display: inline-block;
+  font-size: 0.6rem;
+  font-family: var(--font-mono);
+  color: var(--glacial-mint);
+  border: 1px solid rgba(0, 245, 155, 0.4);
+  background: rgba(0, 245, 155, 0.1);
+  padding: 0.05rem 0.35rem;
+  border-radius: 2px;
+  margin-left: 0.35rem;
+  vertical-align: middle;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.cyber-tooltip-trigger:hover .tooltip-info-badge,
+.cyber-tooltip-trigger:focus .tooltip-info-badge {
+  border-color: var(--glacial-mint);
+  background: rgba(0, 245, 155, 0.25);
+  box-shadow: 0 0 8px rgba(0, 245, 155, 0.4);
+  color: #fff;
+}
+
+.cyber-tooltip {
+  position: absolute;
+  z-index: 1200;
+  background: rgba(8, 12, 20, 0.98);
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.9), 0 0 20px rgba(100, 240, 252, 0.15);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 0.85rem 1rem;
+  text-align: left;
+  line-height: 1.45;
+  font-family: var(--font-sans);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.22s;
+  box-sizing: border-box;
+}
+
+.cyber-tooltip::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--glacial-mint) 0%, var(--ice-blue) 100%);
+}
+
+.cyber-tooltip-trigger:hover .cyber-tooltip,
+.cyber-tooltip-trigger:focus .cyber-tooltip,
+.cyber-tooltip-trigger:focus-within .cyber-tooltip {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.cyber-tooltip-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 0.35rem;
+}
+
+.cyber-tooltip-id {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--ice-blue);
+  letter-spacing: 0.5px;
+  font-weight: 700;
+}
+
+.cyber-tooltip-body {
+  font-size: 0.82rem;
+  color: var(--text-main);
+}
+
+.cyber-tooltip-body p {
+  margin: 0 0 0.45rem 0;
+  line-height: 1.45;
+}
+
+.cyber-tooltip-body p:last-child {
+  margin-bottom: 0;
+}
+
+.cyber-tooltip-thanks {
+  color: var(--ice-blue-bright);
+  font-size: 0.8rem;
+  background: rgba(100, 240, 252, 0.05);
+  border-left: 2px solid var(--glacial-mint);
+  padding: 0.35rem 0.55rem;
+  margin-top: 0.45rem !important;
+}
+
+.cyber-tooltip-thanks strong {
+  color: var(--glacial-mint);
+}
+
+.cyber-tooltip-footer {
+  margin-top: 0.5rem;
+  padding-top: 0.35rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+}
+
+/* Specific Placements */
+/* 1. Hero Stat Box Hoverover */
+.hero-telemetry-tooltip {
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  width: 320px;
+  border-radius: 2px;
+}
+
+.live-telemetry-stat-box:hover .hero-telemetry-tooltip,
+.live-telemetry-stat-box:focus-within .hero-telemetry-tooltip {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Arrow indicator on top of hero tooltip */
+.hero-telemetry-tooltip::after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent transparent var(--border-strong) transparent;
+}
+
+/* 2. Compact Per-Mod Tooltip */
+.mod-telemetry-tooltip {
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  width: 250px;
+  padding: 0.65rem 0.8rem;
+  font-size: 0.76rem;
+  border-radius: 2px;
+}
+
+.cyber-tooltip-trigger:hover .mod-telemetry-tooltip,
+.cyber-tooltip-trigger:focus-within .mod-telemetry-tooltip {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Arrow indicator on bottom of mod tooltip */
+.mod-telemetry-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: var(--border-strong) transparent transparent transparent;
+}
+
+.mod-telemetry-tooltip .cyber-tooltip-body {
+  font-size: 0.76rem;
+}
+
+@media (max-width: 600px) {
+  .hero-telemetry-tooltip {
+    width: 280px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-6px);
+  }
+  .mod-telemetry-tooltip {
+    width: 220px;
+    left: 40%;
+  }
+}
+
 /* Accessibility: Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
   *,
