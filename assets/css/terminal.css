@@ -2809,9 +2809,9 @@ html.system-booting #header-fuel-btn {
 }
 
 .featured-specs-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.45rem 1.5rem;
   margin-bottom: 1.4rem;
   padding: 0.65rem 0.85rem;
   background: rgba(6, 8, 14, 0.75);
@@ -2819,20 +2819,26 @@ html.system-booting #header-fuel-btn {
 }
 
 .featured-spec-chip {
-  display: inline-flex;
-  gap: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  margin-right: 0.75rem;
 }
 
 .featured-spec-chip .spec-label {
   color: var(--ice-blue);
   font-weight: 600;
+  min-width: 86px;
+  display: inline-block;
+  letter-spacing: 0.5px;
 }
 
 .featured-spec-chip .spec-val {
   color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .featured-actions-row {
@@ -3070,6 +3076,10 @@ html.system-booting #header-fuel-btn {
   }
   .featured-highlights-grid {
     grid-template-columns: 1fr;
+  }
+  .featured-specs-row {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
   }
   .featured-thumb-strip {
     grid-template-columns: repeat(4, 1fr);

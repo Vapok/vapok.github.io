@@ -103,7 +103,7 @@ title: Home
 
         <!-- Action buttons -->
         <div class="featured-actions-row">
-          <a href="{{ '/mods/bepinex-configdrawers/' | relative_url }}" class="cyber-btn btn-mint-solid" style="font-size: 0.85rem; padding: 0.55rem 1.15rem;">
+          <a href="{{ '/mods/bepinex-configdrawers/' | relative_url }}" class="cyber-btn btn-mint" style="font-size: 0.85rem; padding: 0.55rem 1.15rem;">
             [ 📂 VIEW DOSSIER &amp; GALLERY &rarr; ]
           </a>
           <a href="{{ featured_mod.thunderstore_url | default: 'https://thunderstore.io/c/valheim/p/Vapok/BepInEx_ConfigDrawers/' }}" target="_blank" rel="noopener noreferrer" class="cyber-btn" style="font-size: 0.82rem; padding: 0.55rem 0.95rem;">
