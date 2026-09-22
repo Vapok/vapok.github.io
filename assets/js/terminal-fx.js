@@ -207,26 +207,30 @@ function initTextScramble() {
   const scrambleElements = document.querySelectorAll('.scramble-hover:not(.ascii-art), .cyber-btn');
 
   scrambleElements.forEach((el) => {
-    const originalText = el.dataset.text || el.innerText.trim();
-    el.dataset.text = originalText;
+    const originalText = el.dataset.text || el.textContent.trim();
+    if (originalText) {
+      el.dataset.text = originalText;
+    }
     let interval = null;
 
     el.addEventListener('mouseenter', () => {
+      const textToScramble = el.dataset.text || el.textContent.trim();
+      if (!textToScramble) return;
       let iteration = 0;
       clearInterval(interval);
 
       interval = setInterval(() => {
-        el.innerText = originalText
+        el.innerText = textToScramble
           .split('')
           .map((char, index) => {
             if (char === ' ' || index < iteration) {
-              return originalText[index];
+              return textToScramble[index];
             }
             return chars[Math.floor(Math.random() * chars.length)];
           })
           .join('');
 
-        if (iteration >= originalText.length) {
+        if (iteration >= textToScramble.length) {
           clearInterval(interval);
         }
         iteration += 1 / 2;
@@ -235,7 +239,10 @@ function initTextScramble() {
 
     el.addEventListener('mouseleave', () => {
       clearInterval(interval);
-      el.innerText = originalText;
+      const restoreText = el.dataset.text || el.textContent.trim();
+      if (restoreText) {
+        el.innerText = restoreText;
+      }
     });
   });
 
