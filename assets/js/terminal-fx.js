@@ -1025,7 +1025,7 @@ function initBootloaderAndCli() {
       id: 'mods',
       path: '/mods/ (Module Repository)',
       url: '/mods/',
-      desc: '17 Valheim, Techtonica & BepInEx mod releases',
+      desc: '17 Valheim, Techtonica & BepInEx mod dossiers',
       children: [
         {
           id: 'valheim-mods',
@@ -1033,12 +1033,26 @@ function initBootloaderAndCli() {
           url: '/mods/',
           desc: 'Valheim gameplay, QoL & expansion mods',
           children: [
-            { id: 'm-advbp', path: 'AdventureBackpacks', url: 'https://valheim.thunderstore.io/package/Vapok/AdventureBackpacks/', desc: 'Thematic upgradable adventure backpacks', isExternal: true },
-            { id: 'm-autofeed', path: 'AutoFeedRedux', url: 'https://valheim.thunderstore.io/package/Vapok/AutoFeedRedux/', desc: 'Automated container feeding for animals', isExternal: true },
-            { id: 'm-xportal', path: 'XPortalNetworks', url: 'https://valheim.thunderstore.io/package/Vapok/XPortalNetworks/', desc: 'Named & private portal networks', isExternal: true },
-            { id: 'm-fastitem', path: 'FastItemTransfer', url: 'https://valheim.thunderstore.io/package/Vapok/FastItemTransfer/', desc: '1-click quick inventory sorting & transfer', isExternal: true },
-            { id: 'm-shieldme', path: 'ShieldMeBruh', url: 'https://valheim.thunderstore.io/package/Vapok/ShieldMeBruh/', desc: 'Defensive ward protective visual shield', isExternal: true },
-            { id: 'm-console', path: 'ConsoleBuddy', url: 'https://valheim.thunderstore.io/package/Vapok/ConsoleBuddy/', desc: 'Command console enhancements', isExternal: true }
+            {
+              id: 'm-advbp',
+              path: 'AdventureBackpacks',
+              url: '/mods/adventurebackpacks/',
+              desc: 'Thematic upgradable adventure backpacks & containers',
+              children: [
+                { id: 'm-advbp-dossier', path: 'Dossier & Catalogue', url: '/mods/adventurebackpacks/', desc: 'Full specification, controls, and configuration guide' },
+                { id: 'm-advbp-recipes', path: '📖 Book of Knowledge', url: '/mods/adventurebackpacks/recipes/', desc: 'Default recipes, upgrade tiers, biome perks & creature drops' }
+              ]
+            },
+            { id: 'm-autofeed', path: 'AutoFeedRedux', url: '/mods/autofeedredux/', desc: 'Automated container feeding for tamed animals' },
+            { id: 'm-bettersleep', path: 'BetterSleepBruh!', url: '/mods/bettersleepbruh/', desc: 'Multiplayer sleeping percentage & wake controls' },
+            { id: 'm-console', path: 'ConsoleBuddy', url: '/mods/consolebuddy/', desc: 'Command console enhancements & autocompletion' },
+            { id: 'm-dooropener', path: 'DoorOpenerBruh!', url: '/mods/dooropenerbruh/', desc: 'Automated proximity opening and closing for doors' },
+            { id: 'm-fastitem', path: 'FastItemTransfer', url: '/mods/fastitemtransfer/', desc: '1-click quick inventory sorting & transfer' },
+            { id: 'm-nofog', path: 'NoFogBruh!', url: '/mods/nofogbruh/', desc: 'Clear vision by removing ambient fog' },
+            { id: 'm-randomspawn', path: 'RandomSpawnPointBruh!', url: '/mods/randomspawnpointbruh/', desc: 'Procedural bed and world spawn locations' },
+            { id: 'm-shieldme', path: 'ShieldMeBruh!', url: '/mods/shieldmebruh/', desc: 'Defensive ward protective visual shield' },
+            { id: 'm-thequeensdead', path: 'The Queen\'s Dead Bruh!', url: '/mods/thequeensdeadbruh/', desc: 'Clears Mistlands mist upon Queen defeat' },
+            { id: 'm-xportal', path: 'XPortalNetworks', url: '/mods/xportalnetworks/', desc: 'Named & private portal networks with map ping' }
           ]
         },
         {
@@ -1047,9 +1061,11 @@ function initBootloaderAndCli() {
           url: '/mods/',
           desc: 'Factory automation & diagnostics',
           children: [
-            { id: 'm-bcm', path: 'BetterCoreManagement', url: 'https://techtonica.thunderstore.io/package/Vapok/BetterCoreManagement/', desc: 'Core cluster management & diagnostics', isExternal: true },
-            { id: 'm-cresizer', path: 'ContainerResizer', url: 'https://techtonica.thunderstore.io/package/Vapok/ContainerResizer/', desc: 'Expand container storage dimensions', isExternal: true },
-            { id: 'm-encumb', path: 'KnowEncumbrance', url: 'https://techtonica.thunderstore.io/package/Vapok/KnowEncumbrance/', desc: 'Weight capacity & encumbrance HUD', isExternal: true }
+            { id: 'm-bcm', path: 'BetterCoreManagement', url: '/mods/techtonica-bettercoremanagement/', desc: 'Core cluster management & diagnostics' },
+            { id: 'm-cresizer', path: 'ContainerResizer', url: '/mods/techtonica-containerresizer/', desc: 'Expand container storage dimensions' },
+            { id: 'm-encumb', path: 'KnowEncumbrance', url: '/mods/techtonica-knowencumbrance/', desc: 'Weight capacity & encumbrance HUD' },
+            { id: 'm-cfgmgr', path: 'BepInEx ConfigurationManager', url: '/mods/techtonica-official-bepinex-configurationmanager/', desc: 'Official in-game configuration editor for Techtonica' },
+            { id: 'm-ue', path: 'UnityExplorer', url: '/mods/techtonica-unityexplorer/', desc: 'In-game scene explorer & debugging suite' }
           ]
         },
         {
@@ -1058,7 +1074,7 @@ function initBootloaderAndCli() {
           url: '/mods/',
           desc: 'Framework plugins & in-game configuration management',
           children: [
-            { id: 'm-configdrawers', path: 'BepInEx.ConfigDrawers', url: 'https://thunderstore.io/c/valheim/p/Vapok/BepInEx_ConfigDrawers/', desc: 'Modern docking drawers & in-game configuration manager', isExternal: true }
+            { id: 'm-configdrawers', path: 'BepInEx.ConfigDrawers', url: '/mods/bepinex-configdrawers/', desc: 'Modern docking drawers & in-game configuration manager' }
           ]
         }
       ]
@@ -1081,7 +1097,11 @@ function initBootloaderAndCli() {
       id: 'logs',
       path: '/logs/ (Transmission Logs)',
       url: '/logs/',
-      desc: 'System changelogs, devlogs & dispatches'
+      desc: 'System changelogs, devlogs & dispatches archive',
+      children: [
+        { id: 'log-telemetry', path: 'A Sincere Thank You & Telemetry Updates', url: '/announcements/updates/2026/09/16/a-sincere-thank-you-and-telemetry-updates/', desc: 'Telemetry updates, anonymous opt-out & community gratitude' },
+        { id: 'log-welcome', path: 'Welcome to Vapok Modding', url: '/news/updates/2026/09/13/welcome-to-vapok-modding/', desc: 'Official transmission terminal & mod release portal announcement' }
+      ]
     },
     {
       id: 'about',
@@ -1098,6 +1118,15 @@ function initBootloaderAndCli() {
         { id: 's-bmc', path: 'Buy Me A Coffee', url: 'https://buymeacoffee.com/vapok', desc: 'Direct fuel donations & coffee support', isExternal: true },
         { id: 's-gh', path: 'GitHub Sponsors', url: 'https://github.com/sponsors/Vapok', desc: 'Monthly open-source development sponsor', isExternal: true },
         { id: 's-patreon', path: 'Patreon Tier', url: 'https://patreon.com/vapok', desc: 'Early mod access & insider directives', isExternal: true }
+      ]
+    },
+    {
+      id: 'legal',
+      path: 'Compliance & Policies',
+      desc: 'Legal notices, privacy & terms of service',
+      children: [
+        { id: 'legal-privacy', path: '/privacy-policy/ (Privacy Policy)', url: '/privacy-policy/', desc: 'Zero data tracking & telemetry disclosure' },
+        { id: 'legal-tos', path: '/terms-of-service/ (Terms of Service)', url: '/terms-of-service/', desc: 'Terms of service & software disclaimer' }
       ]
     },
     { id: 'discord', path: 'discord.gg/5YAJkRFBXt', url: 'https://discord.gg/5YAJkRFBXt', desc: 'Community Discord server bridge', isExternal: true },
@@ -1309,6 +1338,11 @@ function initBootloaderAndCli() {
     const item = flattenedSitemapList[idx];
     if (!item || !item.node) return;
 
+    if (item.hasChildren && !item.isExpanded) {
+      expandSitemapNode(item.node.id, idx);
+      return;
+    }
+
     if (item.hasChildren && !item.node.url) {
       if (item.isExpanded) {
         collapseSitemapNode(item.node.id);
@@ -1404,11 +1438,14 @@ function initBootloaderAndCli() {
           printLine('AVAILABLE SYSTEM DIRECTIVES (OFFLINE):', 'cmd');
           printLine('  start            - Power up system and compile graphical UI', 'info');
           printLine('  status           - Display kernel telemetry & active nodes', 'info');
+          printLine('  dir / ls         - Interactive directory matrix explorer & sitemap', 'info');
           printLine('  crt              - Toggle retro CRT scanline filter', 'info');
           printLine('  clear            - Clear terminal buffer output', 'info');
         } else {
           printLine('AVAILABLE SYSTEM DIRECTIVES:', 'cmd');
           printLine('  play             - Launch retro BBS Door Games', 'success');
+          printLine('  dir / ls         - Interactive directory matrix explorer & sitemap', 'info');
+          printLine('  recipes / book   - Open Adventure Backpacks Book of Knowledge', 'info');
           printLine('  status           - Display kernel telemetry & active nodes', 'info');
           printLine('  mods             - View mod catalog dossier repository', 'info');
           printLine('  games            - Display currently playing & rotation games', 'info');
@@ -1587,8 +1624,23 @@ function initBootloaderAndCli() {
         printLine('// Terminal buffer cleared.', 'info');
         break;
 
+      case 'recipes':
+      case 'recipe':
+      case 'book':
+      case 'codex':
+      case 'knowledge':
+        printLine('--- ADVENTURE BACKPACKS // BOOK OF KNOWLEDGE ---', 'success');
+        printLine('Default recipes, upgrade tiers, biome perks & creature drops: https://vapok.io/mods/adventurebackpacks/recipes/', 'info');
+        printLine('Opening Book of Knowledge (/mods/adventurebackpacks/recipes/)...', 'info');
+        setTimeout(() => {
+          window.location.href = '/mods/adventurebackpacks/recipes/';
+        }, 400);
+        break;
+
       case 'dir':
       case 'ls':
+      case 'tree':
+      case 'map':
       case 'ls -l':
       case 'ls -la':
       case 'ls -a':
