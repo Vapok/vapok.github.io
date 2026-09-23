@@ -105,6 +105,11 @@ layout: default
             [ &lt;/&gt; GITHUB REPOSITORY ]
           </a>
         {% endif %}
+        {% if page.recipes_url %}
+          <a href="{{ page.recipes_url | relative_url }}" class="cyber-btn btn-mint">
+            [ 📖 BOOK OF KNOWLEDGE ]
+          </a>
+        {% endif %}
         {% if page.gallery and page.gallery.size > 0 %}
           <a href="#tab-gallery" class="cyber-btn btn-mint tab-trigger" data-target="panel-gallery">
             [ > SCREENSHOTS ({{ page.gallery.size }}) ]

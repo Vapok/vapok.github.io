@@ -3550,3 +3550,661 @@ html.system-booting #header-fuel-btn {
     animation: none !important;
   }
 }
+
+/* ==========================================================================
+   ADVENTURE BACKPACKS — BOOK OF KNOWLEDGE / RECIPE CODEX
+   ========================================================================== */
+
+.book-hero {
+  background: linear-gradient(135deg, rgba(13, 22, 36, 0.85) 0%, rgba(6, 8, 14, 0.95) 100%);
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--border-glow), var(--card-shadow);
+  padding: 2.25rem 1.75rem;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.book-hero::before {
+  content: "ᚱᛖᚲᛁᛈᛖᛋ // ᛏᛟᛗᛖ";
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: rgba(100, 240, 252, 0.08);
+  letter-spacing: 4px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.book-hero-title {
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--ice-blue-bright);
+  letter-spacing: -0.5px;
+  margin: 0.5rem 0 0.75rem 0;
+  text-shadow: 0 0 20px rgba(100, 240, 252, 0.4);
+}
+
+.book-hero-subtitle {
+  font-size: 1rem;
+  color: var(--text-main);
+  line-height: 1.65;
+  max-width: 820px;
+  margin-bottom: 1.5rem;
+}
+
+.book-philosophy-card {
+  background: rgba(11, 17, 26, 0.7);
+  border-left: 4px solid var(--glacial-mint);
+  border-top: 1px solid var(--border-subtle);
+  border-right: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0 0 0;
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.book-philosophy-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.book-philosophy-text h3 {
+  font-size: 0.95rem;
+  color: var(--glacial-mint);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 0.4rem 0;
+}
+
+.book-philosophy-text p {
+  font-size: 0.88rem;
+  color: var(--text-main);
+  line-height: 1.55;
+  margin: 0 0 0.5rem 0;
+}
+
+.book-philosophy-text p:last-child {
+  margin-bottom: 0;
+}
+
+/* Codex Chapter Index & Bag Selector Grid */
+.codex-index-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--card-shadow);
+  padding: 1.25rem;
+  margin: 2rem 0;
+  position: relative;
+}
+
+.codex-index-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px dashed var(--border-subtle);
+}
+
+.codex-index-title {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ice-blue-bright);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.codex-view-modes {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.codex-view-btn {
+  background: var(--bg-deep);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.25rem 0.6rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.codex-view-btn:hover {
+  color: var(--text-bright);
+  border-color: var(--ice-blue);
+}
+
+.codex-view-btn.active {
+  background: rgba(100, 240, 252, 0.15);
+  border-color: var(--ice-blue);
+  color: var(--ice-blue-bright);
+  font-weight: 700;
+}
+
+.codex-index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.65rem;
+}
+
+.codex-index-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  background: var(--bg-deep);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-main);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  text-align: left;
+}
+
+.codex-index-card:hover {
+  background: var(--bg-surface-elevated);
+  border-color: var(--ice-blue);
+  color: var(--ice-blue-bright);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 8px rgba(100, 240, 252, 0.15);
+}
+
+.codex-index-card.active {
+  background: rgba(17, 26, 40, 0.95);
+  border-color: var(--glacial-mint);
+  box-shadow: 0 0 12px rgba(0, 245, 155, 0.25);
+}
+
+.codex-index-card.active .codex-index-name {
+  color: var(--text-bright);
+  font-weight: 700;
+}
+
+.codex-index-card.active::after {
+  content: "▶";
+  position: absolute;
+  right: 0.75rem;
+  color: var(--glacial-mint);
+  font-size: 0.7rem;
+}
+
+.codex-index-sprite {
+  width: 32px;
+  height: 32px;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.codex-index-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  overflow: hidden;
+}
+
+.codex-index-tier {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.codex-index-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.codex-index-name {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Page Turner Footer Navigation */
+.codex-page-turner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+  border-top: 1px dashed var(--border-subtle);
+}
+
+.page-turner-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  color: var(--text-bright);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.page-turner-btn:hover {
+  background: var(--bg-surface-elevated);
+  border-color: var(--ice-blue);
+  color: var(--ice-blue-bright);
+  box-shadow: 0 0 10px rgba(100, 240, 252, 0.25);
+  transform: translateY(-1px);
+}
+
+.page-turner-btn:disabled,
+.page-turner-btn.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+  border-color: var(--border-subtle);
+}
+
+.page-indicator-text {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Codex Entry Cards */
+.codex-entry {
+  scroll-margin-top: 120px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--card-shadow);
+  margin-bottom: 2.75rem;
+  position: relative;
+  transition: border-color 0.25s ease;
+}
+
+.codex-entry:hover {
+  border-color: var(--border-strong);
+}
+
+.codex-entry-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  background: rgba(11, 17, 26, 0.4);
+}
+
+.codex-title-group {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.codex-icon-frame {
+  width: 76px;
+  height: 76px;
+  background: radial-gradient(circle, rgba(100, 240, 252, 0.12) 0%, rgba(6, 8, 14, 0.8) 100%);
+  border: 2px solid var(--border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.6), inset 0 0 8px rgba(100, 240, 252, 0.15);
+}
+
+.codex-sprite {
+  width: 64px;
+  height: 64px;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
+  transition: transform 0.2s ease;
+}
+
+.codex-entry:hover .codex-sprite {
+  transform: scale(1.08);
+}
+
+.codex-name {
+  font-family: var(--font-mono);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--text-bright);
+  margin: 0 0 0.35rem 0;
+}
+
+.codex-subtitle {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.codex-body {
+  padding: 1.75rem;
+}
+
+.codex-lore-quote {
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--text-main);
+  background: rgba(6, 8, 14, 0.5);
+  border-left: 3px solid var(--ice-blue);
+  padding: 0.85rem 1.25rem;
+  margin: 0 0 1.75rem 0;
+  line-height: 1.6;
+}
+
+/* Recipe Breakdown Grid */
+.codex-recipe-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.75rem;
+}
+
+@media (max-width: 768px) {
+  .codex-recipe-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.recipe-section-box {
+  background: rgba(11, 17, 26, 0.65);
+  border: 1px solid var(--border-subtle);
+  padding: 1.25rem;
+}
+
+.recipe-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  border-bottom: 1px dashed var(--border-subtle);
+  padding-bottom: 0.6rem;
+}
+
+.recipe-section-title {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--ice-blue-bright);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Station Requirement Badge */
+.codex-station-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(11, 17, 26, 0.9);
+  border: 1.5px solid var(--ice-blue);
+  box-shadow: 0 0 14px rgba(100, 240, 252, 0.25);
+  padding: 0.6rem 1.15rem;
+}
+
+.codex-station-icon {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.codex-station-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.codex-station-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.75px;
+}
+
+.codex-station-value {
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.ingredient-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.ingredient-chip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(17, 26, 40, 0.7);
+  border: 1px solid rgba(100, 240, 252, 0.14);
+  padding: 0.45rem 0.85rem;
+  font-size: 0.88rem;
+  font-family: var(--font-mono);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  gap: 0.75rem;
+}
+
+.ingredient-chip:hover {
+  background: rgba(22, 34, 52, 0.95);
+  border-color: var(--ice-blue);
+  transform: translateX(3px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.ingredient-item-group {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.ingredient-thumb {
+  width: 32px;
+  height: 32px;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
+  flex-shrink: 0;
+  background: rgba(6, 8, 14, 0.6);
+  border: 1px solid rgba(100, 240, 252, 0.15);
+  padding: 2px;
+}
+
+.ingredient-name {
+  color: var(--text-bright);
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+
+.ingredient-count {
+  font-weight: 700;
+  color: var(--glacial-mint);
+  background: rgba(0, 245, 155, 0.12);
+  padding: 0.2rem 0.6rem;
+  border: 1px solid rgba(0, 245, 155, 0.3);
+  border-radius: var(--radius-subtle);
+  font-size: 0.88rem;
+  flex-shrink: 0;
+}
+
+/* Quality Progression Table */
+.codex-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 1.75rem;
+  border: 1px solid var(--border-subtle);
+}
+
+.codex-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+  text-align: left;
+}
+
+.codex-table th {
+  background: rgba(11, 17, 26, 0.8);
+  color: var(--ice-blue-bright);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.codex-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(100, 240, 252, 0.08);
+  color: var(--text-main);
+}
+
+.codex-table tr:last-child td {
+  border-bottom: none;
+}
+
+.codex-table tr:hover td {
+  background: rgba(17, 26, 40, 0.4);
+}
+
+.codex-footer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.codex-perks-row, .codex-drops-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.codex-footer-label {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  min-width: 140px;
+}
+
+.perk-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: rgba(0, 245, 155, 0.08);
+  border: 1px solid rgba(0, 245, 155, 0.35);
+  color: var(--glacial-mint);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-subtle);
+  transition: all 0.15s ease;
+}
+
+.perk-chip:hover {
+  background: rgba(0, 245, 155, 0.14);
+  border-color: var(--glacial-mint);
+  transform: translateY(-1px);
+}
+
+.drop-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: rgba(251, 191, 36, 0.08);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  color: var(--warning-amber);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-subtle);
+  transition: all 0.15s ease;
+}
+
+.drop-chip:hover {
+  background: rgba(251, 191, 36, 0.14);
+  border-color: var(--warning-amber);
+  transform: translateY(-1px);
+}
+
+.perk-chip-icon, .drop-chip-icon {
+  width: 24px;
+  height: 24px;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+  flex-shrink: 0;
+}
+
+/* The Scribe's Anvil / Customization Box */
+.scribe-anvil-card {
+  background: linear-gradient(180deg, rgba(17, 26, 40, 0.8) 0%, rgba(11, 17, 26, 0.95) 100%);
+  border: 1px solid var(--border-strong);
+  padding: 2rem 1.75rem;
+  margin-top: 3rem;
+  box-shadow: var(--card-shadow);
+}
+
+.scribe-anvil-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.scribe-anvil-header h2 {
+  font-family: var(--font-mono);
+  font-size: 1.35rem;
+  color: var(--ice-blue-bright);
+  margin: 0;
+}
+

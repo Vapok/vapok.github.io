@@ -19,6 +19,7 @@ dependencies:
   - "ValheimModding-YamlDotNet-16.3.1"
 has_changelog: true
 telemetry: true
+recipes_url: "/mods/adventurebackpacks/recipes/"
 ---
 
 <div align="center" markdown="1">
@@ -60,6 +61,20 @@ Starting as a wee Viking rummaging through the tranquil fields of the Meadows, y
 * ⚙️ **Full Customization**: Almost every aspect of these backpacks (sizes, recipes, drop chances, effects, and weight multipliers) can be tailored via configuration files or the in-game Configuration Manager.
 
 ---
+
+<div style="background: linear-gradient(135deg, rgba(13, 22, 36, 0.85) 0%, rgba(6, 8, 14, 0.95) 100%); border: 1px solid var(--border-strong); box-shadow: var(--border-glow); padding: 1.25rem 1.5rem; margin: 1.75rem 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; border-radius: var(--radius-subtle);">
+  <div>
+    <div style="font-family: var(--font-mono); font-size: 1.05rem; font-weight: 700; color: var(--ice-blue-bright); margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.5rem;">
+      <span>📖</span> <span>The Book of Knowledge: Backpack Recipes</span>
+    </div>
+    <div style="font-size: 0.88rem; color: var(--text-main); line-height: 1.5;">
+      Seeking the ancient crafting formulas, upgrade tiers, station requirements, and creature drop rates?
+    </div>
+  </div>
+  <a href="{{ '/mods/adventurebackpacks/recipes/' | relative_url }}" class="cyber-btn btn-mint" style="text-decoration: none;">
+    [ 📜 OPEN BOOK OF KNOWLEDGE ]
+  </a>
+</div>
 
 ## 📦 Backpack Catalogue
 
