@@ -1482,11 +1482,6 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
           targetElem.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }
-
-      // Update URL hash without breaking history
-      if (history.replaceState) {
-        history.replaceState(null, null, '#' + chapterId);
-      }
     }
 
     function setViewMode(mode) {
