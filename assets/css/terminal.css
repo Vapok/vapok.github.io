@@ -444,6 +444,8 @@ html.system-shutting-down #system-status-text {
 }
 
 html.system-booting .hero-ascii-section,
+html.system-booting #featured-mod,
+html.system-booting .featured-spotlight-section,
 html.system-booting #mods,
 html.system-booting #logs,
 html.system-booting #fuel,
@@ -2929,7 +2931,9 @@ html.system-booting #header-fuel-btn {
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 380px;
+  flex: 1 1 auto;
+  min-height: 340px;
+  height: auto;
   background: radial-gradient(circle at center, rgba(16, 26, 42, 0.7) 0%, rgba(2, 4, 8, 0.98) 100%);
   overflow: hidden;
   text-decoration: none;
@@ -3005,6 +3009,8 @@ html.system-booting #header-fuel-btn {
   gap: 0.35rem;
   padding: 0.65rem 0.85rem;
   background: rgba(4, 6, 10, 0.95);
+  border-top: 1px solid var(--border-subtle);
+  margin-top: auto;
 }
 
 .featured-thumb-btn {

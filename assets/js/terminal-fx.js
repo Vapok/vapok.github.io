@@ -203,8 +203,7 @@ function initTextScramble() {
   const isPointerFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   if (!isPointerFine) return;
 
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!<>-_\\/[]{}—=+*^?#________';
-  const scrambleElements = document.querySelectorAll('.scramble-hover:not(.ascii-art), .cyber-btn');
+  const scrambleElements = document.querySelectorAll('.scramble-hover:not(.ascii-art)');
 
   scrambleElements.forEach((el) => {
     const originalText = el.dataset.text || el.textContent.trim();
@@ -1694,6 +1693,7 @@ function initBootloaderAndCli() {
     const navMenu = document.getElementById('header-nav-menu');
     const fuelBtn = document.getElementById('header-fuel-btn');
     const heroAscii = document.querySelector('.hero-ascii-section');
+    const featuredMod = document.getElementById('featured-mod') || document.querySelector('.featured-spotlight-section');
     const modsSection = document.getElementById('mods');
     const logsSection = document.getElementById('logs');
     const fuelSection = document.getElementById('fuel');
@@ -1703,7 +1703,7 @@ function initBootloaderAndCli() {
     const mainContent = document.getElementById('main-content') || document.querySelector('.page-content') || document.querySelector('main');
 
     // 1. Immediately hide all sections with transition: none BEFORE unhiding system-offline
-    const sectionsToHide = [heroAscii, modsSection, logsSection, fuelSection, partnerSection, aboutSection, footer, !isHomepage ? mainContent : null, navMenu, fuelBtn];
+    const sectionsToHide = [heroAscii, featuredMod, modsSection, logsSection, fuelSection, partnerSection, aboutSection, footer, !isHomepage ? mainContent : null, navMenu, fuelBtn];
     sectionsToHide.forEach((sec) => {
       if (sec) {
         sec.style.transition = 'none';
@@ -1775,6 +1775,16 @@ function initBootloaderAndCli() {
     }, 3200);
 
     setTimeout(() => {
+      printLine('[4.20s] Mounting spotlight release (BepInEx.ConfigDrawers)... OK', 'info');
+      if (featuredMod) {
+        featuredMod.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        featuredMod.style.opacity = '1';
+        featuredMod.style.transform = 'translateY(0)';
+        decodeTextElement(featuredMod, 2000);
+      }
+    }, 4200);
+
+    setTimeout(() => {
       printLine('[5.00s] Compiling module repository & release dossiers... OK', 'info');
       if (modsSection) {
         modsSection.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
@@ -1835,7 +1845,7 @@ function initBootloaderAndCli() {
       }
 
       // Reset styles cleanly
-      [heroAscii, modsSection, logsSection, fuelSection, partnerSection, aboutSection, footer, mainContent, navMenu, fuelBtn].forEach((sec) => {
+      [heroAscii, featuredMod, modsSection, logsSection, fuelSection, partnerSection, aboutSection, footer, mainContent, navMenu, fuelBtn].forEach((sec) => {
         if (sec) {
           sec.style.opacity = '';
           sec.style.transform = '';
@@ -1873,6 +1883,7 @@ function initBootloaderAndCli() {
     const navMenu = document.getElementById('header-nav-menu');
     const fuelBtn = document.getElementById('header-fuel-btn');
     const heroAscii = document.querySelector('.hero-ascii-section');
+    const featuredMod = document.getElementById('featured-mod') || document.querySelector('.featured-spotlight-section');
     const modsSection = document.getElementById('mods');
     const logsSection = document.getElementById('logs');
     const fuelSection = document.getElementById('fuel');
@@ -1930,18 +1941,29 @@ function initBootloaderAndCli() {
       }
     }, 2800);
 
-    // 4. [3.80s] Hero Section & Game Spotlight Suspension
+    // 4. [3.50s] Featured Spotlight Suspension
     setTimeout(() => {
-      printLine('[3.80s] Releasing Thunderstore cache & matrix buffers... OK', 'info');
+      printLine('[3.50s] Unmounting spotlight release & graphical preview frames... OK', 'info');
+      if (featuredMod) {
+        encodeTextElement(featuredMod, 800);
+        featuredMod.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        featuredMod.style.opacity = '0';
+        featuredMod.style.transform = 'translateY(15px)';
+      }
+    }, 3500);
+
+    // 5. [4.00s] Hero Section & Game Spotlight Suspension
+    setTimeout(() => {
+      printLine('[4.00s] Releasing Thunderstore cache & matrix buffers... OK', 'info');
       if (heroAscii) {
         encodeTextElement(heroAscii, 800);
         heroAscii.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         heroAscii.style.opacity = '0';
         heroAscii.style.transform = 'translateY(15px)';
       }
-    }, 3800);
+    }, 4000);
 
-    // 5. [4.80s] Header Navigation & Support Unmount
+    // 6. [4.80s] Header Navigation & Support Unmount
     setTimeout(() => {
       printLine('[4.80s] Disengaging navigation links & support endpoints... OK', 'info');
       if (navMenu) {
@@ -1962,7 +1984,7 @@ function initBootloaderAndCli() {
       scrambleClockTransition(800);
     }, 4800);
 
-    // 6. [5.50s] Decompilation Complete
+    // 7. [5.50s] Decompilation Complete
     setTimeout(() => {
       printLine('======================================================================', 'error');
       printLine(' [5.50s] SYSTEM DECOMPILATION COMPLETE // MAINFRAME OFFLINE', 'error');
@@ -1981,7 +2003,7 @@ function initBootloaderAndCli() {
       }
 
       // Reset inline styles cleanly
-      [heroAscii, modsSection, logsSection, fuelSection, aboutSection, footer, navMenu, fuelBtn].forEach((sec) => {
+      [heroAscii, featuredMod, modsSection, logsSection, fuelSection, partnerSection, aboutSection, footer, navMenu, fuelBtn].forEach((sec) => {
         if (sec) {
           sec.style.opacity = '';
           sec.style.transform = '';
