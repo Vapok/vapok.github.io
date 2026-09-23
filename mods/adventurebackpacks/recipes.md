@@ -1398,31 +1398,133 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
          ========================================================================= -->
     <section id="configuration" class="codex-entry scribe-anvil-card" data-chapter-id="configuration">
       <div class="scribe-anvil-header">
-        <span style="font-size: 1.5rem;">⚙️</span>
-        <h2>The Scribe's Anvil: How to Customize Recipes</h2>
+        <span style="font-size: 1.6rem; line-height: 1;">⚙️</span>
+        <div>
+          <h2>The Scribe's Anvil: Customizing Recipes &amp; Balance</h2>
+          <div style="font-size: 0.76rem; color: var(--ice-blue); font-family: var(--font-mono); margin-top: 0.2rem;">
+            CONFIG ENGINE // BepInEx/config/com.vapok.adventurebackpacks.cfg
+          </div>
+        </div>
       </div>
       
       <p style="color: var(--text-main); font-size: 0.92rem; line-height: 1.65; margin-bottom: 1.25rem;">
-        In true Valheim modding spirit, you are never locked into default blueprints. Server owners running hardcore modpacks, casual servers, or modded weapon overhauls can redefine every recipe, table tier, and ingredient via configuration.
+        In true Valheim modding spirit, you are never locked into default blueprints. Server owners running hardcore progression, roleplay servers, or overhaul modpacks can redefine every crafting station, table level, and material requirement directly in the configuration file.
       </p>
 
-      <div style="background: var(--bg-deep); border: 1px solid var(--border-subtle); padding: 1.25rem; font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-bright); overflow-x: auto; margin-bottom: 1.25rem;">
-<span style="color: var(--text-muted);"># File: BepInEx/config/com.vapok.adventurebackpacks.cfg</span>
-<span style="color: var(--cyber-teal);">[Satchel (Meadows)]</span>
-<span style="color: var(--text-muted);">## Crafting station required to craft the backpack.</span>
-<span style="color: var(--ice-blue-bright);">Crafting Station</span> = Workbench
+      <!-- Interactive Code Editor Window -->
+      <div class="scribe-code-window">
+        <div class="scribe-window-titlebar">
+          <div class="scribe-window-dots">
+            <span class="scribe-dot red"></span>
+            <span class="scribe-dot yellow"></span>
+            <span class="scribe-dot green"></span>
+          </div>
+          <div class="scribe-window-file">
+            <span>📄</span>
+            <span>BepInEx/config/com.vapok.adventurebackpacks.cfg</span>
+          </div>
+          <button type="button" class="scribe-copy-btn" id="scribe-copy-btn" aria-label="Copy config snippet">
+            <span id="copy-icon">📋</span>
+            <span id="copy-text">COPY CONFIG</span>
+          </button>
+        </div>
 
-<span style="color: var(--text-muted);">## Minimum station level required to craft.</span>
-<span style="color: var(--ice-blue-bright);">Crafting Station Level</span> = 2
+        <!-- Preset Select Tabs -->
+        <div class="scribe-tabs-bar" role="tablist" aria-label="Backpack Config Presets">
+          <button type="button" class="scribe-tab-btn active" data-preset="meadows" role="tab" aria-selected="true">01 Satchel</button>
+          <button type="button" class="scribe-tab-btn" data-preset="black-forest" role="tab" aria-selected="false">02 Rugged</button>
+          <button type="button" class="scribe-tab-btn" data-preset="swamp" role="tab" aria-selected="false">03 Wetpack</button>
+          <button type="button" class="scribe-tab-btn" data-preset="mountains" role="tab" aria-selected="false">04 Arctic</button>
+          <button type="button" class="scribe-tab-btn" data-preset="plains" role="tab" aria-selected="false">05 Lox</button>
+          <button type="button" class="scribe-tab-btn" data-preset="mistlands" role="tab" aria-selected="false">06 Wisppack</button>
+          <button type="button" class="scribe-tab-btn" data-preset="apocrypha" role="tab" aria-selected="false">07 Spectral</button>
+        </div>
 
-<span style="color: var(--text-muted);">## Comma-separated list of item:quantity to craft. Supports modded prefabs!</span>
-<span style="color: var(--ice-blue-bright);">Crafting Costs</span> = CapeDeerHide:1, DeerHide:8, BoneFragments:2
+        <!-- Code Content with Line Gutter -->
+        <div class="scribe-code-body">
+          <div class="scribe-line-gutter" id="scribe-line-gutter"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</div>
+          <pre class="scribe-code-content" id="scribe-code-display"><code><span class="cfg-comment"># File: BepInEx/config/com.vapok.adventurebackpacks.cfg</span>
+<span class="cfg-section">[Satchel (Meadows)]</span>
 
-<span style="color: var(--text-muted);">## Comma-separated list of item:quantity required per upgrade level.</span>
-<span style="color: var(--ice-blue-bright);">Upgrading Costs</span> = LeatherScraps:5, DeerHide:3
+<span class="cfg-comment">## Crafting station required to craft the backpack.</span>
+<span class="cfg-key">Crafting Station</span> <span class="cfg-op">=</span> <span class="cfg-val">Workbench</span>
+
+<span class="cfg-comment">## Minimum station level required to craft.</span>
+<span class="cfg-key">Crafting Station Level</span> <span class="cfg-op">=</span> <span class="cfg-val">2</span>
+
+<span class="cfg-comment">## Comma-separated list of item:quantity to craft. Supports modded prefabs!</span>
+<span class="cfg-key">Crafting Costs</span> <span class="cfg-op">=</span> <span class="cfg-val-item">CapeDeerHide</span><span class="cfg-op">:</span><span class="cfg-val-qty">1</span>, <span class="cfg-val-item">DeerHide</span><span class="cfg-op">:</span><span class="cfg-val-qty">8</span>, <span class="cfg-val-item">BoneFragments</span><span class="cfg-op">:</span><span class="cfg-val-qty">2</span>
+
+<span class="cfg-comment">## Comma-separated list of item:quantity required per upgrade level.</span>
+<span class="cfg-key">Upgrading Costs</span> <span class="cfg-op">=</span> <span class="cfg-val-item">LeatherScraps</span><span class="cfg-op">:</span><span class="cfg-val-qty">5</span>, <span class="cfg-val-item">DeerHide</span><span class="cfg-op">:</span><span class="cfg-val-qty">3</span></code></pre>
+        </div>
       </div>
 
-      <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center;">
+      <!-- Parameter Breakdown Cards -->
+      <div class="scribe-breakdown-grid">
+        <div class="scribe-param-card">
+          <div class="scribe-param-key">
+            <span>🔨</span>
+            <span>Crafting Station</span>
+          </div>
+          <p class="scribe-param-desc">
+            The station prefab required to craft the pack. Accepts vanilla stations (<code>Workbench</code>, <code>Forge</code>, <code>piece_artisanstation</code>, <code>blackforge</code>, <code>piece_magetable</code>) or custom modded station prefabs.
+          </p>
+        </div>
+
+        <div class="scribe-param-card">
+          <div class="scribe-param-key">
+            <span>⭐</span>
+            <span>Crafting Station Level</span>
+          </div>
+          <p class="scribe-param-desc">
+            Minimum upgrade level required for the station (integer value, usually <code>1</code> to <code>4</code>). Enforces biome progression tiers.
+          </p>
+        </div>
+
+        <div class="scribe-param-card">
+          <div class="scribe-param-key">
+            <span>📦</span>
+            <span>Crafting Costs</span>
+          </div>
+          <p class="scribe-param-desc">
+            Comma-separated pairs formatted as <code>PrefabName:Quantity</code>. Seamlessly supports any vanilla Valheim item or modded prefab.
+          </p>
+        </div>
+
+        <div class="scribe-param-card">
+          <div class="scribe-param-key">
+            <span>📈</span>
+            <span>Upgrading Costs</span>
+          </div>
+          <p class="scribe-param-desc">
+            Materials consumed per level to upgrade the backpack through Quality tiers 2, 3, and 4 to expand its grid size and carry capacity.
+          </p>
+        </div>
+      </div>
+
+      <!-- Pro-Tip Box -->
+      <div class="scribe-tip-box">
+        <div class="scribe-tip-icon">💡</div>
+        <div class="scribe-tip-content">
+          <strong>Server-Enforced Sync:</strong> When playing on dedicated multiplayer servers (such as our official partner Survival Servers), the server's configuration file acts as the single source of truth and automatically enforces recipe requirements on all connecting clients. Solo vikings can edit this file locally while the game is running.
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; margin-top: 1.5rem;">
         <a href="{{ '/mods/adventurebackpacks/' | relative_url }}" class="cyber-btn">
           [ &lt; RETURN TO ADVENTURE BACKPACKS ]
         </a>
@@ -1533,6 +1635,208 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
     modeAllBtn.addEventListener('click', function() {
       setViewMode('all');
     });
+
+    // =========================================================================
+    // THE SCRIBE'S ANVIL: CONFIG PRESETS & INTERACTIVE HIGHLIGHTER
+    // =========================================================================
+    var configPresets = {
+      meadows: `# File: BepInEx/config/com.vapok.adventurebackpacks.cfg
+[Satchel (Meadows)]
+
+## Crafting station required to craft the backpack.
+Crafting Station = Workbench
+
+## Minimum station level required to craft.
+Crafting Station Level = 2
+
+## Comma-separated list of item:quantity to craft. Supports modded prefabs!
+Crafting Costs = CapeDeerHide:1, DeerHide:8, BoneFragments:2
+
+## Comma-separated list of item:quantity required per upgrade level.
+Upgrading Costs = LeatherScraps:5, DeerHide:3`,
+
+      'black-forest': `# File: BepInEx/config/com.vapok.adventurebackpacks.cfg
+[Rugged (Black Forest)]
+
+## Crafting station required to craft the backpack.
+Crafting Station = Workbench
+
+## Minimum station level required to craft.
+Crafting Station Level = 2
+
+## Comma-separated list of item:quantity to craft. Supports modded prefabs!
+Crafting Costs = CapeTrollHide:1, Copper:5, Bronze:2
+
+## Comma-separated list of item:quantity required per upgrade level.
+Upgrading Costs = TrollHide:3, Bronze:2`,
+
+      swamp: `# File: BepInEx/config/com.vapok.adventurebackpacks.cfg
+[Wetpack (Swamp)]
+
+## Crafting station required to craft the backpack.
+Crafting Station = Workbench
+
+## Minimum station level required to craft.
+Crafting Station Level = 2
+
+## Comma-separated list of item:quantity to craft. Supports modded prefabs!
+Crafting Costs = Bloodbag:10, Root:4, Guck:4, Iron:5
+
+## Comma-separated list of item:quantity required per upgrade level.
+Upgrading Costs = Iron:2, Bloodbag:2`,
+
+      mountains: `# File: BepInEx/config/com.vapok.adventurebackpacks.cfg
+[Arctic (Mountains)]
+
+## Crafting station required to craft the backpack.
+Crafting Station = Workbench
+
+## Minimum station level required to craft.
+Crafting Station Level = 2
+
+## Comma-separated list of item:quantity to craft. Supports modded prefabs!
+Crafting Costs = CapeWolf:1, WolfHairBundle:10, WolfPelt:8, Silver:1
+
+## Comma-separated list of item:quantity required per upgrade level.
+Upgrading Costs = WolfPelt:4, Silver:1`,
+
+      plains: `# File: BepInEx/config/com.vapok.adventurebackpacks.cfg
+[Lox (Plains)]
+
+## Crafting station required to craft the backpack.
+Crafting Station = Forge
+
+## Minimum station level required to craft.
+Crafting Station Level = 3
+
+## Comma-separated list of item:quantity to craft. Supports modded prefabs!
+Crafting Costs = CapeLox:1, Tar:15, BlackMetal:2, LoxPelt:3
+
+## Comma-separated list of item:quantity required per upgrade level.
+Upgrading Costs = BlackMetal:2, Tar:5`,
+
+      mistlands: `# File: BepInEx/config/com.vapok.adventurebackpacks.cfg
+[Wisppack (Mistlands)]
+
+## Crafting station required to craft the backpack.
+Crafting Station = piece_magetable
+
+## Minimum station level required to craft.
+Crafting Station Level = 1
+
+## Comma-separated list of item:quantity to craft. Supports modded prefabs!
+Crafting Costs = CapeFeather:1, ScaleHide:5, Eitr:10, SoftTissue:10
+
+## Comma-separated list of item:quantity required per upgrade level.
+Upgrading Costs = Eitr:5, SoftTissue:3`,
+
+      apocrypha: `# File: BepInEx/config/com.vapok.adventurebackpacks.cfg
+[Spectral (Apocrypha)]
+
+## Crafting station required to craft the backpack.
+Crafting Station = Workbench
+
+## Minimum station level required to craft.
+Crafting Station Level = 2
+
+## Comma-separated list of item:quantity to craft. Supports modded prefabs!
+Crafting Costs = CapeDeerHide:1, Chain:5, BoneFragments:10
+
+## Comma-separated list of item:quantity required per upgrade level.
+Upgrading Costs = Chain:2, BoneFragments:5`
+    };
+
+    var currentPreset = 'meadows';
+    var codeDisplayEl = document.getElementById('scribe-code-display');
+    var gutterEl = document.getElementById('scribe-line-gutter');
+    var presetTabs = document.querySelectorAll('.scribe-tab-btn');
+    var copyBtn = document.getElementById('scribe-copy-btn');
+    var copyIcon = document.getElementById('copy-icon');
+    var copyText = document.getElementById('copy-text');
+
+    function highlightCfg(text) {
+      return text.split('\n').map(function(line) {
+        var trimmed = line.trim();
+        if (!trimmed) return '';
+        if (trimmed.indexOf('##') === 0 || trimmed.indexOf('#') === 0) {
+          return '<span class="cfg-comment">' + escapeHtml(line) + '</span>';
+        }
+        if (trimmed.indexOf('[') === 0 && trimmed.indexOf(']') === trimmed.length - 1) {
+          return '<span class="cfg-section">' + escapeHtml(line) + '</span>';
+        }
+        if (line.indexOf('=') !== -1) {
+          var parts = line.split('=');
+          var key = parts[0].trim();
+          var val = parts.slice(1).join('=').trim();
+          var valHtml = '';
+          if (key.indexOf('Costs') !== -1) {
+            valHtml = val.split(',').map(function(pair) {
+              var pairTrimmed = pair.trim();
+              if (pairTrimmed.indexOf(':') !== -1) {
+                var p = pairTrimmed.split(':');
+                return '<span class="cfg-val-item">' + escapeHtml(p[0]) + '</span><span class="cfg-op">:</span><span class="cfg-val-qty">' + escapeHtml(p[1]) + '</span>';
+              }
+              return '<span class="cfg-val">' + escapeHtml(pairTrimmed) + '</span>';
+            }).join(', ');
+          } else {
+            valHtml = '<span class="cfg-val">' + escapeHtml(val) + '</span>';
+          }
+          return '<span class="cfg-key">' + escapeHtml(parts[0]) + '</span><span class="cfg-op">=</span> ' + valHtml;
+        }
+        return escapeHtml(line);
+      }).join('\n');
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function setPreset(presetKey) {
+      currentPreset = presetKey;
+      var raw = configPresets[presetKey] || configPresets['meadows'];
+      presetTabs.forEach(function(tab) {
+        var isMatch = tab.getAttribute('data-preset') === presetKey;
+        tab.classList.toggle('active', isMatch);
+        tab.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+      });
+      if (codeDisplayEl) {
+        codeDisplayEl.innerHTML = '<code>' + highlightCfg(raw) + '</code>';
+      }
+      if (gutterEl) {
+        var linesCount = raw.split('\n').length;
+        var gutterText = '';
+        for (var i = 1; i <= linesCount; i++) {
+          gutterText += (i < 10 ? ' ' : '') + i + (i < linesCount ? '\n' : '');
+        }
+        gutterEl.textContent = gutterText;
+      }
+    }
+
+    presetTabs.forEach(function(tab) {
+      tab.addEventListener('click', function(e) {
+        e.preventDefault();
+        var p = this.getAttribute('data-preset');
+        if (p) setPreset(p);
+      });
+    });
+
+    if (copyBtn) {
+      copyBtn.addEventListener('click', function() {
+        var rawSnippet = configPresets[currentPreset] || configPresets['meadows'];
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(rawSnippet).then(function() {
+            copyBtn.classList.add('copied');
+            if (copyIcon) copyIcon.textContent = '✓';
+            if (copyText) copyText.textContent = 'COPIED!';
+            setTimeout(function() {
+              copyBtn.classList.remove('copied');
+              if (copyIcon) copyIcon.textContent = '📋';
+              if (copyText) copyText.textContent = 'COPY CONFIG';
+            }, 2000);
+          });
+        }
+      });
+    }
 
     // Initial check based on location.hash
     var initialHash = (window.location.hash || '').replace('#', '');
