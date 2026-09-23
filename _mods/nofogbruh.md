@@ -10,7 +10,7 @@ status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/NoFogBruh"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/NoFogBruh/"
-downloads: "48.3K+"
+downloads: "48.4K+"
 icon: "/assets/images/mods/nofogbruh/icon.png"
 description: "A Valheim Mod that Removes Fog from the Game.  No Fog Bruh!"
 dependencies:
