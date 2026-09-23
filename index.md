@@ -120,11 +120,12 @@ title: Home
 
       <!-- RIGHT: INTERACTIVE SCREENSHOT SHOWCASE -->
       <div class="featured-spotlight-media">
+        {% assign first_gallery = featured_mod.gallery.first %}
         <div class="featured-preview-frame">
           <div class="featured-preview-header">
             <div class="preview-header-title">
               <span class="preview-dot"></span>
-              <span id="featured-frame-file">// FEED: 01-docked-left.png</span>
+              <span id="featured-frame-file">// FEED: {{ first_gallery.image | split: '/' | last }}</span>
             </div>
             <div style="display: flex; align-items: center; gap: 0.6rem;">
               <button type="button" id="featured-expand-btn" class="preview-expand-btn cyber-btn" title="Open full resolution in lightbox">[ ⛶ FULLSCREEN ]</button>
@@ -136,15 +137,15 @@ title: Home
 
           <div id="featured-preview-stage" class="featured-preview-stage" role="button" tabindex="0" title="Click to view full resolution screenshot" aria-label="View full resolution screenshot in lightbox">
             <img id="featured-preview-img" 
-                 src="{{ '/assets/images/mods/bepinex-configdrawers/gallery/01-docked-left.png' | relative_url }}" 
-                 alt="BepInEx.ConfigDrawers Docked Rail View" 
+                 src="{{ first_gallery.image | relative_url }}" 
+                 alt="{{ first_gallery.title | escape }}" 
                  class="featured-preview-img">
             <div class="featured-stage-badge">[ ⛶ CLICK FOR FULL RESOLUTION ]</div>
           </div>
 
           <div class="featured-preview-caption">
-            <div id="featured-caption-title" class="featured-caption-title">Docked Screen Rail (Left)</div>
-            <div id="featured-caption-desc" class="featured-caption-desc">Seamless left-edge screen dock that stays accessible without obstructing in-game elements.</div>
+            <div id="featured-caption-title" class="featured-caption-title">{{ first_gallery.title }}</div>
+            <div id="featured-caption-desc" class="featured-caption-desc">{{ first_gallery.desc }}</div>
           </div>
 
           <!-- Thumbnail Strip (All 8 Screenshots) -->

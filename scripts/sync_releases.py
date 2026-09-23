@@ -53,34 +53,16 @@ MOD_OVERRIDES = {
         "nexusmods_url": "https://www.nexusmods.com/valheim/mods/3909",
         "gallery": [
             {
-                "image": "/assets/images/mods/bepinex-configdrawers/gallery/01-docked-left.png",
-                "thumb": "/assets/images/mods/bepinex-configdrawers/gallery/01-docked-left.png",
-                "title": "Docked Screen Rail (Left)",
-                "desc": "Seamless left-edge screen dock that stays accessible without obstructing in-game elements."
-            },
-            {
-                "image": "/assets/images/mods/bepinex-configdrawers/gallery/02-docked-right.png",
-                "thumb": "/assets/images/mods/bepinex-configdrawers/gallery/02-docked-right.png",
-                "title": "Docked Screen Rail (Right)",
-                "desc": "Single-click switch to the right rail to adapt to your custom HUD layout."
-            },
-            {
-                "image": "/assets/images/mods/bepinex-configdrawers/gallery/03-floating-window.png",
-                "thumb": "/assets/images/mods/bepinex-configdrawers/gallery/03-floating-window.png",
-                "title": "Draggable Floating Window",
-                "desc": "Undock into a free-floating, moveable window with adjustable width and opacity."
+                "image": "/assets/images/mods/bepinex-configdrawers/gallery/05-settings-drawer.png",
+                "thumb": "/assets/images/mods/bepinex-configdrawers/gallery/05-settings-drawer.png",
+                "title": "Interactive Settings Drawers",
+                "desc": "Native setting controls for numeric sliders, dropdowns, vectors, and custom data tables."
             },
             {
                 "image": "/assets/images/mods/bepinex-configdrawers/gallery/04-plugin-list.png",
                 "thumb": "/assets/images/mods/bepinex-configdrawers/gallery/04-plugin-list.png",
                 "title": "Plugin Drawer List",
                 "desc": "Real-time list of all loaded BepInEx plugins with active setting counts and instant search filter."
-            },
-            {
-                "image": "/assets/images/mods/bepinex-configdrawers/gallery/05-settings-drawer.png",
-                "thumb": "/assets/images/mods/bepinex-configdrawers/gallery/05-settings-drawer.png",
-                "title": "Interactive Settings Drawers",
-                "desc": "Native setting controls for numeric sliders, dropdowns, vectors, and custom data tables."
             },
             {
                 "image": "/assets/images/mods/bepinex-configdrawers/gallery/06-color-picker.png",
@@ -99,6 +81,24 @@ MOD_OVERRIDES = {
                 "thumb": "/assets/images/mods/bepinex-configdrawers/gallery/08-config-file-editor.png",
                 "title": "In-Game Code & File Editor",
                 "desc": "Full-screen code editor with syntax highlighting, line numbers, two-line metrics gutter, and live JSON/YAML validation."
+            },
+            {
+                "image": "/assets/images/mods/bepinex-configdrawers/gallery/01-docked-left.png",
+                "thumb": "/assets/images/mods/bepinex-configdrawers/gallery/01-docked-left.png",
+                "title": "Docked Screen Rail (Left)",
+                "desc": "Seamless left-edge screen dock that stays accessible without obstructing in-game elements."
+            },
+            {
+                "image": "/assets/images/mods/bepinex-configdrawers/gallery/02-docked-right.png",
+                "thumb": "/assets/images/mods/bepinex-configdrawers/gallery/02-docked-right.png",
+                "title": "Docked Screen Rail (Right)",
+                "desc": "Single-click switch to the right rail to adapt to your custom HUD layout."
+            },
+            {
+                "image": "/assets/images/mods/bepinex-configdrawers/gallery/03-floating-window.png",
+                "thumb": "/assets/images/mods/bepinex-configdrawers/gallery/03-floating-window.png",
+                "title": "Draggable Floating Window",
+                "desc": "Undock into a free-floating, moveable window with adjustable width and opacity."
             }
         ]
     }
