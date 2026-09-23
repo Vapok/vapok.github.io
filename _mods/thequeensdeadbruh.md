@@ -10,7 +10,7 @@ status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/TheQueensDeadBruh"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/TheQueensDeadBruh/"
-downloads: "5.2K+"
+downloads: "5.4K+"
 icon: "/assets/images/mods/thequeensdeadbruh/icon.png"
 description: "God Save The Queen! Wait! No, Kill her so we get rid of this MIST!! Um.. Dude? The Queens Dead Bruh!"
 dependencies:

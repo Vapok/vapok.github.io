@@ -10,7 +10,7 @@ status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/XPortalNetworks"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/XPortalNetworks/"
-downloads: "9.2K+"
+downloads: "9.5K+"
 icon: "/assets/images/mods/xportalnetworks/icon.png"
 description: "Select portal destination from a list of existing portals with custom networks and private portals support. No more tag pairing, and no more portal hubs!"
 dependencies:
