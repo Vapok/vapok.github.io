@@ -3,6 +3,7 @@ layout: default
 title: "Adventure Backpacks: Book of Knowledge (Recipes & Crafting Codex)"
 description: "Unseal the Book of Knowledge: The definitive crafting and progression codex for Adventure Backpacks in Valheim. Discover default recipes, upgrade materials, station tiers, and creature drop rates."
 permalink: /mods/adventurebackpacks/recipes/
+image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
 ---
 
 <div class="content-terminal-box">

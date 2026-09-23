@@ -20,6 +20,7 @@ dependencies:
 has_changelog: true
 telemetry: true
 recipes_url: "/mods/adventurebackpacks/recipes/"
+image: "/assets/images/mods/adventurebackpacks/adventurebackpacks-og.png"
 ---
 
 <div align="center" markdown="1">

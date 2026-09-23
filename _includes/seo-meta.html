@@ -9,7 +9,7 @@
 {% assign page_desc = raw_desc | strip_html | strip_newlines | truncate: 160 %}
 {% assign canonical_url = page.url | replace: 'index.html', '' | absolute_url %}
 
-{% assign raw_image = page.banner | default: page.icon | default: page.image | default: site.social_image %}
+{% assign raw_image = page.og_image | default: page.image | default: page.banner | default: page.icon | default: site.social_image %}
 {% assign og_image = raw_image | absolute_url %}
 
 <!-- Standard Metadata -->
@@ -24,6 +24,8 @@
 <meta property="og:title" content="{{ full_title }}">
 <meta property="og:description" content="{{ page_desc }}">
 <meta property="og:image" content="{{ og_image }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 
 {% if page.layout == 'post' and page.date %}
 <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
