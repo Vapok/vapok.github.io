@@ -1423,10 +1423,16 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
             <span>📄</span>
             <span>BepInEx/config/com.vapok.adventurebackpacks.cfg</span>
           </div>
-          <button type="button" class="scribe-copy-btn" id="scribe-copy-btn" aria-label="Copy config snippet">
-            <span id="copy-icon">📋</span>
-            <span id="copy-text">COPY CONFIG</span>
-          </button>
+          <div style="margin-left: auto; display: flex; align-items: center; gap: 0.6rem;">
+            <a href="{{ '/mods/bepinex-configdrawers/' | relative_url }}" class="scribe-drawer-badge hide-on-mobile" title="Configure recipes live in-game without alt-tabbing">
+              <span class="pulse-dot"></span>
+              <span>EDIT IN-GAME WITH CONFIGDRAWERS &rarr;</span>
+            </a>
+            <button type="button" class="scribe-copy-btn" id="scribe-copy-btn" aria-label="Copy config snippet">
+              <span id="copy-icon">📋</span>
+              <span id="copy-text">COPY CONFIG</span>
+            </button>
+          </div>
         </div>
 
         <!-- Preset Select Tabs -->
@@ -1521,6 +1527,56 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
         <div class="scribe-tip-icon">💡</div>
         <div class="scribe-tip-content">
           <strong>Server-Enforced Sync:</strong> When playing on dedicated multiplayer servers (such as our official partner Survival Servers), the server's configuration file acts as the single source of truth and automatically enforces recipe requirements on all connecting clients. Solo vikings can edit this file locally while the game is running.
+        </div>
+      </div>
+
+      <!-- Cross-Marketing: BepInEx.ConfigDrawers Spotlight -->
+      <div class="scribe-drawer-promo">
+        <div class="drawer-promo-content">
+          <div class="drawer-promo-badge">
+            <span class="drawer-badge-pulse"></span>
+            <span>RECOMMENDED COMPANION MOD // LIVE IN-GAME CONFIG</span>
+          </div>
+          <h3 class="drawer-promo-title">
+            Tired of Alt-Tabbing? Edit Recipes Live In-Game with <span style="color: var(--glacial-mint);">BepInEx.ConfigDrawers</span>
+          </h3>
+          <p class="drawer-promo-desc">
+            No need to restart Valheim or fumble through text files. <strong>BepInEx.ConfigDrawers</strong> injects a clean, non-intrusive uGUI slide-out drawer directly into your game. Dock it to your screen edge or float it as a moveable window to search for <em>Adventure Backpacks</em>, tweak crafting bench requirements, adjust ingredient quantities, or toggle biome cold protection—with changes applied instantly while standing right at your forge!
+          </p>
+          <div class="drawer-promo-features">
+            <span class="drawer-feat-pill">⚡ Real-Time Live Reload</span>
+            <span class="drawer-feat-pill">🪟 Docked Rail or Floating Window</span>
+            <span class="drawer-feat-pill">🔍 Instant Mod Search &amp; Filter</span>
+            <span class="drawer-feat-pill">🛡️ ServerSync Compatible</span>
+          </div>
+          <div class="drawer-promo-actions">
+            <a href="{{ '/mods/bepinex-configdrawers/' | relative_url }}" class="cyber-btn btn-mint">
+              [ ⚡ VIEW CONFIGDRAWERS DOSSIER ]
+            </a>
+            <a href="https://thunderstore.io/c/valheim/p/Vapok/BepInEx_ConfigDrawers/" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-secondary">
+              [ ⬇️ GET ON THUNDERSTORE ]
+            </a>
+          </div>
+        </div>
+        <div class="drawer-promo-visual">
+          <a href="{{ '/mods/bepinex-configdrawers/' | relative_url }}" class="drawer-preview-box" title="Explore BepInEx.ConfigDrawers in-game configuration interface">
+            <div class="drawer-preview-chrome">
+              <span class="chrome-dot red"></span>
+              <span class="chrome-dot yellow"></span>
+              <span class="chrome-dot green"></span>
+              <span class="chrome-label">// VALHEIM uGUI RAIL DRAWER</span>
+            </div>
+            <div class="drawer-preview-img-wrap">
+              <img src="{{ '/assets/images/mods/bepinex-configdrawers/gallery/01-docked-left.png' | relative_url }}" alt="BepInEx.ConfigDrawers Docked Rail View in Valheim" class="drawer-preview-img">
+              <div class="drawer-preview-overlay">
+                <span>[ ⛶ VIEW DOSSIER &amp; GALLERY ]</span>
+              </div>
+            </div>
+            <div class="drawer-preview-caption">
+              <span>Docked screen rail &amp; live config editor</span>
+              <span style="color: var(--glacial-mint); font-weight: 700;">VALHEIM uGUI &rarr;</span>
+            </div>
+          </a>
         </div>
       </div>
 
