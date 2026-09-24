@@ -10,7 +10,7 @@ status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/FastItemTransfer"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/FastItemTransfer/"
-downloads: "24.2K+"
+downloads: "24.3K+"
 icon: "/assets/images/mods/fastitemtransfer/icon.png"
 description: "A Valheim Quality of Life Mod that provides Right Click functionality to move items between Player Inventory and Containers."
 dependencies:
