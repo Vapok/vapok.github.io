@@ -10,7 +10,7 @@ status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/sinai-dev/UnityExplorer"
 thunderstore_url: "https://thunderstore.io/c/techtonica/p/Vapok/UnityExplorer/"
-downloads: "674"
+downloads: "675"
 icon: "/assets/images/mods/techtonica-unityexplorer/icon.png"
 description: "An in-game UI for exploring, debugging and modifying Unity games."
 dependencies:

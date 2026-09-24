@@ -1,9 +1,14 @@
-# 2.0.7 - Headless Dedicated Server Bypass & Valheim 1.0.15 Alignment
-* **Headless Dedicated Server Bypass**: Added an early exit check during `Awake()` on headless dedicated servers to prevent client GUI right-click transfer hooks from loading on servers without graphics devices.
-* **Valheim 1.0.15 Alignment**: Updated all game assembly references and internalized `Vapok.Valheim.Common` 3.13.1015.
+# 2.0.8 - Dependency Updates & Dedicated Server Safeguards
+* **Game Shutdown**: Cleaned up game shutdown routines to prevent harmless errors in the log when exiting the game.
+* **Stability**: Verified headless dedicated server bypass and game client compatibility.
+* **Dependency Updates**: Updated Jotunn to 2.30.2 and internal dependencies for stability.
 
 <details>
 <summary><b>2.0 Changelog History (Valheim Release)</b> (<i>click to expand</i>)</summary>
+
+### 2.0.7 - Headless Dedicated Server Bypass & Valheim 1.0.15 Alignment
+* **Headless Dedicated Server Bypass**: Added an early exit check during `Awake()` on headless dedicated servers to prevent client GUI right-click transfer hooks from loading on servers without graphics devices.
+* **Valheim 1.0.15 Alignment**: Updated all game assembly references and internalized `Vapok.Valheim.Common` 3.13.1015.
 
 ### 2.0.6 - Splash Window Updates & Valheim 1.0.14 Alignment
 * **Splash Window Updates**:

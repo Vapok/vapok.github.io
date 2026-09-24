@@ -101,6 +101,29 @@ MOD_OVERRIDES = {
                 "desc": "Undock into a free-floating, moveable window with adjustable width and opacity."
             }
         ]
+    },
+    "adventurebackpacks": {
+        "nexusmods_url": "https://www.nexusmods.com/valheim/mods/2204",
+        "recipes_url": "/mods/adventurebackpacks/recipes/",
+        "image": "/assets/images/mods/adventurebackpacks/adventurebackpacks-og.png",
+        "custom_banner": """<div style="background: linear-gradient(135deg, rgba(13, 22, 36, 0.85) 0%, rgba(6, 8, 14, 0.95) 100%); border: 1px solid var(--border-strong); box-shadow: var(--border-glow); padding: 1.25rem 1.5rem; margin: 1.75rem 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; border-radius: var(--radius-subtle);">
+  <div>
+    <div style="font-family: var(--font-mono); font-size: 1.05rem; font-weight: 700; color: var(--ice-blue-bright); margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.5rem;">
+      <span>📖</span> <span>The Book of Knowledge: Backpack Recipes</span>
+    </div>
+    <div style="font-size: 0.88rem; color: var(--text-main); line-height: 1.5;">
+      Seeking the ancient crafting formulas, upgrade tiers, station requirements, and creature drop rates?
+    </div>
+  </div>
+  <a href="{{ '/mods/adventurebackpacks/recipes/' | relative_url }}" class="cyber-btn btn-mint" style="text-decoration: none;">
+    [ 📜 OPEN BOOK OF KNOWLEDGE ]
+  </a>
+</div>
+
+"""
+    },
+    "randomspawnpointbruh": {
+        "nexusmods_url": "https://www.nexusmods.com/valheim/mods/2544"
     }
 }
 
@@ -266,14 +289,36 @@ def sync():
                 with open(changelog_path, "r", encoding="utf-8-sig", errors="replace") as f:
                     changelog_content = enable_kramdown_html_markdown(f.read())
 
+            # Auto-detect Nexus Mods URL if not explicitly overridden
+            if not mod_nexusmods_url:
+                nexus_match = re.search(r'https://www\.nexusmods\.com/[a-zA-Z0-9_/]+mods/\d+', readme_content)
+                if nexus_match:
+                    mod_nexusmods_url = nexus_match.group(0)
+
             # Check metrics
             mod_metrics = ts_metrics.get(raw_name.lower(), {})
             downloads_formatted = mod_metrics.get("downloads_formatted", "")
             ts_url = mod_metrics.get("thunderstore_url", f"https://thunderstore.io/c/{community}/p/Vapok/{raw_name}/")
 
-            # Save changelog
+            # Save changelog in _includes/changelogs and copy to _data/changelogs
             with open(os.path.join(CHANGELOGS_DIR, f"{slug}.md"), "w", encoding="utf-8") as cf:
                 cf.write(changelog_content)
+            data_changelog_path = os.path.join(DATA_DIR, "changelogs", f"{slug}.md")
+            if os.path.exists(os.path.join(DATA_DIR, "changelogs")):
+                with open(data_changelog_path, "w", encoding="utf-8") as dcf:
+                    dcf.write(changelog_content)
+
+            # Custom banner and extra frontmatter
+            recipes_url = override.get("recipes_url", "") if override else ""
+            recipes_yaml = f'recipes_url: "{recipes_url}"\n' if recipes_url else ""
+            image_url = override.get("image", "") if override else ""
+            image_yaml = f'image: "{image_url}"\n' if image_url else ""
+
+            if override and "custom_banner" in override and "## 📦 Backpack Catalogue" in readme_content:
+                readme_content = readme_content.replace(
+                    "## 📦 Backpack Catalogue",
+                    override["custom_banner"] + "## 📦 Backpack Catalogue"
+                )
 
             # Save mod document in _mods/
             mod_file_path = os.path.join(MODS_DIR, f"{slug}.md")
@@ -309,7 +354,7 @@ description: {json.dumps(description)}
 dependencies:
 {deps_yaml}
 has_changelog: {str(bool(changelog_content)).lower()}
-{telemetry_yaml}{gallery_yaml}---
+{telemetry_yaml}{recipes_yaml}{image_yaml}{gallery_yaml}---
 
 {readme_content}
 """
@@ -317,7 +362,7 @@ has_changelog: {str(bool(changelog_content)).lower()}
                 mf.write(frontmatter)
 
             print(f"  Synced: {mod_name} [{mod_game}] (v{version}) [Downloads: {downloads_formatted or 'N/A'}]")
-            processed_mods.append({
+            mod_entry = {
                 "id": slug,
                 "slug": slug,
                 "name": mod_name,
@@ -335,7 +380,12 @@ has_changelog: {str(bool(changelog_content)).lower()}
                 "description": description,
                 "dependencies": dependencies,
                 "telemetry": mod_telemetry
-            })
+            }
+            if recipes_url:
+                mod_entry["recipes_url"] = recipes_url
+            if image_url:
+                mod_entry["image"] = image_url
+            processed_mods.append(mod_entry)
 
     # Save to _data/mods.yml as fallback
     with open(os.path.join(DATA_DIR, "mods.yml"), "w", encoding="utf-8") as dmf:

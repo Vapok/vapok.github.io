@@ -1,11 +1,18 @@
-# 2.1.0 - 1-Handed Weapon Exclusion & Red X Badges
+# 2.1.1 - Performance, Server Hardening & Sentry Fixes
+* **Performance Optimizations**: Cached inventory grid badge components, eliminating hundreds of per-frame lookups when browsing inventory.
+* **Dedicated Server Safety**: Ensured client equipment and UI patches are completely bypassed on headless dedicated servers.
+* **Multiplayer Safety**: Isolated shield management strictly to the local player, preventing nearby players' equipment or death events from affecting local shields.
+* **Bug Fixes**: Resolved harmless errors during inventory item moves and game exit routines.
+* **Dependency Updates**: Updated Jotunn to 2.30.2 and internal dependencies for stability.
+
+<details>
+<summary><b>2.0 Changelog History (Valheim Release)</b> (<i>click to expand</i>)</summary>
+
+### 2.1.0 - 1-Handed Weapon Exclusion & Red X Badges
 * **1-Handed Weapon Exclusion**: Added ability to middle-click any one-handed weapon (such as woodcutting axes) in your inventory to mark it as excluded from automatic shield deployment.
 * **Red X Visual Indicator**: Excluded weapons display a crisp red X badge in the inventory grid (matching the shield badge styling) that seamlessly follows the item across slot moves and swaps.
 * **Multi-Weapon Support**: Multiple one-handed weapons can be excluded simultaneously while retaining your single designated auto-equip shield.
 * **Configurable**: Added `Enable Weapon Exclusion` setting under `Local Config` to toggle the feature on or off as desired.
-
-<details>
-<summary><b>2.0 Changelog History (Valheim Release)</b> (<i>click to expand</i>)</summary>
 
 ### 2.0.8 - Dedicated Server AutoShield Reset Fix & Valheim 1.0.15 Alignment
 * **Dedicated Server AutoShield Reset Fix**: Added null-conditional invocation for `OnResetEvent` during `Player.SetLocalPlayer`, eliminating `NullReferenceException` crashes on dedicated servers when no client UI handlers are registered.
@@ -66,3 +73,4 @@
 * Implemented middle-click shield marking in player inventory.
 
 </details>
+

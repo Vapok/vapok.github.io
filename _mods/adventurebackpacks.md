@@ -5,12 +5,13 @@ slug: "adventurebackpacks"
 name: "AdventureBackpacks"
 game: "Valheim"
 category: "valheim"
-version: "v2.1.10"
+version: "v2.1.13"
 status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/AdventureBackpacks"
+nexusmods_url: "https://www.nexusmods.com/valheim/mods/2204"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/AdventureBackpacks/"
-downloads: "927.0K+"
+downloads: "933.1K+"
 icon: "/assets/images/mods/adventurebackpacks/icon.png"
 description: "A Valheim Mod to add a catalogue of Adventuring Backpacks to the Game. These packs will grow and become more useful as the game progresses."
 dependencies:
@@ -198,19 +199,23 @@ Mod developers can easily build custom backpacks and register effects using our 
 
 ---
 
-## 🌐 Available Translations
+## 🌐 Supported Languages
 
-Adventure Backpacks includes community translations for:
+Adventure Backpacks includes localization support for all 35 languages supported by Valheim:
 
 <div align="center" markdown="1">
 
-🇨🇳 **Chinese (Simplified & Traditional)** • 🇨🇿 **Czech** • 🇺🇸 **English** • 🇫🇷 **French** • 🇩🇪 **German**  
-🇯🇵 **Japanese** • 🇰🇷 **Korean** • 🇳🇴 **Norwegian** • 🇵🇱 **Polish** • 🇧🇷 **Portuguese (BR)**  
-🇷🇺 **Russian** • 🇪🇸 **Spanish** • 🇸🇪 **Swedish** • 🇹🇷 **Turkish** • 🇺🇦 **Ukrainian**
+🌲 **Abenaki** • 🇧🇬 **Bulgarian** • 🇨🇳 **Chinese (Simplified)** • 🇹🇼 **Chinese (Traditional)** • 🇭🇷 **Croatian**  
+🇨🇿 **Czech** • 🇩🇰 **Danish** • 🇳🇱 **Dutch** • 🇺🇸 **English** • 🇫🇮 **Finnish**  
+🇫🇷 **French** • 🇬🇪 **Georgian** • 🇩🇪 **German** • 🇬🇷 **Greek** • 🇮🇳 **Hindi**  
+🇭🇺 **Hungarian** • 🇮🇸 **Icelandic** • 🇮🇹 **Italian** • 🇯🇵 **Japanese** • 🇰🇷 **Korean**  
+🇱🇹 **Lithuanian** • 🇲🇰 **Macedonian** • 🇳🇴 **Norwegian** • 🇵🇱 **Polish** • 🇧🇷 **Portuguese (Brazilian)**  
+🇵🇹 **Portuguese (European)** • 🇷🇴 **Romanian** • 🇷🇺 **Russian** • 🇷🇸 **Serbian** • 🇸🇰 **Slovak**  
+🇪🇸 **Spanish** • 🇸🇪 **Swedish** • 🇹🇭 **Thai** • 🇹🇷 **Turkish** • 🇺🇦 **Ukrainian**
 
 </div>
 
-*Don't see your language? We welcome community translations! Please submit a PR on [GitHub](https://github.com/Vapok/AdventureBackpacks) or stop by our [Discord](https://discord.gg/5YAJkRFBXt).*
+*Translations can be customized or added in the `Translations/` folder inside your AdventureBackpacks mod directory (`BepInEx/plugins/Vapok-AdventureBackpacks/Translations/`). Some translations updated by AI. Please let me know if you find any issues with the translations.*
 
 ---
 

@@ -5,17 +5,18 @@ slug: "xportalnetworks"
 name: "XPortalNetworks"
 game: "Valheim"
 category: "valheim"
-version: "v2.0.8"
+version: "v2.0.10"
 status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/XPortalNetworks"
+nexusmods_url: "https://www.nexusmods.com/valheim/mods/3719"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/XPortalNetworks/"
-downloads: "11.6K+"
+downloads: "12.2K+"
 icon: "/assets/images/mods/xportalnetworks/icon.png"
 description: "Select portal destination from a list of existing portals with custom networks and private portals support. No more tag pairing, and no more portal hubs!"
 dependencies:
   - "denikson-BepInExPack_Valheim-5.4.2350"
-  - "ValheimModding-Jotunn-2.30.1"
+  - "ValheimModding-Jotunn-2.30.2"
 has_changelog: true
 telemetry: true
 ---

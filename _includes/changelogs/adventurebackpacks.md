@@ -1,15 +1,26 @@
-# 2.1.10 - Azu Extended Player Inventory & Status Effect Fixes
-* **Azu Extended Player Inventory & Cape Status Fix**:
-  * Fixed an issue when using extended inventory mods (such as AzuExtendedPlayerInventory) where swapping or unequipping cloaks and capes (like the Feather Cape) caused their effects to get stuck on your character.
-  * Cloak and gear effects now clear properly when taking off or changing equipment while wearing a backpack.
-* **Cold & Warmth Message Loop Fix**:
-  * Fixed an issue where "You feel cold" and "You are getting warmer" messages could loop rapidly and freeze permanently on the screen.
-  * Cold immunity now prevents cold status messages from repeating when moving through chilly weather or entering shelters.
-* **Status Effect Monitoring**:
-  * Improved how backpack powers are tracked so they work cleanly alongside other equipment and third-party mods without interfering with your gear.
+# 2.1.13 - Stone Portal & Door Key Compatibility
+
+* **Stone Portal Teleportation**: Fixed an issue where backpacks carrying ores or metals were blocked from teleporting through Stone Portals.
+* **Door Keys & World Levels**: Fixed key checks so doors correctly recognize key world levels when stored inside backpacks.
+* **Server Stability**: Added safety checks to prevent crafting and inventory errors on dedicated servers.
 
 <details>
 <summary><b>2.0 Changelog History (Valheim Release)</b> (<i>click to expand</i>)</summary>
+
+### 2.1.12 - Configuration Sync Update
+* **Configuration Sync**: Resolved a library configuration synchronization issue.
+
+### 2.1.11 - Craft From Backpack Null Safety & Dependency Updates
+* **Additional AzuEPI Compatibility**: Fixed an issue where loading into a world or server while using AzuEPI could cause your cape to stop protecting you from mountain freezing under certain circumstances.
+* **Craft From Backpack Null Safety**: Fixed an issue where crafting with empty or missing item slots could cause errors when pulling materials from your backpack.
+* **Server & Stability Protections**: Added safety checks to prevent errors on dedicated servers and resolved edge-case power activation issues.
+* **Localization Support Completed**: Added 19 additional translations to support all languages supported by Valheim.
+* **Dependency Updates**: Updated Jotunn to 2.30.2 and internal dependencies for stability.
+
+### 2.1.10 - Azu Extended Player Inventory & Status Effect Fixes
+* **Azu Extended Player Inventory & Cape Status Fix**: Fixed an issue when using extended inventory mods where swapping or unequipping cloaks and capes caused their effects to get stuck on your character.
+* **Cold & Warmth Message Loop Fix**: Fixed an issue where "You feel cold" and "You are getting warmer" messages could loop rapidly and freeze on the screen.
+* **Status Effect Monitoring**: Improved how backpack powers are tracked so they work cleanly alongside other equipment and third-party mods.
 
 ### 2.1.9 - Umbrella Water Resistance & Weather Fixes
 * **Water Resistance & Umbrella Mechanic**:
