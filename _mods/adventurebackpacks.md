@@ -5,13 +5,13 @@ slug: "adventurebackpacks"
 name: "AdventureBackpacks"
 game: "Valheim"
 category: "valheim"
-version: "v2.1.13"
+version: "v2.2.2"
 status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/AdventureBackpacks"
 nexusmods_url: "https://www.nexusmods.com/valheim/mods/2204"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/AdventureBackpacks/"
-downloads: "978.7K+"
+downloads: "985.3K+"
 icon: "/assets/images/mods/adventurebackpacks/icon.png"
 description: "A Valheim Mod to add a catalogue of Adventuring Backpacks to the Game. These packs will grow and become more useful as the game progresses."
 dependencies:
@@ -115,14 +115,15 @@ Starting as a wee Viking rummaging through the tranquil fields of the Meadows, y
 
 * 🛠️ **Craft From Backpack**:
   * **Hammer Building & Stations**: Available resources for building placeables and crafting station recipes take into account both your Player inventory and your currently equipped backpack.
-  * **Tiered Consumption**: Materials are consumed from the Player inventory first (skipping equipped items), only drawing from the backpack for any remaining unmet quantities.
+  * **Tiered Consumption**: Materials are consumed according to configurable priority (`Material Consumption Priority`), only drawing from the secondary source for unmet quantities while protecting equipped items.
+  * **Leave One in Backpack**: When enabled (`Leave One Item In Backpack`), at least 1 item of each resource type remains in the backpack and is excluded from crafting/building consumption and availability counts.
   * **Craft Output to Backpack**: When enabled and your player inventory is full, newly crafted items are placed directly into your equipped backpack if space is available (strictly excluding backpacks).
 * 📥 **Auto Store to Backpack & Inventory Overflow**:
   * **Auto Store Existing Items**: When picking up or looting items that already exist in your equipped backpack, they automatically route directly into the backpack if space is available.
   * **Inventory Overflow**: If your main player inventory is completely full, newly acquired items continue to enter your equipped backpack without triggering "Inventory Full" errors.
   * **Partial Stack Support**: If a backpack only has room for a partial stack, it absorbs what fits and routes the remainder to player inventory.
-* 🌐 **Server-Enforced Configuration (`Server Config`)**:
-  * Craft from backpack, craft output overflow, auto-storing, and inventory overflow are server-authoritative. When playing on a dedicated server, the server dictates these settings globally for all connected clients.
+* ⚙️ **Personal Automation Settings (`Automation (Local Only)`)**:
+  * Craft from backpack, consumption priority, leave one item safeguard, craft output overflow, auto-storing, and inventory overflow are client-side personal preferences that can be tailored individually without server synchronization.
 * ⚡ **Thor's Inventory Guard (Inception Prevention)**:
   * Backpack-in-backpack nesting is strictly prevented across all crafting, auto-storing, and inventory interactions to safeguard against data corruption and infinite loops.
 * 🏷️ **Yard Sale Overflow Safeguard**:

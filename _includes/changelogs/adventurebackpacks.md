@@ -1,11 +1,33 @@
-# 2.1.13 - Stone Portal & Door Key Compatibility
-
-* **Stone Portal Teleportation**: Fixed an issue where backpacks carrying ores or metals were blocked from teleporting through Stone Portals.
-* **Door Keys & World Levels**: Fixed key checks so doors correctly recognize key world levels when stored inside backpacks.
-* **Server Stability**: Added safety checks to prevent crafting and inventory errors on dedicated servers.
+# 2.2.2 - Dedicated Server Hardening & Stability
+* **Dedicated Server Safety**: Hardened yard sale routines and backpack weight calculations when running on dedicated servers without local players.
+* **Dependency Updates**: Updated internal dependencies for stability.
 
 <details>
 <summary><b>2.0 Changelog History (Valheim Release)</b> (<i>click to expand</i>)</summary>
+
+### 2.2.1 - Crafting Interoperability & Enchantment Transfer Fix
+* **Crafting & Enchantment Transfer Compatibility**:
+  * Fixed an issue where crafting a backpack from an enchanted cape while having a backpack equipped could prevent third-party mod enchantments and socketed gems from transferring over to the newly crafted backpack.
+  * Improved how crafting materials are consumed so third-party mods that track, monitor, or enhance crafting can cleanly observe items being used from both your inventory and your equipped backpack.
+* **Crafting Interface Compatibility**:
+  * Added a setting to toggle the total ingredient count display (`Available/Required`) in the crafting panel.
+  * Added a configurable pattern to detect when another mod has already formatted requirement amounts, preventing conflicts with other crafting and container mods.
+  * Improved color compatibility with mods like Nearby Crafting so requirement indicators remain clear when items are stored in nearby chests.
+
+### 2.2.0 - Crafting & Container Automation Overhaul
+* **Crafting & Building Overhaul**:
+  * You can now craft items and build structures directly using materials stored in your equipped backpack.
+  * Works smoothly alongside popular container mods like AzuCraftyBoxes and ValheimPlus.
+  * Your equipped weapons, armor, and gear are fully protected and will never be consumed as crafting ingredients.
+  * Added a setting that keeps at least one of each item in your backpack so you never accidentally use up the last piece of your travel supplies.
+  * Added a setting that when your main inventory is full, newly crafted items are placed directly into your equipped backpack if space is available.
+* **Stability & Compatibility Improvements**:
+  * Improved stability and prevented errors when crafting rapidly or playing on multiplayer servers.
+
+### 2.1.13 - Stone Portal & Door Key Compatibility
+* **Stone Portal Teleportation**: Fixed an issue where backpacks carrying ores or metals were blocked from teleporting through Stone Portals.
+* **Door Keys & World Levels**: Fixed key checks so doors correctly recognize key world levels when stored inside backpacks.
+* **Server Stability**: Added safety checks to prevent crafting and inventory errors on dedicated servers.
 
 ### 2.1.12 - Configuration Sync Update
 * **Configuration Sync**: Resolved a library configuration synchronization issue.

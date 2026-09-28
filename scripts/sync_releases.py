@@ -124,6 +124,10 @@ MOD_OVERRIDES = {
     },
     "randomspawnpointbruh": {
         "nexusmods_url": "https://www.nexusmods.com/valheim/mods/2544"
+    },
+    "saveyourluckbruh": {
+        "nexusmods_url": "https://www.nexusmods.com/valheim/mods/4084",
+        "image": "/assets/images/mods/saveyourluckbruh/header.png"
     }
 }
 
@@ -218,8 +222,8 @@ def sync():
         folders = sorted(os.listdir(releases_dir))
 
         for folder_name in folders:
-            # Exclude SpikeHimself or non-Vapok releases
-            if folder_name.lower() in ["xportal-vapok", "xportal"]:
+            # Exclude SpikeHimself, unreleased WIP mods, or non-Vapok releases
+            if folder_name.lower() in ["xportal-vapok", "xportal", "wardmebruh-vapok", "wardmebruh"]:
                 continue
 
             folder_path = os.path.join(releases_dir, folder_name)

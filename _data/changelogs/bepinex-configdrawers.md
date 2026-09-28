@@ -4,6 +4,16 @@ All notable changes to **BepInEx.ConfigDrawers** are documented here.
 
 ---
 
+## [1.1.1] - Hotkey Validation Fix
+
+- Fixed an issue where background input blocking prevented other mods from validating or assigning custom hotkeys while the menu was open.
+
+## [1.1.0] - Live Config Sync & Cursor Release
+
+- **Live Config Updates**: ConfigDrawers now automatically watches config files on disk and updates settings in memory and in the menu when changed outside the game.
+- **Window State Memory**: Closing and reopening the drawer window now remembers your active view, open categories, active file editor, and scroll positions.
+- **Optional Cursor Release**: Added a setting ("Press Escape Before Opening") that automatically presses Escape before opening to unlock the mouse cursor, and presses it again when closed to smoothly return to gameplay.
+
 ## [1.0.2] - Toggle Visuals & Vector Inputs
 
 - Fixed an issue where toggle buttons (On/Off) did not update their active color immediately when clicked without restarting the game.
