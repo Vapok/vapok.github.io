@@ -432,6 +432,7 @@ has_changelog: {str(bool(changelog_content)).lower()}
         "bepinex_mods": len([m for m in processed_mods if m["category"] == "bepinex"]),
         "discord_members": discord_stats["member_count"],
         "discord_members_raw": discord_stats["member_count_raw"],
+        "discord_members_formatted": f"{discord_stats['member_count_raw']:,}",
         "discord_online": discord_stats["presence_count"],
         "discord_invite": discord_stats["invite_url"]
     }
@@ -569,6 +570,7 @@ def sync_metrics_only():
         "bepinex_mods": len([m for m in processed_mods if m.get("category") == "bepinex"]),
         "discord_members": discord_stats["member_count"],
         "discord_members_raw": discord_stats["member_count_raw"],
+        "discord_members_formatted": f"{discord_stats['member_count_raw']:,}",
         "discord_online": discord_stats["presence_count"],
         "discord_invite": discord_stats["invite_url"]
     }

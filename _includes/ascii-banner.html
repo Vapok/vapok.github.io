@@ -74,7 +74,7 @@
         </div>
         <div class="cyber-tooltip-body">
           <div class="discord-meta-line">
-            <span class="discord-roster-stat">ROSTER: <strong style="color: var(--ice-blue);">1,395</strong> OPERATIVES</span>
+            <span class="discord-roster-stat">ROSTER: <strong id="discord-roster-count" style="color: var(--ice-blue);">{{ site.data.stats.discord_members_formatted | default: site.data.stats.discord_members_raw | default: '1,433' }}</strong> OPERATIVES</span>
             <span id="discord-vapok-beacon" class="vapok-beacon-status" title="Vapok Live Status">
               <span class="beacon-label">VAPOK:</span>
               <span class="beacon-pill online" id="vapok-status-pill">

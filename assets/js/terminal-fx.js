@@ -2368,19 +2368,38 @@ function initLivePlayerCounter() {
    ========================================================================== */
 function initDiscordComms() {
   const onlineEl = document.getElementById('discord-online-count');
+  const rosterEl = document.getElementById('discord-roster-count');
+  const heroMembersEl = document.getElementById('hero-discord-members');
   const vapokPill = document.getElementById('vapok-status-pill');
   const vapokText = document.getElementById('vapok-status-text');
 
-  if (!onlineEl && !vapokPill) return;
+  if (!onlineEl && !vapokPill && !rosterEl) return;
 
-  const CACHE_KEY = 'vapok_discord_widget_cache';
+  const CACHE_KEY_WIDGET = 'vapok_discord_widget_cache';
+  const CACHE_KEY_INVITE = 'vapok_discord_invite_cache';
   const CACHE_TTL = 60 * 1000; // 60s cache TTL
+
+  function applyInviteData(data) {
+    if (!data) return;
+    const m = data.approximate_member_count;
+    const p = data.approximate_presence_count;
+
+    if (rosterEl && typeof m === 'number' && m > 0) {
+      rosterEl.textContent = m.toLocaleString();
+    }
+    if (heroMembersEl && typeof m === 'number' && m > 0) {
+      heroMembersEl.textContent = m >= 1000 ? (m / 1000).toFixed(1) + 'K+' : m.toString();
+    }
+    if (onlineEl && typeof p === 'number' && p > 0) {
+      onlineEl.textContent = p.toLocaleString();
+    }
+  }
 
   function applyWidgetData(data) {
     if (!data) return;
 
-    // Update active count
-    if (onlineEl && typeof data.presence_count === 'number') {
+    // Fallback online count if invite API didn't set it
+    if (onlineEl && typeof data.presence_count === 'number' && (!rosterEl || onlineEl.textContent === '300+')) {
       onlineEl.textContent = data.presence_count.toLocaleString();
     }
 
@@ -2409,7 +2428,42 @@ function initDiscordComms() {
     }
   }
 
-  // Check Lanyard for 1-to-1 live Discord presence
+  // 1. Fetch live Discord Invite counts (Total Roster + Active Online)
+  try {
+    const rawInvite = sessionStorage.getItem(CACHE_KEY_INVITE);
+    if (rawInvite) {
+      const parsed = JSON.parse(rawInvite);
+      if (Date.now() - parsed.timestamp < CACHE_TTL) {
+        applyInviteData(parsed.data);
+      } else {
+        fetchLiveInvite();
+      }
+    } else {
+      fetchLiveInvite();
+    }
+  } catch (e) {
+    fetchLiveInvite();
+  }
+
+  function fetchLiveInvite() {
+    fetch('https://discord.com/api/v9/invites/5YAJkRFBXt?with_counts=true')
+      .then(res => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then(data => {
+        applyInviteData(data);
+        try {
+          sessionStorage.setItem(CACHE_KEY_INVITE, JSON.stringify({
+            timestamp: Date.now(),
+            data: data
+          }));
+        } catch (e) {}
+      })
+      .catch(() => {});
+  }
+
+  // 2. Check Lanyard for 1-to-1 live Discord presence for Architect Beacon
   fetch('https://api.lanyard.rest/v1/users/104406926623784960')
     .then(r => r.json())
     .then(res => {
@@ -2433,21 +2487,18 @@ function initDiscordComms() {
     })
     .catch(() => {});
 
-  // 1. Check local session cache
+  // 3. Fetch live Discord widget for fallback presence and member sampling
   try {
-    const raw = sessionStorage.getItem(CACHE_KEY);
-    if (raw) {
-      const parsed = JSON.parse(raw);
+    const rawWidget = sessionStorage.getItem(CACHE_KEY_WIDGET);
+    if (rawWidget) {
+      const parsed = JSON.parse(rawWidget);
       if (Date.now() - parsed.timestamp < CACHE_TTL) {
         applyWidgetData(parsed.data);
         return;
       }
     }
-  } catch (e) {
-    // Ignore sessionStorage error
-  }
+  } catch (e) {}
 
-  // 2. Fetch live Discord widget
   fetch('https://discord.com/api/guilds/1070795270503288893/widget.json')
     .then(res => {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -2456,13 +2507,11 @@ function initDiscordComms() {
     .then(data => {
       applyWidgetData(data);
       try {
-        sessionStorage.setItem(CACHE_KEY, JSON.stringify({
+        sessionStorage.setItem(CACHE_KEY_WIDGET, JSON.stringify({
           timestamp: Date.now(),
           data: data
         }));
       } catch (e) {}
     })
-    .catch(() => {
-      // Graceful fallback: maintain online state
-    });
+    .catch(() => {});
 }
