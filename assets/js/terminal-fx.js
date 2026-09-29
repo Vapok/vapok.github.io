@@ -166,7 +166,9 @@ function toggleCrtEffect() {
   const toggleBtn = document.getElementById('crt-toggle-btn');
   const isOff = document.body.classList.toggle('crt-off');
   if (toggleBtn) {
-    toggleBtn.textContent = isOff ? '[ CRT: OFF ]' : '[ CRT: ON ]';
+    const text = isOff ? '[ CRT: OFF ]' : '[ CRT: ON ]';
+    toggleBtn.textContent = text;
+    toggleBtn.dataset.text = text;
   }
   localStorage.setItem('vapok_crt_state', isOff ? 'off' : 'on');
   return isOff;
@@ -185,9 +187,11 @@ function initCrtToggle() {
   if (shouldBeOff) {
     document.body.classList.add('crt-off');
     toggleBtn.textContent = '[ CRT: OFF ]';
+    toggleBtn.dataset.text = '[ CRT: OFF ]';
   } else {
     document.body.classList.remove('crt-off');
     toggleBtn.textContent = '[ CRT: ON ]';
+    toggleBtn.dataset.text = '[ CRT: ON ]';
   }
 
   toggleBtn.addEventListener('click', (e) => {
@@ -202,8 +206,10 @@ function initCrtToggle() {
 function initTextScramble() {
   const isPointerFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   if (!isPointerFine) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  const scrambleElements = document.querySelectorAll('.scramble-hover:not(.ascii-art)');
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!<>-_\\/[]{}—=+*^?#________';
+  const scrambleElements = document.querySelectorAll('.scramble-hover:not(.ascii-art), .cyber-btn, .terminal-tab-btn');
 
   scrambleElements.forEach((el) => {
     const originalText = el.dataset.text || el.textContent.trim();
@@ -231,6 +237,7 @@ function initTextScramble() {
 
         if (iteration >= textToScramble.length) {
           clearInterval(interval);
+          el.innerText = textToScramble;
         }
         iteration += 1 / 2;
       }, 25);
