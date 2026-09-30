@@ -10,7 +10,7 @@ status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/BepInEx/BepInEx.ConfigurationManager"
 thunderstore_url: "https://thunderstore.io/c/techtonica/p/Vapok/Official_BepInEx_ConfigurationManager/"
-downloads: "1.3K+"
+downloads: "1.2K+"
 icon: "/assets/images/mods/techtonica-official-bepinex-configurationmanager/icon.png"
 description: "Mod to assist with configuration of BepInEx mods"
 dependencies:

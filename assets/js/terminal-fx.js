@@ -2395,7 +2395,12 @@ function initDiscordComms() {
       rosterEl.textContent = m.toLocaleString();
     }
     if (heroMembersEl && typeof m === 'number' && m > 0) {
-      heroMembersEl.textContent = m >= 1000 ? (m / 1000).toFixed(1) + 'K+' : m.toString();
+      const formatted = m >= 1000000
+        ? (Math.floor(m / 100000) / 10).toFixed(1) + 'M+'
+        : m >= 1000
+        ? (Math.floor(m / 100) / 10).toFixed(1) + 'K+'
+        : m.toString();
+      heroMembersEl.textContent = formatted;
     }
     if (onlineEl && typeof p === 'number' && p > 0) {
       onlineEl.textContent = p.toLocaleString();

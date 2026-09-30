@@ -135,11 +135,15 @@ def slugify(text):
     return re.sub(r'[\s_]+', '-', re.sub(r'[^\w\s-]', '', text).strip().lower())
 
 def format_count(count):
-    if count >= 1_000_000:
-        return f"{count / 1_000_000:.1f}M+"
-    if count >= 1_000:
-        return f"{count / 1_000:.1f}K+"
-    return f"{count:,}"
+    c = int(count)
+    if c >= 1_000_000:
+        val = (c // 100_000) / 10
+        return f"{val:.1f}M+"
+    if c >= 1_000:
+        val = (c // 100) / 10
+        return f"{val:.1f}K+"
+    return f"{c:,}"
+
 
 def fetch_thunderstore_metrics(community, api_url):
     metrics = {}

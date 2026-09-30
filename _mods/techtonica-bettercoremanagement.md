@@ -10,7 +10,7 @@ status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/TTMods-BetterCoreManagement"
 thunderstore_url: "https://thunderstore.io/c/techtonica/p/Vapok/BetterCoreManagement/"
-downloads: "2.6K+"
+downloads: "2.5K+"
 icon: "/assets/images/mods/techtonica-bettercoremanagement/icon.png"
 description: "Research Core Manager that allows virtual research cores to be added even if Core Composers are full. Multiplayer Support included."
 dependencies:
