@@ -11,7 +11,7 @@ badge_color: "mint"
 website_url: "https://github.com/Vapok/SaveYourLuckBruh"
 nexusmods_url: "https://www.nexusmods.com/valheim/mods/4084"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/SaveYourLuckBruh/"
-downloads: "227"
+downloads: "256"
 icon: "/assets/images/mods/saveyourluckbruh/icon.png"
 description: "Persists vanilla Valheim bad luck protection across game sessions and world transitions."
 dependencies:
