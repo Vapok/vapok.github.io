@@ -11,7 +11,7 @@ badge_color: "mint"
 website_url: "https://github.com/Vapok/DoorOpenerBruh"
 nexusmods_url: "https://www.nexusmods.com/valheim/mods/2506"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/DoorOpenerBruh/"
-downloads: "12.3K+"
+downloads: "12.5K+"
 icon: "/assets/images/mods/dooropenerbruh/icon.png"
 description: "An automatic door and gate opener/closer for Valheim."
 dependencies:
