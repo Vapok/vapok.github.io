@@ -10,7 +10,7 @@ status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/TTMods-ContainerResizer"
 thunderstore_url: "https://thunderstore.io/c/techtonica/p/Vapok/ContainerResizer/"
-downloads: "1.6K+"
+downloads: "1.7K+"
 icon: "/assets/images/mods/techtonica-containerresizer/icon.png"
 description: "Resize individual chests on-the-fly to restrict how much a chest can hold. Multiplayer Support included."
 dependencies:
