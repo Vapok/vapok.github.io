@@ -1,9 +1,22 @@
-# 2.0.10 - Dependency Updates & Stability
-* Standardized dedicated server checks for better stability.
-* Updated internal dependencies for stability.
+# 2.1.2 - Scene Stability & Error Prevention
+* **Scene Transition Stability**: Fixed an issue where changing scenes or starting up could trigger an invalid scene error.
+* **Rendering Reliability**: Added safeguards around camera effects during early loading to prevent startup crashes.
 
 <details>
 <summary><b>2.0 Changelog History (Valheim Release)</b> (<i>click to expand</i>)</summary>
+
+### 2.1.1 - Compatibility Stability
+* **Compatibility Stability**: Updated dependencies for third party mod compatibilities.
+
+### 2.1.0 - Weather Events Management
+* **Weather Events Management**: Added granular control over individual weather events, allowing players and server admins to selectively turn off specific weather types while keeping clear skies.
+* **Organized Weather Groups**: Settings are neatly organized into four separate configuration sections: World Weather, Boss Weather, Dungeon Weather, and Base Raids.
+* **Instant Real-Time Transitions**: Changing weather settings takes effect immediately in-game, clearing disabled weather conditions on the fly without waiting for weather timers to expire.
+* **Server Synchronization**: Weather event settings are synchronized with servers so all players in multiplayer share consistent conditions.
+
+### 2.0.10 - Dependency Updates & Stability
+* Standardized dedicated server checks for better stability.
+* Updated internal dependencies for stability.
 
 ### 2.0.9 - Dependency Updates & Stability
 * **Configuration Sync**: Resolved a library configuration synchronization issue.

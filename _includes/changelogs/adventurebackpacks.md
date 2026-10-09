@@ -1,9 +1,61 @@
-# 2.2.2 - Dedicated Server Hardening & Stability
-* **Dedicated Server Safety**: Hardened yard sale routines and backpack weight calculations when running on dedicated servers without local players.
-* **Dependency Updates**: Updated internal dependencies for stability.
+# 2.2.11 - Performance Optimization & Frame Stutter Fix
+* **Performance & Frame Rate Improvement**:
+  * Fixed an issue that caused small frame hitches and lower frame rates in large bases with many building pieces and creatures.
+  * Optimized network ownership checks so normal game objects skip backpack checks, significantly reducing memory usage and eliminating micro-stutters.
 
 <details>
 <summary><b>2.0 Changelog History (Valheim Release)</b> (<i>click to expand</i>)</summary>
+
+### 2.2.10 - Backpack Upgrade & Item Duplication Fix
+* **Backpack Upgrade Duplication Fix**:
+  * Fixed an issue where upgrading a backpack at a crafting station or upgrader dropped duplicate contents onto the workbench while retaining them inside the upgraded bag.
+* **Crafting & Inventory Hardening**:
+  * Added safety checks during crafting and inventory queries to prevent errors on dedicated servers and when crafting items with external inventory mods.
+
+### 2.2.9 - UI Input & Mod Interoperability Fix
+* **Inventory Input & Mod Interoperability**:
+  * Improved compatibility with mods that modify inventory input keys (such as Marketplace and Server NPCs), preventing startup errors and ensuring backpack hotkeys continue to respond properly.
+
+### 2.2.8 - QuickStackStore & Container Sorting Compatibility
+* **Inventory & Container Sorting Compatibility**:
+  * Fixed an issue where using QuickStackStore's sort button while having a backpack open caused an error and prevented the backpack from sorting. Backpacks now sort cleanly alongside chest and inventory sorting mods.
+* **Biome & Effect Registration Safeguards**:
+  * Hardened backpack biome and power registration to prevent errors when loading backpacks or reading custom configuration settings.
+
+### 2.2.7 - Forge of Potential Upgrades & Infinite Quality Support
+* **Forge of Potential Upgrading**: Backpacks can now be upgraded at the Deep North Forge of Potential using Protection Idols. Each backpack tier accepts its matching biome idol (Meadows through Mistlands, plus legacy and compatibility backpacks).
+* **Infinite Quality Scaling**: Quality levels beyond level 4 are now fully supported. Armor, carry weight bonuses, and speed modifier improvements continue to scale as your backpack increases in quality.
+* **Inventory Sizing Protection**: Backpack inventory slot counts remain stable at maximum size (Level 4 dimensions) when upgrading beyond level 4, preventing unexpected inventory resizing or dropped items.
+* **Forge of Potential Yard Sale Safety**: If an upgrade fails and breaks at the Forge of Potential, your backpack's contents are safely dropped at your feet instead of being lost with the destroyed pack.
+
+### 2.2.6 - Mod Developer Integration & Inventory APIs
+* **Mod Developer Integration Options**: Added comprehensive integration documentation and support for two ways other mod authors can integrate with Adventure Backpacks:
+  * A lightweight reflection client (`ABAPI_Client.cs`) for zero-dependency integration.
+  * Direct assembly references with dynamic bytecode redirection, allowing third-party mods to safely bundle API stubs without version conflicts.
+* **Backpack Inventory Enumeration**: Added helper methods to retrieve all equipped and worn backpack inventories on a player, making it easier for crafting, storage, and utility mods to audit or interact with backpack contents.
+* **Dedicated Server Stability**: Hardened backpack inventory resizing routines on dedicated servers to ensure inventory state resets properly if unexpected errors occur during transfers.
+
+### 2.2.5 - Portal Interoperability & Crafting Stability
+* **Portal Mod Interoperability**: Improved compatibility with portal mods (such as Proper Portals and World Advancement Progression).
+* **Crafting Null Reference Fix**: Added protections during backpack material consumption to prevent rare errors when third-party mods modify item removal routines.
+
+### 2.2.4 - Backpack Armor & Speed Tuning
+* **Configurable Backpack Armor**: Added a setting to customize the armor value provided per backpack level (defaults to 1 armor per level), giving your backpacks protective defense as you upgrade them.
+* **Extended Inventory Armor Support**: Backpack armor now correctly applies to your character's total armor when equipped in custom or extra equipment slots alongside shoulder capes.
+* **Speed Penalty Scaling Option**: Added a setting to choose whether the movement speed penalty scales down as you upgrade your backpack or stays at a flat value across all tiers.
+* **Backpack Tooltip Info**: Tooltips now clearly show armor values and elemental resistances when equipped or inspected in custom equipment slots.
+* **Server Stability**: Hardened backpack initialization and status effect checks to prevent startup errors on dedicated servers.
+
+### 2.2.3 - Death & Tombstone Recovery Fix
+* **Tombstone & Death Item Protection**: Fixed an issue where dying with a backpack or retrieving items from a gravestone/tombstone could trigger an unwanted yard sale and drop backpack contents on the ground in rare situations.
+* **Container Transfer Stability**: Hardened container "Take All" operations across multiplayer dedicated servers to ensure backpack contents are safely preserved during fast inventory transfers.
+
+### 2.2.2 - Dedicated Server Hardening & Stability
+* **Portal Restriction Fix**: Fixed a multi-mod interoperability issue where ores and non-teleportable metals stored inside backpacks could bypass portal restrictions when using custom equipment slot mods or carried in inventory under rare circumstances.
+* **Dedicated Server Safety**: Hardened yard sale routines and backpack weight calculations when running on dedicated servers without local players.
+* **Cheb's Necromancy Compatibility**: Restored compatibility with Cheb's Necromancy, fixing an issue where the Spectral Shroud backpack failed to load and preventing asset bundle conflicts during startup.
+* **Dependency Updates**: Updated internal dependencies for stability.
+
 
 ### 2.2.1 - Crafting Interoperability & Enchantment Transfer Fix
 * **Crafting & Enchantment Transfer Compatibility**:

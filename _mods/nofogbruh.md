@@ -5,13 +5,13 @@ slug: "nofogbruh"
 name: "NoFogBruh"
 game: "Valheim"
 category: "valheim"
-version: "v2.0.10"
+version: "v2.1.2"
 status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/NoFogBruh"
 nexusmods_url: "https://www.nexusmods.com/valheim/mods/2285"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/NoFogBruh/"
-downloads: "59.2K+"
+downloads: "59.4K+"
 icon: "/assets/images/mods/nofogbruh/icon.png"
 description: "A Valheim Mod that Removes Fog from the Game.  No Fog Bruh!"
 dependencies:
@@ -77,6 +77,19 @@ Configure every biome setting individually via the in-game [BepInEx Configuratio
 | **Disable Blizzard Mist** | `true` | Clears blinding whiteout particle arrays during snowstorms. |
 | **Disable Mistlands Mist** | `false` | Toggles Mistlands mist suppression *(ServerSync controlled)*. |
 | **Disable Ashlands Mist** | `true` | Suppresses atmospheric fog in the Ashlands. |
+
+---
+
+## ⛅ Weather Events Management
+
+Selectively enable or disable individual weather cycles while preserving clear skies. Settings are organized into four dedicated configuration sections, all synchronized with the server:
+
+* **Weather Events - World**: Control natural biome weather cycles including dense fog (`Misty`), deep forest mist, rain, light rain, thunderstorms, swamp gloom, snow, blizzards, twilight snowfall, and ash storms.
+* **Weather Events - Boss**: Control atmospheric storm and lightning effects during boss encounters (Eikthyr, The Elder, Bonemass, Moder, Yagluth, The Queen, and Fader).
+* **Weather Events - Dungeon**: Manage interior crypt, cave, and mine atmospheric mist.
+* **Weather Events - Raid**: Control atmospheric distortions during base raids and Jotun invasions.
+
+All weather toggles update in real time—disabling an active weather event immediately clears it to sunny, clear skies without delay.
 
 ---
 

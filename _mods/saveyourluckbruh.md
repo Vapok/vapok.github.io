@@ -5,13 +5,13 @@ slug: "saveyourluckbruh"
 name: "SaveYourLuckBruh"
 game: "Valheim"
 category: "valheim"
-version: "v1.0.0"
+version: "v1.0.2"
 status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/SaveYourLuckBruh"
 nexusmods_url: "https://www.nexusmods.com/valheim/mods/4084"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/SaveYourLuckBruh/"
-downloads: "457"
+downloads: "478"
 icon: "/assets/images/mods/saveyourluckbruh/icon.png"
 description: "Persists vanilla Valheim bad luck protection across game sessions and world transitions."
 dependencies:
@@ -31,6 +31,7 @@ image: "/assets/images/mods/saveyourluckbruh/header.png"
 
 [![GitHub Release](https://img.shields.io/github/v/release/Vapok/SaveYourLuckBruh?include_prereleases&logo=github&style=for-the-badge)](https://github.com/Vapok/SaveYourLuckBruh/releases)
 [![Thunderstore Version](https://img.shields.io/thunderstore/v/Vapok/SaveYourLuckBruh?logo=thunderstore&style=for-the-badge)](https://thunderstore.io/c/valheim/p/Vapok/SaveYourLuckBruh/)
+[![Nexus Mods](https://img.shields.io/badge/Nexus_Mods-Available-da8e35?logo=nexusmods&style=for-the-badge)](https://www.nexusmods.com/valheim/mods/4084)
 <br>
 [![Discord](https://img.shields.io/badge/Discord-Join%20Community-7289da?logo=discord&logoColor=white&style=for-the-badge)](https://discord.gg/5YAJkRFBXt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
