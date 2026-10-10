@@ -11,7 +11,7 @@ badge_color: "mint"
 website_url: "https://github.com/Vapok/ConsoleBuddy"
 nexusmods_url: "https://www.nexusmods.com/valheim/mods/2315"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/ConsoleBuddy/"
-downloads: "3.2K+"
+downloads: "3.3K+"
 icon: "/assets/images/mods/consolebuddy/icon.png"
 description: "A simple Valheim mod that allows you to adjust the look and feel of the in-game Console"
 dependencies:

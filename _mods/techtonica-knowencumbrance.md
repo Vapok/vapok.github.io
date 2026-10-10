@@ -10,7 +10,7 @@ status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/TTMods-KnowEncumbrance"
 thunderstore_url: "https://thunderstore.io/c/techtonica/p/Vapok/KnowEncumbrance/"
-downloads: "1.8K+"
+downloads: "1.9K+"
 icon: "/assets/images/mods/techtonica-knowencumbrance/icon.png"
 description: "A Simple Techtonica mod that demystifies the Encumbrance Equation"
 dependencies:
