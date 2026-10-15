@@ -2702,6 +2702,18 @@ html.system-booting #header-fuel-btn {
   padding: 2rem;
 }
 
+.featured-spotlight-single {
+  padding: 2rem;
+}
+
+.featured-spotlight-single .featured-highlights-grid {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.featured-spotlight-single .featured-specs-row {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
 .featured-badge-row {
   display: flex;
   align-items: center;
