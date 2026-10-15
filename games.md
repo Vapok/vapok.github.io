@@ -17,10 +17,13 @@ description: "Explore the games Vapok is actively playing, modding, and organizi
     Beyond engineering modifications and automation tools, this is the live tactical radar of titles Vapok is currently playing, building mega-projects in, or testing with the <strong>Vapok Gaming Community</strong>.
   </p>
   <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
-    <a href="{{ site.donations.discord_invite }}" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-mint">
+    <a href="{{ '/servers/' | relative_url }}" class="cyber-btn btn-mint">
+      [ 🌐 COMMUNITY SERVERS ]
+    </a>
+    <a href="{{ site.donations.discord_invite }}" target="_blank" rel="noopener noreferrer" class="cyber-btn">
       [ 💬 JOIN DISCORD GAME SESSIONS ]
     </a>
-    <a href="{{ '/mods/' | relative_url }}" class="cyber-btn">
+    <a href="{{ '/mods/' | relative_url }}" class="cyber-btn btn-secondary">
       [ ⚡ VIEW CREATED MODS ]
     </a>
   </div>
@@ -88,6 +91,11 @@ description: "Explore the games Vapok is actively playing, modding, and organizi
       </div>
 
       <div class="mod-card-actions" style="margin-top: 1.25rem;">
+        {% if game.server_link %}
+          <a href="{{ game.server_link | relative_url }}" class="cyber-btn btn-mint">
+            [ 🌐 COMMUNITY SERVER ]
+          </a>
+        {% endif %}
         {% if game.mods_link %}
           <a href="{{ game.mods_link | relative_url }}" class="cyber-btn">
             [ > VIEW MODS ]
@@ -120,7 +128,10 @@ description: "Explore the games Vapok is actively playing, modding, and organizi
         <li><strong>Playtest Prototypes:</strong> Be among the first to test early versions of mods and automation tools before general release.</li>
         <li><strong>Hangout &amp; Theorycraft:</strong> Drop into voice chat, share builds, and vote on upcoming mod projects.</li>
       </ul>
-      <div style="margin-top: 1.5rem;">
+      <div style="margin-top: 1.5rem; display: flex; gap: 0.8rem; flex-wrap: wrap;">
+        <a href="{{ '/servers/' | relative_url }}" class="cyber-btn btn-mint">
+          [ 🌐 VIEW COMMUNITY SERVERS ]
+        </a>
         <a href="{{ site.donations.discord_invite }}" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-cyan">
           [ 🎮 JOIN THE VAPOK GAMING DISCORD ]
         </a>

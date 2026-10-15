@@ -1566,19 +1566,27 @@ function initBootloaderAndCli() {
 
       case 'server':
       case 'servers':
+      case 'enshrouded':
+      case 'enshroudedserver':
+      case 'communityserver':
       case 'valheimserver':
       case 'survivalservers':
       case 'sponsor':
       case 'partner':
-        printLine('--- INFRASTRUCTURE PARTNER // SURVIVAL SERVERS ---', 'success');
-        printLine('Dedicated Valheim Server Host for Vapok Gaming Community', 'info');
-        printLine('  • Promo Code: VALHEIM25 (25% off)', 'warn');
-        printLine('  • Direct URL: https://www.survivalservers.com/services/game_servers/valheim/?ref=vapok', 'info');
-        const partnerSection = document.getElementById('partner-infrastructure');
-        if (partnerSection) {
-          partnerSection.scrollIntoView({ behavior: 'smooth' });
+        printLine('--- COMMUNITY GAME SERVERS & INFRASTRUCTURE ---', 'success');
+        printLine('Active Community Server: Vapok\'s Community Enshrouded Server', 'info');
+        printLine('  • IP: 15.204.215.165:37601 (PW: VapokShroud)', 'cyan');
+        printLine('  • Map: Early Access (Resets to 1.0 on Thursday, Oct 15 @ 11:00 AM EDT)', 'warn');
+        printLine('Official Host Partner: Survival Servers (25% off with code ENSHROUDED25)', 'info');
+        printLine('Full Connection Guide & Server Rules: https://vapok.io/servers/', 'info');
+        if (window.location.pathname.includes('/servers')) {
+          const enshroudedEl = document.getElementById('enshrouded');
+          if (enshroudedEl) enshroudedEl.scrollIntoView({ behavior: 'smooth' });
         } else {
-          window.open('https://www.survivalservers.com/services/game_servers/valheim/?ref=vapok', '_blank');
+          printLine('Navigating to Community Servers (/servers/)...', 'info');
+          setTimeout(() => {
+            window.location.href = '/servers/';
+          }, 400);
         }
         break;
 
