@@ -23,6 +23,9 @@ description: "Join the official Vapok Gaming dedicated multiplayer servers. Real
     <a href="#enshrouded" class="cyber-btn btn-mint">
       [ ⚔️ VIEW ENSHROUDED 1.0 SERVER ]
     </a>
+    <a href="https://www.survivalservers.com/share/enshrouded/map/172c66704f18ce873c37c6f7fe7c32e8" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-cyan">
+      [ 🗺️ LIVE SERVER MAP ]
+    </a>
     <a href="https://discord.gg/4zCbbVpac2" target="_blank" rel="noopener noreferrer" class="cyber-btn">
       [ 💬 JOIN DISCORD SERVER CHANNELS ]
     </a>
@@ -142,6 +145,52 @@ description: "Join the official Vapok Gaming dedicated multiplayer servers. Real
       </div>
     </div>
 
+    <!-- LIVE INTERACTIVE SERVER MAP -->
+    <div class="server-map-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <span class="status-badge cyan">🗺️ LIVE CARTOGRAPHY</span>
+          <span style="font-size: 0.78rem; color: var(--ice-blue); font-family: var(--font-mono, monospace); letter-spacing: 0.5px;">
+            EMBERVALE_SATELLITE_FEED // ACTIVE RADAR
+          </span>
+        </div>
+        <span style="font-size: 0.74rem; color: var(--text-dim); font-family: var(--font-mono, monospace);">
+          POWERED BY SURVIVAL SERVERS
+        </span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; align-items: center;">
+        <div>
+          <h3 style="color: var(--ice-blue-bright); font-size: 1.15rem; margin: 0 0 0.4rem 0;">
+            Live Interactive Server World Map
+          </h3>
+          <p style="color: var(--text-main); font-size: 0.88rem; line-height: 1.55; margin: 0 0 0.75rem 0;">
+            Curious about what the community has explored, where fellow Flameborn have built, or where you can claim a base? Survival Servers generates a real-time web map of our active world!
+          </p>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.25rem;">
+            <span style="font-size: 0.74rem; background: rgba(100, 240, 252, 0.08); border: 1px solid rgba(100, 240, 252, 0.2); color: var(--ice-blue); padding: 0.2rem 0.55rem; font-family: var(--font-mono, monospace);">
+              🧭 Explored Topography &amp; Fog
+            </span>
+            <span style="font-size: 0.74rem; background: rgba(0, 245, 155, 0.08); border: 1px solid rgba(0, 245, 155, 0.2); color: var(--glacial-mint); padding: 0.2rem 0.55rem; font-family: var(--font-mono, monospace);">
+              🔥 Player Bases &amp; Flame Altars
+            </span>
+            <span style="font-size: 0.74rem; background: rgba(251, 191, 36, 0.08); border: 1px solid rgba(251, 191, 36, 0.2); color: var(--warning-amber); padding: 0.2rem 0.55rem; font-family: var(--font-mono, monospace);">
+              📍 Fast-Travel Spires &amp; Shrines
+            </span>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 0.5rem; min-width: 200px;">
+          <a href="https://www.survivalservers.com/share/enshrouded/map/172c66704f18ce873c37c6f7fe7c32e8" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-mint" style="width: 100%; box-sizing: border-box; justify-content: center; text-align: center;">
+            [ 🌐 OPEN LIVE MAP &rarr; ]
+          </a>
+          <button type="button" class="cyber-btn server-copy-btn" onclick="copySnippet('https://www.survivalservers.com/share/enshrouded/map/172c66704f18ce873c37c6f7fe7c32e8', this)" style="width: 100%; box-sizing: border-box; justify-content: center;">
+            [ 📋 COPY MAP LINK ]
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- SERVER RULES DIRECTIVES -->
     <div style="margin-top: 2rem;">
       <div class="section-title" style="margin-bottom: 0.85rem; font-size: 0.95rem;">
@@ -167,7 +216,7 @@ description: "Join the official Vapok Gaming dedicated multiplayer servers. Real
           <div>
             <div class="server-rule-title">Use Altars Sparingly.</div>
             <p class="server-rule-text">
-              We only get so many Flame Altars server-wide. Instead of claiming isolated plots, find a base already in the works of being built and see about helping add on to it, or find a space in the area of the base for you to build your own base. Or be like Vapok and build hobbit holes and live underground!
+              We only get so many Flame Altars server-wide. Instead of claiming isolated plots, check our <a href="https://www.survivalservers.com/share/enshrouded/map/172c66704f18ce873c37c6f7fe7c32e8" target="_blank" rel="noopener noreferrer" style="color: var(--glacial-mint); font-weight: 700; text-decoration: underline;">Live Server Map</a> to find a base already in the works of being built and see about helping add on to it, or find a space in the area of the base for you to build your own base. Or be like Vapok and build hobbit holes and live underground!
             </p>
           </div>
         </div>
@@ -218,6 +267,9 @@ description: "Join the official Vapok Gaming dedicated multiplayer servers. Real
 
     <!-- ACTIONS ROW -->
     <div style="margin-top: 2rem; display: flex; gap: 0.8rem; flex-wrap: wrap; padding-top: 1.25rem; border-top: 1px solid var(--border-subtle);">
+      <a href="https://www.survivalservers.com/share/enshrouded/map/172c66704f18ce873c37c6f7fe7c32e8" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-cyan">
+        [ 🗺️ VIEW LIVE SERVER MAP ]
+      </a>
       <a href="https://discord.gg/4zCbbVpac2" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-mint">
         [ 💬 HOP INTO #ENSHROUDED ON DISCORD ]
       </a>
@@ -269,7 +321,7 @@ description: "Join the official Vapok Gaming dedicated multiplayer servers. Real
           Servers Hosted By SurvivalServers.com
         </h3>
         <p style="color: var(--text-main); font-size: 0.9rem; line-height: 1.55; margin: 0 0 0.5rem 0;">
-          Our community world is proudly powered by <strong>Survival Servers</strong>, delivering ultra-low ping, instant setup, NVMe storage performance, DDoS protection, and effortless control panel configuration.
+          Our community world is proudly powered by <strong>Survival Servers</strong>, delivering ultra-low ping, instant setup, NVMe storage performance, DDoS protection, effortless control panel configuration, and features like <strong>live shareable server web maps</strong>.
         </p>
         <p style="color: var(--text-muted); font-size: 0.84rem; margin: 0;">
           ⚡ Looking to spin up your own dedicated private world for friends or guildmates? <strong>Get 25% off Enshrouded servers for the 1.0 release</strong> using promo code <strong style="color: var(--warning-amber);">ENSHROUDED25</strong> through our partner link.
