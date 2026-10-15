@@ -23,7 +23,7 @@ description: "Join the official Vapok Gaming dedicated multiplayer servers. Real
     <a href="#enshrouded" class="cyber-btn btn-mint">
       [ ⚔️ VIEW ENSHROUDED 1.0 SERVER ]
     </a>
-    <a href="https://discord.gg/5YAJkRFBXt" target="_blank" rel="noopener noreferrer" class="cyber-btn">
+    <a href="https://discord.gg/4zCbbVpac2" target="_blank" rel="noopener noreferrer" class="cyber-btn">
       [ 💬 JOIN DISCORD SERVER CHANNELS ]
     </a>
     <a href="https://www.survivalservers.com/services/game_servers/enshrouded/?ref=vapok" target="_blank" rel="nofollow sponsored noopener noreferrer" class="cyber-btn btn-amber">
@@ -102,7 +102,7 @@ description: "Join the official Vapok Gaming dedicated multiplayer servers. Real
           <span class="server-credential-label">BASE BUILDING ACCESS // SERVER PASSWORD</span>
           <div class="server-credential-value">
             <span style="color: var(--warning-amber); font-size: 0.92rem;">Discord Password Required</span>
-            <a href="https://discord.gg/5YAJkRFBXt" target="_blank" rel="noopener noreferrer" class="cyber-btn server-copy-btn" style="color: var(--warning-amber) !important; border-color: rgba(251, 191, 36, 0.5);">
+            <a href="https://discord.gg/4zCbbVpac2" target="_blank" rel="noopener noreferrer" class="cyber-btn server-copy-btn" style="color: var(--warning-amber) !important; border-color: rgba(251, 191, 36, 0.5);">
               [ 🔑 GET PASSWORD ]
             </a>
           </div>
@@ -131,7 +131,7 @@ description: "Join the official Vapok Gaming dedicated multiplayer servers. Real
           <span class="server-credential-label">DISCORD COMMS &amp; VOICE</span>
           <div class="server-credential-value">
             <span style="color: var(--ice-blue-bright);">#enshrouded</span>
-            <a href="https://discord.gg/5YAJkRFBXt" target="_blank" rel="noopener noreferrer" class="cyber-btn server-copy-btn">
+            <a href="https://discord.gg/4zCbbVpac2" target="_blank" rel="noopener noreferrer" class="cyber-btn server-copy-btn">
               [ 💬 OPEN DISCORD ]
             </a>
           </div>
@@ -218,7 +218,7 @@ description: "Join the official Vapok Gaming dedicated multiplayer servers. Real
 
     <!-- ACTIONS ROW -->
     <div style="margin-top: 2rem; display: flex; gap: 0.8rem; flex-wrap: wrap; padding-top: 1.25rem; border-top: 1px solid var(--border-subtle);">
-      <a href="https://discord.gg/5YAJkRFBXt" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-mint">
+      <a href="https://discord.gg/4zCbbVpac2" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-mint">
         [ 💬 HOP INTO #ENSHROUDED ON DISCORD ]
       </a>
       <a href="{{ '/games/' | relative_url }}" class="cyber-btn">
@@ -322,7 +322,7 @@ description: "Join the official Vapok Gaming dedicated multiplayer servers. Real
       </div>
 
       <div style="margin-top: 1.25rem;">
-        <a href="https://discord.gg/5YAJkRFBXt" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-cyan">
+        <a href="https://discord.gg/4zCbbVpac2" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-cyan">
           [ 🎮 SUGGEST A GAME SERVER IN DISCORD ]
         </a>
       </div>
