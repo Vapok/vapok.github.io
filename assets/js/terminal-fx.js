@@ -1575,7 +1575,7 @@ function initBootloaderAndCli() {
       case 'partner':
         printLine('--- COMMUNITY GAME SERVERS & INFRASTRUCTURE ---', 'success');
         printLine('Active Community Server: Vapok\'s Community Enshrouded Server', 'info');
-        printLine('  • IP: 15.204.215.165:37601 (PW: VapokShroud)', 'cyan');
+        printLine('  • IP: 15.204.215.165:37601 (Open Visitor Access // Password in Discord for Base Building)', 'cyan');
         printLine('  • Map: Early Access (Resets to 1.0 on Thursday, Oct 15 @ 11:00 AM EDT)', 'warn');
         printLine('Official Host Partner: Survival Servers (25% off with code ENSHROUDED25)', 'info');
         printLine('Full Connection Guide & Server Rules: https://vapok.io/servers/', 'info');

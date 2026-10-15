@@ -80,7 +80,7 @@ description: "Join the official Vapok Gaming dedicated multiplayer servers. Real
 
     <!-- Credentials Readout Matrix -->
     <div class="server-credentials-grid">
-      <!-- IP Address & Port -->
+      <!-- Server Direct IP & Port -->
       <div class="server-credential-cell">
         <div>
           <span class="server-credential-label">SERVER DIRECT IP &amp; QUERY PORT</span>
@@ -96,32 +96,32 @@ description: "Join the official Vapok Gaming dedicated multiplayer servers. Real
         </div>
       </div>
 
-      <!-- Server Password -->
+      <!-- Base Building Password via Discord -->
       <div class="server-credential-cell">
         <div>
-          <span class="server-credential-label">SERVER ACCESS PASSWORD</span>
+          <span class="server-credential-label">BASE BUILDING ACCESS // SERVER PASSWORD</span>
           <div class="server-credential-value">
-            <span id="enshrouded-pw">VapokShroud</span>
-            <button type="button" class="cyber-btn server-copy-btn" onclick="copyCred('enshrouded-pw', this)" aria-label="Copy server password">
-              [ 📋 COPY PASS ]
-            </button>
+            <span style="color: var(--warning-amber); font-size: 0.92rem;">Discord Password Required</span>
+            <a href="https://discord.gg/5YAJkRFBXt" target="_blank" rel="noopener noreferrer" class="cyber-btn server-copy-btn" style="color: var(--warning-amber) !important; border-color: rgba(251, 191, 36, 0.5);">
+              [ 🔑 GET PASSWORD ]
+            </a>
           </div>
         </div>
         <div style="font-size: 0.74rem; color: var(--text-dim); margin-top: 0.6rem;">
-          Case-sensitive community password
+          Grants full base-building rights. Join our Discord to grab the password!
         </div>
       </div>
 
-      <!-- Who Can Join -->
+      <!-- Visitor Permissions (No Password) -->
       <div class="server-credential-cell">
         <div>
-          <span class="server-credential-label">ACCESS PERMISSION // WHITELIST</span>
+          <span class="server-credential-label">VISITOR ACCESS // NO PASSWORD NEEDED</span>
           <div class="server-credential-value" style="color: var(--glacial-mint); font-size: 0.98rem;">
-            <span>Anyone from the community!</span>
+            <span>Open To Everyone!</span>
           </div>
         </div>
         <div style="font-size: 0.74rem; color: var(--text-dim); margin-top: 0.6rem;">
-          Open to all community members, no application required
+          Join without a password as a Visitor to explore, alter terrain, fight, collect loot, and use craftspeople.
         </div>
       </div>
 
@@ -137,7 +137,7 @@ description: "Join the official Vapok Gaming dedicated multiplayer servers. Real
           </div>
         </div>
         <div style="font-size: 0.74rem; color: var(--text-dim); margin-top: 0.6rem;">
-          Official coordination, base planning, &amp; voice channel
+          Community channel for chat, voice, base coordination, &amp; server password
         </div>
       </div>
     </div>
@@ -210,8 +210,8 @@ description: "Join the official Vapok Gaming dedicated multiplayer servers. Real
         </div>
         <div class="server-step-card">
           <span class="server-step-badge">STEP // 04</span>
-          <h4>Enter Password</h4>
-          <p>Enter password <code>VapokShroud</code> and awaken in Embervale!</p>
+          <h4>Join &amp; Explore!</h4>
+          <p>Connect without a password to explore as a <strong>Visitor</strong>! Want to help build bases? Hop into Discord to grab the password.</p>
         </div>
       </div>
     </div>
