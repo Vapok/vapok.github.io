@@ -96,12 +96,16 @@ title: Home
 
       <!-- Specs row with Copy IP button -->
       <div class="featured-specs-row">
-        <div class="featured-spec-chip" style="grid-column: span 2;">
+        <div class="featured-spec-chip">
           <span class="spec-label">DIRECT IP:</span>
           <span class="spec-val" id="home-enshrouded-ip" style="font-weight: 700; color: var(--text-bright);">{{ featured_server.ip | default: '15.204.215.165:37601' }}</span>
-          <button type="button" class="cyber-btn server-copy-btn" onclick="copyCred('home-enshrouded-ip', this)" style="padding: 0.15rem 0.5rem; font-size: 0.7rem; margin-left: 0.5rem;" aria-label="Copy server IP">
+          <button type="button" class="cyber-btn server-copy-btn" onclick="copyCred('home-enshrouded-ip', this)" style="padding: 0.15rem 0.5rem; font-size: 0.7rem; margin-left: 0.4rem;" aria-label="Copy server IP">
             [ 📋 COPY IP ]
           </button>
+        </div>
+        <div class="featured-spec-chip">
+          <span class="spec-label">HOST:</span>
+          <span class="spec-val" style="color: var(--glacial-mint); font-weight: 600;">SURVIVAL SERVERS</span>
         </div>
         <div class="featured-spec-chip">
           <span class="spec-label">PLATFORM:</span>
@@ -114,10 +118,6 @@ title: Home
         <div class="featured-spec-chip">
           <span class="spec-label">ACCESS:</span>
           <span class="spec-val">OPEN VISITOR</span>
-        </div>
-        <div class="featured-spec-chip">
-          <span class="spec-label">HOST:</span>
-          <span class="spec-val">SURVIVAL SERVERS</span>
         </div>
       </div>
 

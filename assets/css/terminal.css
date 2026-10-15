@@ -2710,10 +2710,6 @@ html.system-booting #header-fuel-btn {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
-.featured-spotlight-single .featured-specs-row {
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-}
-
 .featured-badge-row {
   display: flex;
   align-items: center;
@@ -2823,27 +2819,28 @@ html.system-booting #header-fuel-btn {
 }
 
 .featured-specs-row {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.45rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem 2rem;
   margin-bottom: 1.4rem;
-  padding: 0.65rem 0.85rem;
+  padding: 0.75rem 1rem;
   background: rgba(6, 8, 14, 0.75);
   border: 1px solid var(--border-subtle);
 }
 
 .featured-spec-chip {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.45rem;
   font-family: var(--font-mono);
   font-size: 0.75rem;
+  flex-shrink: 0;
 }
 
 .featured-spec-chip .spec-label {
   color: var(--ice-blue);
   font-weight: 600;
-  min-width: 86px;
   display: inline-block;
   letter-spacing: 0.5px;
 }
@@ -2851,8 +2848,6 @@ html.system-booting #header-fuel-btn {
 .featured-spec-chip .spec-val {
   color: var(--text-main);
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .featured-actions-row {
