@@ -58,7 +58,7 @@
   description: "Surviving the Shroud of Embervale, constructing intricate voxel fortress bases, discovering ancient lore, and clearing high-level dungeon bosses."
   current_focus: "Enshrouded 1.0 is live! Join the official Vapok Gaming Community Server hosted by Survival Servers."
   modding_status: "Player & Community Host"
-  server_link: "/servers/#enshrouded"
+  server_link: "/servers/enshrouded/"
   has_community_server: true
   discord_channel: "#enshrouded"
   discord_link: "https://discord.gg/4zCbbVpac2"

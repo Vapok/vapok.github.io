@@ -2,14 +2,14 @@
 layout: page
 title: "Community Game Servers"
 permalink: /servers/
-description: "Join the official Vapok Gaming dedicated multiplayer servers. Real-time connection details, Enshrouded 1.0 launch schedule, rules, and server hosting."
+description: "Browse Vapok's dedicated community game servers. Active world nodes, connection dossiers, live interactive maps, server rules, and host infrastructure."
 ---
 
 <!-- STATUS HERO CALLOUT -->
 <div style="background: rgba(6, 8, 14, 0.85); border: 1px solid var(--border-subtle); padding: 1.75rem; margin-bottom: 2.5rem; backdrop-filter: blur(8px);">
   <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem;">
     <span style="font-size: 0.8rem; color: var(--ice-blue); letter-spacing: 1px;">
-      [ SYS_CLUSTER // MULTIPLAYER_COMMUNITY_NODES ]
+      [ SYS_CLUSTER // MULTIPLAYER_COMMUNITY_DIRECTORY ]
     </span>
     <span class="status-badge mint">1 ACTIVE DEPLOYMENT</span>
   </div>
@@ -17,11 +17,11 @@ description: "Join the official Vapok Gaming dedicated multiplayer servers. Real
     Dedicated Community Game Servers
   </h2>
   <p style="color: var(--text-main); font-size: 0.95rem; line-height: 1.6; max-width: 820px; margin-bottom: 1.25rem;">
-    Welcome to the multiplayer backbone of the <strong>Vapok Gaming Community</strong>! Beyond mod engineering and automation pipelines, we maintain dedicated worlds where community members can team up, build massive bases, conquer dungeons, and survive together.
+    Welcome to the multiplayer hub of the <strong>Vapok Gaming Community</strong>! Beyond mod engineering and automation pipelines, we maintain dedicated worlds where community members can team up, build massive bases, conquer dungeons, and survive together. Select an active deployment below for full connection credentials, live interactive maps, and community guidelines.
   </p>
   <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
-    <a href="#enshrouded" class="cyber-btn btn-mint">
-      [ ⚔️ VIEW ENSHROUDED 1.0 SERVER ]
+    <a href="{{ '/servers/enshrouded/' | relative_url }}" class="cyber-btn btn-mint">
+      [ ⚔️ ENSHROUDED 1.0 SERVER DOSSIER ]
     </a>
     <a href="https://www.survivalservers.com/share/enshrouded/map/172c66704f18ce873c37c6f7fe7c32e8" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-cyan">
       [ 🗺️ LIVE SERVER MAP ]
@@ -36,248 +36,113 @@ description: "Join the official Vapok Gaming dedicated multiplayer servers. Real
 </div>
 
 <!-- ======================================================================= -->
-<!-- FEATURED SERVER: ENSHROUDED 1.0                                         -->
+<!-- COMMUNITY SERVERS ROSTER                                                -->
 <!-- ======================================================================= -->
-<section id="enshrouded" style="scroll-margin-top: 2rem;">
+<section id="servers-roster">
   <div class="section-header">
     <div class="section-title">
-      <span>// ACTIVE_WORLD_NODE</span>
-      <span class="section-title-tag">[ FEATURED DEPLOYMENT ]</span>
+      <span>// CLUSTER_NODES</span>
+      <span class="section-title-tag">[ COMMUNITY HOSTED WORLDS ]</span>
+    </div>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">[ ALL ({{ site.data.servers.size }}) ]</button>
+      <button class="filter-btn" data-filter="active">[ ⚡ ACTIVE WORLDS (1) ]</button>
+      <button class="filter-btn" data-filter="upcoming">[ ⏳ UPCOMING (1) ]</button>
     </div>
   </div>
 
-  <article class="server-card">
-    <div class="server-header-cluster">
-      <div class="server-title-group">
-        <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.35rem;">
-          <span class="status-badge mint">ONLINE // OPEN ACCESS</span>
-          <span style="font-size: 0.76rem; color: var(--ice-blue); font-family: var(--font-mono, monospace);">NODE: SHROUD-01 // CO-OP SURVIVAL</span>
-        </div>
-        <h2>Vapok's Community Enshrouded Server</h2>
-        <p style="color: var(--text-muted); font-size: 0.88rem; margin: 0; line-height: 1.5;">
-          Survive the deadly Shroud of Embervale, build underground voxel strongholds, and venture across the corrupted realm alongside fellow Flameborn.
-        </p>
-      </div>
-
-      <!-- Live 1.0 Reset Status & Countdown Badge -->
-      <div id="enshrouded-status-badge" class="server-countdown-badge">
-        <span id="countdown-label">⏳ 1.0 MAP RESET:</span>
-        <span id="countdown-timer">CALCULATING...</span>
-      </div>
-    </div>
-
-    <!-- Banner & Reset Notice Callout -->
-    <div style="margin-bottom: 1.5rem; border: 1px solid rgba(251, 191, 36, 0.3); background: rgba(251, 191, 36, 0.05); padding: 1rem 1.25rem;">
-      <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
-        <span style="font-size: 1.3rem; line-height: 1;">🗺️</span>
+  <div class="mod-grid" style="grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));">
+    {% for server in site.data.servers %}
+      <article class="mod-card" data-category="{{ server.category | default: 'active' }}">
         <div>
-          <strong style="color: var(--warning-amber); display: block; font-size: 0.92rem; margin-bottom: 0.25rem;">
-            CURRENT MAP: EARLY ACCESS
-          </strong>
-          <span style="color: var(--text-main); font-size: 0.86rem; line-height: 1.5;">
-            The current world is running in Early Access and will <strong>automatically reset to a fresh 1.0 release world on Thursday, October 15, 2026 at 11:00 AM EDT</strong>. Jump in now to explore or get ready for tomorrow's launch!
-          </span>
-        </div>
-      </div>
-    </div>
+          {% if server.banner_url %}
+            <div class="game-card-img-wrap">
+              {% if server.dossier_url %}
+                <a href="{{ server.dossier_url | relative_url }}">
+                  <img src="{{ server.banner_url | relative_url }}" alt="{{ server.title }} Cover" class="game-card-img" loading="lazy">
+                </a>
+              {% else %}
+                <img src="{{ server.banner_url | relative_url }}" alt="{{ server.title }} Cover" class="game-card-img" loading="lazy">
+              {% endif %}
+            </div>
+          {% endif %}
 
-    <!-- Credentials Readout Matrix -->
-    <div class="server-credentials-grid">
-      <!-- Server Direct IP & Port -->
-      <div class="server-credential-cell">
-        <div>
-          <span class="server-credential-label">SERVER DIRECT IP &amp; QUERY PORT</span>
-          <div class="server-credential-value">
-            <span id="enshrouded-ip">15.204.215.165:37601</span>
-            <button type="button" class="cyber-btn server-copy-btn" onclick="copyCred('enshrouded-ip', this)" aria-label="Copy server IP and port">
-              [ 📋 COPY IP ]
-            </button>
+          <div class="mod-card-header">
+            <div>
+              <span class="mod-card-id">SYS_NODE // {{ server.node_id }}</span>
+              <h3 class="mod-title">
+                {% if server.dossier_url %}
+                  <a href="{{ server.dossier_url | relative_url }}" style="color: inherit; text-decoration: none;">
+                    {{ server.server_name }}
+                  </a>
+                {% else %}
+                  {{ server.server_name }}
+                {% endif %}
+              </h3>
+            </div>
+            <span class="status-badge {{ server.status_type | default: 'mint' }}">
+              {{ server.status_tag }}
+            </span>
           </div>
-        </div>
-        <div style="font-size: 0.74rem; color: var(--text-dim); margin-top: 0.6rem;">
-          Default Enshrouded Steam Direct Connect port
-        </div>
-      </div>
 
-      <!-- Base Building Password via Discord -->
-      <div class="server-credential-cell">
-        <div>
-          <span class="server-credential-label">BASE BUILDING ACCESS // SERVER PASSWORD</span>
-          <div class="server-credential-value">
-            <span style="color: var(--warning-amber); font-size: 0.92rem;">Discord Password Required</span>
-            <a href="https://discord.gg/4zCbbVpac2" target="_blank" rel="noopener noreferrer" class="cyber-btn server-copy-btn" style="color: var(--warning-amber) !important; border-color: rgba(251, 191, 36, 0.5);">
-              [ 🔑 GET PASSWORD ]
-            </a>
-          </div>
-        </div>
-        <div style="font-size: 0.74rem; color: var(--text-dim); margin-top: 0.6rem;">
-          Grants full base-building rights. Join our Discord to grab the password!
-        </div>
-      </div>
+          <table class="mod-meta-table">
+            <tr>
+              <td class="meta-label">GAME / GENRE:</td>
+              <td class="meta-val">{{ server.title }} ({{ server.genre }})</td>
+            </tr>
+            <tr>
+              <td class="meta-label">CURRENT MAP:</td>
+              <td class="meta-val" style="color: var(--ice-blue);">{{ server.current_map }}</td>
+            </tr>
+            {% if server.ip %}
+              <tr>
+                <td class="meta-label">DIRECT IP:</td>
+                <td class="meta-val" style="font-family: var(--font-mono, monospace); color: #ffffff;">{{ server.ip }}</td>
+              </tr>
+            {% endif %}
+            <tr>
+              <td class="meta-label">PERMISSIONS:</td>
+              <td class="meta-val" style="color: var(--glacial-mint);">{{ server.access_policy }}</td>
+            </tr>
+            <tr>
+              <td class="meta-label">HOST PARTNER:</td>
+              <td class="meta-val" style="color: var(--warning-amber);">{{ server.host_name }}</td>
+            </tr>
+          </table>
 
-      <!-- Visitor Permissions (No Password) -->
-      <div class="server-credential-cell">
-        <div>
-          <span class="server-credential-label">VISITOR ACCESS // NO PASSWORD NEEDED</span>
-          <div class="server-credential-value" style="color: var(--glacial-mint); font-size: 0.98rem;">
-            <span>Open To Everyone!</span>
-          </div>
-        </div>
-        <div style="font-size: 0.74rem; color: var(--text-dim); margin-top: 0.6rem;">
-          Join without a password as a Visitor to explore, alter terrain, fight, collect loot, and use craftspeople.
-        </div>
-      </div>
-
-      <!-- Discord Comms Channel -->
-      <div class="server-credential-cell">
-        <div>
-          <span class="server-credential-label">DISCORD COMMS &amp; VOICE</span>
-          <div class="server-credential-value">
-            <span style="color: var(--ice-blue-bright);">#enshrouded</span>
-            <a href="https://discord.gg/4zCbbVpac2" target="_blank" rel="noopener noreferrer" class="cyber-btn server-copy-btn">
-              [ 💬 OPEN DISCORD ]
-            </a>
-          </div>
-        </div>
-        <div style="font-size: 0.74rem; color: var(--text-dim); margin-top: 0.6rem;">
-          Community channel for chat, voice, base coordination, &amp; server password
-        </div>
-      </div>
-    </div>
-
-    <!-- LIVE INTERACTIVE SERVER MAP -->
-    <div class="server-map-card">
-      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
-        <div style="display: flex; align-items: center; gap: 0.6rem;">
-          <span class="status-badge cyan">🗺️ LIVE CARTOGRAPHY</span>
-          <span style="font-size: 0.78rem; color: var(--ice-blue); font-family: var(--font-mono, monospace); letter-spacing: 0.5px;">
-            EMBERVALE_SATELLITE_FEED // ACTIVE RADAR
-          </span>
-        </div>
-        <span style="font-size: 0.74rem; color: var(--text-dim); font-family: var(--font-mono, monospace);">
-          POWERED BY SURVIVAL SERVERS
-        </span>
-      </div>
-
-      <div style="display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; align-items: center;">
-        <div>
-          <h3 style="color: var(--ice-blue-bright); font-size: 1.15rem; margin: 0 0 0.4rem 0;">
-            Live Interactive Server World Map
-          </h3>
-          <p style="color: var(--text-main); font-size: 0.88rem; line-height: 1.55; margin: 0 0 0.75rem 0;">
-            Curious about what the community has explored, where fellow Flameborn have built, or where you can claim a base? Survival Servers generates a real-time web map of our active world!
+          <p class="mod-desc">
+            {{ server.description }}
           </p>
-          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.25rem;">
-            <span style="font-size: 0.74rem; background: rgba(100, 240, 252, 0.08); border: 1px solid rgba(100, 240, 252, 0.2); color: var(--ice-blue); padding: 0.2rem 0.55rem; font-family: var(--font-mono, monospace);">
-              🧭 Explored Topography &amp; Fog
-            </span>
-            <span style="font-size: 0.74rem; background: rgba(0, 245, 155, 0.08); border: 1px solid rgba(0, 245, 155, 0.2); color: var(--glacial-mint); padding: 0.2rem 0.55rem; font-family: var(--font-mono, monospace);">
-              🔥 Player Bases &amp; Flame Altars
-            </span>
-            <span style="font-size: 0.74rem; background: rgba(251, 191, 36, 0.08); border: 1px solid rgba(251, 191, 36, 0.2); color: var(--warning-amber); padding: 0.2rem 0.55rem; font-family: var(--font-mono, monospace);">
-              📍 Fast-Travel Spires &amp; Shrines
-            </span>
-          </div>
+
+          {% if server.map_reset_notice %}
+            <div style="margin-top: 0.85rem; padding: 0.65rem 0.8rem; background: rgba(251, 191, 36, 0.08); border-left: 2px solid var(--warning-amber); font-size: 0.82rem; color: var(--text-main); line-height: 1.5;">
+              <strong style="color: var(--warning-amber); display: block; margin-bottom: 0.2rem;">1.0 RELEASE SCHEDULE:</strong>
+              {{ server.map_reset_notice }}
+            </div>
+          {% endif %}
         </div>
 
-        <div style="display: flex; flex-direction: column; gap: 0.5rem; min-width: 200px;">
-          <a href="https://www.survivalservers.com/share/enshrouded/map/172c66704f18ce873c37c6f7fe7c32e8" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-mint" style="width: 100%; box-sizing: border-box; justify-content: center; text-align: center;">
-            [ 🌐 OPEN LIVE MAP &rarr; ]
-          </a>
-          <button type="button" class="cyber-btn server-copy-btn" onclick="copySnippet('https://www.survivalservers.com/share/enshrouded/map/172c66704f18ce873c37c6f7fe7c32e8', this)" style="width: 100%; box-sizing: border-box; justify-content: center;">
-            [ 📋 COPY MAP LINK ]
-          </button>
+        <div class="mod-card-actions" style="margin-top: 1.25rem;">
+          {% if server.dossier_url %}
+            <a href="{{ server.dossier_url | relative_url }}" class="cyber-btn btn-mint">
+              [ 🌐 SERVER DOSSIER &rarr; ]
+            </a>
+          {% endif %}
+          {% if server.map_url %}
+            <a href="{{ server.map_url }}" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-cyan">
+              [ 🗺️ LIVE MAP ]
+            </a>
+          {% endif %}
+          {% if server.discord_channel %}
+            <a href="{{ server.discord_link | default: site.donations.discord_invite }}" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-secondary">
+              [ DISCORD: {{ server.discord_channel }} ]
+            </a>
+          {% endif %}
         </div>
-      </div>
-    </div>
-
-    <!-- SERVER RULES DIRECTIVES -->
-    <div style="margin-top: 2rem;">
-      <div class="section-title" style="margin-bottom: 0.85rem; font-size: 0.95rem;">
-        <span>// SERVER_RULES</span>
-        <span class="section-title-tag">[ CODE OF CONDUCT &amp; PROTOCOLS ]</span>
-      </div>
-
-      <div class="server-rules-container">
-        <!-- Rule 1 -->
-        <div class="server-rule-item">
-          <div class="server-rule-num">01</div>
-          <div>
-            <div class="server-rule-title">Don't Be A Dick.</div>
-            <p class="server-rule-text">
-              This is a co-op game. Be cooperative. Anyone being a dick, including trolling, destroying things that they didn't build, or otherwise not being helpful will be banned from the server.
-            </p>
-          </div>
-        </div>
-
-        <!-- Rule 2 -->
-        <div class="server-rule-item">
-          <div class="server-rule-num">02</div>
-          <div>
-            <div class="server-rule-title">Use Altars Sparingly.</div>
-            <p class="server-rule-text">
-              We only get so many Flame Altars server-wide. Instead of claiming isolated plots, check our <a href="https://www.survivalservers.com/share/enshrouded/map/172c66704f18ce873c37c6f7fe7c32e8" target="_blank" rel="noopener noreferrer" style="color: var(--glacial-mint); font-weight: 700; text-decoration: underline;">Live Server Map</a> to find a base already in the works of being built and see about helping add on to it, or find a space in the area of the base for you to build your own base. Or be like Vapok and build hobbit holes and live underground!
-            </p>
-          </div>
-        </div>
-
-        <!-- Rule 3 -->
-        <div class="server-rule-item">
-          <div class="server-rule-num">03</div>
-          <div>
-            <div class="server-rule-title">Use the #enshrouded Channel.</div>
-            <p class="server-rule-text">
-              The <strong>#enshrouded</strong> channel in Discord is the central hub for all server talk, inside and outside the game, sharing map points of interest, coordinate trades, and organizing dungeon runs.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- STEP-BY-STEP QUICK CONNECT GUIDE -->
-    <div style="margin-top: 2.25rem;">
-      <div class="section-title" style="margin-bottom: 0.85rem; font-size: 0.95rem;">
-        <span>// HOW_TO_CONNECT</span>
-        <span class="section-title-tag">[ QUICK JOIN PROCEDURE ]</span>
-      </div>
-
-      <div class="server-steps-grid">
-        <div class="server-step-card">
-          <span class="server-step-badge">STEP // 01</span>
-          <h4>Launch Enshrouded</h4>
-          <p>Start Enshrouded via Steam and ensure your game client is up to date.</p>
-        </div>
-        <div class="server-step-card">
-          <span class="server-step-badge">STEP // 02</span>
-          <h4>Select Play &rarr; Join</h4>
-          <p>From the main menu, click <strong>Play</strong> and navigate to the <strong>Join Online Game</strong> tab.</p>
-        </div>
-        <div class="server-step-card">
-          <span class="server-step-badge">STEP // 03</span>
-          <h4>Find or Direct-Connect</h4>
-          <p>Search for <strong>Vapok's Community Enshrouded Server</strong> or connect directly via IP <code>15.204.215.165:37601</code>.</p>
-        </div>
-        <div class="server-step-card">
-          <span class="server-step-badge">STEP // 04</span>
-          <h4>Join &amp; Explore!</h4>
-          <p>Connect without a password to explore as a <strong>Visitor</strong>! Want to help build bases? Hop into Discord to grab the password.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- ACTIONS ROW -->
-    <div style="margin-top: 2rem; display: flex; gap: 0.8rem; flex-wrap: wrap; padding-top: 1.25rem; border-top: 1px solid var(--border-subtle);">
-      <a href="https://www.survivalservers.com/share/enshrouded/map/172c66704f18ce873c37c6f7fe7c32e8" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-cyan">
-        [ 🗺️ VIEW LIVE SERVER MAP ]
-      </a>
-      <a href="https://discord.gg/4zCbbVpac2" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-mint">
-        [ 💬 HOP INTO #ENSHROUDED ON DISCORD ]
-      </a>
-      <a href="{{ '/games/' | relative_url }}" class="cyber-btn">
-        [ 🕹️ VIEW ACTIVE GAMES ROSTER ]
-      </a>
-    </div>
-  </article>
+      </article>
+    {% endfor %}
+  </div>
 </section>
 
 <!-- ======================================================================= -->
@@ -296,7 +161,7 @@ description: "Join the official Vapok Gaming dedicated multiplayer servers. Real
       <div style="display: flex; align-items: center; gap: 0.6rem;">
         <span class="status-badge mint">OFFICIAL HOST</span>
         <span style="font-size: 0.82rem; color: var(--ice-blue); font-weight: 700; letter-spacing: 0.5px;">
-          SURVIVAL SERVERS // ENSHROUDED 1.0 DEDICATED HOST
+          SURVIVAL SERVERS // DEDICATED HOSTING PARTNER
         </span>
       </div>
       <div style="display: flex; align-items: center; gap: 0.5rem;">
@@ -338,42 +203,24 @@ description: "Join the official Vapok Gaming dedicated multiplayer servers. Real
 </section>
 
 <!-- ======================================================================= -->
-<!-- FUTURE SERVERS ROADMAP                                                  -->
+<!-- FUTURE SERVERS RADAR & COMMUNITY VOTING                                 -->
 <!-- ======================================================================= -->
 <section style="margin-top: 3.5rem;">
   <div class="content-terminal-box">
     <div class="terminal-box-header">
       <span>// SERVER_PIPELINE</span>
-      <span>[ UPCOMING COMMUNITY INSTANCES ]</span>
+      <span>[ COMMUNITY VOTING &amp; EXPANSION ]</span>
     </div>
     <div class="markdown-body">
-      <h3>Upcoming Community Servers &amp; Rotation</h3>
+      <h3>Want to Suggest a Dedicated Community Server?</h3>
       <p>
-        As major game milestones and community playthroughs launch, we bring additional dedicated instances online:
+        As new game updates drop or our community rallies around a survival sandbox, we bring dedicated nodes online. Current roadmap candidates include:
       </p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; margin: 1.5rem 0;">
-        <div style="background: rgba(3, 5, 10, 0.6); border: 1px solid var(--border-subtle); padding: 1.25rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-            <strong style="color: var(--ice-blue-bright); font-size: 1.05rem;">Valheim 1.0 World</strong>
-            <span class="status-badge amber">PREPARING FOR 1.0</span>
-          </div>
-          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin: 0;">
-            A fresh dedicated 10th Norse realm powered by Survival Servers, curated with Vapok's Quality of Life mod pack, launching alongside the official Valheim 1.0 release.
-          </p>
-        </div>
-
-        <div style="background: rgba(3, 5, 10, 0.6); border: 1px solid var(--border-subtle); padding: 1.25rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-            <strong style="color: var(--ice-blue-bright); font-size: 1.05rem;">Community Choice Sandbox</strong>
-            <span class="status-badge cyan">COMMUNITY VOTE</span>
-          </div>
-          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin: 0;">
-            We regularly rotate dedicated instances for titles like Techtonica, ASKA, Satisfactory, and V Rising based on member interest in Discord.
-          </p>
-        </div>
-      </div>
-
-      <div style="margin-top: 1.25rem;">
+      <ul>
+        <li><strong>Valheim 1.0 Dedicated Realm:</strong> Fresh dedicated 10th Norse realm curated with Vapok's Quality of Life mod pack, launching alongside the official Valheim 1.0 release.</li>
+        <li><strong>Community Choice Sandbox:</strong> Rotating co-op servers for titles like Techtonica, ASKA, Satisfactory, and V Rising based on member interest in Discord.</li>
+      </ul>
+      <div style="margin-top: 1.5rem;">
         <a href="https://discord.gg/4zCbbVpac2" target="_blank" rel="noopener noreferrer" class="cyber-btn btn-cyan">
           [ 🎮 SUGGEST A GAME SERVER IN DISCORD ]
         </a>
@@ -382,16 +229,7 @@ description: "Join the official Vapok Gaming dedicated multiplayer servers. Real
   </div>
 </section>
 
-<!-- REALTIME CLIENT LOGIC (COPY UTILITY & COUNTDOWN) -->
 <script>
-  // Copy to clipboard helper with tactile feedback
-  function copyCred(elementId, btnElement) {
-    const el = document.getElementById(elementId);
-    if (!el) return;
-    const text = el.innerText.trim();
-    copySnippet(text, btnElement);
-  }
-
   function copySnippet(text, btnElement) {
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(() => {
@@ -429,40 +267,4 @@ description: "Join the official Vapok Gaming dedicated multiplayer servers. Real
       btnElement.innerText = originalText;
     }, 2000);
   }
-
-  // Real-time Countdown to Enshrouded 1.0 Release
-  // Thursday, October 15, 2026 at 11:00 AM EDT (15:00:00 UTC)
-  (function initEnshroudedCountdown() {
-    const targetDate = new Date('2026-10-15T11:00:00-04:00').getTime();
-    const timerElem = document.getElementById('countdown-timer');
-    const labelElem = document.getElementById('countdown-label');
-    const badgeElem = document.getElementById('enshrouded-status-badge');
-
-    if (!timerElem) return;
-
-    function update() {
-      const now = new Date().getTime();
-      const diff = targetDate - now;
-
-      if (diff <= 0) {
-        if (labelElem) labelElem.innerText = '⚡ 1.0 WORLD STATUS:';
-        timerElem.innerText = 'NOW LIVE ON 1.0!';
-        if (badgeElem) badgeElem.classList.add('active-1-0');
-        return;
-      }
-
-      const hours = Math.floor(diff / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-      const hStr = hours.toString().padStart(2, '0');
-      const mStr = minutes.toString().padStart(2, '0');
-      const sStr = seconds.toString().padStart(2, '0');
-
-      timerElem.innerText = `${hStr}h ${mStr}m ${sStr}s`;
-    }
-
-    update();
-    setInterval(update, 1000);
-  })();
 </script>

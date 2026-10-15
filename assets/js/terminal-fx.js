@@ -1564,26 +1564,37 @@ function initBootloaderAndCli() {
         }
         break;
 
-      case 'server':
-      case 'servers':
       case 'enshrouded':
       case 'enshroudedserver':
+        printLine('--- ENSHROUDED 1.0 COMMUNITY SERVER DOSSIER ---', 'success');
+        printLine('Vapok\'s Community Enshrouded Server // Node: SHROUD-01', 'info');
+        printLine('  • IP: 15.204.215.165:37601 (Open Visitor Access // Password in Discord for Base Building)', 'cyan');
+        printLine('  • Map: Early Access (Resets to 1.0 on Thursday, Oct 15 @ 11:00 AM EDT)', 'warn');
+        printLine('  • Live Map: https://www.survivalservers.com/share/enshrouded/map/172c66704f18ce873c37c6f7fe7c32e8', 'info');
+        printLine('Official Host Partner: Survival Servers (25% off with code ENSHROUDED25)', 'info');
+        printLine('Navigating to Enshrouded Server Dossier (/servers/enshrouded/)...', 'info');
+        setTimeout(() => {
+          window.location.href = '/servers/enshrouded/';
+        }, 400);
+        break;
+
+      case 'server':
+      case 'servers':
       case 'communityserver':
+      case 'communityservers':
       case 'valheimserver':
       case 'survivalservers':
       case 'sponsor':
       case 'partner':
-        printLine('--- COMMUNITY GAME SERVERS & INFRASTRUCTURE ---', 'success');
-        printLine('Active Community Server: Vapok\'s Community Enshrouded Server', 'info');
-        printLine('  • IP: 15.204.215.165:37601 (Open Visitor Access // Password in Discord for Base Building)', 'cyan');
-        printLine('  • Map: Early Access (Resets to 1.0 on Thursday, Oct 15 @ 11:00 AM EDT)', 'warn');
-        printLine('Official Host Partner: Survival Servers (25% off with code ENSHROUDED25)', 'info');
-        printLine('Full Connection Guide & Server Rules: https://vapok.io/servers/', 'info');
-        if (window.location.pathname.includes('/servers')) {
-          const enshroudedEl = document.getElementById('enshrouded');
-          if (enshroudedEl) enshroudedEl.scrollIntoView({ behavior: 'smooth' });
+        printLine('--- COMMUNITY GAME SERVERS DIRECTORY ---', 'success');
+        printLine('Active Worlds: Enshrouded 1.0 (SHROUD-01)', 'info');
+        printLine('Upcoming Worlds: Valheim 1.0 Dedicated Realm (VALHEIM-01)', 'warn');
+        printLine('Official Host Partner: Survival Servers (25% off with code ENSHROUDED25 / VALHEIM25)', 'info');
+        printLine('Directory Index: https://vapok.io/servers/', 'info');
+        if (window.location.pathname === '/servers/' || window.location.pathname === '/servers') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
-          printLine('Navigating to Community Servers (/servers/)...', 'info');
+          printLine('Navigating to Community Servers Directory (/servers/)...', 'info');
           setTimeout(() => {
             window.location.href = '/servers/';
           }, 400);
