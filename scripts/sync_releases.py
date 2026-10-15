@@ -128,6 +128,9 @@ MOD_OVERRIDES = {
     "saveyourluckbruh": {
         "nexusmods_url": "https://www.nexusmods.com/valheim/mods/4084",
         "image": "/assets/images/mods/saveyourluckbruh/header.png"
+    },
+    "wardmebruh": {
+        "nexusmods_url": "https://www.nexusmods.com/valheim/mods/4434"
     }
 }
 
@@ -227,7 +230,7 @@ def sync():
 
         for folder_name in folders:
             # Exclude SpikeHimself, unreleased WIP mods, or non-Vapok releases
-            if folder_name.lower() in ["xportal-vapok", "xportal", "wardmebruh-vapok", "wardmebruh"]:
+            if folder_name.lower() in ["xportal-vapok", "xportal"]:
                 continue
 
             folder_path = os.path.join(releases_dir, folder_name)

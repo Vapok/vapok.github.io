@@ -5,7 +5,7 @@ slug: "dooropenerbruh"
 name: "DoorOpenerBruh"
 game: "Valheim"
 category: "valheim"
-version: "v2.0.10"
+version: "v2.0.11"
 status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/DoorOpenerBruh"
@@ -15,7 +15,7 @@ downloads: "13.5K+"
 icon: "/assets/images/mods/dooropenerbruh/icon.png"
 description: "An automatic door and gate opener/closer for Valheim."
 dependencies:
-  - "denikson-BepInExPack_Valheim-5.4.2350"
+  - "denikson-BepInExPack_Valheim-5.4.2351"
   - "ValheimModding-Jotunn-2.30.2"
   - "ValheimModding-YamlDotNet-16.3.1"
 has_changelog: true
@@ -134,6 +134,14 @@ Fine-tune global toggles and per-door behavior in the in-game [BepInEx Configura
 * **Client & Server Compatible**: Can run as a client-side quality-of-life mod or installed on dedicated servers for centralized configuration enforcement.
 
 ---
+
+---
+
+## 🔌 For Mod Developers & AI Coding Agents
+
+* 🤖 **[AI Agent Rules & Invariants](AGENTS.md)**: Guidelines for AI assistants (Cursor, Claude, Copilot, ChatGPT, Gemini).
+* ⚠️ **Integration Policy**: DoorOpenerBruh is a self-contained mod without a public API. Do not use reflection or Harmony patches on internal classes.
+* 💡 **Feature Requests**: If you need integration hooks or functionality, open a [Feature Request](https://github.com/Vapok/DoorOpenerBruh/issues) or reach out in our [Discord](https://discord.gg/5YAJkRFBXt).
 
 ## 🔒 Anonymous Telemetry, Error Reporting & Privacy
 

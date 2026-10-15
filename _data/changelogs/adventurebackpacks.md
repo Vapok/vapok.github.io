@@ -1,10 +1,69 @@
-# 2.2.11 - Performance Optimization & Frame Stutter Fix
-* **Performance & Frame Rate Improvement**:
-  * Fixed an issue that caused small frame hitches and lower frame rates in large bases with many building pieces and creatures.
-  * Optimized network ownership checks so normal game objects skip backpack checks, significantly reducing memory usage and eliminating micro-stutters.
+# 2.3.4 - Developer & AI Integration Standards
+* **Developer & AI Agent Guidelines**:
+  * Added comprehensive AI agent integration standards, guidelines, and core domain invariants to the repository (`AGENTS.md`, `.cursorrules`, `copilot-instructions.md`, `llms.txt`).
+
+* **Sidecar XML Documentation Packaging**:
+  * Enabled XML documentation file generation for release builds, shipping `AdventureBackpacks.xml` sidecar with the mod DLL so decompilers and developer IDEs automatically render full tooltips and API usage warnings.
 
 <details>
 <summary><b>2.0 Changelog History (Valheim Release)</b> (<i>click to expand</i>)</summary>
+
+### 2.3.3 - Armor Stand & Item Stand Mod Compatibility
+* **Armor Stand & Item Stand Protection**:
+  * Fixed an issue where swapping or exchanging backpacks on Armor Stands or Item Stands using equipment swap mods could cause items to drop onto the ground.
+* **Item Safeguard & Duplication Fix**:
+  * Fixed a bug where emptied backpacks could retain their contents in saved data, preventing duplicate items from being created when backpacks are transferred or swapped in rare circumstances.
+
+
+### 2.3.2 - Controller Binding & Mod Compatibility Improvements
+* **Container Tab Gamepad Controls**:
+  * Default gamepad shortcut is now **Right Trigger + Right Stick Click (RT + R3)** to switch between chest and backpack tabs when viewing a container.
+    * Prevents input conflicts with Quick Stack Store and Inventory Actions.
+  * Tab switching now requires the container grid to be actively focused so navigating player inventory slots will not switch tabs.
+  * Added expanded single-button and combo keybind choices in the configuration manager under Local Config (`Container Tabs Gamepad Button`).
+  * Updated Gamepad Keyhints
+* **UI Mod Compatibility**:
+  * Improved UI compatibility and layout alignment when running UI mods like ZenUI.
+
+### 2.3.1 - Controller Navigation Hotfix
+* **Controller & Gamepad Input Issue Fixed**:
+  * Fixed an issue where holding the controller modifier button (L2) to split stacks or quick-move items from a chest inadvertently triggered container tab switching to the backpack.
+  * Keyboard arrow keys (`LeftArrow` / `RightArrow`) for tab switching are now strictly ignored when a gamepad is active, reserving directional inputs exclusively for inventory slot navigation and stack splitting.
+  * Container tab switching is now completely blocked while holding trigger modifiers (L2 / R2), while dragging items, and while the stack split dialog is open.
+  * Dynamically displays the configured controller button for the container tab HUD hint.
+  * To my Controller friends, sorry about that!
+
+### 2.3.0 - Container Tabs, Crafting Auto-Open & HUD Key Hints
+* **Chest & Backpack Container Tabs**:
+  * When opening chests or world containers with an equipped backpack, interactive Chest and Backpack tabs now display directly below the container title.
+  * Easily toggle between chest storage and your backpack using the on-screen buttons, Left and Right arrow keys, or gamepad Right Stick Click (R3).
+  * The container panel smoothly expands downward when tabs are active, keeping all item slots completely visible and unobstructed without overlapping the player inventory above.
+  * Custom chest names and localized backpack names are fully preserved.
+  * Enabled by default and configurable under Local Config (`Enable Container Tabs`).
+* **Crafting Station Auto-Open**:
+  * Added an option to automatically open your backpack alongside crafting stations. Enabled by default and configurable under Local Config (`Open with Crafting Station`).
+* **HUD Key Hints**:
+  * Added bottom-right HUD key hints for backpack interactions, showing active keyboard and gamepad bindings while viewing containers and inventory.
+* **Startup Safety**:
+  * Improved startup safety to prevent rare errors if status effects are loaded before the game database is ready.
+* **Mod Developer API Enhancements**: Added new methods to the developer API (`ABAPI`) and reflection client (`ABAPI_Client.cs`):
+  * `IsBackpackOpen()`: Check whether the backpack GUI is currently open on the player's screen.
+  * `OpenBackpack(player, gui, activeGroup)`: Open the backpack with specific UI group focus (such as crafting stations or inventory).
+  * `IsOpenWithCraftingStationEnabled()` & `IsOpenWithInventoryEnabled()`: Check whether crafting station or inventory auto-opening are enabled in user configuration.
+  * `IsEnableContainerTabsEnabled()`: Check whether container tabs are enabled in user configuration.
+  * `HasActiveExternalContainer()`: Check whether an external container (chest) is currently open and managed alongside the backpack.
+
+
+
+### 2.2.12 - Startup Screen Stability & Dependency Updates
+* Fixed an issue where the game startup screen could cause errors or fail to show under certain mod loading conditions.
+* Updated internal dependencies for stability.
+
+
+### 2.2.11 - Performance Optimization & Frame Stutter Fix
+* **Performance & Frame Rate Improvement**:
+  * Fixed an issue that caused small frame hitches and lower frame rates in large bases with many building pieces and creatures.
+  * Optimized network ownership checks so normal game objects skip backpack checks, significantly reducing memory usage and eliminating micro-stutters.
 
 ### 2.2.10 - Backpack Upgrade & Item Duplication Fix
 * **Backpack Upgrade Duplication Fix**:

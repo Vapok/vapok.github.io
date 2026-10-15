@@ -5,7 +5,7 @@ slug: "nofogbruh"
 name: "NoFogBruh"
 game: "Valheim"
 category: "valheim"
-version: "v2.1.2"
+version: "v2.1.3"
 status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/NoFogBruh"
@@ -15,7 +15,7 @@ downloads: "62.8K+"
 icon: "/assets/images/mods/nofogbruh/icon.png"
 description: "A Valheim Mod that Removes Fog from the Game.  No Fog Bruh!"
 dependencies:
-  - "denikson-BepInExPack_Valheim-5.4.2350"
+  - "denikson-BepInExPack_Valheim-5.4.2351"
   - "ValheimModding-Jotunn-2.30.2"
   - "ValheimModding-YamlDotNet-16.3.1"
 has_changelog: true
@@ -137,6 +137,14 @@ All weather toggles update in real time—disabling an active weather event imme
 * **Client & Server Compatible**: Can run as a client-side visual enhancement or deployed on dedicated servers for centralized admin control.
 
 ---
+
+---
+
+## 🔌 For Mod Developers & AI Coding Agents
+
+* 🤖 **[AI Agent Rules & Invariants](AGENTS.md)**: Guidelines for AI assistants (Cursor, Claude, Copilot, ChatGPT, Gemini).
+* ⚠️ **Integration Policy**: NoFogBruh is a self-contained mod without a public API. Do not use reflection or Harmony patches on internal classes.
+* 💡 **Feature Requests**: If you need integration hooks or functionality, open a [Feature Request](https://github.com/Vapok/NoFogBruh/issues) or reach out in our [Discord](https://discord.gg/5YAJkRFBXt).
 
 ## 🔒 Anonymous Telemetry, Error Reporting & Privacy
 

@@ -3,7 +3,7 @@
   name: "AdventureBackpacks"
   game: "Valheim"
   category: "valheim"
-  version: "v2.2.11"
+  version: "v2.3.4"
   status: "ACTIVE"
   badge_color: "mint"
   website_url: "https://github.com/Vapok/AdventureBackpacks"
@@ -14,7 +14,7 @@
   url: "/mods/adventurebackpacks/"
   description: "A Valheim Mod to add a catalogue of Adventuring Backpacks to the Game. These packs will grow and become more useful as the game progresses."
   dependencies:
-    - "denikson-BepInExPack_Valheim-5.4.2350"
+    - "denikson-BepInExPack_Valheim-5.4.2351"
     - "ValheimModding-Jotunn-2.30.2"
     - "ValheimModding-YamlDotNet-16.3.1"
 
@@ -23,7 +23,7 @@
   name: "AutoFeedRedux"
   game: "Valheim"
   category: "valheim"
-  version: "v2.0.10"
+  version: "v2.0.11"
   status: "ACTIVE"
   badge_color: "mint"
   website_url: "https://github.com/Vapok/AutoFeedRedux"
@@ -34,7 +34,7 @@
   url: "/mods/autofeedredux/"
   description: "Tired of forgetting to feed your pets? Make feeding your animals a breeze with the Auto Feed Redux! A simple Valheim mod for feeding your tames!"
   dependencies:
-    - "denikson-BepInExPack_Valheim-5.4.2350"
+    - "denikson-BepInExPack_Valheim-5.4.2351"
     - "ValheimModding-Jotunn-2.30.2"
     - "ValheimModding-YamlDotNet-16.3.1"
 
@@ -43,18 +43,18 @@
   name: "BaitMeBruh"
   game: "Valheim"
   category: "valheim"
-  version: "v1.0.0"
+  version: "v1.0.2"
   status: "ACTIVE"
   badge_color: "mint"
   website_url: "https://github.com/Vapok/BaitMeBruh"
   nexusmods_url: "https://www.nexusmods.com/valheim/mods/4327"
   thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/BaitMeBruh/"
-  downloads: "579"
+  downloads: "581"
   icon: "/assets/images/mods/baitmebruh/icon.png"
   url: "/mods/baitmebruh/"
   description: "An entire overhaul of the vanilla fishing system featuring dynamic line tension, primitive rod progression, biome bait crafting, passive harvesting nets, seated seafaring angling, and culinary expansions."
   dependencies:
-    - "denikson-BepInExPack_Valheim-5.4.2350"
+    - "denikson-BepInExPack_Valheim-5.4.2351"
     - "ValheimModding-Jotunn-2.30.2"
     - "ValheimModding-YamlDotNet-16.3.1"
 
@@ -63,7 +63,7 @@
   name: "BepInEx.ConfigDrawers"
   game: "BepInEx"
   category: "bepinex"
-  version: "v1.1.1"
+  version: "v1.1.3"
   status: "ACTIVE"
   badge_color: "mint"
   website_url: "https://github.com/Vapok/BepInEx.ConfigDrawers"
@@ -75,14 +75,14 @@
   description: "In-game configuration manager for BepInEx plugins with docking drawers, rich data tables, and syntax-highlighted config file editing."
   telemetry: false
   dependencies:
-    - "denikson-BepInExPack_Valheim-5.4.2202"
+    - "denikson-BepInExPack_Valheim-5.4.2351"
 
 - id: "bettersleepbruh"
   slug: "bettersleepbruh"
   name: "BetterSleepBruh"
   game: "Valheim"
   category: "valheim"
-  version: "v2.1.0"
+  version: "v2.1.1"
   status: "ACTIVE"
   badge_color: "mint"
   website_url: "https://github.com/Vapok/BetterSleepBruh"
@@ -93,7 +93,7 @@
   url: "/mods/bettersleepbruh/"
   description: "A Valheim Mod that Sleeps Like Enshrouded! Sleep on your own terms! Sleep the night away faster without everyone having to be in a bed! Get Better Sleep, Bruh!"
   dependencies:
-    - "denikson-BepInExPack_Valheim-5.4.2350"
+    - "denikson-BepInExPack_Valheim-5.4.2351"
     - "ValheimModding-Jotunn-2.30.2"
     - "ValheimModding-YamlDotNet-16.3.1"
 
@@ -102,7 +102,7 @@
   name: "ConsoleBuddy"
   game: "Valheim"
   category: "valheim"
-  version: "v2.0.10"
+  version: "v2.0.11"
   status: "ACTIVE"
   badge_color: "mint"
   website_url: "https://github.com/Vapok/ConsoleBuddy"
@@ -113,7 +113,7 @@
   url: "/mods/consolebuddy/"
   description: "A simple Valheim mod that allows you to adjust the look and feel of the in-game Console"
   dependencies:
-    - "denikson-BepInExPack_Valheim-5.4.2350"
+    - "denikson-BepInExPack_Valheim-5.4.2351"
     - "ValheimModding-Jotunn-2.30.2"
     - "ValheimModding-YamlDotNet-16.3.1"
 
@@ -122,7 +122,7 @@
   name: "DoorOpenerBruh"
   game: "Valheim"
   category: "valheim"
-  version: "v2.0.10"
+  version: "v2.0.11"
   status: "ACTIVE"
   badge_color: "mint"
   website_url: "https://github.com/Vapok/DoorOpenerBruh"
@@ -133,7 +133,7 @@
   url: "/mods/dooropenerbruh/"
   description: "An automatic door and gate opener/closer for Valheim."
   dependencies:
-    - "denikson-BepInExPack_Valheim-5.4.2350"
+    - "denikson-BepInExPack_Valheim-5.4.2351"
     - "ValheimModding-Jotunn-2.30.2"
     - "ValheimModding-YamlDotNet-16.3.1"
 
@@ -142,7 +142,7 @@
   name: "FastItemTransfer"
   game: "Valheim"
   category: "valheim"
-  version: "v2.0.10"
+  version: "v2.0.11"
   status: "ACTIVE"
   badge_color: "mint"
   website_url: "https://github.com/Vapok/FastItemTransfer"
@@ -153,7 +153,7 @@
   url: "/mods/fastitemtransfer/"
   description: "A Valheim Quality of Life Mod that provides Right Click functionality to move items between Player Inventory and Containers."
   dependencies:
-    - "denikson-BepInExPack_Valheim-5.4.2350"
+    - "denikson-BepInExPack_Valheim-5.4.2351"
     - "ValheimModding-Jotunn-2.30.2"
     - "ValheimModding-YamlDotNet-16.3.1"
 
@@ -162,7 +162,7 @@
   name: "NoFogBruh"
   game: "Valheim"
   category: "valheim"
-  version: "v2.1.2"
+  version: "v2.1.3"
   status: "ACTIVE"
   badge_color: "mint"
   website_url: "https://github.com/Vapok/NoFogBruh"
@@ -173,7 +173,7 @@
   url: "/mods/nofogbruh/"
   description: "A Valheim Mod that Removes Fog from the Game.  No Fog Bruh!"
   dependencies:
-    - "denikson-BepInExPack_Valheim-5.4.2350"
+    - "denikson-BepInExPack_Valheim-5.4.2351"
     - "ValheimModding-Jotunn-2.30.2"
     - "ValheimModding-YamlDotNet-16.3.1"
 
@@ -182,7 +182,7 @@
   name: "RandomSpawnPointBruh"
   game: "Valheim"
   category: "valheim"
-  version: "v2.1.3"
+  version: "v2.1.4"
   status: "ACTIVE"
   badge_color: "mint"
   website_url: "https://github.com/Vapok/RandomSpawnPointBruh"
@@ -193,7 +193,7 @@
   url: "/mods/randomspawnpointbruh/"
   description: "Allows players to specify a random spawn point or static spawn point. Dedicated Server friendly!"
   dependencies:
-    - "denikson-BepInExPack_Valheim-5.4.2350"
+    - "denikson-BepInExPack_Valheim-5.4.2351"
     - "ValheimModding-Jotunn-2.30.2"
     - "ValheimModding-YamlDotNet-16.3.1"
 
@@ -202,18 +202,18 @@
   name: "SaveYourLuckBruh"
   game: "Valheim"
   category: "valheim"
-  version: "v1.0.2"
+  version: "v1.0.3"
   status: "ACTIVE"
   badge_color: "mint"
   website_url: "https://github.com/Vapok/SaveYourLuckBruh"
   nexusmods_url: "https://www.nexusmods.com/valheim/mods/4084"
   thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/SaveYourLuckBruh/"
-  downloads: "836"
+  downloads: "844"
   icon: "/assets/images/mods/saveyourluckbruh/icon.png"
   url: "/mods/saveyourluckbruh/"
   description: "Persists vanilla Valheim bad luck protection across game sessions and world transitions."
   dependencies:
-    - "denikson-BepInExPack_Valheim-5.4.2350"
+    - "denikson-BepInExPack_Valheim-5.4.2351"
     - "ValheimModding-Jotunn-2.30.2"
     - "ValheimModding-YamlDotNet-16.3.1"
 
@@ -222,18 +222,18 @@
   name: "ShieldMeBruh"
   game: "Valheim"
   category: "valheim"
-  version: "v2.1.3"
+  version: "v2.1.4"
   status: "ACTIVE"
   badge_color: "mint"
   website_url: "https://github.com/Vapok/ShieldMeBruh"
   nexusmods_url: "https://www.nexusmods.com/valheim/mods/2272"
   thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/ShieldMeBruh/"
-  downloads: "132.6K+"
+  downloads: "132.7K+"
   icon: "/assets/images/mods/shieldmebruh/icon.png"
   url: "/mods/shieldmebruh/"
   description: "A Valheim Quality of Life Mod that will auto equip a selected shield when a one-handed weapon is equipped. I need a shield! Shield me Bruh!"
   dependencies:
-    - "denikson-BepInExPack_Valheim-5.4.2350"
+    - "denikson-BepInExPack_Valheim-5.4.2351"
     - "ValheimModding-Jotunn-2.30.2"
     - "ValheimModding-YamlDotNet-16.3.1"
 
@@ -242,7 +242,7 @@
   name: "TheQueensDeadBruh"
   game: "Valheim"
   category: "valheim"
-  version: "v2.0.10"
+  version: "v2.0.11"
   status: "ACTIVE"
   badge_color: "mint"
   website_url: "https://github.com/Vapok/TheQueensDeadBruh"
@@ -253,7 +253,27 @@
   url: "/mods/thequeensdeadbruh/"
   description: "God Save The Queen! Wait! No, Kill her so we get rid of this MIST!! Um.. Dude? The Queens Dead Bruh!"
   dependencies:
-    - "denikson-BepInExPack_Valheim-5.4.2350"
+    - "denikson-BepInExPack_Valheim-5.4.2351"
+    - "ValheimModding-Jotunn-2.30.2"
+    - "ValheimModding-YamlDotNet-16.3.1"
+
+- id: "wardmebruh"
+  slug: "wardmebruh"
+  name: "WardMeBruh"
+  game: "Valheim"
+  category: "valheim"
+  version: "v1.0.0"
+  status: "ACTIVE"
+  badge_color: "mint"
+  website_url: "https://github.com/Vapok/WardMeBruh"
+  nexusmods_url: "https://www.nexusmods.com/valheim/mods/4434"
+  thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/WardMeBruh/"
+  downloads: ""
+  icon: "/assets/images/mods/wardmebruh/icon.png"
+  url: "/mods/wardmebruh/"
+  description: "Ward Me Bruh! expands the vanilla Valheim ward with role-based permissions, multi-ward compound linking, nested sub-wards, automated base upkeep, and configurable defense shields, as well as an optional progression system."
+  dependencies:
+    - "denikson-BepInExPack_Valheim-5.4.2351"
     - "ValheimModding-Jotunn-2.30.2"
     - "ValheimModding-YamlDotNet-16.3.1"
 
@@ -273,7 +293,7 @@
   url: "/mods/xportalnetworks/"
   description: "Select portal destination from a list of existing portals with custom networks and private portals support. No more tag pairing, and no more portal hubs!"
   dependencies:
-    - "denikson-BepInExPack_Valheim-5.4.2350"
+    - "denikson-BepInExPack_Valheim-5.4.2351"
     - "ValheimModding-Jotunn-2.30.2"
 
 - id: "techtonica-bettercoremanagement"

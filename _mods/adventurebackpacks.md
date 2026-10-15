@@ -5,7 +5,7 @@ slug: "adventurebackpacks"
 name: "AdventureBackpacks"
 game: "Valheim"
 category: "valheim"
-version: "v2.2.11"
+version: "v2.3.4"
 status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/AdventureBackpacks"
@@ -15,7 +15,7 @@ downloads: "1.1M+"
 icon: "/assets/images/mods/adventurebackpacks/icon.png"
 description: "A Valheim Mod to add a catalogue of Adventuring Backpacks to the Game. These packs will grow and become more useful as the game progresses."
 dependencies:
-  - "denikson-BepInExPack_Valheim-5.4.2350"
+  - "denikson-BepInExPack_Valheim-5.4.2351"
   - "ValheimModding-Jotunn-2.30.2"
   - "ValheimModding-YamlDotNet-16.3.1"
 has_changelog: true
@@ -230,6 +230,18 @@ Adventure Backpacks includes localization support for all 35 languages supported
 * **Required on Both Client & Server**: Adventure Backpacks must be present on both the server and all connecting clients.
 * **Network Compatibility**: Built-in version checking ensures game-state and inventory consistency across clients.
 * **ServerSync**: Server configuration files automatically lock and sync settings down to non-admin players in real-time.
+
+---
+
+## 🔌 For Mod Developers & AI Coding Agents
+
+Looking to integrate your mod with Adventure Backpacks or build compatibility?
+
+* 📖 **[Integration Guide & API Reference](Docs/API_INTEGRATION.md)**: Full walkthrough for connecting your mod.
+* 🤖 **[AI Agent Rules & Invariants](AGENTS.md)**: Mandatory guidelines for AI assistants (Cursor, Claude, Copilot, ChatGPT, Gemini).
+* 📦 **[Zero-Dependency Client Wrapper](Docs/ABAPI_Client.cs)**: Drop-in C# file (`ABAPIClient`) to safely integrate with zero external DLL dependencies.
+* ⚠️ **Core Invariant**: Exactly **one** backpack may be equipped per player. Do not use reflection or Harmony patches on internal classes; always use the public API.
+* 💡 **Need New API Features?**: Open a [Feature Request](https://github.com/Vapok/AdventureBackpacks/issues/new?template=feature_request.md) or discuss it in our [Discord](https://discord.gg/5YAJkRFBXt).
 
 ---
 

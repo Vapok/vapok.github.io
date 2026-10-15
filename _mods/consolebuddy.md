@@ -5,7 +5,7 @@ slug: "consolebuddy"
 name: "ConsoleBuddy"
 game: "Valheim"
 category: "valheim"
-version: "v2.0.10"
+version: "v2.0.11"
 status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/ConsoleBuddy"
@@ -15,7 +15,7 @@ downloads: "3.4K+"
 icon: "/assets/images/mods/consolebuddy/icon.png"
 description: "A simple Valheim mod that allows you to adjust the look and feel of the in-game Console"
 dependencies:
-  - "denikson-BepInExPack_Valheim-5.4.2350"
+  - "denikson-BepInExPack_Valheim-5.4.2351"
   - "ValheimModding-Jotunn-2.30.2"
   - "ValheimModding-YamlDotNet-16.3.1"
 has_changelog: true
@@ -120,6 +120,14 @@ Tailor all visual settings in real time via the in-game [BepInEx Configuration M
 * Copy `ConsoleBuddy.dll` to your `Valheim/BepInEx/plugins` directory.
 
 ---
+
+---
+
+## 🔌 For Mod Developers & AI Coding Agents
+
+* 🤖 **[AI Agent Rules & Invariants](AGENTS.md)**: Guidelines for AI assistants (Cursor, Claude, Copilot, ChatGPT, Gemini).
+* ⚠️ **Integration Policy**: ConsoleBuddy is a self-contained mod without a public API. Do not use reflection or Harmony patches on internal classes.
+* 💡 **Feature Requests**: If you need integration hooks or functionality, open a [Feature Request](https://github.com/Vapok/ConsoleBuddy/issues) or reach out in our [Discord](https://discord.gg/5YAJkRFBXt).
 
 ## 🔒 Anonymous Telemetry, Error Reporting & Privacy
 

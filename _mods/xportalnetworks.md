@@ -15,7 +15,7 @@ downloads: "22.8K+"
 icon: "/assets/images/mods/xportalnetworks/icon.png"
 description: "Select portal destination from a list of existing portals with custom networks and private portals support. No more tag pairing, and no more portal hubs!"
 dependencies:
-  - "denikson-BepInExPack_Valheim-5.4.2350"
+  - "denikson-BepInExPack_Valheim-5.4.2351"
   - "ValheimModding-Jotunn-2.30.2"
 has_changelog: true
 telemetry: true
@@ -202,6 +202,14 @@ Use a mod manager like **r2modman** or **Thunderstore Mod Manager** to download 
 * **Translations & Community**: Thanks to *kaiqueknup*, *makou*, *Smok3y97*, *MexExe*, *hanawa07*, *bonesbro*, *VasariRulez*, *Felix*, and *cawa-93* for original translations and community contributions.
 
 ---
+
+---
+
+## 🔌 For Mod Developers & AI Coding Agents
+
+* 🤖 **[AI Agent Rules & Invariants](AGENTS.md)**: Guidelines for AI assistants (Cursor, Claude, Copilot, ChatGPT, Gemini).
+* ⚠️ **Integration Policy**: XPortalNetworks is a self-contained mod without a public API. Do not use reflection or Harmony patches on internal classes.
+* 💡 **Feature Requests**: If you need integration hooks or functionality, open a [Feature Request](https://github.com/Vapok/XPortalNetworks/issues) or reach out in our [Discord](https://discord.gg/5YAJkRFBXt).
 
 ## 🔒 Anonymous Telemetry, Error Reporting & Privacy
 

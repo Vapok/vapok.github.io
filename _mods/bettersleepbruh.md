@@ -5,7 +5,7 @@ slug: "bettersleepbruh"
 name: "BetterSleepBruh"
 game: "Valheim"
 category: "valheim"
-version: "v2.1.0"
+version: "v2.1.1"
 status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/BetterSleepBruh"
@@ -15,7 +15,7 @@ downloads: "10.6K+"
 icon: "/assets/images/mods/bettersleepbruh/icon.png"
 description: "A Valheim Mod that Sleeps Like Enshrouded! Sleep on your own terms! Sleep the night away faster without everyone having to be in a bed! Get Better Sleep, Bruh!"
 dependencies:
-  - "denikson-BepInExPack_Valheim-5.4.2350"
+  - "denikson-BepInExPack_Valheim-5.4.2351"
   - "ValheimModding-Jotunn-2.30.2"
   - "ValheimModding-YamlDotNet-16.3.1"
 has_changelog: true
@@ -153,6 +153,14 @@ Configure via the in-game [BepInEx Configuration Manager](https://github.com/Bep
 * **Client Installation (Optional)**: Recommended for players who want to see the visual on-screen Pillow HUD.
 
 ---
+
+---
+
+## 🔌 For Mod Developers & AI Coding Agents
+
+* 🤖 **[AI Agent Rules & Invariants](AGENTS.md)**: Guidelines for AI assistants (Cursor, Claude, Copilot, ChatGPT, Gemini).
+* ⚠️ **Integration Policy**: BetterSleepBruh is a self-contained mod without a public API. Do not use reflection or Harmony patches on internal classes.
+* 💡 **Feature Requests**: If you need integration hooks or functionality, open a [Feature Request](https://github.com/Vapok/BetterSleepBruh/issues) or reach out in our [Discord](https://discord.gg/5YAJkRFBXt).
 
 ## 🔒 Anonymous Telemetry, Error Reporting & Privacy
 

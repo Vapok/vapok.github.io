@@ -5,17 +5,17 @@ slug: "saveyourluckbruh"
 name: "SaveYourLuckBruh"
 game: "Valheim"
 category: "valheim"
-version: "v1.0.2"
+version: "v1.0.3"
 status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/SaveYourLuckBruh"
 nexusmods_url: "https://www.nexusmods.com/valheim/mods/4084"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/SaveYourLuckBruh/"
-downloads: "836"
+downloads: "844"
 icon: "/assets/images/mods/saveyourluckbruh/icon.png"
 description: "Persists vanilla Valheim bad luck protection across game sessions and world transitions."
 dependencies:
-  - "denikson-BepInExPack_Valheim-5.4.2350"
+  - "denikson-BepInExPack_Valheim-5.4.2351"
   - "ValheimModding-Jotunn-2.30.2"
   - "ValheimModding-YamlDotNet-16.3.1"
 has_changelog: true
@@ -92,4 +92,13 @@ Standard logging settings (including debug logging) are available via `BepInEx/c
 
 * **BepInEx**: 5.4.2350 or later.
 * **Jotunn**: 2.30.2 or later.
+
+---
+
+## 🔌 For Mod Developers & AI Coding Agents
+
+* 🤖 **[AI Agent Rules & Invariants](AGENTS.md)**: Guidelines for AI assistants (Cursor, Claude, Copilot, ChatGPT, Gemini).
+* ⚠️ **Integration Policy**: SaveYourLuckBruh is a self-contained mod without a public API. Do not use reflection or Harmony patches on internal classes.
+* 💡 **Feature Requests**: If you need integration hooks or functionality, open a [Feature Request](https://github.com/Vapok/SaveYourLuckBruh/issues) or reach out in our [Discord](https://discord.gg/5YAJkRFBXt).
+
 

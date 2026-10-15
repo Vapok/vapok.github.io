@@ -5,7 +5,7 @@ slug: "randomspawnpointbruh"
 name: "RandomSpawnPointBruh"
 game: "Valheim"
 category: "valheim"
-version: "v2.1.3"
+version: "v2.1.4"
 status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/RandomSpawnPointBruh"
@@ -15,7 +15,7 @@ downloads: "15.3K+"
 icon: "/assets/images/mods/randomspawnpointbruh/icon.png"
 description: "Allows players to specify a random spawn point or static spawn point. Dedicated Server friendly!"
 dependencies:
-  - "denikson-BepInExPack_Valheim-5.4.2350"
+  - "denikson-BepInExPack_Valheim-5.4.2351"
   - "ValheimModding-Jotunn-2.30.2"
   - "ValheimModding-YamlDotNet-16.3.1"
 has_changelog: true
@@ -284,6 +284,14 @@ All settings in the table below are **Server-Synced** on dedicated servers using
 * **Server Authority**: The dedicated server configuration controls all synced settings. Client settings in synced categories are overwritten upon connection.
 
 ---
+
+---
+
+## 🔌 For Mod Developers & AI Coding Agents
+
+* 🤖 **[AI Agent Rules & Invariants](AGENTS.md)**: Guidelines for AI assistants (Cursor, Claude, Copilot, ChatGPT, Gemini).
+* ⚠️ **Integration Policy**: RandomSpawnPointBruh is a self-contained mod without a public API. Do not use reflection or Harmony patches on internal classes.
+* 💡 **Feature Requests**: If you need integration hooks or functionality, open a [Feature Request](https://github.com/Vapok/RandomSpawnPointBruh/issues) or reach out in our [Discord](https://discord.gg/5YAJkRFBXt).
 
 ## 🔒 Anonymous Telemetry, Error Reporting & Privacy
 

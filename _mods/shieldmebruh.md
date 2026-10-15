@@ -5,17 +5,17 @@ slug: "shieldmebruh"
 name: "ShieldMeBruh"
 game: "Valheim"
 category: "valheim"
-version: "v2.1.3"
+version: "v2.1.4"
 status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/ShieldMeBruh"
 nexusmods_url: "https://www.nexusmods.com/valheim/mods/2272"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/ShieldMeBruh/"
-downloads: "132.6K+"
+downloads: "132.7K+"
 icon: "/assets/images/mods/shieldmebruh/icon.png"
 description: "A Valheim Quality of Life Mod that will auto equip a selected shield when a one-handed weapon is equipped. I need a shield! Shield me Bruh!"
 dependencies:
-  - "denikson-BepInExPack_Valheim-5.4.2350"
+  - "denikson-BepInExPack_Valheim-5.4.2351"
   - "ValheimModding-Jotunn-2.30.2"
   - "ValheimModding-YamlDotNet-16.3.1"
 has_changelog: true
@@ -117,6 +117,14 @@ Never get caught in battle with an empty off-hand! **Shield Me Bruh!** is a slee
 * Copy `ShieldMeBruh.dll` to your `Valheim/BepInEx/plugins` directory.
 
 ---
+
+---
+
+## 🔌 For Mod Developers & AI Coding Agents
+
+* 🤖 **[AI Agent Rules & Invariants](AGENTS.md)**: Guidelines for AI assistants (Cursor, Claude, Copilot, ChatGPT, Gemini).
+* ⚠️ **Integration Policy**: ShieldMeBruh is a self-contained mod without a public API. Do not use reflection or Harmony patches on internal classes.
+* 💡 **Feature Requests**: If you need integration hooks or functionality, open a [Feature Request](https://github.com/Vapok/ShieldMeBruh/issues) or reach out in our [Discord](https://discord.gg/5YAJkRFBXt).
 
 ## 🔒 Anonymous Telemetry, Error Reporting & Privacy
 

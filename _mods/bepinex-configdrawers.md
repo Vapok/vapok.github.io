@@ -5,7 +5,7 @@ slug: "bepinex-configdrawers"
 name: "BepInEx.ConfigDrawers"
 game: "BepInEx"
 category: "bepinex"
-version: "v1.1.1"
+version: "v1.1.3"
 status: "ACTIVE"
 badge_color: "mint"
 website_url: "https://github.com/Vapok/BepInEx.ConfigDrawers"
@@ -15,7 +15,7 @@ downloads: "2.9K+"
 icon: "/assets/images/mods/bepinex-configdrawers/icon.png"
 description: "In-game configuration manager for BepInEx plugins with docking drawers, rich data tables, and syntax-highlighted config file editing."
 dependencies:
-  - "denikson-BepInExPack_Valheim-5.4.2202"
+  - "denikson-BepInExPack_Valheim-5.4.2351"
 has_changelog: true
 telemetry: false
 gallery:
@@ -157,4 +157,13 @@ Maintained by **Vapok**.
 - **Discord**: [Vapok Gaming Community](https://discord.gg/5YAJkRFBXt)
 - **GitHub**: [Vapok/BepInEx.ConfigDrawers](https://github.com/Vapok/BepInEx.ConfigDrawers)
 - **Thunderstore**: [Vapok Mods](https://thunderstore.io/c/valheim/p/Vapok/)
+
+---
+
+## 🔌 For Mod Developers & AI Coding Agents
+
+* 🤖 **[AI Agent Rules & Invariants](AGENTS.md)**: Guidelines for AI assistants (Cursor, Claude, Copilot, ChatGPT, Gemini).
+* ⚠️ **Integration Policy**: BepInEx.ConfigDrawers is a self-contained mod without a public API. Do not use reflection or Harmony patches on internal classes.
+* 💡 **Feature Requests**: If you need integration hooks or functionality, open a [Feature Request](https://github.com/Vapok/BepInEx.ConfigDrawers/issues) or reach out in our [Discord](https://discord.gg/5YAJkRFBXt).
+
 
