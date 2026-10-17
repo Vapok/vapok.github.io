@@ -11,7 +11,7 @@ badge_color: "mint"
 website_url: "https://github.com/Vapok/RandomSpawnPointBruh"
 nexusmods_url: "https://www.nexusmods.com/valheim/mods/2544"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/RandomSpawnPointBruh/"
-downloads: "15.3K+"
+downloads: "15.4K+"
 icon: "/assets/images/mods/randomspawnpointbruh/icon.png"
 description: "Allows players to specify a random spawn point or static spawn point. Dedicated Server friendly!"
 dependencies:
