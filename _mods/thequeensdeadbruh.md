@@ -13,6 +13,7 @@ nexusmods_url: "https://www.nexusmods.com/valheim/mods/3157"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/TheQueensDeadBruh/"
 downloads: "9.8K+"
 icon: "/assets/images/mods/thequeensdeadbruh/icon.png"
+image: "/assets/images/mods/thequeensdeadbruh/thequeensdeadbruh-og.png"
 description: "God Save The Queen! Wait! No, Kill her so we get rid of this MIST!! Um.. Dude? The Queens Dead Bruh!"
 dependencies:
   - "denikson-BepInExPack_Valheim-5.4.2351"

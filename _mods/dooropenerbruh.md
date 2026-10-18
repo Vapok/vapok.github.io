@@ -13,6 +13,7 @@ nexusmods_url: "https://www.nexusmods.com/valheim/mods/2506"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/DoorOpenerBruh/"
 downloads: "13.9K+"
 icon: "/assets/images/mods/dooropenerbruh/icon.png"
+image: "/assets/images/mods/dooropenerbruh/dooropenerbruh-og.png"
 description: "An automatic door and gate opener/closer for Valheim."
 dependencies:
   - "denikson-BepInExPack_Valheim-5.4.2351"

@@ -20,7 +20,7 @@ dependencies:
   - "ValheimModding-YamlDotNet-16.3.1"
 has_changelog: true
 telemetry: true
-image: "/assets/images/mods/saveyourluckbruh/header.png"
+image: "/assets/images/mods/saveyourluckbruh/saveyourluckbruh-og.png"
 ---
 
 <div align="center" markdown="1">

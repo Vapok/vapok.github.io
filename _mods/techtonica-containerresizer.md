@@ -12,6 +12,7 @@ website_url: "https://github.com/Vapok/TTMods-ContainerResizer"
 thunderstore_url: "https://thunderstore.io/c/techtonica/p/Vapok/ContainerResizer/"
 downloads: "1.7K+"
 icon: "/assets/images/mods/techtonica-containerresizer/icon.png"
+image: "/assets/images/mods/techtonica-containerresizer/techtonica-containerresizer-og.png"
 description: "Resize individual chests on-the-fly to restrict how much a chest can hold. Multiplayer Support included."
 dependencies:
   - "BepInEx-BepInExPack-5.4.2100"

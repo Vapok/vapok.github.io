@@ -13,6 +13,7 @@ nexusmods_url: "https://www.nexusmods.com/valheim/mods/2250"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/FastItemTransfer/"
 downloads: "26.0K+"
 icon: "/assets/images/mods/fastitemtransfer/icon.png"
+image: "/assets/images/mods/fastitemtransfer/fastitemtransfer-og.png"
 description: "A Valheim Quality of Life Mod that provides Right Click functionality to move items between Player Inventory and Containers."
 dependencies:
   - "denikson-BepInExPack_Valheim-5.4.2351"

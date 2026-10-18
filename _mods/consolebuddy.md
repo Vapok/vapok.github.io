@@ -13,6 +13,7 @@ nexusmods_url: "https://www.nexusmods.com/valheim/mods/2315"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/ConsoleBuddy/"
 downloads: "3.4K+"
 icon: "/assets/images/mods/consolebuddy/icon.png"
+image: "/assets/images/mods/consolebuddy/consolebuddy-og.png"
 description: "A simple Valheim mod that allows you to adjust the look and feel of the in-game Console"
 dependencies:
   - "denikson-BepInExPack_Valheim-5.4.2351"

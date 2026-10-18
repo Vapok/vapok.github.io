@@ -12,6 +12,7 @@ website_url: "https://github.com/Vapok/TTMods-KnowEncumbrance"
 thunderstore_url: "https://thunderstore.io/c/techtonica/p/Vapok/KnowEncumbrance/"
 downloads: "1.9K+"
 icon: "/assets/images/mods/techtonica-knowencumbrance/icon.png"
+image: "/assets/images/mods/techtonica-knowencumbrance/techtonica-knowencumbrance-og.png"
 description: "A Simple Techtonica mod that demystifies the Encumbrance Equation"
 dependencies:
   - "BepInEx-BepInExPack-5.4.2100"

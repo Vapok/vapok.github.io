@@ -13,6 +13,7 @@ nexusmods_url: "https://www.nexusmods.com/valheim/mods/3280"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/BetterSleepBruh/"
 downloads: "11.1K+"
 icon: "/assets/images/mods/bettersleepbruh/icon.png"
+image: "/assets/images/mods/bettersleepbruh/bettersleepbruh-og.png"
 description: "A Valheim Mod that Sleeps Like Enshrouded! Sleep on your own terms! Sleep the night away faster without everyone having to be in a bed! Get Better Sleep, Bruh!"
 dependencies:
   - "denikson-BepInExPack_Valheim-5.4.2351"

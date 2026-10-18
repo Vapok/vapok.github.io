@@ -13,6 +13,7 @@ nexusmods_url: "https://www.nexusmods.com/valheim/mods/3168"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/AutoFeedRedux/"
 downloads: "40.5K+"
 icon: "/assets/images/mods/autofeedredux/icon.png"
+image: "/assets/images/mods/autofeedredux/autofeedredux-og.png"
 description: "Tired of forgetting to feed your pets? Make feeding your animals a breeze with the Auto Feed Redux! A simple Valheim mod for feeding your tames!"
 dependencies:
   - "denikson-BepInExPack_Valheim-5.4.2351"

@@ -88,13 +88,14 @@ Starting as a wee Viking rummaging through the tranquil fields of the Meadows, y
 | **Arctic Sherpa Pack** | ❄️ Mountain | *An insulated Mountain pack fit for freezing treks; grants **Frost & Cold Resistance**.* |
 | **Lox Hide Knappsack** | 🌾 Plains | *A massive Plains pack made from thick, durable lox hide with high carry capacity.* |
 | **Explorers Wisppack** | 🌫️ Mistlands | *A mystical backpack with a Box of Holding, built-in **Demister / Wisplight**, and **Slow Fall**.* |
-| **Ashlands Pack** | 🔥 Ashlands | *🔥 Coming Soon — Forged for the volcanic fires and molten depths.* |
-| **Deep North Pack** | 🧊 Deep North | *🧊 Coming Soon — Prepared for the sub-zero permafrost.* |
+| **Cinderward Pack** | 🔥 Ashlands | *Forged with Flametal ribs and charred bone; grants **Frost/Cold Immunity**, **Heat & Fire Resistance**, and reduces attack & block stamina costs.* |
+| **Frostbound Haversack** | 🧊 Deep North | *Moose hide over a frost core; grants **Frost/Cold Immunity**, tool/attack/run stamina reductions, and the **Second Wind** adrenaline surge.* |
 | **Legacy Packs** | ⚔️ Legacy | *Original Iron and Silver backpacks preserved for existing world saves.* |
 
 <blockquote style="background-color: rgba(56, 139, 253, 0.08); border-left: 4px solid #388bfd; padding: 12px 16px; margin: 16px 0; border-radius: 4px;">
-  <p style="margin: 0 0 6px 0;">💡 <strong>Coming Soon: Ashlands &amp; Deep North Backpacks</strong></p>
-  <p style="margin: 0;">New biome-specific backpacks for the <strong>Ashlands</strong> and <strong>Deep North</strong> are actively in development, featuring custom models, materials, and unique biome status effects!</p>
+  <p style="margin: 0 0 6px 0;">🎨 <strong>Dual-Era Visuals: Modern vs. Classic Models</strong></p>
+  <p style="margin: 0 0 6px 0;">All backpacks feature high-detail <strong>Modern</strong> 3D models and HD icons authored by <strong>BaalEvan</strong>, alongside the nostalgic original <strong>Classic</strong> visuals. Players can configure model styles individually per backpack under <code>[Backpack: &lt;ItemName&gt;]</code> via <code>Model Style = Modern</code> or <code>Classic</code> in <code>com.vapok.adventurebackpacks.cfg</code> (requires a game restart to reload asset bundles).</p>
+  <p style="margin: 0;">Explore full recipe breakdowns, 3D model previews, and drop tables in the <a href="/mods/adventurebackpacks/recipes/">Book of Knowledge &rarr;</a></p>
 </blockquote>
 
 ---
@@ -144,8 +145,10 @@ Starting as a wee Viking rummaging through the tranquil fields of the Meadows, y
 * 💪 **Carry Weight Modification**: Increases base carrying capacity per upgrade level.
 * ⚖️ **Weight Reduction Multiplier**: Configures how much weight items inside the backpack contribute *(0% = weightless contents; 100% = normal weight)*.
 * 🏃 **Speed Modifiers**: Configurable movement speed adjustments per tier that improve as packs are upgraded.
-* ❄️ **Frost & Cold Resistance**: Keeps you warm in freezing Mountain biomes.
+* ❄️ **Frost & Cold Resistance**: Keeps you warm in freezing Mountain, Ashlands, and Deep North biomes.
 * 🌧️ **Waterproof**: Prevents the "Wet" debuff in rain and swamp water.
+* 🔥 **Heat & Fire Resistance**: Endures extreme volcanic temperatures and grants fire resistance in the Ashlands.
+* ⚡ **Second Wind (Adrenaline Surge)**: Restores critical stamina with an instant surge when adrenaline reaches max in the Deep North.
 * 🦹 **Troll Armor Set Synergy**: Integrates into the Sneak set bonus when wearing Troll Leather gear.
 * 🪶 **Slow Fall / Feather Fall**: Eliminates fatal fall damage when leaping from mountain peaks.
 * 💡 **Demister (Wisplight)**:

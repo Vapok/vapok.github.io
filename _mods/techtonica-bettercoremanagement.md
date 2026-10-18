@@ -12,6 +12,7 @@ website_url: "https://github.com/Vapok/TTMods-BetterCoreManagement"
 thunderstore_url: "https://thunderstore.io/c/techtonica/p/Vapok/BetterCoreManagement/"
 downloads: "2.6K+"
 icon: "/assets/images/mods/techtonica-bettercoremanagement/icon.png"
+image: "/assets/images/mods/techtonica-bettercoremanagement/techtonica-bettercoremanagement-og.png"
 description: "Research Core Manager that allows virtual research cores to be added even if Core Composers are full. Multiplayer Support included."
 dependencies:
   - "BepInEx-BepInExPack-5.4.2100"

@@ -13,6 +13,7 @@ nexusmods_url: "https://www.nexusmods.com/valheim/mods/2285"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/NoFogBruh/"
 downloads: "64.2K+"
 icon: "/assets/images/mods/nofogbruh/icon.png"
+image: "/assets/images/mods/nofogbruh/nofogbruh-og.png"
 description: "A Valheim Mod that Removes Fog from the Game.  No Fog Bruh!"
 dependencies:
   - "denikson-BepInExPack_Valheim-5.4.2351"

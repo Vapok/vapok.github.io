@@ -13,6 +13,7 @@ nexusmods_url: "https://www.nexusmods.com/valheim/mods/4327"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/BaitMeBruh/"
 downloads: "810"
 icon: "/assets/images/mods/baitmebruh/icon.png"
+image: "/assets/images/mods/baitmebruh/baitmebruh-og.png"
 description: "An entire overhaul of the vanilla fishing system featuring dynamic line tension, primitive rod progression, biome bait crafting, passive harvesting nets, seated seafaring angling, and culinary expansions."
 dependencies:
   - "denikson-BepInExPack_Valheim-5.4.2351"

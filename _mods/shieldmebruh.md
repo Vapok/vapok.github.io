@@ -13,6 +13,7 @@ nexusmods_url: "https://www.nexusmods.com/valheim/mods/2272"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/ShieldMeBruh/"
 downloads: "135.5K+"
 icon: "/assets/images/mods/shieldmebruh/icon.png"
+image: "/assets/images/mods/shieldmebruh/shieldmebruh-og.png"
 description: "A Valheim Quality of Life Mod that will auto equip a selected shield when a one-handed weapon is equipped. I need a shield! Shield me Bruh!"
 dependencies:
   - "denikson-BepInExPack_Valheim-5.4.2351"

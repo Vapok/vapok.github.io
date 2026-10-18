@@ -13,6 +13,7 @@ nexusmods_url: "https://www.nexusmods.com/valheim/mods/4434"
 thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/WardMeBruh/"
 downloads: "72"
 icon: "/assets/images/mods/wardmebruh/icon.png"
+image: "/assets/images/mods/wardmebruh/wardmebruh-og.png"
 description: "Ward Me Bruh! expands the vanilla Valheim ward with role-based permissions, multi-ward compound linking, nested sub-wards, automated base upkeep, and configurable defense shields, as well as an optional progression system."
 dependencies:
   - "denikson-BepInExPack_Valheim-5.4.2351"

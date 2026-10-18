@@ -24,12 +24,13 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
     <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
       <span class="status-badge mint">ANCIENT CODEX</span>
       <span class="status-badge cyan">VALHEIM COMPENDIUM</span>
+      <span class="status-badge orange">DUAL-ERA VISUALS</span>
       <span style="font-size: 0.8rem; color: var(--text-dim);">VOLUME // 0xBACKPACK_RECIPES</span>
     </div>
 
     <h1 class="book-hero-title">📖 The Book of Knowledge: Backpack Recipes</h1>
     <p class="book-hero-subtitle">
-      The definitive crafting blueprints, upgrade paths, and biomic secrets of <strong>Adventure Backpacks</strong>. From the humble deer hides of the Meadows to the mystical eitr-weaves of the Mistlands, consult the ancient designs below.
+      The definitive crafting blueprints, upgrade paths, and biomic secrets of <strong>Adventure Backpacks</strong>. From the humble deer hides of the Meadows to the mystical eitr-weaves of the Mistlands, the searing flametal of the Ashlands, and the sub-zero permafrost of the Deep North, consult the ancient designs below.
     </p>
 
     <!-- Explorer Stance & Philosophy Callout -->
@@ -44,8 +45,42 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
           However, every great journey benefits from an illuminated field journal. For the weary traveler planning expeditions or verifying materials, this Book of Knowledge reveals the starter blueprints.
         </p>
         <p style="color: var(--warning-amber); font-weight: 600; margin-top: 0.6rem;">
-          ⚙️ <strong>Configurability Reminder:</strong> All recipes and station requirements listed here reflect <strong>default mod configurations</strong>. Server administrators and solo vikings can fully customize ingredients, amounts, and crafting benches via <code>com.vapok.adventurebackpacks.cfg</code>.
+          ⚙️ <strong>Configurability Reminder:</strong> All recipes and station requirements listed here reflect <strong>default mod configurations</strong>. Server administrators and solo vikings can fully customize ingredients, amounts, crafting benches, and per-backpack model styles via <code>com.vapok.adventurebackpacks.cfg</code>.
         </p>
+      </div>
+    </div>
+
+    <!-- Dual-Era Visual Model Overhaul Showcase -->
+    <div class="codex-lineup-card">
+      <div class="codex-lineup-header">
+        <div class="codex-lineup-title">
+          <span>🎨</span>
+          <span>Dual-Era Visual Overhaul: Modern &amp; Classic Models</span>
+        </div>
+        <div class="codex-lineup-tabs" role="tablist" aria-label="Backpack Model Lineup Selector">
+          <button type="button" class="codex-lineup-tab active" id="tab-lineup-modern" role="tab" aria-selected="true" data-lineup="modern">
+            [ 🌟 MODERN MODELS ]
+          </button>
+          <button type="button" class="codex-lineup-tab" id="tab-lineup-classic" role="tab" aria-selected="false" data-lineup="classic">
+            [ 📜 CLASSIC MODELS ]
+          </button>
+        </div>
+      </div>
+      <div class="codex-lineup-img-wrap">
+        <img id="lineup-img" 
+             src="{{ '/assets/images/mods/adventurebackpacks/modern-backpacks.png' | relative_url }}" 
+             data-modern="{{ '/assets/images/mods/adventurebackpacks/modern-backpacks.png' | relative_url }}"
+             data-classic="{{ '/assets/images/mods/adventurebackpacks/classic-backpacks.png' | relative_url }}"
+             alt="Adventure Backpacks Modern Model Lineup" 
+             class="codex-lineup-img">
+      </div>
+      <div class="codex-lineup-caption">
+        <span id="lineup-desc">
+          <strong style="color: var(--glacial-mint);">🌟 Modern Models (Default):</strong> Overhauled high-detail 3D models, buckles, and HD icons created by <strong>BaalEvan</strong> across all tiers, including newly forged <strong>Ashlands</strong> and <strong>Deep North</strong> packs.
+        </span>
+        <span style="color: var(--ice-blue); font-family: var(--font-mono); font-size: 0.76rem;">
+          ⚙️ Configured per-backpack via <code>Model Style = Modern / Classic</code> (Requires Game Restart)
+        </span>
       </div>
     </div>
   </div>
@@ -60,6 +95,14 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
         <span>Table of Contents // Select an Expedition Chapter</span>
       </div>
       <div class="codex-view-modes">
+        <div class="model-style-switch" title="Toggle between Modern reworked icons and Classic original icons across the codex">
+          <button type="button" class="model-style-btn active" id="global-style-modern" data-global-style="modern">
+            🌟 MODERN
+          </button>
+          <button type="button" class="model-style-btn" id="global-style-classic" data-global-style="classic">
+            📜 CLASSIC
+          </button>
+        </div>
         <button id="mode-chapter" class="codex-view-btn active" title="View one backpack chapter at a time like a book">
           [ 📖 CHAPTER VIEW ]
         </button>
@@ -72,7 +115,10 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
     <div class="codex-index-grid" role="tablist" aria-label="Backpack Chapter Selector">
       <!-- 01: Meadows -->
       <button class="codex-index-card active" data-chapter="meadows" role="tab" aria-selected="true">
-        <img src="{{ '/assets/images/mods/adventurebackpacks/satchel.png' | relative_url }}" alt="Satchel" class="codex-index-sprite">
+        <img src="{{ '/assets/images/mods/adventurebackpacks/satchel-modern.png' | relative_url }}" 
+             data-modern-src="{{ '/assets/images/mods/adventurebackpacks/satchel-modern.png' | relative_url }}"
+             data-classic-src="{{ '/assets/images/mods/adventurebackpacks/satchel-classic.png' | relative_url }}"
+             alt="Satchel" class="codex-index-sprite codex-switchable-icon" data-pack="meadows">
         <div class="codex-index-info">
           <span class="codex-index-tier">
             <span class="codex-index-dot" style="background: #34d399;"></span> 01 // MEADOWS
@@ -83,7 +129,10 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
 
       <!-- 02: Black Forest -->
       <button class="codex-index-card" data-chapter="black-forest" role="tab" aria-selected="false">
-        <img src="{{ '/assets/images/mods/adventurebackpacks/rugged.png' | relative_url }}" alt="Rugged Backpack" class="codex-index-sprite">
+        <img src="{{ '/assets/images/mods/adventurebackpacks/rugged-modern.png' | relative_url }}" 
+             data-modern-src="{{ '/assets/images/mods/adventurebackpacks/rugged-modern.png' | relative_url }}"
+             data-classic-src="{{ '/assets/images/mods/adventurebackpacks/rugged-classic.png' | relative_url }}"
+             alt="Rugged Backpack" class="codex-index-sprite codex-switchable-icon" data-pack="black-forest">
         <div class="codex-index-info">
           <span class="codex-index-tier">
             <span class="codex-index-dot" style="background: #38bdf8;"></span> 02 // BLACK FOREST
@@ -94,7 +143,10 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
 
       <!-- 03: Swamp -->
       <button class="codex-index-card" data-chapter="swamp" role="tab" aria-selected="false">
-        <img src="{{ '/assets/images/mods/adventurebackpacks/wetpack.png' | relative_url }}" alt="Bloodbag Wetpack" class="codex-index-sprite">
+        <img src="{{ '/assets/images/mods/adventurebackpacks/wetpack-modern.png' | relative_url }}" 
+             data-modern-src="{{ '/assets/images/mods/adventurebackpacks/wetpack-modern.png' | relative_url }}"
+             data-classic-src="{{ '/assets/images/mods/adventurebackpacks/wetpack-classic.png' | relative_url }}"
+             alt="Bloodbag Wetpack" class="codex-index-sprite codex-switchable-icon" data-pack="swamp">
         <div class="codex-index-info">
           <span class="codex-index-tier">
             <span class="codex-index-dot" style="background: #a3e635;"></span> 03 // SWAMP
@@ -105,7 +157,10 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
 
       <!-- 04: Mountains -->
       <button class="codex-index-card" data-chapter="mountains" role="tab" aria-selected="false">
-        <img src="{{ '/assets/images/mods/adventurebackpacks/arctic.png' | relative_url }}" alt="Arctic Sherpa Pack" class="codex-index-sprite">
+        <img src="{{ '/assets/images/mods/adventurebackpacks/arctic-modern.png' | relative_url }}" 
+             data-modern-src="{{ '/assets/images/mods/adventurebackpacks/arctic-modern.png' | relative_url }}"
+             data-classic-src="{{ '/assets/images/mods/adventurebackpacks/arctic-classic.png' | relative_url }}"
+             alt="Arctic Sherpa Pack" class="codex-index-sprite codex-switchable-icon" data-pack="mountains">
         <div class="codex-index-info">
           <span class="codex-index-tier">
             <span class="codex-index-dot" style="background: #e0f2fe;"></span> 04 // MOUNTAINS
@@ -116,7 +171,10 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
 
       <!-- 05: Plains -->
       <button class="codex-index-card" data-chapter="plains" role="tab" aria-selected="false">
-        <img src="{{ '/assets/images/mods/adventurebackpacks/lox.png' | relative_url }}" alt="Lox Hide Knappsack" class="codex-index-sprite">
+        <img src="{{ '/assets/images/mods/adventurebackpacks/lox-modern.png' | relative_url }}" 
+             data-modern-src="{{ '/assets/images/mods/adventurebackpacks/lox-modern.png' | relative_url }}"
+             data-classic-src="{{ '/assets/images/mods/adventurebackpacks/lox-classic.png' | relative_url }}"
+             alt="Lox Hide Knappsack" class="codex-index-sprite codex-switchable-icon" data-pack="plains">
         <div class="codex-index-info">
           <span class="codex-index-tier">
             <span class="codex-index-dot" style="background: #fbbf24;"></span> 05 // PLAINS
@@ -127,7 +185,10 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
 
       <!-- 06: Mistlands -->
       <button class="codex-index-card" data-chapter="mistlands" role="tab" aria-selected="false">
-        <img src="{{ '/assets/images/mods/adventurebackpacks/wisppack.png' | relative_url }}" alt="Explorers Wisppack" class="codex-index-sprite">
+        <img src="{{ '/assets/images/mods/adventurebackpacks/wisppack-modern.png' | relative_url }}" 
+             data-modern-src="{{ '/assets/images/mods/adventurebackpacks/wisppack-modern.png' | relative_url }}"
+             data-classic-src="{{ '/assets/images/mods/adventurebackpacks/wisppack-classic.png' | relative_url }}"
+             alt="Explorers Wisppack" class="codex-index-sprite codex-switchable-icon" data-pack="mistlands">
         <div class="codex-index-info">
           <span class="codex-index-tier">
             <span class="codex-index-dot" style="background: #c084fc;"></span> 06 // MISTLANDS
@@ -136,18 +197,40 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
         </div>
       </button>
 
-      <!-- 07: Apocrypha -->
+      <!-- 07: Ashlands -->
+      <button class="codex-index-card" data-chapter="ashlands" role="tab" aria-selected="false">
+        <img src="{{ '/assets/images/mods/adventurebackpacks/cinderward.png' | relative_url }}" alt="Cinderward Pack" class="codex-index-sprite">
+        <div class="codex-index-info">
+          <span class="codex-index-tier">
+            <span class="codex-index-dot" style="background: #f97316;"></span> 07 // ASHLANDS
+          </span>
+          <span class="codex-index-name">Cinderward Pack</span>
+        </div>
+      </button>
+
+      <!-- 08: Deep North -->
+      <button class="codex-index-card" data-chapter="deep-north" role="tab" aria-selected="false">
+        <img src="{{ '/assets/images/mods/adventurebackpacks/frostbound.png' | relative_url }}" alt="Frostbound Haversack" class="codex-index-sprite">
+        <div class="codex-index-info">
+          <span class="codex-index-tier">
+            <span class="codex-index-dot" style="background: #38bdf8;"></span> 08 // DEEP NORTH
+          </span>
+          <span class="codex-index-name">Frostbound Haversack</span>
+        </div>
+      </button>
+
+      <!-- 09: Apocrypha -->
       <button class="codex-index-card" data-chapter="apocrypha" role="tab" aria-selected="false">
         <img src="{{ '/assets/images/mods/adventurebackpacks/spectral.png' | relative_url }}" alt="Spectral Shroud" class="codex-index-sprite">
         <div class="codex-index-info">
           <span class="codex-index-tier">
-            <span class="codex-index-dot" style="background: #f43f5e;"></span> 07 // APOCRYPHA
+            <span class="codex-index-dot" style="background: #f43f5e;"></span> 09 // APOCRYPHA
           </span>
           <span class="codex-index-name">Spectral Shroud</span>
         </div>
       </button>
 
-      <!-- 08: Scribe's Anvil -->
+      <!-- 10: Scribe's Anvil -->
       <button class="codex-index-card" data-chapter="configuration" role="tab" aria-selected="false">
         <span style="font-size: 1.5rem; line-height: 1; flex-shrink: 0;">⚙️</span>
         <div class="codex-index-info">
@@ -170,12 +253,19 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
       <div class="codex-entry-header">
         <div class="codex-title-group">
           <div class="codex-icon-frame">
-            <img src="{{ '/assets/images/mods/adventurebackpacks/satchel.png' | relative_url }}" alt="Satchel Backpack Icon" class="codex-sprite">
+            <img src="{{ '/assets/images/mods/adventurebackpacks/satchel-modern.png' | relative_url }}" 
+                 data-modern-src="{{ '/assets/images/mods/adventurebackpacks/satchel-modern.png' | relative_url }}"
+                 data-classic-src="{{ '/assets/images/mods/adventurebackpacks/satchel-classic.png' | relative_url }}"
+                 alt="Satchel Backpack Icon" class="codex-sprite codex-switchable-sprite" id="sprite-meadows">
           </div>
           <div>
             <h2 class="codex-name">Satchel</h2>
             <div class="codex-subtitle">
               <span class="status-badge mint">TIER 1 // MEADOWS</span>
+              <div class="model-style-switch" title="Toggle model style preview for this pack">
+                <button type="button" class="model-style-btn active" data-style-toggle="modern" data-target-pack="meadows">🌟 Modern</button>
+                <button type="button" class="model-style-btn" data-style-toggle="classic" data-target-pack="meadows">📜 Classic</button>
+              </div>
               <span>PREFAB: <code>BackpackMeadows</code></span>
             </div>
           </div>
@@ -322,7 +412,7 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
         <!-- Page Turner Navigation -->
         <div class="codex-page-turner">
           <button class="page-turner-btn disabled" disabled>[ ◀ FIRST CHAPTER ]</button>
-          <span class="page-indicator-text">CHAPTER 01 OF 07 // MEADOWS</span>
+          <span class="page-indicator-text">CHAPTER 01 OF 09 // MEADOWS</span>
           <button class="page-turner-btn" data-target-chapter="black-forest">[ NEXT: RUGGED BACKPACK ▶ ]</button>
         </div>
       </div>
@@ -335,12 +425,19 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
       <div class="codex-entry-header">
         <div class="codex-title-group">
           <div class="codex-icon-frame">
-            <img src="{{ '/assets/images/mods/adventurebackpacks/rugged.png' | relative_url }}" alt="Rugged Backpack Icon" class="codex-sprite">
+            <img src="{{ '/assets/images/mods/adventurebackpacks/rugged-modern.png' | relative_url }}" 
+                 data-modern-src="{{ '/assets/images/mods/adventurebackpacks/rugged-modern.png' | relative_url }}"
+                 data-classic-src="{{ '/assets/images/mods/adventurebackpacks/rugged-classic.png' | relative_url }}"
+                 alt="Rugged Backpack Icon" class="codex-sprite codex-switchable-sprite" id="sprite-black-forest">
           </div>
           <div>
             <h2 class="codex-name">Rugged Backpack</h2>
             <div class="codex-subtitle">
               <span class="status-badge cyan">TIER 2 // BLACK FOREST</span>
+              <div class="model-style-switch" title="Toggle model style preview for this pack">
+                <button type="button" class="model-style-btn active" data-style-toggle="modern" data-target-pack="black-forest">🌟 Modern</button>
+                <button type="button" class="model-style-btn" data-style-toggle="classic" data-target-pack="black-forest">📜 Classic</button>
+              </div>
               <span>PREFAB: <code>BackpackBlackForest</code></span>
             </div>
           </div>
@@ -500,7 +597,7 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
         <!-- Page Turner Navigation -->
         <div class="codex-page-turner">
           <button class="page-turner-btn" data-target-chapter="meadows">[ ◀ PREV: SATCHEL ]</button>
-          <span class="page-indicator-text">CHAPTER 02 OF 07 // BLACK FOREST</span>
+          <span class="page-indicator-text">CHAPTER 02 OF 09 // BLACK FOREST</span>
           <button class="page-turner-btn" data-target-chapter="swamp">[ NEXT: BLOODBAG WETPACK ▶ ]</button>
         </div>
       </div>
@@ -513,12 +610,19 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
       <div class="codex-entry-header">
         <div class="codex-title-group">
           <div class="codex-icon-frame">
-            <img src="{{ '/assets/images/mods/adventurebackpacks/wetpack.png' | relative_url }}" alt="Bloodbag Wetpack Icon" class="codex-sprite">
+            <img src="{{ '/assets/images/mods/adventurebackpacks/wetpack-modern.png' | relative_url }}" 
+                 data-modern-src="{{ '/assets/images/mods/adventurebackpacks/wetpack-modern.png' | relative_url }}"
+                 data-classic-src="{{ '/assets/images/mods/adventurebackpacks/wetpack-classic.png' | relative_url }}"
+                 alt="Bloodbag Wetpack Icon" class="codex-sprite codex-switchable-sprite" id="sprite-swamp">
           </div>
           <div>
             <h2 class="codex-name">Bloodbag Wetpack</h2>
             <div class="codex-subtitle">
               <span class="status-badge" style="background: rgba(163, 230, 53, 0.15); border-color: #a3e635; color: #a3e635;">TIER 3 // SWAMP</span>
+              <div class="model-style-switch" title="Toggle model style preview for this pack">
+                <button type="button" class="model-style-btn active" data-style-toggle="modern" data-target-pack="swamp">🌟 Modern</button>
+                <button type="button" class="model-style-btn" data-style-toggle="classic" data-target-pack="swamp">📜 Classic</button>
+              </div>
               <span>PREFAB: <code>BackpackSwamp</code></span>
             </div>
           </div>
@@ -677,7 +781,7 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
         <!-- Page Turner Navigation -->
         <div class="codex-page-turner">
           <button class="page-turner-btn" data-target-chapter="black-forest">[ ◀ PREV: RUGGED BACKPACK ]</button>
-          <span class="page-indicator-text">CHAPTER 03 OF 07 // SWAMP</span>
+          <span class="page-indicator-text">CHAPTER 03 OF 09 // SWAMP</span>
           <button class="page-turner-btn" data-target-chapter="mountains">[ NEXT: ARCTIC SHERPA ▶ ]</button>
         </div>
       </div>
@@ -690,12 +794,19 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
       <div class="codex-entry-header">
         <div class="codex-title-group">
           <div class="codex-icon-frame">
-            <img src="{{ '/assets/images/mods/adventurebackpacks/arctic.png' | relative_url }}" alt="Arctic Sherpa Pack Icon" class="codex-sprite">
+            <img src="{{ '/assets/images/mods/adventurebackpacks/arctic-modern.png' | relative_url }}" 
+                 data-modern-src="{{ '/assets/images/mods/adventurebackpacks/arctic-modern.png' | relative_url }}"
+                 data-classic-src="{{ '/assets/images/mods/adventurebackpacks/arctic-classic.png' | relative_url }}"
+                 alt="Arctic Sherpa Pack Icon" class="codex-sprite codex-switchable-sprite" id="sprite-mountains">
           </div>
           <div>
             <h2 class="codex-name">Arctic Sherpa Pack</h2>
             <div class="codex-subtitle">
               <span class="status-badge" style="background: rgba(224, 242, 254, 0.15); border-color: #bae6fd; color: #e0f2fe;">TIER 4 // MOUNTAINS</span>
+              <div class="model-style-switch" title="Toggle model style preview for this pack">
+                <button type="button" class="model-style-btn active" data-style-toggle="modern" data-target-pack="mountains">🌟 Modern</button>
+                <button type="button" class="model-style-btn" data-style-toggle="classic" data-target-pack="mountains">📜 Classic</button>
+              </div>
               <span>PREFAB: <code>BackpackMountains</code></span>
             </div>
           </div>
@@ -847,7 +958,7 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
         <!-- Page Turner Navigation -->
         <div class="codex-page-turner">
           <button class="page-turner-btn" data-target-chapter="swamp">[ ◀ PREV: BLOODBAG WETPACK ]</button>
-          <span class="page-indicator-text">CHAPTER 04 OF 07 // MOUNTAINS</span>
+          <span class="page-indicator-text">CHAPTER 04 OF 09 // MOUNTAINS</span>
           <button class="page-turner-btn" data-target-chapter="plains">[ NEXT: LOX KNAPPSACK ▶ ]</button>
         </div>
       </div>
@@ -860,12 +971,19 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
       <div class="codex-entry-header">
         <div class="codex-title-group">
           <div class="codex-icon-frame">
-            <img src="{{ '/assets/images/mods/adventurebackpacks/lox.png' | relative_url }}" alt="Lox Hide Knappsack Icon" class="codex-sprite">
+            <img src="{{ '/assets/images/mods/adventurebackpacks/lox-modern.png' | relative_url }}" 
+                 data-modern-src="{{ '/assets/images/mods/adventurebackpacks/lox-modern.png' | relative_url }}"
+                 data-classic-src="{{ '/assets/images/mods/adventurebackpacks/lox-classic.png' | relative_url }}"
+                 alt="Lox Hide Knappsack Icon" class="codex-sprite codex-switchable-sprite" id="sprite-plains">
           </div>
           <div>
             <h2 class="codex-name">Lox Hide Knappsack</h2>
             <div class="codex-subtitle">
               <span class="status-badge" style="background: rgba(251, 191, 36, 0.15); border-color: #fbbf24; color: #fbbf24;">TIER 5 // PLAINS</span>
+              <div class="model-style-switch" title="Toggle model style preview for this pack">
+                <button type="button" class="model-style-btn active" data-style-toggle="modern" data-target-pack="plains">🌟 Modern</button>
+                <button type="button" class="model-style-btn" data-style-toggle="classic" data-target-pack="plains">📜 Classic</button>
+              </div>
               <span>PREFAB: <code>BackpackPlains</code></span>
             </div>
           </div>
@@ -1028,7 +1146,7 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
         <!-- Page Turner Navigation -->
         <div class="codex-page-turner">
           <button class="page-turner-btn" data-target-chapter="mountains">[ ◀ PREV: ARCTIC SHERPA ]</button>
-          <span class="page-indicator-text">CHAPTER 05 OF 07 // PLAINS</span>
+          <span class="page-indicator-text">CHAPTER 05 OF 09 // PLAINS</span>
           <button class="page-turner-btn" data-target-chapter="mistlands">[ NEXT: EXPLORERS WISPPACK ▶ ]</button>
         </div>
       </div>
@@ -1041,12 +1159,19 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
       <div class="codex-entry-header">
         <div class="codex-title-group">
           <div class="codex-icon-frame">
-            <img src="{{ '/assets/images/mods/adventurebackpacks/wisppack.png' | relative_url }}" alt="Explorers Wisppack Icon" class="codex-sprite">
+            <img src="{{ '/assets/images/mods/adventurebackpacks/wisppack-modern.png' | relative_url }}" 
+                 data-modern-src="{{ '/assets/images/mods/adventurebackpacks/wisppack-modern.png' | relative_url }}"
+                 data-classic-src="{{ '/assets/images/mods/adventurebackpacks/wisppack-classic.png' | relative_url }}"
+                 alt="Explorers Wisppack Icon" class="codex-sprite codex-switchable-sprite" id="sprite-mistlands">
           </div>
           <div>
             <h2 class="codex-name">Explorers Wisppack</h2>
             <div class="codex-subtitle">
-              <span class="status-badge" style="background: rgba(192, 132, 252, 0.15); border-color: #c084fc; color: #d8b4fe;">TIER 6 // MISTLANDS</span>
+              <span class="status-badge purple">TIER 6 // MISTLANDS</span>
+              <div class="model-style-switch" title="Toggle model style preview for this pack">
+                <button type="button" class="model-style-btn active" data-style-toggle="modern" data-target-pack="mistlands">🌟 Modern</button>
+                <button type="button" class="model-style-btn" data-style-toggle="classic" data-target-pack="mistlands">📜 Classic</button>
+              </div>
               <span>PREFAB: <code>BackpackMistlands</code></span>
             </div>
           </div>
@@ -1212,14 +1337,408 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
         <!-- Page Turner Navigation -->
         <div class="codex-page-turner">
           <button class="page-turner-btn" data-target-chapter="plains">[ ◀ PREV: LOX KNAPPSACK ]</button>
-          <span class="page-indicator-text">CHAPTER 06 OF 07 // MISTLANDS</span>
+          <span class="page-indicator-text">CHAPTER 06 OF 09 // MISTLANDS</span>
+          <button class="page-turner-btn" data-target-chapter="ashlands">[ NEXT: CINDERWARD PACK ▶ ]</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         CHAPTER 07: ASHLANDS
+         ========================================================================= -->
+    <section id="ashlands" class="codex-entry" data-chapter-id="ashlands">
+      <div class="codex-entry-header">
+        <div class="codex-title-group">
+          <div class="codex-icon-frame" style="border-color: #f97316; box-shadow: 0 0 15px rgba(249, 115, 22, 0.25);">
+            <img src="{{ '/assets/images/mods/adventurebackpacks/cinderward.png' | relative_url }}" alt="Cinderward Pack Icon" class="codex-sprite">
+          </div>
+          <div>
+            <h2 class="codex-name">Cinderward Pack</h2>
+            <div class="codex-subtitle">
+              <span class="status-badge orange">TIER 7 // ASHLANDS</span>
+              <span class="status-badge mint">MODERN ERA</span>
+              <span>PREFAB: <code>BackpackAshlands</code></span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="codex-station-badge" style="border-color: #f97316;">
+            <span class="codex-station-icon">🔥</span>
+            <div class="codex-station-info">
+              <span class="codex-station-label">REQUIRED STATION</span>
+              <span class="codex-station-value" style="color: #fb923c;">BLACK FORGE // LEVEL 3</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="codex-body">
+        <div class="codex-lore-quote" style="border-left-color: #f97316;">
+          "Flametal ribs and charred bone keep the heat off your back. Not the flames, just the heat. Engineered to withstand the volcanic ash-storms, boiling seas, and molten lava lakes of the southern wasteland."
+        </div>
+
+        <!-- Recipes Breakdown with Actual Pictures -->
+        <div class="codex-recipe-grid">
+          <div class="recipe-section-box">
+            <div class="recipe-section-header">
+              <span class="recipe-section-title" style="color: #fb923c;">🔨 Initial Forge Recipe</span>
+              <span style="font-size: 0.78rem; font-weight: 700; color: #fb923c;">Black Forge Lvl 3</span>
+            </div>
+            <div class="ingredient-list">
+              <div class="ingredient-chip">
+                <div class="ingredient-item-group">
+                  <img src="{{ '/assets/images/items/capeash.png' | relative_url }}" alt="Ashlands Cape" class="ingredient-thumb">
+                  <span class="ingredient-name">Ashen Cape (CapeAsh)</span>
+                </div>
+                <span class="ingredient-count">1x</span>
+              </div>
+              <div class="ingredient-chip">
+                <div class="ingredient-item-group">
+                  <img src="{{ '/assets/images/items/askhide.png' | relative_url }}" alt="Ask Hide" class="ingredient-thumb">
+                  <span class="ingredient-name">Ask Hide</span>
+                </div>
+                <span class="ingredient-count">6x</span>
+              </div>
+              <div class="ingredient-chip">
+                <div class="ingredient-item-group">
+                  <img src="{{ '/assets/images/items/flametal.png' | relative_url }}" alt="Flametal" class="ingredient-thumb">
+                  <span class="ingredient-name">Flametal</span>
+                </div>
+                <span class="ingredient-count">5x</span>
+              </div>
+              <div class="ingredient-chip">
+                <div class="ingredient-item-group">
+                  <img src="{{ '/assets/images/items/morgensinew.png' | relative_url }}" alt="Morgen Sinew" class="ingredient-thumb">
+                  <span class="ingredient-name">Morgen Sinew</span>
+                </div>
+                <span class="ingredient-count">2x</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="recipe-section-box">
+            <div class="recipe-section-header">
+              <span class="recipe-section-title" style="color: #fb923c;">⭐ Upgrade Materials</span>
+              <span style="font-size: 0.78rem; font-weight: 700; color: #fb923c;">Per Tier (Max Station: 4)</span>
+            </div>
+            <div class="ingredient-list">
+              <div class="ingredient-chip">
+                <div class="ingredient-item-group">
+                  <img src="{{ '/assets/images/items/askhide.png' | relative_url }}" alt="Ask Hide" class="ingredient-thumb">
+                  <span class="ingredient-name">Ask Hide</span>
+                </div>
+                <span class="ingredient-count">2x</span>
+              </div>
+              <div class="ingredient-chip">
+                <div class="ingredient-item-group">
+                  <img src="{{ '/assets/images/items/flametal.png' | relative_url }}" alt="Flametal" class="ingredient-thumb">
+                  <span class="ingredient-name">Flametal</span>
+                </div>
+                <span class="ingredient-count">3x</span>
+              </div>
+              <div class="ingredient-chip">
+                <div class="ingredient-item-group">
+                  <img src="{{ '/assets/images/items/charredbone.png' | relative_url }}" alt="Charred Bone" class="ingredient-thumb">
+                  <span class="ingredient-name">Charred Bone</span>
+                </div>
+                <span class="ingredient-count">5x</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Capacity & Stat Curve -->
+        <div class="codex-table-wrap">
+          <table class="codex-table">
+            <thead>
+              <tr>
+                <th>Quality Level</th>
+                <th>Inventory Grid</th>
+                <th>Capacity</th>
+                <th>Carry Weight Bonus</th>
+                <th>Biomic Perks &amp; Stamina</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong style="color: #fb923c;">Quality 1</strong> (Base)</td>
+                <td>6 columns × 4 rows</td>
+                <td>24 Slots</td>
+                <td>+35 Carry Weight</td>
+                <td>Cold &amp; Frost Immune • Attack Stam -10% • Block Stam -20%</td>
+              </tr>
+              <tr>
+                <td><strong style="color: #fb923c;">Quality 2</strong></td>
+                <td>7 columns × 4 rows</td>
+                <td>28 Slots</td>
+                <td>+70 Carry Weight</td>
+                <td>Heat Resistance 2x • Reduced Movement Penalty</td>
+              </tr>
+              <tr>
+                <td><strong style="color: #fb923c;">Quality 3</strong></td>
+                <td>8 columns × 4 rows</td>
+                <td>32 Slots</td>
+                <td>+105 Carry Weight</td>
+                <td>🔥 Fire Resistance (Slightly Resistant) • Heat Resist 3x</td>
+              </tr>
+              <tr>
+                <td><strong style="color: #fb923c;">Quality 4</strong> (Max)</td>
+                <td>9 columns × 4 rows</td>
+                <td>36 Slots</td>
+                <td>+140 Carry Weight</td>
+                <td>Heat Resistance 4x (Flametal Armor Parity) • Max Slots</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Footer Perks & Drops with Actual Pictures -->
+        <div class="codex-footer-info">
+          <div class="codex-perks-row">
+            <span class="codex-footer-label">Ashlands Perks:</span>
+            <span class="perk-chip">
+              <img src="{{ '/assets/images/perks/cold.png' | relative_url }}" alt="Frost Resistance" class="perk-chip-icon">
+              <span>Frost &amp; Cold Immunity</span>
+            </span>
+            <span class="perk-chip" style="border-color: #f97316; color: #fb923c;">
+              <img src="{{ '/assets/images/perks/heat.png' | relative_url }}" alt="Heat Resistance" class="perk-chip-icon">
+              <span>Heat Resistance (Scales Q1-Q4)</span>
+            </span>
+            <span class="perk-chip" style="border-color: #ef4444; color: #fca5a5;">
+              <img src="{{ '/assets/images/perks/heat.png' | relative_url }}" alt="Fire Resistance" class="perk-chip-icon">
+              <span>Fire Resistance (Quality 3+)</span>
+            </span>
+            <span class="perk-chip">
+              <span>⚔️ Attack Stamina -10% • Block Stamina -20%</span>
+            </span>
+          </div>
+          <div class="codex-drops-row">
+            <span class="codex-footer-label">Creature Drops:</span>
+            <span class="drop-chip">
+              <img src="{{ '/assets/images/creatures/charred_melee.png' | relative_url }}" alt="Charred Warrior" class="drop-chip-icon">
+              <span>Charred Warrior (0.2%)</span>
+            </span>
+            <span class="drop-chip">
+              <img src="{{ '/assets/images/creatures/charred_archer.png' | relative_url }}" alt="Charred Marksman" class="drop-chip-icon">
+              <span>Charred Archer (0.2%)</span>
+            </span>
+            <span class="drop-chip">
+              <img src="{{ '/assets/images/creatures/morgen.png' | relative_url }}" alt="Morgen" class="drop-chip-icon">
+              <span>Morgen (0.5%)</span>
+            </span>
+            <span class="drop-chip">
+              <img src="{{ '/assets/images/creatures/fader.png' | relative_url }}" alt="Lord Reto / Fader" class="drop-chip-icon">
+              <span>Fader (8.0%)</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Page Turner Navigation -->
+        <div class="codex-page-turner">
+          <button class="page-turner-btn" data-target-chapter="mistlands">[ ◀ PREV: EXPLORERS WISPPACK ]</button>
+          <span class="page-indicator-text">CHAPTER 07 OF 09 // ASHLANDS</span>
+          <button class="page-turner-btn" data-target-chapter="deep-north">[ NEXT: FROSTBOUND HAVERSACK ▶ ]</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         CHAPTER 08: DEEP NORTH
+         ========================================================================= -->
+    <section id="deep-north" class="codex-entry" data-chapter-id="deep-north">
+      <div class="codex-entry-header">
+        <div class="codex-title-group">
+          <div class="codex-icon-frame" style="border-color: #38bdf8; box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);">
+            <img src="{{ '/assets/images/mods/adventurebackpacks/frostbound.png' | relative_url }}" alt="Frostbound Haversack Icon" class="codex-sprite">
+          </div>
+          <div>
+            <h2 class="codex-name">Frostbound Haversack</h2>
+            <div class="codex-subtitle">
+              <span class="status-badge frost">TIER 8 // DEEP NORTH</span>
+              <span class="status-badge mint">MODERN ERA</span>
+              <span>PREFAB: <code>BackpackDeepNorth</code></span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="codex-station-badge" style="border-color: #38bdf8;">
+            <span class="codex-station-icon">❄️</span>
+            <div class="codex-station-info">
+              <span class="codex-station-label">REQUIRED STATION</span>
+              <span class="codex-station-value" style="color: #7dd3fc;">BLACK FORGE // LEVEL 4</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="codex-body">
+        <div class="codex-lore-quote" style="border-left-color: #38bdf8;">
+          "Moose hide over a frost core. Heavy, warm, and it seems to know when you are about to go down. Infused with primordial sub-zero energies that ignite an adrenaline surge when the viking's resolve is tested to the brink."
+        </div>
+
+        <!-- Recipes Breakdown with Actual Pictures -->
+        <div class="codex-recipe-grid">
+          <div class="recipe-section-box">
+            <div class="recipe-section-header">
+              <span class="recipe-section-title" style="color: #7dd3fc;">🔨 Initial Forge Recipe</span>
+              <span style="font-size: 0.78rem; font-weight: 700; color: #7dd3fc;">Black Forge Lvl 4</span>
+            </div>
+            <div class="ingredient-list">
+              <div class="ingredient-chip">
+                <div class="ingredient-item-group">
+                  <img src="{{ '/assets/images/items/capedeepnorth.png' | relative_url }}" alt="Moose Hide Cape" class="ingredient-thumb">
+                  <span class="ingredient-name">Moose Hide Cape (CapeDeepNorth)</span>
+                </div>
+                <span class="ingredient-count">1x</span>
+              </div>
+              <div class="ingredient-chip">
+                <div class="ingredient-item-group">
+                  <img src="{{ '/assets/images/items/moosehide.png' | relative_url }}" alt="Moose Hide" class="ingredient-thumb">
+                  <span class="ingredient-name">Moose Hide</span>
+                </div>
+                <span class="ingredient-count">6x</span>
+              </div>
+              <div class="ingredient-chip">
+                <div class="ingredient-item-group">
+                  <img src="{{ '/assets/images/items/moosesinew.png' | relative_url }}" alt="Moose Sinew" class="ingredient-thumb">
+                  <span class="ingredient-name">Moose Sinew</span>
+                </div>
+                <span class="ingredient-count">2x</span>
+              </div>
+              <div class="ingredient-chip">
+                <div class="ingredient-item-group">
+                  <img src="{{ '/assets/images/items/frostcore.png' | relative_url }}" alt="Frost Core" class="ingredient-thumb">
+                  <span class="ingredient-name">Frost Core</span>
+                </div>
+                <span class="ingredient-count">3x</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="recipe-section-box">
+            <div class="recipe-section-header">
+              <span class="recipe-section-title" style="color: #7dd3fc;">⭐ Upgrade Materials</span>
+              <span style="font-size: 0.78rem; font-weight: 700; color: #7dd3fc;">Per Tier (Max Station: 4)</span>
+            </div>
+            <div class="ingredient-list">
+              <div class="ingredient-chip">
+                <div class="ingredient-item-group">
+                  <img src="{{ '/assets/images/items/moosehide.png' | relative_url }}" alt="Moose Hide" class="ingredient-thumb">
+                  <span class="ingredient-name">Moose Hide</span>
+                </div>
+                <span class="ingredient-count">3x</span>
+              </div>
+              <div class="ingredient-chip">
+                <div class="ingredient-item-group">
+                  <img src="{{ '/assets/images/items/moosesinew.png' | relative_url }}" alt="Moose Sinew" class="ingredient-thumb">
+                  <span class="ingredient-name">Moose Sinew</span>
+                </div>
+                <span class="ingredient-count">1x</span>
+              </div>
+              <div class="ingredient-chip">
+                <div class="ingredient-item-group">
+                  <img src="{{ '/assets/images/items/ice.png' | relative_url }}" alt="Ice" class="ingredient-thumb">
+                  <span class="ingredient-name">Ice</span>
+                </div>
+                <span class="ingredient-count">10x</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Capacity & Stat Curve -->
+        <div class="codex-table-wrap">
+          <table class="codex-table">
+            <thead>
+              <tr>
+                <th>Quality Level</th>
+                <th>Inventory Grid</th>
+                <th>Capacity</th>
+                <th>Carry Weight Bonus</th>
+                <th>Biomic Perks &amp; Stamina</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong style="color: #7dd3fc;">Quality 1</strong> (Base)</td>
+                <td>6 columns × 4 rows</td>
+                <td>24 Slots</td>
+                <td>+40 Carry Weight</td>
+                <td>Frost &amp; Cold Immune • Run Stamina -20%</td>
+              </tr>
+              <tr>
+                <td><strong style="color: #7dd3fc;">Quality 2</strong></td>
+                <td>7 columns × 4 rows</td>
+                <td>28 Slots</td>
+                <td>+80 Carry Weight</td>
+                <td>⚔️ Attack Stamina -20% • Run Stamina -20%</td>
+              </tr>
+              <tr>
+                <td><strong style="color: #7dd3fc;">Quality 3</strong></td>
+                <td>8 columns × 4 rows</td>
+                <td>32 Slots</td>
+                <td>+120 Carry Weight</td>
+                <td>🔨 Home Tools (Hammer/Hoe/Shovel) Stamina -20%</td>
+              </tr>
+              <tr>
+                <td><strong style="color: #7dd3fc;">Quality 4</strong> (Max)</td>
+                <td>9 columns × 4 rows</td>
+                <td>36 Slots</td>
+                <td>+160 Carry Weight</td>
+                <td>⚡ Second Wind: Max Adrenaline 50 + Instant Medium Stamina Surge</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Footer Perks & Drops with Actual Pictures -->
+        <div class="codex-footer-info">
+          <div class="codex-perks-row">
+            <span class="codex-footer-label">Deep North Perks:</span>
+            <span class="perk-chip">
+              <img src="{{ '/assets/images/perks/frost.png' | relative_url }}" alt="Frost Resistance" class="perk-chip-icon">
+              <span>Frost &amp; Cold Immunity</span>
+            </span>
+            <span class="perk-chip" style="border-color: #38bdf8; color: #7dd3fc;">
+              <img src="{{ '/assets/images/perks/adrenaline.png' | relative_url }}" alt="Second Wind" class="perk-chip-icon">
+              <span>Second Wind (Adrenaline Surge at Quality 4)</span>
+            </span>
+            <span class="perk-chip">
+              <span>🏃 Run -20% • ⚔️ Attack -20% (Q2+) • 🔨 Home Tools -20% (Q3+)</span>
+            </span>
+          </div>
+          <div class="codex-drops-row">
+            <span class="codex-footer-label">Creature Drops:</span>
+            <span class="drop-chip">
+              <img src="{{ '/assets/images/creatures/moose.png' | relative_url }}" alt="Moose" class="drop-chip-icon">
+              <span>Moose (0.2%)</span>
+            </span>
+            <span class="drop-chip">
+              <img src="{{ '/assets/images/creatures/jotun_warrior.png' | relative_url }}" alt="Jotun Warrior" class="drop-chip-icon">
+              <span>Jotun Warrior (0.2%)</span>
+            </span>
+            <span class="drop-chip">
+              <img src="{{ '/assets/images/creatures/frost_troll.png' | relative_url }}" alt="Frost Troll" class="drop-chip-icon">
+              <span>Frost Troll (1.0%)</span>
+            </span>
+            <span class="drop-chip">
+              <img src="{{ '/assets/images/creatures/frozen_king.png' | relative_url }}" alt="Frozen King" class="drop-chip-icon">
+              <span>Frozen King (8.0%)</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Page Turner Navigation -->
+        <div class="codex-page-turner">
+          <button class="page-turner-btn" data-target-chapter="ashlands">[ ◀ PREV: CINDERWARD PACK ]</button>
+          <span class="page-indicator-text">CHAPTER 08 OF 09 // DEEP NORTH</span>
           <button class="page-turner-btn" data-target-chapter="apocrypha">[ NEXT: SPECTRAL SHROUD ▶ ]</button>
         </div>
       </div>
     </section>
 
     <!-- =========================================================================
-         CHAPTER 07: APOCRYPHA & EXTENSIONS
+         CHAPTER 09: APOCRYPHA & EXTENSIONS
          ========================================================================= -->
     <section id="apocrypha" class="codex-entry" data-chapter-id="apocrypha">
       <div class="codex-entry-header">
@@ -1255,7 +1774,7 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
         <div class="codex-recipe-grid">
           <div class="recipe-section-box">
             <div class="recipe-section-header">
-              <span class="recipe-section-title">🔨 Initial Forge Recipe</span>
+              <span class="recipe-section-title" style="color: #f43f5e;">🔨 Initial Forge Recipe</span>
               <span style="font-size: 0.78rem; font-weight: 700; color: #f43f5e;">Workbench Lvl 1</span>
             </div>
             <div class="ingredient-list">
@@ -1278,7 +1797,7 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
 
           <div class="recipe-section-box">
             <div class="recipe-section-header">
-              <span class="recipe-section-title">⭐ Upgrade Materials</span>
+              <span class="recipe-section-title" style="color: #f43f5e;">⭐ Upgrade Materials</span>
               <span style="font-size: 0.78rem; font-weight: 700; color: #f43f5e;">Per Tier (Max Station: 4)</span>
             </div>
             <div class="ingredient-list">
@@ -1369,8 +1888,8 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
 
         <!-- Page Turner Navigation -->
         <div class="codex-page-turner">
-          <button class="page-turner-btn" data-target-chapter="mistlands">[ ◀ PREV: EXPLORERS WISPPACK ]</button>
-          <span class="page-indicator-text">CHAPTER 07 OF 07 // APOCRYPHA</span>
+          <button class="page-turner-btn" data-target-chapter="deep-north">[ ◀ PREV: FROSTBOUND HAVERSACK ]</button>
+          <span class="page-indicator-text">CHAPTER 09 OF 09 // APOCRYPHA</span>
           <button class="page-turner-btn" data-target-chapter="configuration">[ NEXT: SCRIBE'S ANVIL ▶ ]</button>
         </div>
       </div>
@@ -1381,14 +1900,17 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
          ========================================================================= -->
     <div id="legacy-callout" class="codex-entry" data-chapter-id="configuration" style="background: rgba(11, 17, 26, 0.7); border: 1px dashed var(--border-subtle); padding: 1.5rem; margin-bottom: 2.5rem;">
       <h3 style="font-family: var(--font-mono); font-size: 1.1rem; color: var(--ice-blue-bright); margin-top: 0;">
-        ⏳ Legacy Backpacks &amp; Horizons
+        ⏳ Dual-Era Visuals &amp; Legacy Backpacks
       </h3>
       <div style="font-size: 0.9rem; color: var(--text-main); line-height: 1.6;">
         <p style="margin-bottom: 0.75rem;">
-          <strong>Old Rugged &amp; Old Arctic Packs:</strong> Longtime adventurers will remember the original Iron and Silver backpacks from Adventure Backpacks v1.x. These legacy items are preserved in the code (<code>CapeIronBackpack</code> &amp; <code>CapeSilverBackpack</code>) so ancient world saves never lose their items, though they have no default recipes in modern biomes.
+          <strong>Modern vs. Classic Models:</strong> Every tier from Meadows through Mistlands supports both the reworked 3D models and HD icons by BaalEvan (Modern) and the nostalgic original mod visuals (Classic). Set <code>Model Style = Modern</code> or <code>Classic</code> independently for any bag under its config section in <code>com.vapok.adventurebackpacks.cfg</code> (requires a game restart).
+        </p>
+        <p style="margin-bottom: 0.75rem;">
+          🔥 <strong>Ashlands &amp; Deep North Fully Arrived:</strong> The volcanic <strong>Cinderward Pack</strong> (Ashlands) and the sub-zero <strong>Frostbound Haversack</strong> (Deep North) are now active in modern Valheim expeditions, forged with Flametal, Ask Hide, Frost Cores, and Moose pelts!
         </p>
         <p style="margin: 0;">
-          🔥 <strong>Ashlands &amp; Deep North Expeditions:</strong> Custom models, volcanic fire status effects, and sub-zero survival gear for the <strong>Ashlands</strong> and <strong>Deep North</strong> are actively in development. As new biomes arrive, their blueprints will be transcribed right here in this Book of Knowledge!
+          ⚔️ <strong>Old Rugged &amp; Old Arctic Packs:</strong> Longtime adventurers will remember the original Iron and Silver backpacks from Adventure Backpacks v1.x. These legacy items are preserved in the code (<code>CapeIronBackpack</code> &amp; <code>CapeSilverBackpack</code>) so ancient saves never lose their items, though they have no default recipes in modern biomes.
         </p>
       </div>
     </div>
@@ -1443,7 +1965,10 @@ image: "/assets/images/mods/adventurebackpacks/recipes-og.png"
           <button type="button" class="scribe-tab-btn" data-preset="mountains" role="tab" aria-selected="false">04 Arctic</button>
           <button type="button" class="scribe-tab-btn" data-preset="plains" role="tab" aria-selected="false">05 Lox</button>
           <button type="button" class="scribe-tab-btn" data-preset="mistlands" role="tab" aria-selected="false">06 Wisppack</button>
-          <button type="button" class="scribe-tab-btn" data-preset="apocrypha" role="tab" aria-selected="false">07 Spectral</button>
+          <button type="button" class="scribe-tab-btn" data-preset="ashlands" role="tab" aria-selected="false">07 Cinderward</button>
+          <button type="button" class="scribe-tab-btn" data-preset="deep-north" role="tab" aria-selected="false">08 Frostbound</button>
+          <button type="button" class="scribe-tab-btn" data-preset="apocrypha" role="tab" aria-selected="false">09 Spectral</button>
+          <button type="button" class="scribe-tab-btn" data-preset="model-style" role="tab" aria-selected="false">🎨 Model Style</button>
         </div>
 
         <!-- Code Content with Line Gutter -->
@@ -1786,6 +2311,36 @@ Crafting Costs = CapeFeather:1, ScaleHide:5, Eitr:10, SoftTissue:10
 ## Comma-separated list of item:quantity required per upgrade level.
 Upgrading Costs = Eitr:5, SoftTissue:3`,
 
+      ashlands: `# File: BepInEx/config/com.vapok.adventurebackpacks.cfg
+[Cinderward (Ashlands)]
+
+## Crafting station required to craft the backpack.
+Crafting Station = blackforge
+
+## Minimum station level required to craft.
+Crafting Station Level = 3
+
+## Comma-separated list of item:quantity to craft. Supports modded prefabs!
+Crafting Costs = CapeAsh:1, AskHide:6, FlametalNew:5, MorgenSinew:2
+
+## Comma-separated list of item:quantity required per upgrade level.
+Upgrading Costs = AskHide:2, FlametalNew:3, CharredBone:5`,
+
+      'deep-north': `# File: BepInEx/config/com.vapok.adventurebackpacks.cfg
+[Frostbound (Deep North)]
+
+## Crafting station required to craft the backpack.
+Crafting Station = blackforge
+
+## Minimum station level required to craft.
+Crafting Station Level = 4
+
+## Comma-separated list of item:quantity to craft. Supports modded prefabs!
+Crafting Costs = CapeDeepNorth:1, MooseHide:6, MooseSinew:2, FrostCore:3
+
+## Comma-separated list of item:quantity required per upgrade level.
+Upgrading Costs = MooseHide:3, MooseSinew:1, Ice:10`,
+
       apocrypha: `# File: BepInEx/config/com.vapok.adventurebackpacks.cfg
 [Spectral (Apocrypha)]
 
@@ -1799,7 +2354,24 @@ Crafting Station Level = 2
 Crafting Costs = CapeDeerHide:1, Chain:5, BoneFragments:10
 
 ## Comma-separated list of item:quantity required per upgrade level.
-Upgrading Costs = Chain:2, BoneFragments:5`
+Upgrading Costs = Chain:2, BoneFragments:5`,
+
+      'model-style': `# File: BepInEx/config/com.vapok.adventurebackpacks.cfg
+## Model Style selection can be configured individually per backpack tier.
+## Options: Modern (reworked models/HD icons) or Classic (original models/icons).
+## NOTE: Changes to Model Style require a full game restart to reload Unity asset bundles.
+
+[Backpack: Satchel]
+## Select backpack model visual style: Modern or Classic
+# Setting type: String
+# Default value: Modern
+Model Style = Modern
+
+[Backpack: Rugged]
+Model Style = Modern
+
+[Backpack: Arctic]
+Model Style = Classic`
     };
 
     var currentPreset = 'meadows';
@@ -1893,6 +2465,111 @@ Upgrading Costs = Chain:2, BoneFragments:5`
         }
       });
     }
+
+    // =========================================================================
+    // LINEUP SHOWCASE SWITCHER (MODERN VS CLASSIC 3D RENDERS)
+    // =========================================================================
+    var lineupModernTab = document.getElementById('tab-lineup-modern');
+    var lineupClassicTab = document.getElementById('tab-lineup-classic');
+    var lineupImg = document.getElementById('lineup-img');
+    var lineupDesc = document.getElementById('lineup-desc');
+
+    if (lineupModernTab && lineupClassicTab && lineupImg && lineupDesc) {
+      lineupModernTab.addEventListener('click', function() {
+        lineupModernTab.classList.add('active');
+        lineupModernTab.setAttribute('aria-selected', 'true');
+        lineupClassicTab.classList.remove('active');
+        lineupClassicTab.setAttribute('aria-selected', 'false');
+        lineupImg.src = lineupImg.getAttribute('data-modern');
+        lineupImg.alt = 'Adventure Backpacks Modern Model Lineup';
+        lineupDesc.innerHTML = '<strong style="color: var(--glacial-mint);">🌟 Modern Models (Default):</strong> Overhauled high-detail 3D models, buckles, and HD icons created by <strong>BaalEvan</strong> across all tiers, including newly forged <strong>Ashlands</strong> and <strong>Deep North</strong> packs.';
+      });
+
+      lineupClassicTab.addEventListener('click', function() {
+        lineupClassicTab.classList.add('active');
+        lineupClassicTab.setAttribute('aria-selected', 'true');
+        lineupModernTab.classList.remove('active');
+        lineupModernTab.setAttribute('aria-selected', 'false');
+        lineupImg.src = lineupImg.getAttribute('data-classic');
+        lineupImg.alt = 'Adventure Backpacks Classic Model Lineup';
+        lineupDesc.innerHTML = '<strong style="color: var(--warning-amber);">📜 Classic Models:</strong> The nostalgic original visuals and sprites from Adventure Backpacks legacy releases (Tiers 1-6). Preserved for purists and retro aesthetics.';
+      });
+    }
+
+    // =========================================================================
+    // GLOBAL & INDIVIDUAL MODEL STYLE SWITCHING (SPRITES & ICONS)
+    // =========================================================================
+    var globalModernBtn = document.getElementById('global-style-modern');
+    var globalClassicBtn = document.getElementById('global-style-classic');
+    var switchableSprites = document.querySelectorAll('.codex-switchable-sprite');
+    var switchableIcons = document.querySelectorAll('.codex-switchable-icon');
+    var individualStyleBtns = document.querySelectorAll('.model-style-btn[data-style-toggle]');
+
+    function setModelStyle(style, targetPack) {
+      if (!targetPack) {
+        // Global toggle
+        if (globalModernBtn && globalClassicBtn) {
+          globalModernBtn.classList.toggle('active', style === 'modern');
+          globalClassicBtn.classList.toggle('active', style === 'classic');
+        }
+
+        switchableSprites.forEach(function(img) {
+          var newSrc = style === 'classic' ? img.getAttribute('data-classic-src') : img.getAttribute('data-modern-src');
+          if (newSrc) img.src = newSrc;
+        });
+
+        switchableIcons.forEach(function(img) {
+          var newSrc = style === 'classic' ? img.getAttribute('data-classic-src') : img.getAttribute('data-modern-src');
+          if (newSrc) img.src = newSrc;
+        });
+
+        individualStyleBtns.forEach(function(btn) {
+          var btnStyle = btn.getAttribute('data-style-toggle');
+          btn.classList.toggle('active', btnStyle === style);
+        });
+      } else {
+        // Individual pack toggle
+        var packSprite = document.getElementById('sprite-' + targetPack);
+        if (packSprite) {
+          var newSrc = style === 'classic' ? packSprite.getAttribute('data-classic-src') : packSprite.getAttribute('data-modern-src');
+          if (newSrc) packSprite.src = newSrc;
+        }
+
+        var packIcon = document.querySelector('.codex-switchable-icon[data-pack="' + targetPack + '"]');
+        if (packIcon) {
+          var newSrc = style === 'classic' ? packIcon.getAttribute('data-classic-src') : packIcon.getAttribute('data-modern-src');
+          if (newSrc) packIcon.src = newSrc;
+        }
+
+        document.querySelectorAll('.model-style-btn[data-target-pack="' + targetPack + '"]').forEach(function(btn) {
+          var btnStyle = btn.getAttribute('data-style-toggle');
+          btn.classList.toggle('active', btnStyle === style);
+        });
+      }
+    }
+
+    if (globalModernBtn) {
+      globalModernBtn.addEventListener('click', function() {
+        setModelStyle('modern');
+      });
+    }
+
+    if (globalClassicBtn) {
+      globalClassicBtn.addEventListener('click', function() {
+        setModelStyle('classic');
+      });
+    }
+
+    individualStyleBtns.forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        var style = this.getAttribute('data-style-toggle');
+        var pack = this.getAttribute('data-target-pack');
+        if (style && pack) {
+          setModelStyle(style, pack);
+        }
+      });
+    });
 
     // Initial check based on location.hash
     var initialHash = (window.location.hash || '').replace('#', '');
