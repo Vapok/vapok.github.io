@@ -194,7 +194,9 @@ def generate_mod_card():
     draw.text((945, bot_y1 + 44), "VAPOK GAMING INFRASTRUCTURE", font=FONT_MONO_TINY, fill=TEXT_MUTED)
     
     out_file = os.path.join(OUTPUT_DIR, "adventurebackpacks-og.png")
-    img.save(out_file, "PNG", optimize=True)
+    final_img = Image.new("RGB", img.size, (6, 10, 18))
+    final_img.paste(img, (0, 0), img)
+    final_img.save(out_file, "PNG", optimize=True)
     print(f"Generated: {out_file} (Size: {os.path.getsize(out_file)} bytes)")
 
 # =========================================================================
@@ -402,7 +404,7 @@ def generate_recipes_card():
             
         # Biome Perk Pill with REAL PERK ICON (24x24 px)
         perk_y = card_y1 + 246
-        draw.rounded_rectangle([(cx1 + 8, perk_y), (cx2 - 8, perk_y + 62)], radius=4, fill=(0, 245, 155, 14), outline=(0, 245, 155, 80), width=1)
+        draw.rounded_rectangle([(cx1 + 8, perk_y), (cx2 - 8, perk_y + 62)], radius=4, fill=(10, 24, 28, 255), outline=(0, 245, 155, 180), width=1)
         
         p_path = f"assets/images/perks/{c['perk_icon']}"
         if os.path.exists(p_path):
@@ -428,7 +430,9 @@ def generate_recipes_card():
     draw.text((110, bot_y1 + 35), "vapok.io/mods/adventurebackpacks/recipes/ • Vapok Gaming Infrastructure", font=FONT_MONO_XS, fill=CYAN_ACCENT)
     
     out_file = os.path.join(OUTPUT_DIR, "recipes-og.png")
-    img.save(out_file, "PNG", optimize=True)
+    final_img = Image.new("RGB", img.size, (5, 8, 15))
+    final_img.paste(img, (0, 0), img)
+    final_img.save(out_file, "PNG", optimize=True)
     print(f"Generated: {out_file} (Size: {os.path.getsize(out_file)} bytes)")
 
 if __name__ == "__main__":

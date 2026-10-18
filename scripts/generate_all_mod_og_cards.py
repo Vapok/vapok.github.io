@@ -633,7 +633,9 @@ def generate_card_for_mod(mod_data):
     draw.text((1035, prompt_box_y + 9), "[ SERVERSYNC ]", font=FONT_MONO_MICRO, fill=MINT_ACCENT)
     draw.text((1045, prompt_box_y + 36), "MIT LICENSE", font=FONT_MONO_MICRO, fill=TEXT_MUTED)
     
-    img.save(out_file, "PNG", optimize=True)
+    final_img = Image.new("RGB", img.size, (6, 10, 18))
+    final_img.paste(img, (0, 0), img)
+    final_img.save(out_file, "PNG", optimize=True)
     print(f"Generated: {out_file} (Size: {os.path.getsize(out_file)} bytes)")
 
 def update_mod_markdown_files():
