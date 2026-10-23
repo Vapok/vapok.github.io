@@ -238,48 +238,6 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
   margin-top: 2px;
 }
 
-/* Suggestion Chips */
-.quick-chips-wrap {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  align-items: center;
-  margin-top: 1rem;
-}
-
-.quick-chips-label {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  letter-spacing: 0.5px;
-}
-
-.quick-chip {
-  background: rgba(100, 240, 252, 0.06);
-  border: 1px solid var(--border-subtle);
-  color: var(--ice-blue-bright);
-  padding: 0.3rem 0.65rem;
-  font-size: 0.78rem;
-  cursor: pointer;
-  font-family: var(--font-mono);
-  transition: all 0.15s;
-}
-
-.quick-chip:hover {
-  background: rgba(100, 240, 252, 0.18);
-  border-color: var(--ice-blue);
-  color: #fff;
-}
-
-.quick-chip.warn {
-  border-color: rgba(244, 63, 94, 0.35);
-  color: var(--error-crimson);
-}
-.quick-chip.warn:hover {
-  background: rgba(244, 63, 94, 0.2);
-  border-color: var(--error-crimson);
-  color: #fff;
-}
-
 /* Loading & Empty States */
 .state-box {
   background: rgba(13, 22, 36, 0.7);
@@ -810,19 +768,6 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
       
       <!-- Autocomplete Dropdown -->
       <div id="ac-dropdown" class="autocomplete-dropdown"></div>
-    </div>
-
-    <!-- Quick Filter Chips -->
-    <div class="quick-chips-wrap">
-      <span class="quick-chips-label">QUICK DOSSIER LOOKUP:</span>
-      <button class="quick-chip" onclick="runQuickSearch('Advize')">[ 👤 Advize ]</button>
-      <button class="quick-chip" onclick="runQuickSearch('ComfyMods')">[ 👤 ComfyMods ]</button>
-      <button class="quick-chip" onclick="runQuickSearch('Vapok')">[ 👤 Vapok ]</button>
-      <button class="quick-chip" onclick="runQuickSearch('Advize/PlantEverything')">[ 📦 PlantEverything ]</button>
-      <button class="quick-chip" onclick="runQuickSearch('ComfyMods/SearsCatalog')">[ 📦 SearsCatalog ]</button>
-      <button class="quick-chip" onclick="runQuickSearch('Vapok/AdventureBackpacks')">[ 📦 AdventureBackpacks ]</button>
-      <button class="quick-chip warn" onclick="runQuickSearch('DeepSeek/balrond_amazing_nature_RU')">[ ⚠️ balrond_amazing_nature_RU ]</button>
-      <button class="quick-chip warn" onclick="runQuickSearch('Wire/WiresStandSwap')">[ ⚠️ WiresStandSwap ]</button>
     </div>
   </div>
 
