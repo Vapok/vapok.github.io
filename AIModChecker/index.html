@@ -1953,13 +1953,14 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
 
     const pillClass = getStatusPillClass(pkg.total_status);
     const scoreClass = getScoreColorClass(pkg.total_score);
+    const modTsUrl = pkg.url || pkg.package_url || `https://thunderstore.io/c/valheim/p/${pkg.slug}/`;
 
     let html = `
       <div class="dossier-nav-bar">
         <button class="cyber-link-btn primary" onclick="showLeaderboard()">[ ← RETURN TO LEADERBOARD &amp; FRAMEWORK ]</button>
         <div style="display: flex; gap: 0.5rem;">
           <button class="cyber-link-btn" onclick="copyModLink('${escapeHtml(pkg.slug)}')">[ 🔗 COPY LINK ]</button>
-          <a class="cyber-link-btn" href="${escapeHtml(pkg.package_url)}" target="_blank" rel="noopener">[ ↗ THUNDERSTORE ]</a>
+          <a class="cyber-link-btn" href="${escapeHtml(modTsUrl)}" target="_blank" rel="noopener noreferrer">[ ↗ THUNDERSTORE ]</a>
         </div>
       </div>
       <div class="audit-table-card">
@@ -2017,11 +2018,11 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
             AUDIT IDENTIFIER: <code>${escapeHtml(pkg.slug)}::${escapeHtml(pkg.version)}</code>
           </div>
           <div class="footer-actions">
-            <a href="${escapeHtml(pkg.url)}" target="_blank" rel="noopener noreferrer" class="cyber-link-btn">
+            <a href="${escapeHtml(modTsUrl)}" target="_blank" rel="noopener noreferrer" class="cyber-link-btn">
               [ ⚡ VIEW ON THUNDERSTORE ]
             </a>
             ${pkg.total_status.includes('Missing Tag') ? `
-              <a href="${escapeHtml(pkg.url)}" target="_blank" rel="noopener noreferrer" class="cyber-link-btn report">
+              <a href="${escapeHtml(modTsUrl)}" target="_blank" rel="noopener noreferrer" class="cyber-link-btn report">
                 [ ⚠️ REPORT PACKAGE ON THUNDERSTORE ]
               </a>
             ` : ''}
@@ -2042,10 +2043,15 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
     hideAllStates();
     stateResults.style.display = 'block';
 
+    const authorTsUrl = `https://thunderstore.io/c/valheim/p/${encodeURIComponent(aData.owner)}/`;
+
     let html = `
       <div class="dossier-nav-bar">
         <button class="cyber-link-btn primary" onclick="showLeaderboard()">[ ← RETURN TO LEADERBOARD &amp; FRAMEWORK ]</button>
-        <button class="cyber-link-btn" onclick="copyAuthorLink('${escapeHtml(aData.owner)}')">[ 🔗 SHARE AUTHOR DOSSIER ]</button>
+        <div style="display: flex; gap: 0.5rem;">
+          <button class="cyber-link-btn" onclick="copyAuthorLink('${escapeHtml(aData.owner)}')">[ 🔗 SHARE AUTHOR DOSSIER ]</button>
+          <a class="cyber-link-btn" href="${escapeHtml(authorTsUrl)}" target="_blank" rel="noopener noreferrer">[ ↗ THUNDERSTORE ]</a>
+        </div>
       </div>
       <div class="author-dossier-card">
         <div class="author-dossier-top">
@@ -2062,6 +2068,9 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
             <button class="cyber-link-btn" onclick="copyAuthorLink('${escapeHtml(aData.owner)}')">
               [ 🔗 SHARE AUTHOR DOSSIER ]
             </button>
+            <a class="cyber-link-btn" href="${escapeHtml(authorTsUrl)}" target="_blank" rel="noopener noreferrer">
+              [ ↗ THUNDERSTORE PROFILE ]
+            </a>
           </div>
         </div>
 
@@ -2138,6 +2147,7 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
   function renderAuthorModCard(pkg, idx, defaultExpanded) {
     const pillClass = getStatusPillClass(pkg.total_status);
     const scoreClass = getScoreColorClass(pkg.total_score);
+    const modTsUrl = pkg.url || pkg.package_url || `https://thunderstore.io/c/valheim/p/${pkg.slug}/`;
     const filterTag = pkg.total_status.includes('Missing Tag') ? 'missing' :
                       (pkg.total_status.includes('Properly Tagged') ? 'tagged' : 
                       (pkg.total_status.includes('MIXED') ? 'mixed' : 'clean'));
@@ -2196,11 +2206,11 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
               PACKAGE: <code>${escapeHtml(pkg.slug)}</code>
             </div>
             <div class="footer-actions">
-              <a href="${escapeHtml(pkg.url)}" target="_blank" rel="noopener noreferrer" class="cyber-link-btn">
+              <a href="${escapeHtml(modTsUrl)}" target="_blank" rel="noopener noreferrer" class="cyber-link-btn">
                 [ ⚡ VIEW ON THUNDERSTORE ]
               </a>
               ${pkg.total_status.includes('Missing Tag') ? `
-                <a href="${escapeHtml(pkg.url)}" target="_blank" rel="noopener noreferrer" class="cyber-link-btn report">
+                <a href="${escapeHtml(modTsUrl)}" target="_blank" rel="noopener noreferrer" class="cyber-link-btn report">
                   [ ⚠️ REPORT PACKAGE ON THUNDERSTORE ]
                 </a>
               ` : ''}
@@ -2459,7 +2469,7 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
           <td>
             <div class="lb-actions">
               <button class="lb-audit-btn" onclick="loadModDossier('${escapeHtml(pkg.slug)}')">[ ⚡ AUDIT ]</button>
-              <a href="${escapeHtml(pkg.package_url)}" target="_blank" rel="noopener" class="lb-ts-btn" title="Open on Thunderstore">↗</a>
+              <a href="${escapeHtml(pkg.package_url || pkg.url || ('https://thunderstore.io/c/valheim/p/' + pkg.slug + '/'))}" target="_blank" rel="noopener noreferrer" class="lb-ts-btn" title="Open on Thunderstore">↗</a>
             </div>
           </td>
         </tr>
