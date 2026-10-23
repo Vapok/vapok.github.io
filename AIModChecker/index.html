@@ -61,17 +61,31 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
 /* Global Stats Banner */
 .ai-stats-ribbon {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(6, 1fr);
   gap: 0.75rem;
   margin-bottom: 2rem;
+}
+
+@media (max-width: 1024px) {
+  .ai-stats-ribbon {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .ai-stats-ribbon {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .stat-cell {
   background: rgba(13, 22, 36, 0.7);
   border: 1px solid var(--border-subtle);
-  padding: 1rem 1.2rem;
+  padding: 0.85rem 1rem;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  min-height: 80px;
   transition: border-color 0.2s, background 0.2s;
 }
 
@@ -81,10 +95,11 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
 }
 
 .stat-label {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
+  line-height: 1.3;
   margin-bottom: 0.35rem;
 }
 
@@ -896,9 +911,21 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
 
 .author-metrics-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(6, 1fr);
   gap: 0.75rem;
   margin-bottom: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+  .author-metrics-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .author-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .author-filter-tabs {
@@ -1020,8 +1047,8 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
     <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
       <span class="status-pill human">🛡️ 10,434 Verified Clean</span>
       <span class="status-pill tagged-ai">🏷️ 2,188 Properly Tagged</span>
-      <span class="status-pill mixed">⚡ 882 AI-Assisted (Mixed)</span>
-      <span class="status-pill missing-tag">⚠️ 278 Report Candidates</span>
+      <span class="status-pill mixed">⚡ 882 AI-Assisted (Untagged)</span>
+      <span class="status-pill missing-tag">⚠️ 278 AI-Generated (Untagged)</span>
     </div>
   </div>
 
@@ -1044,11 +1071,11 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
       <span class="stat-val cyan" id="stat-tagged">2,188</span>
     </div>
     <div class="stat-cell">
-      <span class="stat-label">AI-Assisted (Mixed)</span>
+      <span class="stat-label">AI-Assisted (Untagged)</span>
       <span class="stat-val amber" id="stat-mixed">882</span>
     </div>
     <div class="stat-cell">
-      <span class="stat-label">Report Candidates</span>
+      <span class="stat-label">AI-Generated (Untagged)</span>
       <span class="stat-val crimson" id="stat-candidates">278</span>
     </div>
   </div>
@@ -2027,11 +2054,11 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
             <span class="stat-val cyan">${aData.ai_tagged}</span>
           </div>
           <div class="stat-cell">
-            <span class="stat-label">AI-Assisted (Mixed)</span>
+            <span class="stat-label">AI-Assisted (Untagged)</span>
             <span class="stat-val amber">${aData.ai_assisted || 0}</span>
           </div>
           <div class="stat-cell">
-            <span class="stat-label">Report Candidates</span>
+            <span class="stat-label">AI-Generated (Untagged)</span>
             <span class="stat-val ${aData.ai_missing_tag > 0 ? 'crimson' : 'mint'}">${aData.ai_missing_tag}</span>
           </div>
           <div class="stat-cell">
