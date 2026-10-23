@@ -41,6 +41,8 @@ nav_links:
     url: "/"
   - title: "[ /MODS ]"
     url: "/mods/"
+  - title: "[ /AI_CHECKER ]"
+    url: "/AIModChecker/"
   - title: "[ /GAMES ]"
     url: "/games/"
   - title: "[ /SERVERS ]"

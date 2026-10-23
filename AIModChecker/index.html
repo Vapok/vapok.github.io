@@ -1,0 +1,1729 @@
+---
+layout: default
+title: "AI Mod Checker & Audit Matrix"
+permalink: /AIModChecker/
+description: "Audit Valheim mods and mod authors against LLM / AI generated code, documentation, and asset markers across all 13,782+ Thunderstore packages."
+---
+
+<style>
+/* AI Mod Checker Custom Styles */
+.ai-checker-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 0.5rem 4rem;
+  font-family: var(--font-mono);
+}
+
+.ai-hero-box {
+  background: rgba(11, 17, 26, 0.85);
+  border: 1px solid var(--border-subtle);
+  padding: 1.75rem;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-hero-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--glacial-mint), var(--ice-blue));
+}
+
+.ai-hero-tag {
+  font-size: 0.75rem;
+  color: var(--ice-blue);
+  letter-spacing: 1.5px;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.ai-hero-title {
+  color: var(--ice-blue-bright);
+  font-size: 1.85rem;
+  margin: 0 0 0.75rem;
+  font-family: var(--font-mono);
+  letter-spacing: -0.5px;
+}
+
+.ai-hero-desc {
+  color: var(--text-main);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  max-width: 900px;
+  margin-bottom: 1.25rem;
+}
+
+/* Global Stats Banner */
+.ai-stats-ribbon {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.stat-cell {
+  background: rgba(13, 22, 36, 0.7);
+  border: 1px solid var(--border-subtle);
+  padding: 1rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.stat-cell:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-card-hover);
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.35rem;
+}
+
+.stat-val {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--text-bright);
+}
+
+.stat-val.mint { color: var(--glacial-mint); }
+.stat-val.cyan { color: var(--ice-blue); }
+.stat-val.crimson { color: var(--error-crimson); }
+.stat-val.amber { color: var(--warning-amber); }
+
+/* Search Console */
+.search-console-card {
+  background: rgba(13, 22, 36, 0.9);
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 15px rgba(100, 240, 252, 0.08);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.search-input-wrap {
+  display: flex;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.search-prompt-prefix {
+  display: flex;
+  align-items: center;
+  padding: 0 0.85rem;
+  background: rgba(6, 8, 14, 0.9);
+  border: 1px solid var(--border-subtle);
+  color: var(--glacial-mint);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.search-input-field {
+  flex: 1;
+  background: rgba(6, 8, 14, 0.95);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-bright);
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  padding: 0.85rem 1.1rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-input-field:focus {
+  border-color: var(--ice-blue);
+  box-shadow: 0 0 12px rgba(100, 240, 252, 0.25);
+}
+
+.search-clear-btn {
+  background: rgba(244, 63, 94, 0.15);
+  border: 1px solid rgba(244, 63, 94, 0.35);
+  color: var(--error-crimson);
+  font-family: var(--font-mono);
+  padding: 0 1.2rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.search-clear-btn:hover {
+  background: rgba(244, 63, 94, 0.3);
+  border-color: var(--error-crimson);
+}
+
+.search-submit-btn {
+  background: rgba(0, 245, 155, 0.15);
+  border: 1px solid rgba(0, 245, 155, 0.35);
+  color: var(--glacial-mint);
+  font-family: var(--font-mono);
+  padding: 0 1.5rem;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.search-submit-btn:hover {
+  background: rgba(0, 245, 155, 0.3);
+  border-color: var(--glacial-mint);
+  box-shadow: 0 0 10px rgba(0, 245, 155, 0.3);
+}
+
+/* Autocomplete Dropdown */
+.autocomplete-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #090e17;
+  border: 1px solid var(--ice-blue);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.85);
+  z-index: 1000;
+  max-height: 420px;
+  overflow-y: auto;
+  display: none;
+  margin-top: 4px;
+}
+
+.ac-section-header {
+  padding: 0.5rem 1rem;
+  background: rgba(100, 240, 252, 0.08);
+  color: var(--ice-blue);
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.ac-item {
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(100, 240, 252, 0.05);
+  transition: background 0.15s;
+}
+
+.ac-item:hover, .ac-item.selected {
+  background: rgba(100, 240, 252, 0.12);
+}
+
+.ac-item-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ac-item-icon {
+  font-size: 1.1rem;
+}
+
+.ac-item-title {
+  color: var(--text-bright);
+  font-size: 0.92rem;
+}
+
+.ac-item-sub {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  margin-top: 2px;
+}
+
+/* Suggestion Chips */
+.quick-chips-wrap {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.quick-chips-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+.quick-chip {
+  background: rgba(100, 240, 252, 0.06);
+  border: 1px solid var(--border-subtle);
+  color: var(--ice-blue-bright);
+  padding: 0.3rem 0.65rem;
+  font-size: 0.78rem;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  transition: all 0.15s;
+}
+
+.quick-chip:hover {
+  background: rgba(100, 240, 252, 0.18);
+  border-color: var(--ice-blue);
+  color: #fff;
+}
+
+.quick-chip.warn {
+  border-color: rgba(244, 63, 94, 0.35);
+  color: var(--error-crimson);
+}
+.quick-chip.warn:hover {
+  background: rgba(244, 63, 94, 0.2);
+  border-color: var(--error-crimson);
+  color: #fff;
+}
+
+/* Loading & Empty States */
+.state-box {
+  background: rgba(13, 22, 36, 0.7);
+  border: 1px solid var(--border-subtle);
+  padding: 3rem 2rem;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.loader-spinner {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(100, 240, 252, 0.2);
+  border-top-color: var(--glacial-mint);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Status Badges */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border: 1px solid;
+}
+
+.status-pill.human {
+  background: rgba(0, 245, 155, 0.12);
+  border-color: var(--glacial-mint);
+  color: var(--glacial-mint);
+}
+
+.status-pill.tagged-ai {
+  background: rgba(100, 240, 252, 0.12);
+  border-color: var(--ice-blue);
+  color: var(--ice-blue-bright);
+}
+
+.status-pill.missing-tag {
+  background: rgba(244, 63, 94, 0.15);
+  border-color: var(--error-crimson);
+  color: var(--error-crimson);
+  animation: pulse-border 2s infinite;
+}
+
+.status-pill.mixed {
+  background: rgba(251, 191, 36, 0.15);
+  border-color: var(--warning-amber);
+  color: var(--warning-amber);
+}
+
+@keyframes pulse-border {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.4); }
+  50% { box-shadow: 0 0 10px 2px rgba(244, 63, 94, 0.4); }
+}
+
+/* THE EXACT 5-ROW TABLE */
+.audit-table-card {
+  background: rgba(11, 17, 26, 0.95);
+  border: 1px solid var(--border-subtle);
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+  position: relative;
+  overflow: hidden;
+}
+
+.audit-table-header {
+  background: rgba(13, 22, 36, 0.95);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.audit-mod-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.audit-mod-icon {
+  width: 54px;
+  height: 54px;
+  border: 1px solid var(--border-subtle);
+  background: #000;
+  object-fit: cover;
+}
+
+.audit-mod-title-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.audit-mod-title {
+  color: var(--ice-blue-bright);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.audit-mod-author {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-top: 3px;
+}
+
+.audit-mod-author a {
+  color: var(--ice-blue);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--ice-blue);
+}
+
+.audit-mod-author a:hover {
+  color: var(--glacial-mint);
+  border-bottom-color: var(--glacial-mint);
+}
+
+.audit-mod-meta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.audit-score-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.4rem;
+}
+
+.audit-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.exact-audit-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  font-family: var(--font-mono);
+  text-align: left;
+}
+
+.exact-audit-table th {
+  background: rgba(6, 8, 14, 0.95);
+  color: var(--ice-blue);
+  padding: 0.85rem 1.25rem;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.exact-audit-table td {
+  padding: 0.95rem 1.25rem;
+  border-bottom: 1px solid rgba(100, 240, 252, 0.08);
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+.exact-audit-table tr:hover td {
+  background: rgba(100, 240, 252, 0.03);
+}
+
+.exact-audit-table tr:last-child td {
+  border-bottom: none;
+}
+
+.cat-label {
+  font-weight: 700;
+  color: var(--text-bright);
+  white-space: nowrap;
+}
+
+.surface-label {
+  color: var(--text-main);
+  font-size: 0.84rem;
+}
+
+.score-badge {
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 2px;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.score-badge.clean {
+  color: var(--glacial-mint);
+  background: rgba(0, 245, 155, 0.1);
+}
+
+.score-badge.warn {
+  color: var(--warning-amber);
+  background: rgba(251, 191, 36, 0.1);
+}
+
+.score-badge.alert {
+  color: var(--error-crimson);
+  background: rgba(244, 63, 94, 0.15);
+}
+
+.status-text {
+  color: var(--text-main);
+  font-size: 0.85rem;
+}
+
+/* Audit Footer Actions */
+.audit-table-footer {
+  background: rgba(6, 8, 14, 0.85);
+  border-top: 1px solid var(--border-subtle);
+  padding: 0.85rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.footer-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.cyber-link-btn {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  padding: 0.35rem 0.75rem;
+  text-decoration: none;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-main);
+  background: rgba(100, 240, 252, 0.05);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.cyber-link-btn:hover {
+  background: rgba(100, 240, 252, 0.18);
+  border-color: var(--ice-blue);
+  color: #fff;
+}
+
+.cyber-link-btn.report {
+  border-color: rgba(244, 63, 94, 0.4);
+  color: var(--error-crimson);
+  background: rgba(244, 63, 94, 0.1);
+}
+
+.cyber-link-btn.report:hover {
+  background: rgba(244, 63, 94, 0.25);
+  border-color: var(--error-crimson);
+}
+
+/* Evidence Box */
+.evidence-drawer {
+  background: rgba(244, 63, 94, 0.04);
+  border-top: 1px dashed rgba(244, 63, 94, 0.25);
+  padding: 1rem 1.5rem;
+}
+
+.evidence-title {
+  font-size: 0.75rem;
+  color: var(--error-crimson);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.evidence-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  font-size: 0.8rem;
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+.evidence-list li code {
+  color: var(--warning-amber);
+  background: rgba(251, 191, 36, 0.1);
+  padding: 0.1rem 0.3rem;
+  border-radius: 2px;
+}
+
+/* Author Dossier Card */
+.author-dossier-card {
+  background: rgba(13, 22, 36, 0.9);
+  border: 1px solid var(--border-strong);
+  padding: 1.75rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+.author-dossier-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.author-title-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.author-tag {
+  font-size: 0.72rem;
+  color: var(--glacial-mint);
+  letter-spacing: 1px;
+}
+
+.author-name {
+  color: var(--text-bright);
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0.25rem 0 0.5rem;
+}
+
+.author-stance-badge {
+  font-size: 0.82rem;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--border-subtle);
+  background: rgba(100, 240, 252, 0.08);
+  color: var(--ice-blue-bright);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.author-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.author-filter-tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 1.25rem;
+}
+
+.tab-group {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  background: rgba(6, 8, 14, 0.8);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  padding: 0.4rem 0.85rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.tab-btn:hover, .tab-btn.active {
+  background: rgba(100, 240, 252, 0.15);
+  border-color: var(--ice-blue);
+  color: #fff;
+}
+
+.toggle-all-btn {
+  background: transparent;
+  border: 1px dashed var(--border-subtle);
+  color: var(--ice-blue);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  padding: 0.35rem 0.75rem;
+  cursor: pointer;
+}
+
+.toggle-all-btn:hover {
+  border-color: var(--ice-blue);
+  color: #fff;
+}
+
+/* Accordion mod styling */
+.mod-item-card {
+  margin-bottom: 1rem;
+}
+
+.mod-collapsible-trigger {
+  background: rgba(13, 22, 36, 0.8);
+  border: 1px solid var(--border-subtle);
+  padding: 0.85rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.mod-collapsible-trigger:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-strong);
+}
+
+.mod-collapsible-content {
+  display: none;
+}
+
+.mod-collapsible-content.expanded {
+  display: block;
+}
+
+/* Toast Notification */
+.cyber-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #090e17;
+  border: 1px solid var(--glacial-mint);
+  color: var(--text-bright);
+  padding: 0.75rem 1.25rem;
+  box-shadow: 0 8px 30px rgba(0, 245, 155, 0.2);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  z-index: 9999;
+  display: none;
+  animation: slide-up 0.25s ease-out;
+}
+
+@keyframes slide-up {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .audit-mod-info { flex-direction: column; align-items: flex-start; }
+  .audit-score-summary { align-items: flex-start; margin-top: 0.5rem; }
+  .search-input-wrap { flex-direction: column; }
+  .author-dossier-top { flex-direction: column; }
+}
+</style>
+
+<div class="ai-checker-container">
+  
+  <!-- HERO HEADER -->
+  <div class="ai-hero-box">
+    <div class="ai-hero-tag">[ SYS_INTELLIGENCE // THUNDERSTORE_AI_AUDIT_ENGINE ]</div>
+    <h1 class="ai-hero-title">Valheim AI Mod Checker &amp; Audit Matrix</h1>
+    <div class="ai-hero-desc">
+      Automated heuristic transparency engine continuously auditing all <strong>13,782+</strong> Thunderstore Valheim mod packages across decompiled C# source code, Git diffs, documentation, visual assets, and author stance to identify AI-generated packages and enforce Thunderstore compliance.
+    </div>
+    <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
+      <span class="status-pill human">🛡️ 10,451 Verified Clean</span>
+      <span class="status-pill tagged-ai">🏷️ 2,188 Properly Tagged</span>
+      <span class="status-pill missing-tag">⚠️ 1,143 Missing Tag / Report Candidates</span>
+    </div>
+  </div>
+
+  <!-- GLOBAL STATS RIBBON -->
+  <div class="ai-stats-ribbon" id="stats-ribbon">
+    <div class="stat-cell">
+      <span class="stat-label">Audited Packages</span>
+      <span class="stat-val" id="stat-pkgs">13,782</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-label">Authors Indexed</span>
+      <span class="stat-val cyan" id="stat-authors">5,517</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-label">Verified Human</span>
+      <span class="stat-val mint" id="stat-human">10,451</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-label">Properly Tagged AI</span>
+      <span class="stat-val cyan" id="stat-tagged">2,188</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-label">Report Candidates</span>
+      <span class="stat-val crimson" id="stat-candidates">1,143</span>
+    </div>
+  </div>
+
+  <!-- SEARCH CONSOLE -->
+  <div class="search-console-card">
+    <div class="search-input-wrap">
+      <span class="search-prompt-prefix">&gt;_</span>
+      <input type="text" id="search-input" class="search-input-field" 
+             placeholder="Enter Thunderstore URL, Package Slug (e.g. Advize/PlantEverything), Mod Name, or Author..." 
+             autocomplete="off" spellcheck="false" />
+      <button id="search-clear-btn" class="search-clear-btn" title="Clear search">[ ✕ CLEAR ]</button>
+      <button id="search-exec-btn" class="search-submit-btn">[ ⚡ AUDIT ]</button>
+      
+      <!-- Autocomplete Dropdown -->
+      <div id="ac-dropdown" class="autocomplete-dropdown"></div>
+    </div>
+
+    <!-- Quick Filter Chips -->
+    <div class="quick-chips-wrap">
+      <span class="quick-chips-label">QUICK DOSSIER LOOKUP:</span>
+      <button class="quick-chip" onclick="runQuickSearch('Advize')">[ 👤 Advize ]</button>
+      <button class="quick-chip" onclick="runQuickSearch('ComfyMods')">[ 👤 ComfyMods ]</button>
+      <button class="quick-chip" onclick="runQuickSearch('Vapok')">[ 👤 Vapok ]</button>
+      <button class="quick-chip" onclick="runQuickSearch('Advize/PlantEverything')">[ 📦 PlantEverything ]</button>
+      <button class="quick-chip" onclick="runQuickSearch('ComfyMods/SearsCatalog')">[ 📦 SearsCatalog ]</button>
+      <button class="quick-chip" onclick="runQuickSearch('Vapok/AdventureBackpacks')">[ 📦 AdventureBackpacks ]</button>
+      <button class="quick-chip warn" onclick="runQuickSearch('DeepSeek/balrond_amazing_nature_RU')">[ ⚠️ balrond_amazing_nature_RU ]</button>
+      <button class="quick-chip warn" onclick="runQuickSearch('Wire/WiresStandSwap')">[ ⚠️ WiresStandSwap ]</button>
+    </div>
+  </div>
+
+  <!-- ACTIVE CONTENT AREA -->
+  <div id="content-area">
+    
+    <!-- INITIAL WELCOME / AUDIT GUIDE STATE -->
+    <div id="state-idle" class="state-box" style="text-align: left; padding: 2rem;">
+      <div style="font-size: 0.8rem; color: var(--ice-blue); margin-bottom: 0.5rem;">[ SYS_READY // CATALOG AUDIT ENGINE ACTIVE ]</div>
+      <h2 style="color: var(--ice-blue-bright); margin-top: 0; font-size: 1.4rem;">Heuristic Evaluation Framework &amp; Standards</h2>
+      <p style="color: var(--text-main); line-height: 1.6; max-width: 850px; font-size: 0.92rem;">
+        This transparency system measures every Valheim modification against a 5-dimension rubric to ensure compliance with Thunderstore's <code>AI Generated</code> policy. Any mod utilizing LLM-generated code, documentation, or assets must carry the <code>AI Generated</code> tag.
+      </p>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+        <div style="background: rgba(6, 8, 14, 0.7); border: 1px solid var(--border-subtle); padding: 1.25rem;">
+          <div style="color: var(--ice-blue); font-weight: 700; margin-bottom: 0.4rem;">1. C# Source Code (Weight: 35%)</div>
+          <div style="color: var(--text-muted); font-size: 0.82rem; line-height: 1.5;">
+            Scans decompiled assemblies for typical LLM prompt hallucination patterns, robotic method signatures, unnecessary wrapper redundancy, and dead logic branches.
+          </div>
+        </div>
+        <div style="background: rgba(6, 8, 14, 0.7); border: 1px solid var(--border-subtle); padding: 1.25rem;">
+          <div style="color: var(--ice-blue); font-weight: 700; margin-bottom: 0.4rem;">2. Git Diffs &amp; Commits (Weight: 20%)</div>
+          <div style="color: var(--text-muted); font-size: 0.82rem; line-height: 1.5;">
+            Analyzes commit cadence, co-author markers (e.g. <code>Co-authored-by: AI &lt;bot@...&gt;</code>), automated pull request merges, and branch velocity.
+          </div>
+        </div>
+        <div style="background: rgba(6, 8, 14, 0.7); border: 1px solid var(--border-subtle); padding: 1.25rem;">
+          <div style="color: var(--ice-blue); font-weight: 700; margin-bottom: 0.4rem;">3. Documentation &amp; Readmes (Weight: 20%)</div>
+          <div style="color: var(--text-muted); font-size: 0.82rem; line-height: 1.5;">
+            Audits package descriptions and readmes for generic LLM purple prose (e.g. <em>"delve into the enchanting realm"</em>, <em>"seamlessly elevates your journey"</em>).
+          </div>
+        </div>
+        <div style="background: rgba(6, 8, 14, 0.7); border: 1px solid var(--border-subtle); padding: 1.25rem;">
+          <div style="color: var(--ice-blue); font-weight: 700; margin-bottom: 0.4rem;">4. Visual Assets (Weight: 15%)</div>
+          <div style="color: var(--text-muted); font-size: 0.82rem; line-height: 1.5;">
+            Evaluates package icons and banners for synthetic diffusion artifacts, hypersaturated color banding, and lack of authentic in-game screenshot elements.
+          </div>
+        </div>
+        <div style="background: rgba(6, 8, 14, 0.7); border: 1px solid var(--border-subtle); padding: 1.25rem;">
+          <div style="color: var(--ice-blue); font-weight: 700; margin-bottom: 0.4rem;">5. Author Stance (Weight: 10%)</div>
+          <div style="color: var(--text-muted); font-size: 0.82rem; line-height: 1.5;">
+            Checks author public stance, repository contributing guidelines (such as ComfyMods canary traps), portfolio compliance percentage, and historical tag honesty.
+          </div>
+        </div>
+        <div style="background: rgba(6, 8, 14, 0.7); border: 1px solid var(--border-subtle); padding: 1.25rem;">
+          <div style="color: var(--glacial-mint); font-weight: 700; margin-bottom: 0.4rem;">⚡ Real-Time 30-Min Telemetry</div>
+          <div style="color: var(--text-muted); font-size: 0.82rem; line-height: 1.5;">
+            Synchronized directly with the Vapok background service runner every 30 minutes. As authors publish or update packages, new audits are indexed immediately.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOADING SPINNER STATE -->
+    <div id="state-loading" class="state-box" style="display: none;">
+      <div class="loader-spinner"></div>
+      <div style="color: var(--ice-blue); font-size: 0.95rem; font-weight: 700;">[ RETRIEVING DOSSIER MATRIX ]</div>
+      <div style="color: var(--text-muted); font-size: 0.82rem; margin-top: 0.35rem;" id="loading-msg">Parsing full audit catalog...</div>
+    </div>
+
+    <!-- RESULTS CONTAINER -->
+    <div id="state-results" style="display: none;"></div>
+
+    <!-- NOT FOUND STATE -->
+    <div id="state-empty" class="state-box" style="display: none;">
+      <div style="font-size: 2rem; margin-bottom: 0.5rem;">⚠️</div>
+      <div style="color: var(--warning-amber); font-weight: 700; font-size: 1.1rem;">No Matching Package or Author Found</div>
+      <div style="color: var(--text-muted); font-size: 0.85rem; max-width: 600px; margin: 0.5rem auto 1.5rem;">
+        We could not find an exact or fuzzy match for your query in the 13,782 indexed packages. Please check the spelling or paste the full Thunderstore package URL.
+      </div>
+      <button class="cyber-link-btn" onclick="document.getElementById('search-input').focus()">[ ↵ TRY ANOTHER SEARCH ]</button>
+    </div>
+
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="cyber-toast" class="cyber-toast">[ ✓ LINK COPIED TO CLIPBOARD ]</div>
+
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // Global App State
+  let searchIndex = null;
+  let authorsSummary = null;
+  let fullAuditData = null;
+  let isLoadingFull = false;
+
+  const SEARCH_INDEX_URL = '{{ "/assets/data/ai_mod_search_index.min.json" | relative_url }}';
+  const AUTHORS_URL = '{{ "/assets/data/ai_mod_authors.min.json" | relative_url }}';
+  const FULL_AUDIT_URL = '{{ "/assets/data/ai_mod_audit.min.json" | relative_url }}';
+
+  // Elements
+  const searchInput = document.getElementById('search-input');
+  const searchClearBtn = document.getElementById('search-clear-btn');
+  const searchExecBtn = document.getElementById('search-exec-btn');
+  const acDropdown = document.getElementById('ac-dropdown');
+  const contentArea = document.getElementById('content-area');
+  const stateIdle = document.getElementById('state-idle');
+  const stateLoading = document.getElementById('state-loading');
+  const stateResults = document.getElementById('state-results');
+  const stateEmpty = document.getElementById('state-empty');
+  const loadingMsg = document.getElementById('loading-msg');
+  const cyberToast = document.getElementById('cyber-toast');
+
+  let selectedAcIndex = -1;
+  let acItems = [];
+
+  function showToast(msg) {
+    cyberToast.textContent = msg;
+    cyberToast.style.display = 'block';
+    setTimeout(() => { cyberToast.style.display = 'none'; }, 2500);
+  }
+
+  async function init() {
+    try {
+      const [resIdx, resAuthors] = await Promise.all([
+        fetch(SEARCH_INDEX_URL).then(r => r.json()),
+        fetch(AUTHORS_URL).then(r => r.json()).catch(() => null)
+      ]);
+      searchIndex = resIdx;
+      if (resAuthors && resAuthors.authors) {
+        authorsSummary = resAuthors.authors;
+        if (resAuthors.summary) {
+          updateStatsRibbon(resAuthors.total_packages, resAuthors.total_authors, resAuthors.summary);
+        }
+      }
+
+      handleUrlParams();
+      preloadFullAudit();
+    } catch (err) {
+      console.error('Failed to initialize AI Mod Checker:', err);
+    }
+  }
+
+  function updateStatsRibbon(totalPkgs, totalAuthors, summary) {
+    if (document.getElementById('stat-pkgs')) document.getElementById('stat-pkgs').textContent = totalPkgs.toLocaleString();
+    if (document.getElementById('stat-authors')) document.getElementById('stat-authors').textContent = totalAuthors.toLocaleString();
+    if (document.getElementById('stat-human') && summary['VERIFIED HUMAN (Clean — Do Not Report)']) {
+      document.getElementById('stat-human').textContent = summary['VERIFIED HUMAN (Clean — Do Not Report)'].toLocaleString();
+    }
+    if (document.getElementById('stat-tagged') && summary['AI GENERATED (Properly Tagged)']) {
+      document.getElementById('stat-tagged').textContent = summary['AI GENERATED (Properly Tagged)'].toLocaleString();
+    }
+    const cand = (summary['MIXED / AI-ASSISTED (Report: Missing Tag)'] || 0) + (summary['AI GENERATED (Report: Missing Tag)'] || 0);
+    if (document.getElementById('stat-candidates')) {
+      document.getElementById('stat-candidates').textContent = cand.toLocaleString();
+    }
+  }
+
+  async function preloadFullAudit() {
+    if (fullAuditData || isLoadingFull) return;
+    isLoadingFull = true;
+    try {
+      const res = await fetch(FULL_AUDIT_URL);
+      fullAuditData = await res.json();
+      if (!authorsSummary && fullAuditData.authors) {
+        authorsSummary = fullAuditData.authors;
+      }
+    } catch (e) {
+      console.warn('Preload full audit deferred:', e);
+    } finally {
+      isLoadingFull = false;
+    }
+  }
+
+  async function ensureFullAudit() {
+    if (fullAuditData) return fullAuditData;
+    showLoading('Downloading full audit dossiers (13,782 packages)...');
+    try {
+      const res = await fetch(FULL_AUDIT_URL);
+      fullAuditData = await res.json();
+      if (!authorsSummary && fullAuditData.authors) {
+        authorsSummary = fullAuditData.authors;
+      }
+      return fullAuditData;
+    } catch (err) {
+      console.error('Error fetching full audit data:', err);
+      throw err;
+    }
+  }
+
+  function extractSlugOrQuery(val) {
+    if (!val) return '';
+    let cleaned = val.trim();
+    const tsMatch = cleaned.match(/thunderstore\.io\/(?:c\/[^\/]+\/)?(?:p|package)\/([^\/]+)\/([^\/\?#]+)/i);
+    if (tsMatch) {
+      return tsMatch[1] + '/' + tsMatch[2];
+    }
+    const authorMatch = cleaned.match(/thunderstore\.io\/(?:c\/[^\/]+\/)?(?:p|package)\/([^\/\?#]+)\/?$/i);
+    if (authorMatch && !cleaned.includes('/p/' + authorMatch[1] + '/')) {
+      return authorMatch[1];
+    }
+    return cleaned;
+  }
+
+  function handleInput(e) {
+    const raw = searchInput.value;
+    const q = extractSlugOrQuery(raw).toLowerCase();
+    if (!q || q.length < 2 || !searchIndex) {
+      hideAc();
+      return;
+    }
+
+    const matchedAuthors = new Map();
+    const matchedMods = [];
+
+    if (authorsSummary) {
+      for (const [authorName, aData] of Object.entries(authorsSummary)) {
+        if (authorName.toLowerCase().includes(q)) {
+          matchedAuthors.set(authorName, aData);
+          if (matchedAuthors.size >= 5) break;
+        }
+      }
+    }
+
+    for (let i = 0; i < searchIndex.length; i++) {
+      const [slug, owner, name, score, status, dl, rating] = searchIndex[i];
+      if (slug.toLowerCase().includes(q) || name.toLowerCase().includes(q)) {
+        matchedMods.push({ slug, owner, name, score, status, dl, rating });
+        if (matchedMods.length >= 8) break;
+      }
+    }
+
+    renderAc(matchedAuthors, matchedMods);
+  }
+
+  function renderAc(authorsMap, modsList) {
+    if (authorsMap.size === 0 && modsList.length === 0) {
+      hideAc();
+      return;
+    }
+
+    let html = '';
+    acItems = [];
+
+    if (authorsMap.size > 0) {
+      html += '<div class="ac-section-header">// MATCHED AUTHORS</div>';
+      for (const [author, aData] of authorsMap.entries()) {
+        const itemIdx = acItems.length;
+        acItems.push({ type: 'author', id: author });
+        html += `
+          <div class="ac-item" data-idx="${itemIdx}">
+            <div class="ac-item-left">
+              <span class="ac-item-icon">👤</span>
+              <div>
+                <div class="ac-item-title"><strong>${escapeHtml(author)}</strong></div>
+                <div class="ac-item-sub">${aData.total} packages • ${escapeHtml(aData.stance)}</div>
+              </div>
+            </div>
+            <span class="status-pill ${aData.ai_missing_tag > 0 ? 'missing-tag' : (aData.ai_tagged > 0 ? 'tagged-ai' : 'human')}">
+              ${aData.ai_missing_tag > 0 ? aData.ai_missing_tag + ' CANDIDATES' : (aData.ai_tagged > 0 ? 'AI TAGGED' : 'VERIFIED HUMAN')}
+            </span>
+          </div>
+        `;
+      }
+    }
+
+    if (modsList.length > 0) {
+      html += '<div class="ac-section-header">// MATCHED PACKAGES</div>';
+      for (const m of modsList) {
+        const itemIdx = acItems.length;
+        acItems.push({ type: 'mod', id: m.slug });
+        const pillClass = m.status.includes('VERIFIED HUMAN') ? 'human' :
+                          (m.status.includes('Properly Tagged') ? 'tagged-ai' : 
+                          (m.status.includes('MIXED') ? 'mixed' : 'missing-tag'));
+        html += `
+          <div class="ac-item" data-idx="${itemIdx}">
+            <div class="ac-item-left">
+              <span class="ac-item-icon">📦</span>
+              <div>
+                <div class="ac-item-title"><strong>${escapeHtml(m.name)}</strong> <span style="color:var(--text-muted); font-size:0.8rem;">by ${escapeHtml(m.owner)}</span></div>
+                <div class="ac-item-sub">${escapeHtml(m.slug)} • ${m.dl.toLocaleString()} downloads</div>
+              </div>
+            </div>
+            <span class="status-pill ${pillClass}">
+              ${m.status.includes('VERIFIED HUMAN') ? 'HUMAN' : (m.status.includes('Properly Tagged') ? 'AI TAGGED' : 'NEEDS TAG')}
+            </span>
+          </div>
+        `;
+      }
+    }
+
+    acDropdown.innerHTML = html;
+    acDropdown.style.display = 'block';
+    selectedAcIndex = -1;
+
+    acDropdown.querySelectorAll('.ac-item').forEach(el => {
+      el.addEventListener('click', () => {
+        const idx = parseInt(el.getAttribute('data-idx'), 10);
+        selectAcItem(idx);
+      });
+    });
+  }
+
+  function hideAc() {
+    acDropdown.style.display = 'none';
+    selectedAcIndex = -1;
+    acItems = [];
+  }
+
+  function handleKeydown(e) {
+    if (acDropdown.style.display === 'block') {
+      const items = acDropdown.querySelectorAll('.ac-item');
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        selectedAcIndex = (selectedAcIndex + 1) % items.length;
+        updateAcSelection(items);
+        return;
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        selectedAcIndex = (selectedAcIndex - 1 + items.length) % items.length;
+        updateAcSelection(items);
+        return;
+      } else if (e.key === 'Enter') {
+        if (selectedAcIndex >= 0 && selectedAcIndex < acItems.length) {
+          e.preventDefault();
+          selectAcItem(selectedAcIndex);
+          return;
+        }
+      } else if (e.key === 'Escape') {
+        hideAc();
+        return;
+      }
+    }
+
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      executeSearch();
+    }
+  }
+
+  function updateAcSelection(items) {
+    items.forEach((el, i) => {
+      if (i === selectedAcIndex) {
+        el.classList.add('selected');
+        el.scrollIntoView({ block: 'nearest' });
+      } else {
+        el.classList.remove('selected');
+      }
+    });
+  }
+
+  function selectAcItem(idx) {
+    const item = acItems[idx];
+    if (!item) return;
+    hideAc();
+    if (item.type === 'author') {
+      searchInput.value = item.id;
+      loadAuthorDossier(item.id);
+    } else {
+      searchInput.value = item.id;
+      loadModDossier(item.id);
+    }
+  }
+
+  async function executeSearch() {
+    hideAc();
+    const raw = searchInput.value;
+    const query = extractSlugOrQuery(raw);
+    if (!query) {
+      showIdle();
+      return;
+    }
+
+    const qLower = query.toLowerCase();
+
+    if (query.includes('/')) {
+      await loadModDossier(query);
+      return;
+    }
+
+    if (authorsSummary) {
+      const exactAuthor = Object.keys(authorsSummary).find(a => a.toLowerCase() === qLower);
+      if (exactAuthor) {
+        await loadAuthorDossier(exactAuthor);
+        return;
+      }
+    }
+
+    if (searchIndex) {
+      const modMatch = searchIndex.find(m => m[2].toLowerCase() === qLower || m[0].toLowerCase() === qLower);
+      if (modMatch) {
+        await loadModDossier(modMatch[0]);
+        return;
+      }
+    }
+
+    if (authorsSummary) {
+      const partialAuthor = Object.keys(authorsSummary).find(a => a.toLowerCase().includes(qLower));
+      if (partialAuthor) {
+        await loadAuthorDossier(partialAuthor);
+        return;
+      }
+    }
+
+    if (searchIndex) {
+      const partialMod = searchIndex.find(m => m[2].toLowerCase().includes(qLower));
+      if (partialMod) {
+        await loadModDossier(partialMod[0]);
+        return;
+      }
+    }
+
+    showEmpty();
+  }
+
+  async function loadModDossier(slug) {
+    showLoading(`Auditing package [ ${slug} ]...`);
+    updateUrl('mod', slug);
+
+    try {
+      const data = await ensureFullAudit();
+      const slugKey = Object.keys(data.packages).find(k => k.toLowerCase() === slug.toLowerCase());
+      if (!slugKey || !data.packages[slugKey]) {
+        showEmpty();
+        return;
+      }
+
+      const pkg = data.packages[slugKey];
+      renderSingleModView(pkg);
+    } catch (err) {
+      console.error(err);
+      showEmpty();
+    }
+  }
+
+  async function loadAuthorDossier(authorName) {
+    showLoading(`Compiling author dossier for [ ${authorName} ]...`);
+    updateUrl('author', authorName);
+
+    try {
+      const data = await ensureFullAudit();
+      const authorKey = Object.keys(data.authors).find(a => a.toLowerCase() === authorName.toLowerCase());
+      if (!authorKey || !data.authors[authorKey]) {
+        showEmpty();
+        return;
+      }
+
+      const aData = data.authors[authorKey];
+      const authorPkgs = [];
+      for (const slug of aData.mods) {
+        if (data.packages[slug]) {
+          authorPkgs.push(data.packages[slug]);
+        }
+      }
+
+      renderAuthorView(aData, authorPkgs);
+    } catch (err) {
+      console.error(err);
+      showEmpty();
+    }
+  }
+
+  function renderSingleModView(pkg) {
+    hideAllStates();
+    stateResults.style.display = 'block';
+
+    const pillClass = getStatusPillClass(pkg.total_status);
+    const scoreClass = getScoreColorClass(pkg.total_score);
+
+    let html = `
+      <div class="audit-table-card">
+        
+        <div class="audit-table-header">
+          <div class="audit-mod-info">
+            <img class="audit-mod-icon" src="${escapeHtml(pkg.icon)}" alt="${escapeHtml(pkg.name)}" onerror="this.src='/assets/images/favicon-32x32.png'" />
+            <div class="audit-mod-title-wrap">
+              <div class="audit-mod-title">
+                <span>${escapeHtml(pkg.name)}</span>
+                <span style="color: var(--text-muted); font-size: 0.85rem; font-weight: normal;">v${escapeHtml(pkg.version)}</span>
+              </div>
+              <div class="audit-mod-author">
+                Package Slug: <code>${escapeHtml(pkg.slug)}</code> • Author: 
+                <a href="#" onclick="runQuickSearch('${escapeHtml(pkg.owner)}'); return false;"><strong>${escapeHtml(pkg.owner)}</strong></a>
+              </div>
+              <div class="audit-mod-meta">
+                <span>⚡ Downloads: <strong>${pkg.downloads.toLocaleString()}</strong></span>
+                <span>⭐ Rating: <strong>${pkg.rating.toLocaleString()}</strong></span>
+                <span>📅 Updated: <strong>${pkg.updated.substring(0, 10)}</strong></span>
+                ${pkg.categories && pkg.categories.length > 0 ? `<span>🏷️ ${pkg.categories.map(c => escapeHtml(c)).join(', ')}</span>` : ''}
+              </div>
+            </div>
+          </div>
+
+          <div class="audit-score-summary">
+            <span class="status-pill ${pillClass}">${escapeHtml(pkg.total_status)}</span>
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem;">
+              Weighted LLM Score: <strong class="${scoreClass}" style="font-size: 1.15rem;">${pkg.total_score.toFixed(1)}%</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- THE EXACT 5-ROW TABLE -->
+        <div class="audit-table-wrap">
+          <table class="exact-audit-table">
+            <thead>
+              <tr>
+                <th style="width: 22%;">Category</th>
+                <th style="width: 32%;">Evaluated Surface</th>
+                <th style="width: 14%;">LLM Score</th>
+                <th style="width: 32%;">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${renderAuditTableRows(pkg.rows)}
+            </tbody>
+          </table>
+        </div>
+
+        ${renderEvidenceBox(pkg.evidence)}
+
+        <div class="audit-table-footer">
+          <div style="color: var(--text-muted); font-size: 0.78rem;">
+            AUDIT IDENTIFIER: <code>${escapeHtml(pkg.slug)}::${escapeHtml(pkg.version)}</code>
+          </div>
+          <div class="footer-actions">
+            <a href="${escapeHtml(pkg.url)}" target="_blank" rel="noopener noreferrer" class="cyber-link-btn">
+              [ ⚡ VIEW ON THUNDERSTORE ]
+            </a>
+            ${pkg.total_status.includes('Missing Tag') ? `
+              <a href="${escapeHtml(pkg.url)}" target="_blank" rel="noopener noreferrer" class="cyber-link-btn report">
+                [ ⚠️ REPORT PACKAGE ON THUNDERSTORE ]
+              </a>
+            ` : ''}
+            <button class="cyber-link-btn" onclick="copyModLink('${escapeHtml(pkg.slug)}')">
+              [ 🔗 SHARE DOSSIER ]
+            </button>
+          </div>
+        </div>
+
+      </div>
+    `;
+
+    stateResults.innerHTML = html;
+    window.scrollTo({ top: contentArea.offsetTop - 30, behavior: 'smooth' });
+  }
+
+  function renderAuthorView(aData, pkgs) {
+    hideAllStates();
+    stateResults.style.display = 'block';
+
+    let html = `
+      <div class="author-dossier-card">
+        <div class="author-dossier-top">
+          <div class="author-title-block">
+            <div class="author-tag">[ SYS_DOSSIER // AUTHOR_PROFILE ]</div>
+            <h2 class="author-name">${escapeHtml(aData.owner)}</h2>
+            <div>
+              <span class="author-stance-badge">
+                🛡️ Author Stance: <strong>${escapeHtml(aData.stance)}</strong>
+              </span>
+            </div>
+          </div>
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <button class="cyber-link-btn" onclick="copyAuthorLink('${escapeHtml(aData.owner)}')">
+              [ 🔗 SHARE AUTHOR DOSSIER ]
+            </button>
+          </div>
+        </div>
+
+        <div class="author-metrics-grid">
+          <div class="stat-cell">
+            <span class="stat-label">Total Packages</span>
+            <span class="stat-val">${aData.total}</span>
+          </div>
+          <div class="stat-cell">
+            <span class="stat-label">Verified Clean</span>
+            <span class="stat-val mint">${aData.human}</span>
+          </div>
+          <div class="stat-cell">
+            <span class="stat-label">Properly Tagged AI</span>
+            <span class="stat-val cyan">${aData.ai_tagged}</span>
+          </div>
+          <div class="stat-cell">
+            <span class="stat-label">Report Candidates</span>
+            <span class="stat-val ${aData.ai_missing_tag > 0 ? 'crimson' : 'mint'}">${aData.ai_missing_tag}</span>
+          </div>
+          <div class="stat-cell">
+            <span class="stat-label">Aggregate AI Footprint</span>
+            <span class="stat-val ${aData.ai_pct > 0 ? 'amber' : 'mint'}">${aData.ai_pct}%</span>
+          </div>
+        </div>
+
+        <div class="author-filter-tabs">
+          <div class="tab-group" id="author-filter-tabs">
+            <button class="tab-btn active" data-filter="all" onclick="filterAuthorMods('all')">
+              [ ALL (${pkgs.length}) ]
+            </button>
+            ${aData.ai_missing_tag > 0 ? `
+              <button class="tab-btn" data-filter="missing" onclick="filterAuthorMods('missing')" style="color: var(--error-crimson);">
+                [ ⚠️ CANDIDATES (${aData.ai_missing_tag}) ]
+              </button>
+            ` : ''}
+            ${aData.ai_tagged > 0 ? `
+              <button class="tab-btn" data-filter="tagged" onclick="filterAuthorMods('tagged')" style="color: var(--ice-blue);">
+                [ 🏷️ TAGGED AI (${aData.ai_tagged}) ]
+              </button>
+            ` : ''}
+            <button class="tab-btn" data-filter="clean" onclick="filterAuthorMods('clean')" style="color: var(--glacial-mint);">
+              [ 🛡️ CLEAN HUMAN (${aData.human}) ]
+            </button>
+          </div>
+          <div>
+            <button class="toggle-all-btn" id="btn-toggle-all" onclick="toggleAllAuthorTables()">
+              [ + EXPAND ALL TABLES ]
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="author-pkgs-matrix">
+        ${pkgs.map((pkg, idx) => renderAuthorModCard(pkg, idx, pkgs.length <= 3)).join('')}
+      </div>
+    `;
+
+    stateResults.innerHTML = html;
+    window.scrollTo({ top: contentArea.offsetTop - 30, behavior: 'smooth' });
+  }
+
+  function renderAuthorModCard(pkg, idx, defaultExpanded) {
+    const pillClass = getStatusPillClass(pkg.total_status);
+    const scoreClass = getScoreColorClass(pkg.total_score);
+    const filterTag = pkg.total_status.includes('Missing Tag') ? 'missing' :
+                      (pkg.total_status.includes('Properly Tagged') ? 'tagged' : 'clean');
+
+    return `
+      <div class="audit-table-card mod-item-card" data-mod-filter="${filterTag}">
+        
+        <div class="audit-table-header mod-collapsible-trigger" onclick="toggleModContent('${idx}')">
+          <div class="audit-mod-info">
+            <img class="audit-mod-icon" src="${escapeHtml(pkg.icon)}" alt="${escapeHtml(pkg.name)}" onerror="this.src='/assets/images/favicon-32x32.png'" />
+            <div class="audit-mod-title-wrap">
+              <div class="audit-mod-title">
+                <span>${escapeHtml(pkg.name)}</span>
+                <span style="color: var(--text-muted); font-size: 0.85rem; font-weight: normal;">v${escapeHtml(pkg.version)}</span>
+              </div>
+              <div class="audit-mod-meta">
+                <span>⚡ Downloads: <strong>${pkg.downloads.toLocaleString()}</strong></span>
+                <span>⭐ Rating: <strong>${pkg.rating.toLocaleString()}</strong></span>
+                <span>📅 Updated: <strong>${pkg.updated.substring(0, 10)}</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="audit-score-summary">
+            <div style="display:flex; align-items:center; gap:0.6rem;">
+              <span class="status-pill ${pillClass}">${escapeHtml(pkg.total_status)}</span>
+              <span id="chevron-${idx}" style="color:var(--ice-blue); font-size:1.1rem; font-weight:bold;">${defaultExpanded ? '▼' : '▶'}</span>
+            </div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem;">
+              Weighted LLM Score: <strong class="${scoreClass}">${pkg.total_score.toFixed(1)}%</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="mod-collapsible-content ${defaultExpanded ? 'expanded' : ''}" id="mod-body-${idx}">
+          <div class="audit-table-wrap">
+            <table class="exact-audit-table">
+              <thead>
+                <tr>
+                  <th style="width: 22%;">Category</th>
+                  <th style="width: 32%;">Evaluated Surface</th>
+                  <th style="width: 14%;">LLM Score</th>
+                  <th style="width: 32%;">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${renderAuditTableRows(pkg.rows)}
+              </tbody>
+            </table>
+          </div>
+
+          ${renderEvidenceBox(pkg.evidence)}
+
+          <div class="audit-table-footer">
+            <div style="color: var(--text-muted); font-size: 0.78rem;">
+              PACKAGE: <code>${escapeHtml(pkg.slug)}</code>
+            </div>
+            <div class="footer-actions">
+              <a href="${escapeHtml(pkg.url)}" target="_blank" rel="noopener noreferrer" class="cyber-link-btn">
+                [ ⚡ VIEW ON THUNDERSTORE ]
+              </a>
+              ${pkg.total_status.includes('Missing Tag') ? `
+                <a href="${escapeHtml(pkg.url)}" target="_blank" rel="noopener noreferrer" class="cyber-link-btn report">
+                  [ ⚠️ REPORT PACKAGE ON THUNDERSTORE ]
+                </a>
+              ` : ''}
+              <button class="cyber-link-btn" onclick="copyModLink('${escapeHtml(pkg.slug)}')">
+                [ 🔗 SHARE MOD ]
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    `;
+  }
+
+  function renderAuditTableRows(rows) {
+    if (!rows || rows.length === 0) return '<tr><td colspan="4" style="text-align:center;">No rows evaluated.</td></tr>';
+    return rows.map(r => {
+      const cat = r[0] || '';
+      const surface = r[1] || '';
+      const scoreStr = r[2] || '0.0%';
+      const statusDesc = r[3] || '';
+      
+      const numScore = parseFloat(scoreStr.replace('%', '')) || 0;
+      const scoreBadgeClass = numScore === 0 ? 'clean' : (numScore < 50 ? 'warn' : 'alert');
+
+      return `
+        <tr>
+          <td class="cat-label">${escapeHtml(cat)}</td>
+          <td class="surface-label">${escapeHtml(surface)}</td>
+          <td><span class="score-badge ${scoreBadgeClass}">${escapeHtml(scoreStr)}</span></td>
+          <td class="status-text">${escapeHtml(statusDesc)}</td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  function renderEvidenceBox(evList) {
+    if (!evList || evList.length === 0) return '';
+    return `
+      <div class="evidence-drawer">
+        <div class="evidence-title">
+          <span>⚠️ Detected AI Signatures &amp; Heuristics</span>
+        </div>
+        <ul class="evidence-list">
+          ${evList.map(ev => `<li>${formatEvidence(ev)}</li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  function formatEvidence(str) {
+    return escapeHtml(str).replace(/`([^`]+)`/g, '<code>$1</code>');
+  }
+
+  function getStatusPillClass(status) {
+    if (!status) return 'human';
+    if (status.includes('VERIFIED HUMAN')) return 'human';
+    if (status.includes('Properly Tagged')) return 'tagged-ai';
+    if (status.includes('MIXED')) return 'mixed';
+    return 'missing-tag';
+  }
+
+  function getScoreColorClass(score) {
+    if (score === 0) return 'mint';
+    if (score < 40) return 'cyan';
+    if (score < 70) return 'amber';
+    return 'crimson';
+  }
+
+  function escapeHtml(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  window.toggleModContent = function(idx) {
+    const body = document.getElementById('mod-body-' + idx);
+    const chevron = document.getElementById('chevron-' + idx);
+    if (!body) return;
+    if (body.classList.contains('expanded')) {
+      body.classList.remove('expanded');
+      if (chevron) chevron.textContent = '▶';
+    } else {
+      body.classList.add('expanded');
+      if (chevron) chevron.textContent = '▼';
+    }
+  };
+
+  window.toggleAllAuthorTables = function() {
+    const bodies = document.querySelectorAll('.mod-collapsible-content');
+    const chevrons = document.querySelectorAll('[id^="chevron-"]');
+    const btn = document.getElementById('btn-toggle-all');
+    if (!bodies.length) return;
+
+    const areAllExpanded = Array.from(bodies).every(b => b.classList.contains('expanded'));
+    if (areAllExpanded) {
+      bodies.forEach(b => b.classList.remove('expanded'));
+      chevrons.forEach(c => c.textContent = '▶');
+      if (btn) btn.textContent = '[ + EXPAND ALL TABLES ]';
+    } else {
+      bodies.forEach(b => b.classList.add('expanded'));
+      chevrons.forEach(c => c.textContent = '▼');
+      if (btn) btn.textContent = '[ − COLLAPSE ALL TABLES ]';
+    }
+  };
+
+  window.filterAuthorMods = function(filter) {
+    const tabs = document.querySelectorAll('#author-filter-tabs .tab-btn');
+    tabs.forEach(t => {
+      if (t.getAttribute('data-filter') === filter) t.classList.add('active');
+      else t.classList.remove('active');
+    });
+
+    const cards = document.querySelectorAll('#author-pkgs-matrix .mod-item-card');
+    cards.forEach(c => {
+      const modFilter = c.getAttribute('data-mod-filter');
+      if (filter === 'all' || modFilter === filter) {
+        c.style.display = 'block';
+      } else {
+        c.style.display = 'none';
+      }
+    });
+  };
+
+  function hideAllStates() {
+    stateIdle.style.display = 'none';
+    stateLoading.style.display = 'none';
+    stateResults.style.display = 'none';
+    stateEmpty.style.display = 'none';
+  }
+
+  function showIdle() {
+    hideAllStates();
+    stateIdle.style.display = 'block';
+    updateUrl('', '');
+  }
+
+  function showLoading(msg) {
+    hideAllStates();
+    if (loadingMsg) loadingMsg.textContent = msg || 'Retrieving audit dossiers...';
+    stateLoading.style.display = 'block';
+  }
+
+  function showEmpty() {
+    hideAllStates();
+    stateEmpty.style.display = 'block';
+  }
+
+  function updateUrl(param, val) {
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('q');
+      url.searchParams.delete('mod');
+      url.searchParams.delete('author');
+      if (param && val) {
+        url.searchParams.set(param, val);
+      }
+      window.history.pushState(null, '', url.pathname + url.search);
+    } catch (e) {}
+  }
+
+  function handleUrlParams() {
+    const params = new URLSearchParams(window.location.search);
+    const mod = params.get('mod');
+    const author = params.get('author');
+    const q = params.get('q');
+
+    if (mod) {
+      searchInput.value = mod;
+      loadModDossier(mod);
+    } else if (author) {
+      searchInput.value = author;
+      loadAuthorDossier(author);
+    } else if (q) {
+      searchInput.value = q;
+      executeSearch();
+    }
+  }
+
+  window.runQuickSearch = function(str) {
+    searchInput.value = str;
+    executeSearch();
+  };
+
+  window.copyModLink = function(slug) {
+    const url = `${window.location.origin}/AIModChecker/?mod=${encodeURIComponent(slug)}`;
+    navigator.clipboard.writeText(url).then(() => {
+      showToast(`[ ✓ COPIED LINK: ${slug} ]`);
+    });
+  };
+
+  window.copyAuthorLink = function(author) {
+    const url = `${window.location.origin}/AIModChecker/?author=${encodeURIComponent(author)}`;
+    navigator.clipboard.writeText(url).then(() => {
+      showToast(`[ ✓ COPIED LINK: ${author} ]`);
+    });
+  };
+
+  searchInput.addEventListener('input', handleInput);
+  searchInput.addEventListener('keydown', handleKeydown);
+  searchClearBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    hideAc();
+    showIdle();
+  });
+  searchExecBtn.addEventListener('click', executeSearch);
+
+  document.addEventListener('click', (e) => {
+    if (!acDropdown.contains(e.target) && e.target !== searchInput) {
+      hideAc();
+    }
+  });
+
+  init();
+
+})();
+</script>
