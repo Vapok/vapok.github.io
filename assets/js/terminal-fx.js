@@ -22,7 +22,49 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileBackToTop();
   initLivePlayerCounter();
   initDiscordComms();
+  initFxSettings();
 });
+
+/* ==========================================================================
+   VISUAL FX & MOTION PREFERENCES SUBSYSTEM
+   ========================================================================== */
+function isCrtActive() {
+  return !document.body.classList.contains('crt-off');
+}
+
+function isMatrixActive() {
+  const saved = localStorage.getItem('vapok_matrix_state');
+  if (saved !== null) return saved === 'on';
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobile = window.innerWidth <= 768 || !window.matchMedia('(hover: hover)').matches;
+  return !isMobile && !prefersReducedMotion;
+}
+
+function isScrambleActive() {
+  const saved = localStorage.getItem('vapok_scramble_state');
+  if (saved !== null) return saved === 'on';
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  return !prefersReducedMotion;
+}
+
+let toggleMatrixEffect = (forceState) => {
+  const nextState = typeof forceState === 'boolean' ? forceState : !isMatrixActive();
+  localStorage.setItem('vapok_matrix_state', nextState ? 'on' : 'off');
+  window.dispatchEvent(new CustomEvent('vapok:fxchange', {
+    detail: { type: 'matrix', enabled: nextState }
+  }));
+  return nextState;
+};
+
+function toggleScrambleEffect(forceState) {
+  const current = isScrambleActive();
+  const nextState = typeof forceState === 'boolean' ? forceState : !current;
+  localStorage.setItem('vapok_scramble_state', nextState ? 'on' : 'off');
+  window.dispatchEvent(new CustomEvent('vapok:fxchange', {
+    detail: { type: 'scramble', enabled: nextState }
+  }));
+  return nextState;
+}
 
 /* ==========================================================================
    1. REACTIVE ASCII CANVAS BACKGROUND
@@ -31,13 +73,7 @@ function initAsciiCanvas() {
   const canvas = document.getElementById('ascii-bg-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let isMobile = window.innerWidth <= 768 || !window.matchMedia('(hover: hover)').matches || prefersReducedMotion;
-  if (isMobile) {
-    // Disable canvas render loop on mobile or reduced-motion to save CPU/GPU fillrate and battery
-    return;
-  }
+  let isMobile = window.innerWidth <= 768 || !window.matchMedia('(hover: hover)').matches;
 
   let width = (canvas.width = window.innerWidth);
   let height = (canvas.height = window.innerHeight);
@@ -70,6 +106,7 @@ function initAsciiCanvas() {
   let mouse = { x: -1000, y: -1000, radius: 140 };
 
   window.addEventListener('mousemove', (e) => {
+    if (!isMatrixActive()) return;
     mouse.x = e.clientX;
     mouse.y = e.clientY;
   }, { passive: true });
@@ -78,6 +115,7 @@ function initAsciiCanvas() {
   let resizeTimeout = null;
 
   window.addEventListener('resize', () => {
+    if (!isMatrixActive()) return;
     const nowMobile = window.innerWidth <= 768 || !window.matchMedia('(hover: hover)').matches;
     if (nowMobile) {
       if (animFrameId) {
@@ -92,13 +130,23 @@ function initAsciiCanvas() {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
       buildGrid();
-      if (!animFrameId && !document.hidden) {
+      if (!animFrameId && !document.hidden && isMatrixActive()) {
         animFrameId = requestAnimationFrame(render);
       }
     }, 150);
   }, { passive: true });
 
   function render() {
+    if (!isMatrixActive()) {
+      if (animFrameId) {
+        cancelAnimationFrame(animFrameId);
+        animFrameId = null;
+      }
+      ctx.clearRect(0, 0, width, height);
+      canvas.style.display = 'none';
+      return;
+    }
+
     ctx.fillStyle = '#06080e';
     ctx.fillRect(0, 0, width, height);
 
@@ -142,6 +190,40 @@ function initAsciiCanvas() {
     animFrameId = requestAnimationFrame(render);
   }
 
+  function startCanvas() {
+    canvas.style.display = 'block';
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+    buildGrid();
+    if (!animFrameId && !document.hidden) {
+      animFrameId = requestAnimationFrame(render);
+    }
+  }
+
+  function stopCanvas() {
+    if (animFrameId) {
+      cancelAnimationFrame(animFrameId);
+      animFrameId = null;
+    }
+    ctx.clearRect(0, 0, width, height);
+    canvas.style.display = 'none';
+  }
+
+  toggleMatrixEffect = function(forceState) {
+    const active = isMatrixActive();
+    const nextState = typeof forceState === 'boolean' ? forceState : !active;
+    localStorage.setItem('vapok_matrix_state', nextState ? 'on' : 'off');
+    if (nextState) {
+      startCanvas();
+    } else {
+      stopCanvas();
+    }
+    window.dispatchEvent(new CustomEvent('vapok:fxchange', {
+      detail: { type: 'matrix', enabled: nextState }
+    }));
+    return nextState;
+  };
+
   // Pause canvas render loop when document is hidden to optimize CPU / battery
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
@@ -150,27 +232,44 @@ function initAsciiCanvas() {
         animFrameId = null;
       }
     } else {
-      if (!animFrameId && window.innerWidth > 768 && window.matchMedia('(hover: hover)').matches) {
+      if (!animFrameId && isMatrixActive() && window.innerWidth > 768 && window.matchMedia('(hover: hover)').matches) {
         animFrameId = requestAnimationFrame(render);
       }
     }
   });
 
-  animFrameId = requestAnimationFrame(render);
+  if (isMatrixActive()) {
+    startCanvas();
+  } else {
+    canvas.style.display = 'none';
+  }
 }
 
 /* ==========================================================================
    2. CRT SCANLINE TOGGLE
    ========================================================================== */
-function toggleCrtEffect() {
+function toggleCrtEffect(forceState) {
   const toggleBtn = document.getElementById('crt-toggle-btn');
-  const isOff = document.body.classList.toggle('crt-off');
+  let isOff;
+  if (typeof forceState === 'boolean') {
+    isOff = !forceState;
+    if (isOff) {
+      document.body.classList.add('crt-off');
+    } else {
+      document.body.classList.remove('crt-off');
+    }
+  } else {
+    isOff = document.body.classList.toggle('crt-off');
+  }
   if (toggleBtn) {
     const text = isOff ? '[ CRT: OFF ]' : '[ CRT: ON ]';
     toggleBtn.textContent = text;
     toggleBtn.dataset.text = text;
   }
   localStorage.setItem('vapok_crt_state', isOff ? 'off' : 'on');
+  window.dispatchEvent(new CustomEvent('vapok:fxchange', {
+    detail: { type: 'crt', enabled: !isOff }
+  }));
   return isOff;
 }
 
@@ -206,7 +305,6 @@ function initCrtToggle() {
 function initTextScramble() {
   const isPointerFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   if (!isPointerFine) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!<>-_\\/[]{}—=+*^?#________';
   const scrambleElements = document.querySelectorAll('.scramble-hover:not(.ascii-art), .cyber-btn, .terminal-tab-btn');
@@ -219,6 +317,7 @@ function initTextScramble() {
     let interval = null;
 
     el.addEventListener('mouseenter', () => {
+      if (!isScrambleActive()) return;
       const textToScramble = el.dataset.text || el.textContent.trim();
       if (!textToScramble) return;
       let iteration = 0;
@@ -271,6 +370,7 @@ function initAsciiBannerGlitch() {
   asciiEl.style.cursor = 'pointer';
 
   asciiEl.addEventListener('mouseenter', () => {
+    if (!isScrambleActive()) return;
     clearInterval(glitchInterval);
 
     glitchInterval = setInterval(() => {
@@ -1446,6 +1546,7 @@ function initBootloaderAndCli() {
           printLine('  status           - Display kernel telemetry & active nodes', 'info');
           printLine('  dir / ls         - Interactive directory matrix explorer & sitemap', 'info');
           printLine('  crt              - Toggle retro CRT scanline filter', 'info');
+          printLine('  fx / matrix      - Visual FX & motion directives (matrix, crt, scramble)', 'info');
           printLine('  clear            - Clear terminal buffer output', 'info');
         } else {
           printLine('AVAILABLE SYSTEM DIRECTIVES:', 'cmd');
@@ -1461,6 +1562,7 @@ function initBootloaderAndCli() {
           printLine('  fuel / support   - Open creator support & donation channels', 'info');
           printLine('  discord          - Connect to Vapok Gaming Community Discord', 'info');
           printLine('  crt              - Toggle retro CRT scanline filter', 'info');
+          printLine('  fx / matrix      - Visual FX & motion directives (matrix, crt, scramble)', 'info');
           printLine('  clear            - Clear terminal buffer output', 'info');
           printLine('  shutdown         - Gracefully decompile UI & enter OFFLINE mode', 'info');
           printLine('  reboot           - Gracefully decompile and re-initialize system', 'info');
@@ -1641,6 +1743,101 @@ function initBootloaderAndCli() {
       case 'crt':
         const isCrtOff = toggleCrtEffect();
         printLine(`CRT Scanlines: [ ${isCrtOff ? 'OFF' : 'ON'} ]`, 'info');
+        break;
+
+      case 'crt on':
+      case 'crt enable':
+        toggleCrtEffect(true);
+        printLine('CRT Scanlines: [ ON ]', 'success');
+        break;
+
+      case 'crt off':
+      case 'crt disable':
+        toggleCrtEffect(false);
+        printLine('CRT Scanlines: [ OFF ]', 'warn');
+        break;
+
+      case 'matrix':
+      case 'matrix toggle':
+      case 'bg':
+      case 'bg toggle':
+        const nextMat = toggleMatrixEffect();
+        printLine(`Background Matrix & Hover FX: [ ${nextMat ? 'ON' : 'OFF'} ]`, 'info');
+        break;
+
+      case 'matrix on':
+      case 'matrix enable':
+      case 'bg on':
+        toggleMatrixEffect(true);
+        printLine('Background Matrix & Hover FX: [ ON ]', 'success');
+        break;
+
+      case 'matrix off':
+      case 'matrix disable':
+      case 'bg off':
+        toggleMatrixEffect(false);
+        printLine('Background Matrix & Hover FX: [ OFF ]', 'warn');
+        break;
+
+      case 'scramble':
+      case 'scramble toggle':
+        const nextScr = toggleScrambleEffect();
+        printLine(`Hover Text Scrambler: [ ${nextScr ? 'ON' : 'OFF'} ]`, 'info');
+        break;
+
+      case 'scramble on':
+      case 'scramble enable':
+        toggleScrambleEffect(true);
+        printLine('Hover Text Scrambler: [ ON ]', 'success');
+        break;
+
+      case 'scramble off':
+      case 'scramble disable':
+        toggleScrambleEffect(false);
+        printLine('Hover Text Scrambler: [ OFF ]', 'warn');
+        break;
+
+      case 'fx':
+      case 'fx status':
+      case 'motion':
+      case 'display':
+        const crtSt = isCrtActive() ? 'ON' : 'OFF';
+        const matSt = isMatrixActive() ? 'ON' : 'OFF';
+        const scrSt = isScrambleActive() ? 'ON' : 'OFF';
+        printLine('--- VISUAL FX & MOTION CONFIGURATION ---', 'success');
+        printLine(`  [1] Retro CRT Scanlines:       [ ${crtSt} ]`, 'info');
+        printLine(`  [2] Background Matrix & Hover: [ ${matSt} ]`, 'info');
+        printLine(`  [3] Hover Text Scrambler:      [ ${scrSt} ]`, 'info');
+        printLine('Directives: matrix on|off, crt on|off, scramble on|off, fx on|off, fx settings', 'cmd');
+        break;
+
+      case 'fx on':
+      case 'fx enable':
+      case 'fx all on':
+        toggleCrtEffect(true);
+        toggleMatrixEffect(true);
+        toggleScrambleEffect(true);
+        printLine('// All visual FX enabled [ CRT: ON | MATRIX: ON | SCRAMBLE: ON ]', 'success');
+        break;
+
+      case 'fx off':
+      case 'fx disable':
+      case 'fx all off':
+        toggleCrtEffect(false);
+        toggleMatrixEffect(false);
+        toggleScrambleEffect(false);
+        printLine('// All visual FX disabled [ CRT: OFF | MATRIX: OFF | SCRAMBLE: OFF ]', 'warn');
+        break;
+
+      case 'fx settings':
+      case 'fx menu':
+      case 'fx modal':
+      case 'motion settings':
+      case 'display settings':
+        if (window.openFxSettings) {
+          window.openFxSettings();
+          printLine('// Opening Visual FX & Motion Preferences modal...', 'info');
+        }
         break;
 
       case 'clear':
@@ -2546,3 +2743,171 @@ function initDiscordComms() {
     })
     .catch(() => {});
 }
+
+/* ==========================================================================
+   13. VISUAL FX & MOTION PREFERENCES MODAL CONTROLLER
+   ========================================================================== */
+function initFxSettings() {
+  const modal = document.getElementById('fx-settings-modal');
+  if (!modal) return;
+
+  const backdrop = document.getElementById('fx-modal-backdrop');
+  const closeBtn = document.getElementById('fx-modal-close-btn');
+  const doneBtn = document.getElementById('fx-modal-done-btn');
+  const crtBtn = document.getElementById('fx-toggle-crt');
+  const matrixBtn = document.getElementById('fx-toggle-matrix');
+  const scrambleBtn = document.getElementById('fx-toggle-scramble');
+  const presetAllOn = document.getElementById('fx-preset-all-on');
+  const presetReduced = document.getElementById('fx-preset-reduced');
+  const presetAllOff = document.getElementById('fx-preset-all-off');
+  const statusMsg = document.getElementById('fx-modal-status-msg');
+
+  let previousActiveElement = null;
+
+  function showStatus(text) {
+    if (statusMsg) {
+      statusMsg.textContent = text;
+      statusMsg.style.color = 'var(--ice-blue-bright)';
+      setTimeout(() => {
+        if (statusMsg) {
+          statusMsg.textContent = '// DIRECTIVES SYNCED TO LOCAL KERNEL MEMORY';
+          statusMsg.style.color = 'var(--glacial-mint)';
+        }
+      }, 2500);
+    }
+  }
+
+  function updateModalSwitches() {
+    const crtOn = isCrtActive();
+    const matrixOn = isMatrixActive();
+    const scrambleOn = isScrambleActive();
+
+    if (crtBtn) {
+      crtBtn.textContent = crtOn ? '[ ENABLED ]' : '[ DISABLED ]';
+      crtBtn.setAttribute('aria-pressed', crtOn ? 'true' : 'false');
+      crtBtn.classList.toggle('fx-switch-active', crtOn);
+      crtBtn.classList.toggle('fx-switch-disabled', !crtOn);
+    }
+
+    if (matrixBtn) {
+      matrixBtn.textContent = matrixOn ? '[ ENABLED ]' : '[ DISABLED ]';
+      matrixBtn.setAttribute('aria-pressed', matrixOn ? 'true' : 'false');
+      matrixBtn.classList.toggle('fx-switch-active', matrixOn);
+      matrixBtn.classList.toggle('fx-switch-disabled', !matrixOn);
+    }
+
+    if (scrambleBtn) {
+      scrambleBtn.textContent = scrambleOn ? '[ ENABLED ]' : '[ DISABLED ]';
+      scrambleBtn.setAttribute('aria-pressed', scrambleOn ? 'true' : 'false');
+      scrambleBtn.classList.toggle('fx-switch-active', scrambleOn);
+      scrambleBtn.classList.toggle('fx-switch-disabled', !scrambleOn);
+    }
+  }
+
+  function openModal() {
+    previousActiveElement = document.activeElement;
+    updateModalSwitches();
+    modal.style.display = 'flex';
+    void modal.offsetWidth; // Force reflow
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function closeModal() {
+    modal.classList.remove('active');
+    modal.classList.add('closing');
+    modal.setAttribute('aria-hidden', 'true');
+    setTimeout(() => {
+      modal.style.display = 'none';
+      modal.classList.remove('closing');
+      if (previousActiveElement && typeof previousActiveElement.focus === 'function') {
+        previousActiveElement.focus();
+      }
+    }, 250);
+  }
+
+  window.openFxSettings = openModal;
+  window.closeFxSettings = closeModal;
+
+  window.VapokVisualFx = {
+    isCrtActive,
+    toggleCrtEffect,
+    isMatrixActive,
+    toggleMatrixEffect: (force) => toggleMatrixEffect(force),
+    isScrambleActive,
+    toggleScrambleEffect,
+    openModal,
+    closeModal
+  };
+
+  if (crtBtn) {
+    crtBtn.addEventListener('click', () => {
+      const isOff = toggleCrtEffect();
+      updateModalSwitches();
+      showStatus(`// CRT Scanlines set to [ ${isOff ? 'OFF' : 'ON'} ]`);
+    });
+  }
+
+  if (matrixBtn) {
+    matrixBtn.addEventListener('click', () => {
+      const active = toggleMatrixEffect();
+      updateModalSwitches();
+      showStatus(`// Background Matrix & Hover FX set to [ ${active ? 'ON' : 'OFF'} ]`);
+    });
+  }
+
+  if (scrambleBtn) {
+    scrambleBtn.addEventListener('click', () => {
+      const active = toggleScrambleEffect();
+      updateModalSwitches();
+      showStatus(`// Text Scrambler set to [ ${active ? 'ON' : 'OFF'} ]`);
+    });
+  }
+
+  if (presetAllOn) {
+    presetAllOn.addEventListener('click', () => {
+      toggleCrtEffect(true);
+      toggleMatrixEffect(true);
+      toggleScrambleEffect(true);
+      updateModalSwitches();
+      showStatus('// Directives: All visual effects enabled');
+    });
+  }
+
+  if (presetReduced) {
+    presetReduced.addEventListener('click', () => {
+      toggleMatrixEffect(false);
+      toggleScrambleEffect(false);
+      updateModalSwitches();
+      showStatus('// Directives: Minimal motion preset activated');
+    });
+  }
+
+  if (presetAllOff) {
+    presetAllOff.addEventListener('click', () => {
+      toggleCrtEffect(false);
+      toggleMatrixEffect(false);
+      toggleScrambleEffect(false);
+      updateModalSwitches();
+      showStatus('// Directives: All visual effects disabled');
+    });
+  }
+
+  if (backdrop) backdrop.addEventListener('click', closeModal);
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (doneBtn) doneBtn.addEventListener('click', closeModal);
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeModal();
+    }
+  });
+
+  window.addEventListener('vapok:fxchange', () => {
+    if (modal.classList.contains('active')) {
+      updateModalSwitches();
+    }
+  });
+}
+

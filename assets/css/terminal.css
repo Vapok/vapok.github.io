@@ -2427,6 +2427,299 @@ html.system-booting #header-fuel-btn {
 }
 
 /* ==========================================================================
+   VISUAL FX & MOTION PREFERENCES MODAL
+   ========================================================================== */
+.cyber-modal-container {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  box-sizing: border-box;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cyber-modal-container.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cyber-modal-container.closing {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cyber-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(2, 4, 8, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.cyber-modal-window {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 580px;
+  background: rgba(11, 17, 26, 0.98);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--ice-blue);
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.9),
+              0 0 25px rgba(100, 240, 252, 0.2),
+              inset 0 0 15px rgba(100, 240, 252, 0.04);
+  font-family: var(--font-mono);
+  box-sizing: border-box;
+  transform: translateY(15px) scale(0.98);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cyber-modal-container.active .cyber-modal-window {
+  transform: translateY(0) scale(1);
+}
+
+.cyber-modal-window::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--ice-blue), var(--glacial-mint), transparent);
+}
+
+.cyber-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px dashed rgba(100, 240, 252, 0.2);
+  background: rgba(15, 23, 38, 0.6);
+  gap: 0.75rem;
+}
+
+.cyber-modal-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.cyber-modal-badge {
+  font-size: 0.65rem;
+  color: var(--glacial-mint);
+  letter-spacing: 0.08em;
+}
+
+.cyber-modal-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ice-blue-bright);
+  letter-spacing: 0.05em;
+}
+
+.cyber-modal-close {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.6rem;
+  flex-shrink: 0;
+}
+
+.cyber-modal-body {
+  padding: 1.25rem;
+}
+
+.fx-modal-lead {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--text-main);
+  margin: 0 0 1.25rem 0;
+}
+
+.fx-modal-lead .prompt-arrow {
+  color: var(--ice-blue);
+  font-weight: bold;
+  margin-right: 0.35rem;
+}
+
+.fx-toggle-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+.fx-toggle-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 0.85rem;
+  background: rgba(6, 10, 18, 0.6);
+  border: 1px solid var(--border-subtle);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.fx-toggle-item:hover {
+  border-color: rgba(100, 240, 252, 0.4);
+  background: rgba(10, 18, 30, 0.8);
+}
+
+.fx-toggle-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.fx-toggle-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--ice-blue);
+  letter-spacing: 0.03em;
+}
+
+.fx-toggle-subtext {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+.fx-switch {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.75rem;
+  min-width: 105px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.fx-switch.fx-switch-active {
+  color: var(--glacial-mint) !important;
+  border-color: var(--glacial-mint) !important;
+  box-shadow: 0 0 8px rgba(0, 245, 155, 0.3) !important;
+}
+
+.fx-switch.fx-switch-disabled {
+  color: var(--error-crimson) !important;
+  border-color: rgba(244, 63, 94, 0.4) !important;
+  box-shadow: none !important;
+}
+
+.fx-preset-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px dashed rgba(100, 240, 252, 0.2);
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.fx-preset-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.fx-preset-buttons {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.fx-preset-btn {
+  font-size: 0.7rem;
+  padding: 0.25rem 0.55rem;
+}
+
+.fx-preset-reduced {
+  color: var(--warning-amber) !important;
+  border-color: rgba(251, 191, 36, 0.4) !important;
+}
+
+.fx-preset-reduced:hover {
+  background: rgba(251, 191, 36, 0.15) !important;
+  border-color: var(--warning-amber) !important;
+}
+
+.fx-preset-off {
+  color: var(--error-crimson) !important;
+  border-color: rgba(244, 63, 94, 0.4) !important;
+}
+
+.fx-preset-off:hover {
+  background: rgba(244, 63, 94, 0.15) !important;
+  border-color: var(--error-crimson) !important;
+}
+
+.cyber-modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.85rem 1.25rem;
+  background: rgba(15, 23, 38, 0.6);
+  border-top: 1px dashed rgba(100, 240, 252, 0.2);
+  gap: 0.75rem;
+}
+
+.fx-modal-status-text {
+  font-size: 0.68rem;
+  color: var(--glacial-mint);
+  letter-spacing: 0.04em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fx-done-btn {
+  color: var(--ice-blue-bright) !important;
+  border-color: var(--ice-blue) !important;
+  padding: 0.35rem 1rem;
+  font-weight: 700;
+  background: rgba(100, 240, 252, 0.1) !important;
+}
+
+.fx-done-btn:hover {
+  background: var(--ice-blue) !important;
+  color: #06080e !important;
+  box-shadow: 0 0 12px var(--ice-blue-glow) !important;
+}
+
+@media (max-width: 640px) {
+  .fx-toggle-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .fx-switch {
+    width: 100%;
+  }
+  .fx-preset-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .fx-preset-buttons {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .fx-preset-btn {
+    flex: 1;
+    text-align: center;
+  }
+  .cyber-modal-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .fx-done-btn {
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
    MOD DOSSIER CYBER IMAGE GALLERY & LIGHTBOX
    ========================================================================== */
 .cyber-gallery-grid {

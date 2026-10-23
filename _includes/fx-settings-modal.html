@@ -1,0 +1,70 @@
+<!-- Terminal Cyber-Console Visual FX & Display Preferences Modal -->
+<!--googleoff: all-->
+<div id="fx-settings-modal" class="cyber-modal-container fx-settings-modal" role="dialog" aria-labelledby="fx-modal-title" aria-describedby="fx-modal-desc" aria-modal="true" data-nosnippet style="display: none;">
+  <div class="cyber-modal-backdrop" id="fx-modal-backdrop"></div>
+  <div class="cyber-modal-window">
+    <div class="cyber-modal-header">
+      <div class="cyber-modal-title-wrap">
+        <span class="cyber-modal-badge">// DISPLAY_TELEMETRY</span>
+        <h3 id="fx-modal-title" class="cyber-modal-title">[ VISUAL FX &amp; MOTION DIRECTIVES ]</h3>
+      </div>
+      <button type="button" id="fx-modal-close-btn" class="ctrl-btn cyber-modal-close" aria-label="Close visual effects modal">[ ✕ CLOSE (ESC) ]</button>
+    </div>
+
+    <div class="cyber-modal-body">
+      <p id="fx-modal-desc" class="fx-modal-lead">
+        <span class="prompt-arrow">&gt;</span> Configure visual rendering filters, canvas animations, and motion sensitivity. Directives are saved across sessions.
+      </p>
+
+      <div class="fx-toggle-list">
+        <!-- CRT Scanline Filter -->
+        <div class="fx-toggle-item">
+          <div class="fx-toggle-info">
+            <span class="fx-toggle-label">1. RETRO CRT SCANLINE FILTER</span>
+            <span class="fx-toggle-subtext">Overlays vintage phosphor scanlines, RGB sub-pixel rasterization, and vignette glow.</span>
+          </div>
+          <button type="button" id="fx-toggle-crt" class="ctrl-btn fx-switch" aria-pressed="true" data-target="crt">
+            [ ENABLED ]
+          </button>
+        </div>
+
+        <!-- ASCII Particle Canvas & Mouse Reactive Hover -->
+        <div class="fx-toggle-item">
+          <div class="fx-toggle-info">
+            <span class="fx-toggle-label">2. BACKGROUND MATRIX &amp; HOVER FX</span>
+            <span class="fx-toggle-subtext">Interactive ASCII particle canvas and mouse-tracking illumination trails.</span>
+          </div>
+          <button type="button" id="fx-toggle-matrix" class="ctrl-btn fx-switch" aria-pressed="true" data-target="matrix">
+            [ ENABLED ]
+          </button>
+        </div>
+
+        <!-- Text Decoder Scramble on Hover -->
+        <div class="fx-toggle-item">
+          <div class="fx-toggle-info">
+            <span class="fx-toggle-label">3. INTERACTIVE TEXT DECODER</span>
+            <span class="fx-toggle-subtext">Scrambles navigation items, buttons, and badges into hexadecimal cipher on mouse hover.</span>
+          </div>
+          <button type="button" id="fx-toggle-scramble" class="ctrl-btn fx-switch" aria-pressed="true" data-target="scramble">
+            [ ENABLED ]
+          </button>
+        </div>
+      </div>
+
+      <div class="fx-preset-row">
+        <span class="fx-preset-label">QUICK PRESETS:</span>
+        <div class="fx-preset-buttons">
+          <button type="button" id="fx-preset-all-on" class="ctrl-btn fx-preset-btn" title="Enable all visual effects and interactive animations">[ ALL ON ]</button>
+          <button type="button" id="fx-preset-reduced" class="ctrl-btn fx-preset-btn fx-preset-reduced" title="Turn off movement and hover animations for minimal motion">[ MINIMAL MOTION ]</button>
+          <button type="button" id="fx-preset-all-off" class="ctrl-btn fx-preset-btn fx-preset-off" title="Disable all filters and animations for high performance">[ ALL OFF ]</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="cyber-modal-footer">
+      <span class="fx-modal-status-text" id="fx-modal-status-msg">// DIRECTIVES SYNCED TO LOCAL KERNEL MEMORY</span>
+      <button type="button" id="fx-modal-done-btn" class="ctrl-btn fx-done-btn" aria-label="Confirm and close modal">[ DONE ]</button>
+    </div>
+  </div>
+</div>
+<!--googleon: all-->
