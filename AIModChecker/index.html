@@ -537,7 +537,11 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
   align-items: center;
   flex-wrap: wrap;
   gap: 0.75rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
+  background: rgba(13, 22, 36, 0.95);
+  border: 1px solid var(--border-subtle);
+  padding: 0.85rem 1.25rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7), 0 0 15px rgba(100, 240, 252, 0.05);
 }
 
 /* Loading & Empty States */
@@ -787,12 +791,13 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
 
 .cyber-link-btn {
   font-family: var(--font-mono);
-  font-size: 0.78rem;
-  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+  padding: 0.45rem 0.95rem;
   text-decoration: none;
-  border: 1px solid var(--border-subtle);
-  color: var(--text-main);
-  background: rgba(100, 240, 252, 0.05);
+  border: 1px solid var(--border-strong);
+  color: #fff;
+  background: rgba(11, 19, 32, 0.95);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
@@ -801,19 +806,35 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
 }
 
 .cyber-link-btn:hover {
-  background: rgba(100, 240, 252, 0.18);
-  border-color: var(--ice-blue);
+  background: rgba(100, 240, 252, 0.22);
+  border-color: var(--ice-blue-bright);
   color: #fff;
+  box-shadow: 0 0 12px rgba(100, 240, 252, 0.3);
+}
+
+.cyber-link-btn.primary {
+  border: 1px solid var(--ice-blue-bright);
+  color: #fff;
+  background: #0d2238;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6), 0 0 10px rgba(100, 240, 252, 0.2);
+}
+
+.cyber-link-btn.primary:hover {
+  background: #15385c;
+  border-color: #fff;
+  color: #fff;
+  box-shadow: 0 0 16px rgba(100, 240, 252, 0.5);
 }
 
 .cyber-link-btn.report {
-  border-color: rgba(244, 63, 94, 0.4);
+  border-color: rgba(244, 63, 94, 0.5);
   color: var(--error-crimson);
-  background: rgba(244, 63, 94, 0.1);
+  background: rgba(244, 63, 94, 0.15);
 }
 
 .cyber-link-btn.report:hover {
-  background: rgba(244, 63, 94, 0.25);
+  background: rgba(244, 63, 94, 0.3);
   border-color: var(--error-crimson);
 }
 
@@ -1921,7 +1942,7 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
 
     let html = `
       <div class="dossier-nav-bar">
-        <button class="cyber-link-btn" onclick="showIdle()">[ ← RETURN TO LEADERBOARD &amp; FRAMEWORK ]</button>
+        <button class="cyber-link-btn primary" onclick="showLeaderboard()">[ ← RETURN TO LEADERBOARD &amp; FRAMEWORK ]</button>
         <div style="display: flex; gap: 0.5rem;">
           <button class="cyber-link-btn" onclick="copyModLink('${escapeHtml(pkg.slug)}')">[ 🔗 COPY LINK ]</button>
           <a class="cyber-link-btn" href="${escapeHtml(pkg.package_url)}" target="_blank" rel="noopener">[ ↗ THUNDERSTORE ]</a>
@@ -2009,7 +2030,7 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
 
     let html = `
       <div class="dossier-nav-bar">
-        <button class="cyber-link-btn" onclick="showIdle()">[ ← RETURN TO LEADERBOARD &amp; FRAMEWORK ]</button>
+        <button class="cyber-link-btn primary" onclick="showLeaderboard()">[ ← RETURN TO LEADERBOARD &amp; FRAMEWORK ]</button>
         <button class="cyber-link-btn" onclick="copyAuthorLink('${escapeHtml(aData.owner)}')">[ 🔗 SHARE AUTHOR DOSSIER ]</button>
       </div>
       <div class="author-dossier-card">
@@ -2348,6 +2369,14 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
       executeSearch();
     }
   }
+
+  window.showLeaderboard = function() {
+    if (searchInput) searchInput.value = '';
+    hideAc();
+    showIdle();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+  window.showIdle = window.showLeaderboard;
 
   window.runQuickSearch = function(str) {
     searchInput.value = str;
