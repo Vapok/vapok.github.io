@@ -763,9 +763,10 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
       Automated heuristic transparency engine continuously auditing all <strong>13,782+</strong> Thunderstore Valheim mod packages across decompiled C# source code, Git diffs, documentation, visual assets, and author stance to identify AI-generated packages and enforce Thunderstore compliance.
     </div>
     <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
-      <span class="status-pill human">🛡️ 10,451 Verified Clean</span>
+      <span class="status-pill human">🛡️ 10,434 Verified Clean</span>
       <span class="status-pill tagged-ai">🏷️ 2,188 Properly Tagged</span>
-      <span class="status-pill missing-tag">⚠️ 1,143 Missing Tag / Report Candidates</span>
+      <span class="status-pill mixed">⚡ 882 AI-Assisted (Mixed)</span>
+      <span class="status-pill missing-tag">⚠️ 278 Report Candidates</span>
     </div>
   </div>
 
@@ -780,16 +781,20 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
       <span class="stat-val cyan" id="stat-authors">5,517</span>
     </div>
     <div class="stat-cell">
-      <span class="stat-label">Verified Human</span>
-      <span class="stat-val mint" id="stat-human">10,451</span>
+      <span class="stat-label">Verified Clean</span>
+      <span class="stat-val mint" id="stat-human">10,434</span>
     </div>
     <div class="stat-cell">
       <span class="stat-label">Properly Tagged AI</span>
       <span class="stat-val cyan" id="stat-tagged">2,188</span>
     </div>
     <div class="stat-cell">
+      <span class="stat-label">AI-Assisted (Mixed)</span>
+      <span class="stat-val amber" id="stat-mixed">882</span>
+    </div>
+    <div class="stat-cell">
       <span class="stat-label">Report Candidates</span>
-      <span class="stat-val crimson" id="stat-candidates">1,143</span>
+      <span class="stat-val crimson" id="stat-candidates">278</span>
     </div>
   </div>
 
@@ -965,7 +970,10 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
     if (document.getElementById('stat-tagged') && summary['AI GENERATED (Properly Tagged)']) {
       document.getElementById('stat-tagged').textContent = summary['AI GENERATED (Properly Tagged)'].toLocaleString();
     }
-    const cand = (summary['MIXED / AI-ASSISTED (Report: Missing Tag)'] || 0) + (summary['AI GENERATED (Report: Missing Tag)'] || 0);
+    if (document.getElementById('stat-mixed') && summary['MIXED / AI-ASSISTED']) {
+      document.getElementById('stat-mixed').textContent = summary['MIXED / AI-ASSISTED'].toLocaleString();
+    }
+    const cand = (summary['AI GENERATED (Report: Missing Tag)'] || 0);
     if (document.getElementById('stat-candidates')) {
       document.getElementById('stat-candidates').textContent = cand.toLocaleString();
     }
@@ -1396,6 +1404,10 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
             <span class="stat-val cyan">${aData.ai_tagged}</span>
           </div>
           <div class="stat-cell">
+            <span class="stat-label">AI-Assisted (Mixed)</span>
+            <span class="stat-val amber">${aData.ai_assisted || 0}</span>
+          </div>
+          <div class="stat-cell">
             <span class="stat-label">Report Candidates</span>
             <span class="stat-val ${aData.ai_missing_tag > 0 ? 'crimson' : 'mint'}">${aData.ai_missing_tag}</span>
           </div>
@@ -1420,9 +1432,16 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
                 [ 🏷️ TAGGED AI (${aData.ai_tagged}) ]
               </button>
             ` : ''}
-            <button class="tab-btn" data-filter="clean" onclick="filterAuthorMods('clean')" style="color: var(--glacial-mint);">
-              [ 🛡️ CLEAN HUMAN (${aData.human}) ]
-            </button>
+            ${(aData.ai_assisted > 0) ? `
+              <button class="tab-btn" data-filter="mixed" onclick="filterAuthorMods('mixed')" style="color: var(--warning-amber);">
+                [ ⚡ AI-ASSISTED (${aData.ai_assisted}) ]
+              </button>
+            ` : ''}
+            ${(aData.human > 0) ? `
+              <button class="tab-btn" data-filter="clean" onclick="filterAuthorMods('clean')" style="color: var(--glacial-mint);">
+                [ 🛡️ CLEAN HUMAN (${aData.human}) ]
+              </button>
+            ` : ''}
           </div>
           <div>
             <button class="toggle-all-btn" id="btn-toggle-all" onclick="toggleAllAuthorTables()">
@@ -1445,7 +1464,8 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
     const pillClass = getStatusPillClass(pkg.total_status);
     const scoreClass = getScoreColorClass(pkg.total_score);
     const filterTag = pkg.total_status.includes('Missing Tag') ? 'missing' :
-                      (pkg.total_status.includes('Properly Tagged') ? 'tagged' : 'clean');
+                      (pkg.total_status.includes('Properly Tagged') ? 'tagged' : 
+                      (pkg.total_status.includes('MIXED') ? 'mixed' : 'clean'));
 
     return `
       <div class="audit-table-card mod-item-card" data-mod-filter="${filterTag}">
