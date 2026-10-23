@@ -2,7 +2,7 @@
 layout: default
 title: "AI Mod Checker & Audit Matrix"
 permalink: /AIModChecker/
-description: "Audit Valheim mods and mod authors against LLM / AI generated code, documentation, and asset markers across all 13,782+ Thunderstore packages."
+description: "Audit Valheim mods and mod authors against LLM / AI generated code, documentation, and asset markers across all 13,804+ Thunderstore packages."
 ---
 
 <style>
@@ -1067,13 +1067,13 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
     <div class="ai-hero-tag">[ SYS_INTELLIGENCE // THUNDERSTORE_AI_AUDIT_ENGINE ]</div>
     <h1 class="ai-hero-title">Valheim AI Mod Checker &amp; Audit Matrix</h1>
     <div class="ai-hero-desc">
-      Automated heuristic transparency engine continuously auditing all <strong>13,782+</strong> Thunderstore Valheim mod packages across decompiled C# source code, Git diffs, documentation, visual assets, and author stance to identify AI-generated packages and enforce Thunderstore compliance.
+      Automated heuristic transparency engine continuously auditing all <strong><span id="hero-stat-pkgs">13,804</span>+</strong> Thunderstore Valheim mod packages across decompiled C# source code, Git diffs, documentation, visual assets, and author stance to identify AI-generated packages and enforce Thunderstore compliance.
     </div>
     <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
-      <span class="status-pill human">🛡️ 10,434 Verified Clean</span>
-      <span class="status-pill tagged-ai">🏷️ 2,188 Properly Tagged</span>
-      <span class="status-pill mixed">⚡ 882 AI-Assisted (Untagged)</span>
-      <span class="status-pill missing-tag">⚠️ 278 AI-Generated (Untagged)</span>
+      <span class="status-pill human">🛡️ <span id="hero-stat-human">10,504</span> Verified Clean</span>
+      <span class="status-pill tagged-ai">🏷️ <span id="hero-stat-tagged">2,218</span> Properly Tagged</span>
+      <span class="status-pill mixed">⚡ <span id="hero-stat-mixed">802</span> AI-Assisted (Untagged)</span>
+      <span class="status-pill missing-tag">⚠️ <span id="hero-stat-candidates">280</span> AI-Generated (Untagged)</span>
     </div>
   </div>
 
@@ -1081,27 +1081,27 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
   <div class="ai-stats-ribbon" id="stats-ribbon">
     <div class="stat-cell">
       <span class="stat-label">Audited Packages</span>
-      <span class="stat-val" id="stat-pkgs">13,782</span>
+      <span class="stat-val" id="stat-pkgs">13,804</span>
     </div>
     <div class="stat-cell">
       <span class="stat-label">Authors Indexed</span>
-      <span class="stat-val cyan" id="stat-authors">5,517</span>
+      <span class="stat-val cyan" id="stat-authors">5,526</span>
     </div>
     <div class="stat-cell">
       <span class="stat-label">Verified Clean</span>
-      <span class="stat-val mint" id="stat-human">10,434</span>
+      <span class="stat-val mint" id="stat-human">10,504</span>
     </div>
     <div class="stat-cell">
       <span class="stat-label">Properly Tagged AI</span>
-      <span class="stat-val cyan" id="stat-tagged">2,188</span>
+      <span class="stat-val cyan" id="stat-tagged">2,218</span>
     </div>
     <div class="stat-cell">
       <span class="stat-label">AI-Assisted (Untagged)</span>
-      <span class="stat-val amber" id="stat-mixed">882</span>
+      <span class="stat-val amber" id="stat-mixed">802</span>
     </div>
     <div class="stat-cell">
       <span class="stat-label">AI-Generated (Untagged)</span>
-      <span class="stat-val crimson" id="stat-candidates">278</span>
+      <span class="stat-val crimson" id="stat-candidates">280</span>
     </div>
   </div>
 
@@ -1542,7 +1542,7 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
       <div style="font-size: 2rem; margin-bottom: 0.5rem;">⚠️</div>
       <div style="color: var(--warning-amber); font-weight: 700; font-size: 1.1rem;">No Matching Package or Author Found</div>
       <div style="color: var(--text-muted); font-size: 0.85rem; max-width: 600px; margin: 0.5rem auto 1.5rem;">
-        We could not find an exact or fuzzy match for your query in the 13,782 indexed packages. Please check the spelling or paste the full Thunderstore package URL.
+        We could not find an exact or fuzzy match for your query in the 13,804 indexed packages. Please check the spelling or paste the full Thunderstore package URL.
       </div>
       <button class="cyber-link-btn" onclick="document.getElementById('search-input').focus()">[ ↵ TRY ANOTHER SEARCH ]</button>
     </div>
@@ -1626,20 +1626,36 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
   }
 
   function updateStatsRibbon(totalPkgs, totalAuthors, summary) {
-    if (document.getElementById('stat-pkgs')) document.getElementById('stat-pkgs').textContent = totalPkgs.toLocaleString();
-    if (document.getElementById('stat-authors')) document.getElementById('stat-authors').textContent = totalAuthors.toLocaleString();
-    if (document.getElementById('stat-human') && summary['VERIFIED HUMAN (Clean — Do Not Report)']) {
-      document.getElementById('stat-human').textContent = summary['VERIFIED HUMAN (Clean — Do Not Report)'].toLocaleString();
+    const pkgsFormatted = totalPkgs.toLocaleString();
+    const authorsFormatted = totalAuthors.toLocaleString();
+
+    if (document.getElementById('stat-pkgs')) document.getElementById('stat-pkgs').textContent = pkgsFormatted;
+    if (document.getElementById('hero-stat-pkgs')) document.getElementById('hero-stat-pkgs').textContent = pkgsFormatted;
+
+    if (document.getElementById('stat-authors')) document.getElementById('stat-authors').textContent = authorsFormatted;
+
+    if (summary['VERIFIED HUMAN (Clean — Do Not Report)']) {
+      const humanFormatted = summary['VERIFIED HUMAN (Clean — Do Not Report)'].toLocaleString();
+      if (document.getElementById('stat-human')) document.getElementById('stat-human').textContent = humanFormatted;
+      if (document.getElementById('hero-stat-human')) document.getElementById('hero-stat-human').textContent = humanFormatted;
     }
-    if (document.getElementById('stat-tagged') && summary['AI GENERATED (Properly Tagged)']) {
-      document.getElementById('stat-tagged').textContent = summary['AI GENERATED (Properly Tagged)'].toLocaleString();
+    if (summary['AI GENERATED (Properly Tagged)']) {
+      const taggedFormatted = summary['AI GENERATED (Properly Tagged)'].toLocaleString();
+      if (document.getElementById('stat-tagged')) document.getElementById('stat-tagged').textContent = taggedFormatted;
+      if (document.getElementById('hero-stat-tagged')) document.getElementById('hero-stat-tagged').textContent = taggedFormatted;
     }
-    if (document.getElementById('stat-mixed') && summary['MIXED / AI-ASSISTED']) {
-      document.getElementById('stat-mixed').textContent = summary['MIXED / AI-ASSISTED'].toLocaleString();
+    if (summary['MIXED / AI-ASSISTED']) {
+      const mixedFormatted = summary['MIXED / AI-ASSISTED'].toLocaleString();
+      if (document.getElementById('stat-mixed')) document.getElementById('stat-mixed').textContent = mixedFormatted;
+      if (document.getElementById('hero-stat-mixed')) document.getElementById('hero-stat-mixed').textContent = mixedFormatted;
     }
     const cand = (summary['AI GENERATED (Report: Missing Tag)'] || 0);
+    const candFormatted = cand.toLocaleString();
     if (document.getElementById('stat-candidates')) {
-      document.getElementById('stat-candidates').textContent = cand.toLocaleString();
+      document.getElementById('stat-candidates').textContent = candFormatted;
+    }
+    if (document.getElementById('hero-stat-candidates')) {
+      document.getElementById('hero-stat-candidates').textContent = candFormatted;
     }
   }
 
@@ -1661,7 +1677,8 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
 
   async function ensureFullAudit() {
     if (fullAuditData) return fullAuditData;
-    showLoading('Downloading full audit dossiers (13,782 packages)...');
+    const pkgCount = searchIndex ? searchIndex.length.toLocaleString() : '13,804';
+    showLoading(`Downloading full audit dossiers (${pkgCount} packages)...`);
     try {
       const res = await fetch(FULL_AUDIT_URL);
       fullAuditData = await res.json();
