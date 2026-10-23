@@ -55,7 +55,7 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
   font-size: 0.95rem;
   line-height: 1.6;
   max-width: 900px;
-  margin-bottom: 1.25rem;
+  margin-bottom: 0;
 }
 
 /* Global Stats Banner */
@@ -1069,12 +1069,6 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
     <div class="ai-hero-desc">
       Automated heuristic transparency engine continuously auditing all <strong><span id="hero-stat-pkgs">13,804</span>+</strong> Thunderstore Valheim mod packages across decompiled C# source code, Git diffs, documentation, visual assets, and author stance to identify AI-generated packages and enforce Thunderstore compliance.
     </div>
-    <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
-      <span class="status-pill human">🛡️ <span id="hero-stat-human">10,504</span> Verified Clean</span>
-      <span class="status-pill tagged-ai">🏷️ <span id="hero-stat-tagged">2,218</span> Properly Tagged</span>
-      <span class="status-pill mixed">⚡ <span id="hero-stat-mixed">802</span> AI-Assisted (Untagged)</span>
-      <span class="status-pill missing-tag">⚠️ <span id="hero-stat-candidates">280</span> AI-Generated (Untagged)</span>
-    </div>
   </div>
 
   <!-- GLOBAL STATS RIBBON -->
@@ -1637,25 +1631,19 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
     if (summary['VERIFIED HUMAN (Clean — Do Not Report)']) {
       const humanFormatted = summary['VERIFIED HUMAN (Clean — Do Not Report)'].toLocaleString();
       if (document.getElementById('stat-human')) document.getElementById('stat-human').textContent = humanFormatted;
-      if (document.getElementById('hero-stat-human')) document.getElementById('hero-stat-human').textContent = humanFormatted;
     }
     if (summary['AI GENERATED (Properly Tagged)']) {
       const taggedFormatted = summary['AI GENERATED (Properly Tagged)'].toLocaleString();
       if (document.getElementById('stat-tagged')) document.getElementById('stat-tagged').textContent = taggedFormatted;
-      if (document.getElementById('hero-stat-tagged')) document.getElementById('hero-stat-tagged').textContent = taggedFormatted;
     }
     if (summary['MIXED / AI-ASSISTED']) {
       const mixedFormatted = summary['MIXED / AI-ASSISTED'].toLocaleString();
       if (document.getElementById('stat-mixed')) document.getElementById('stat-mixed').textContent = mixedFormatted;
-      if (document.getElementById('hero-stat-mixed')) document.getElementById('hero-stat-mixed').textContent = mixedFormatted;
     }
     const cand = (summary['AI GENERATED (Report: Missing Tag)'] || 0);
     const candFormatted = cand.toLocaleString();
     if (document.getElementById('stat-candidates')) {
       document.getElementById('stat-candidates').textContent = candFormatted;
-    }
-    if (document.getElementById('hero-stat-candidates')) {
-      document.getElementById('hero-stat-candidates').textContent = candFormatted;
     }
   }
 
