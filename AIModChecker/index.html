@@ -1564,9 +1564,10 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
 
   let currentLbTab = 'score';
 
-  const SEARCH_INDEX_URL = '{{ "/assets/data/ai_mod_search_index.min.json" | relative_url }}';
-  const AUTHORS_URL = '{{ "/assets/data/ai_mod_authors.min.json" | relative_url }}';
-  const FULL_AUDIT_URL = '{{ "/assets/data/ai_mod_audit.min.json" | relative_url }}';
+  const CACHE_BUST = '{{ site.time | date: "%s" }}';
+  const SEARCH_INDEX_URL = '{{ "/assets/data/ai_mod_search_index.min.json" | relative_url }}?v=' + CACHE_BUST;
+  const AUTHORS_URL = '{{ "/assets/data/ai_mod_authors.min.json" | relative_url }}?v=' + CACHE_BUST;
+  const FULL_AUDIT_URL = '{{ "/assets/data/ai_mod_audit.min.json" | relative_url }}?v=' + CACHE_BUST;
 
   // Elements
   const searchInput = document.getElementById('search-input');
@@ -1593,8 +1594,8 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
   async function init() {
     try {
       const [resIdx, resAuthors] = await Promise.all([
-        fetch(SEARCH_INDEX_URL).then(r => r.json()),
-        fetch(AUTHORS_URL).then(r => r.json()).catch(() => null)
+        fetch(SEARCH_INDEX_URL, { cache: 'no-cache' }).then(r => r.json()),
+        fetch(AUTHORS_URL, { cache: 'no-cache' }).then(r => r.json()).catch(() => null)
       ]);
       searchIndex = resIdx;
       if (resAuthors) {
@@ -1652,7 +1653,7 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
     if (fullAuditData || isLoadingFull) return;
     isLoadingFull = true;
     try {
-      const res = await fetch(FULL_AUDIT_URL);
+      const res = await fetch(FULL_AUDIT_URL, { cache: 'no-cache' });
       fullAuditData = await res.json();
       if (!authorsSummary && fullAuditData.authors) {
         authorsSummary = fullAuditData.authors;
@@ -1669,7 +1670,7 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
     const pkgCount = searchIndex ? searchIndex.length.toLocaleString() : '14,080';
     showLoading(`Downloading full audit dossiers (${pkgCount} packages)...`);
     try {
-      const res = await fetch(FULL_AUDIT_URL);
+      const res = await fetch(FULL_AUDIT_URL, { cache: 'no-cache' });
       fullAuditData = await res.json();
       if (!authorsSummary && fullAuditData.authors) {
         authorsSummary = fullAuditData.authors;
