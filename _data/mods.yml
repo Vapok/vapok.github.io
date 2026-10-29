@@ -374,7 +374,7 @@
   badge_color: "mint"
   website_url: "https://github.com/sinai-dev/UnityExplorer"
   thunderstore_url: "https://thunderstore.io/c/techtonica/p/Vapok/UnityExplorer/"
-  downloads: "696"
+  downloads: "697"
   icon: "/assets/images/mods/techtonica-unityexplorer/icon.png"
   url: "/mods/techtonica-unityexplorer/"
   description: "An in-game UI for exploring, debugging and modifying Unity games."
