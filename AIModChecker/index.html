@@ -34,12 +34,46 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
   background: linear-gradient(180deg, var(--glacial-mint), var(--ice-blue));
 }
 
+.ai-hero-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .ai-hero-tag {
   font-size: 0.75rem;
   color: var(--ice-blue);
   letter-spacing: 1.5px;
-  margin-bottom: 0.5rem;
   text-transform: uppercase;
+}
+
+.ai-hero-updated {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  background: rgba(9, 14, 23, 0.75);
+  border: 1px solid var(--border-subtle);
+  padding: 0.25rem 0.65rem;
+  letter-spacing: 0.5px;
+}
+
+.ai-hero-updated strong {
+  color: var(--glacial-mint);
+  font-weight: 600;
+}
+
+.ai-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--glacial-mint);
+  box-shadow: 0 0 8px var(--glacial-mint);
+  display: inline-block;
 }
 
 .ai-hero-title {
@@ -1064,7 +1098,13 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
   
   <!-- HERO HEADER -->
   <div class="ai-hero-box">
-    <div class="ai-hero-tag">[ SYS_INTELLIGENCE // THUNDERSTORE_AI_AUDIT_ENGINE ]</div>
+    <div class="ai-hero-top-row">
+      <div class="ai-hero-tag">[ SYS_INTELLIGENCE // THUNDERSTORE_AI_AUDIT_ENGINE ]</div>
+      <div class="ai-hero-updated" title="Synced automatically every 30 minutes against Thunderstore &amp; Hexium">
+        <span class="ai-live-dot"></span>
+        <span>LAST UPDATED: <strong id="stat-last-updated">Oct 29, 2026, 07:44 PM EDT (23:44 UTC)</strong></span>
+      </div>
+    </div>
     <h1 class="ai-hero-title">Valheim AI Mod Checker &amp; Audit Matrix</h1>
     <div class="ai-hero-desc">
       Automated heuristic transparency engine continuously auditing all <strong><span id="hero-stat-pkgs">14,132</span>+</strong> Thunderstore Valheim mod packages across decompiled C# assembly logic, package manifest structure, documentation, visual assets, and author portfolio stance to identify AI-generated packages and enforce Thunderstore compliance.
@@ -1603,7 +1643,7 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
           authorsSummary = resAuthors.authors;
         }
         if (resAuthors.summary) {
-          updateStatsRibbon(resAuthors.total_packages, resAuthors.total_authors, resAuthors.summary);
+          updateStatsRibbon(resAuthors.total_packages, resAuthors.total_authors, resAuthors.summary, resAuthors.generated_at);
         }
         if (resAuthors.leaderboard_score && resAuthors.leaderboard_score.length > 0) {
           lbDataScore = resAuthors.leaderboard_score;
@@ -1621,7 +1661,7 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
     }
   }
 
-  function updateStatsRibbon(totalPkgs, totalAuthors, summary) {
+  function updateStatsRibbon(totalPkgs, totalAuthors, summary, generatedAt) {
     const pkgsFormatted = totalPkgs.toLocaleString();
     const authorsFormatted = totalAuthors.toLocaleString();
 
@@ -1629,6 +1669,21 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
     if (document.getElementById('hero-stat-pkgs')) document.getElementById('hero-stat-pkgs').textContent = pkgsFormatted;
 
     if (document.getElementById('stat-authors')) document.getElementById('stat-authors').textContent = authorsFormatted;
+
+    if (generatedAt && document.getElementById('stat-last-updated')) {
+      try {
+        const dt = new Date(generatedAt);
+        if (!isNaN(dt.getTime())) {
+          const localStr = dt.toLocaleString(undefined, {
+            month: 'short', day: '2-digit', year: 'numeric',
+            hour: 'numeric', minute: '2-digit', timeZoneName: 'short'
+          });
+          const utcHours = String(dt.getUTCHours()).padStart(2, '0');
+          const utcMins = String(dt.getUTCMinutes()).padStart(2, '0');
+          document.getElementById('stat-last-updated').textContent = `${localStr} (${utcHours}:${utcMins} UTC)`;
+        }
+      } catch (e) {}
+    }
 
     const humanCount = summary['VERIFIED HUMAN'] || summary['VERIFIED HUMAN (Clean — Do Not Report)'];
     if (humanCount) {
