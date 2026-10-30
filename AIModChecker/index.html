@@ -2,7 +2,7 @@
 layout: default
 title: "AI Mod Checker & Audit Matrix"
 permalink: /AIModChecker/
-description: "Audit Valheim mods and mod authors against LLM / AI generated code, documentation, and asset markers across all 14,124+ Thunderstore packages."
+description: "Audit Valheim mods and mod authors against LLM / AI generated code, documentation, and asset markers across all 14,125+ Thunderstore packages."
 ---
 
 <style>
@@ -1111,12 +1111,12 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
       <div class="ai-hero-tag">[ SYS_INTELLIGENCE // THUNDERSTORE_AI_AUDIT_ENGINE ]</div>
       <div class="ai-hero-updated" title="Synced automatically every 30 minutes against Thunderstore &amp; Hexium">
         <span class="ai-live-dot"></span>
-        <span>LAST UPDATED: <strong id="stat-last-updated">Oct 30, 2026, 01:14 PM EDT (17:14 UTC)</strong></span>
+        <span>LAST UPDATED: <strong id="stat-last-updated">Oct 30, 2026, 01:44 PM EDT (17:44 UTC)</strong></span>
       </div>
     </div>
     <h1 class="ai-hero-title">Valheim AI Mod Checker &amp; Audit Matrix</h1>
     <div class="ai-hero-desc">
-      Automated heuristic transparency engine continuously auditing all <strong><span id="hero-stat-pkgs">14,124</span>+</strong> Thunderstore Valheim mod packages across decompiled C# assembly logic, package manifest structure, documentation, visual assets, and author portfolio stance to identify AI-generated packages and enforce Thunderstore compliance.
+      Automated heuristic transparency engine continuously auditing all <strong><span id="hero-stat-pkgs">14,125</span>+</strong> Thunderstore Valheim mod packages across decompiled C# assembly logic, package manifest structure, documentation, visual assets, and author portfolio stance to identify AI-generated packages and enforce Thunderstore compliance.
     </div>
   </div>
 
@@ -1124,7 +1124,7 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
   <div class="ai-stats-ribbon" id="stats-ribbon">
     <div class="stat-cell">
       <span class="stat-label">Audited Packages</span>
-      <span class="stat-val" id="stat-pkgs">14,124</span>
+      <span class="stat-val" id="stat-pkgs">14,125</span>
     </div>
     <div class="stat-cell">
       <span class="stat-label">Authors Indexed</span>
@@ -1136,7 +1136,7 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
     </div>
     <div class="stat-cell">
       <span class="stat-label">Verified Human</span>
-      <span class="stat-val mint" id="stat-human">5,166</span>
+      <span class="stat-val mint" id="stat-human">5,167</span>
     </div>
     <div class="stat-cell">
       <span class="stat-label">Properly Tagged AI</span>
@@ -1589,7 +1589,7 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
       <div style="font-size: 2rem; margin-bottom: 0.5rem;">⚠️</div>
       <div style="color: var(--warning-amber); font-weight: 700; font-size: 1.1rem;">No Matching Package or Author Found</div>
       <div style="color: var(--text-muted); font-size: 0.85rem; max-width: 600px; margin: 0.5rem auto 1.5rem;">
-        We could not find an exact or fuzzy match for your query in the 14,124 indexed packages. Please check the spelling or paste the full Thunderstore package URL.
+        We could not find an exact or fuzzy match for your query in the 14,125 indexed packages. Please check the spelling or paste the full Thunderstore package URL.
       </div>
       <button class="cyber-link-btn" onclick="document.getElementById('search-input').focus()">[ ↵ TRY ANOTHER SEARCH ]</button>
     </div>
@@ -1742,7 +1742,7 @@ description: "Audit Valheim mods and mod authors against LLM / AI generated code
 
   async function ensureFullAudit() {
     if (fullAuditData) return fullAuditData;
-    const pkgCount = searchIndex ? searchIndex.length.toLocaleString() : '14,124';
+    const pkgCount = searchIndex ? searchIndex.length.toLocaleString() : '14,125';
     showLoading(`Downloading full audit dossiers (${pkgCount} packages)...`);
     try {
       const res = await fetch(FULL_AUDIT_URL, { cache: 'no-cache' });
