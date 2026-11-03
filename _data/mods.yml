@@ -69,7 +69,7 @@
   website_url: "https://github.com/Vapok/BepInEx.ConfigDrawers"
   nexusmods_url: "https://www.nexusmods.com/valheim/mods/3909"
   thunderstore_url: "https://thunderstore.io/c/valheim/p/Vapok/BepInEx_ConfigDrawers/"
-  downloads: "3.4K+"
+  downloads: "3.5K+"
   icon: "/assets/images/mods/bepinex-configdrawers/icon.png"
   url: "/mods/bepinex-configdrawers/"
   description: "In-game configuration manager for BepInEx plugins with docking drawers, rich data tables, and syntax-highlighted config file editing."
